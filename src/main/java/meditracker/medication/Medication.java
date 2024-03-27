@@ -18,6 +18,7 @@ public class Medication {
     private String intakeFreq;
     private String remarks;
     private String repeat;
+    private int dayAdded;
 
     /**
      * Constructs a Medication object with the specified information.
@@ -34,7 +35,7 @@ public class Medication {
      */
     public Medication(String name, Double quantity, Double dosage, Double dosageMorning, Double dosageAfternoon,
                       Double dosageEvening, String expiryDate,
-                      String intakeFreq, String remarks, String repeat) {
+                      String intakeFreq, String remarks, String repeat, int dayAdded) {
         this.name = name;
         this.quantity = quantity;
         this.dosage = dosage;
@@ -45,6 +46,7 @@ public class Medication {
         this.intakeFreq = intakeFreq;
         this.remarks = remarks;
         this.repeat = repeat;
+        this.dayAdded = dayAdded;
     }
 
     public String getName() {
@@ -125,6 +127,9 @@ public class Medication {
 
     public void setRepeat(String repeat) {
         this.repeat = repeat;
+    }
+    public int getDayAdded() {
+        return dayAdded;
     }
 
     @Override

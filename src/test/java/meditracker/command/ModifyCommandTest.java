@@ -21,7 +21,8 @@ public class ModifyCommandTest {
                 "01/07/25",
                 "morning",
                 "cause_dizziness",
-                "");
+                "",
+                87);
         medicationManager.addMedication(medication);
 
         String newName = "Medication_B";
@@ -46,7 +47,8 @@ public class ModifyCommandTest {
                 "01/07/25",
                 "morning",
                 "cause_dizziness",
-                "");
+                "",
+                87);
         medicationManager.addMedication(medication);
 
         String newName = "Medication_B";
