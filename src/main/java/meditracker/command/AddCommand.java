@@ -106,7 +106,7 @@ public class AddCommand extends Command {
 
         return new Medication(medicationName, medicationQuantity, medicationDosage,
                 medicationDosageMorning, medicationDosageAfternoon, medicationDosageEvening,
-                expiryDate, intakeFreq, repeat, remarks);
+                expiryDate, intakeFreq, remarks, repeat);
     }
 
     /**
