@@ -3,9 +3,11 @@ package meditracker;
 import meditracker.exception.FileReadWriteException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
+import meditracker.medication.Repeat;
 import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,8 @@ public class DailyMedicationManager {
     private static final List<DailyMedication> morningMedications = new ArrayList<>();
     private static final List<DailyMedication> afternoonMedications = new ArrayList<>();
     private static final List<DailyMedication> eveningMedications = new ArrayList<>();
+    private static final Medication medication = null;
+    private static final LocalDate currentDate = LocalDate.now();
 
     /**
      * Creates DailyMedicationManager to save medications from MedicationManager
@@ -28,9 +32,9 @@ public class DailyMedicationManager {
     public static void createDailyMedicationManager(MedicationManager medicationManager) {
         assert medicationManager != null;
         for (Medication medication : medicationManager.getMedications()) {
-            String medicationName = medication.getName();
-            DailyMedication dailyMedication = new DailyMedication(medicationName);
-            addDailyMedication(dailyMedication);
+            if (shouldAddToDailyList(medication)) {
+                addToSubLists(medication);
+            }
         }
     }
 
@@ -44,6 +48,7 @@ public class DailyMedicationManager {
             for (String line : lines) {
                 DailyMedication dailyMedication = parseImportedLine(line);
                 addDailyMedication(dailyMedication);
+                // TODO
             }
         } catch (Exception e) {
             System.out.println("Error" + e.getMessage());
@@ -116,9 +121,18 @@ public class DailyMedicationManager {
         }
     }
 
-    public static void printMedications() {
+    public static void printTodayMedications() {
         System.out.println("Here are the Daily Medications you have to take today: ");
-        Ui.printMedsList(dailyMedications);
+        printTodayMedications(morningMedications, "Morning:");
+        printTodayMedications(afternoonMedications, "Afternoon:");
+        printTodayMedications(eveningMedications, "Evening:");
+    }
+
+    public static void printTodayMedications(List<DailyMedication> medicationList, String period) {
+        if (!medicationList.isEmpty()) {
+            System.out.println(period);
+            Ui.printMedsList(medicationList);
+        }
     }
 
     /**
@@ -129,8 +143,8 @@ public class DailyMedicationManager {
      */
     private static DailyMedication parseImportedLine(String line) {
         String[] fields = line.split("\\|");
-        boolean isTaken = Boolean.parseBoolean(fields[0].trim());
-        DailyMedication dailyMedication = new DailyMedication(fields[1].trim());
+        boolean isTaken = Boolean.parseBoolean(fields[1].trim());
+        DailyMedication dailyMedication = new DailyMedication(fields[2].trim());
         if (isTaken) {
             dailyMedication.take();
         } else {
@@ -147,8 +161,12 @@ public class DailyMedicationManager {
      */
     private static List<String> getDailyMedicationStringData() {
         List<String> dailyMedicationStrings = new ArrayList<>();
-        for (DailyMedication dailyMedication : dailyMedications) {
-            dailyMedicationStrings.add(dailyMedication.isTaken() + "|" + dailyMedication.getName());
+        for (DailyMedication morningMedication : morningMedications) {
+            dailyMedicationStrings.add("M|" + morningMedication.isTaken() + "|" + morningMedication.getName());
+        }for (DailyMedication afternoonMedication : afternoonMedications) {
+            dailyMedicationStrings.add("A|" + afternoonMedication.isTaken() + "|" + afternoonMedication.getName());
+        }for (DailyMedication eveningMedication : eveningMedications) {
+            dailyMedicationStrings.add("E|" + eveningMedication.isTaken() + "|" + eveningMedication.getName());
         }
         return dailyMedicationStrings;
     }
@@ -162,23 +180,60 @@ public class DailyMedicationManager {
         return dailyMedications.size();
     }
 
-    private static DailyMedication getMedsNames(Medication medication) {
-        String medsName = medication.getName();
-        return new DailyMedication(medsName);
+    public static List<DailyMedication> getMorningMedications() {
+        return morningMedications;
     }
 
-    public static void addToSubLists(Medication medication) {
-        DailyMedication dailyMedication = getMedsNames(medication);
-        if (medication.getRepeat().equals("daily")) {
-            addDailyMedication(dailyMedication);
+    public static List<DailyMedication> getAfternoonMedications() {
+        return afternoonMedications;
+    }
+
+    public static List<DailyMedication> getEveningMedications() {
+        return eveningMedications;
+    }
+
+    public static void checkForDaily(Medication medication) {
+        if (shouldAddToDailyList(medication)) {
+            addToSubLists(medication);
         }
-        if (medication.getDosageMorning() != null) {
+    }
+
+    // Method to determine if an item should be added to the daily list based on repeat setting
+    private static boolean shouldAddToDailyList(Medication medication) {
+        Repeat repeat = Repeat.repeatDays(medication.getRepeat());
+
+        switch (repeat) {
+        case DAILY:
+            return true;
+        case EVERY_OTHER_DAY:
+            return isNDay(medication, 2);
+        case EVERY_3_DAYS:
+            return isNDay(medication, 3);
+        case EVERY_4_DAYS:
+            return isNDay(medication, 4);
+        case EVERY_WEEK:
+            return isNDay(medication, 7);
+        default:
+            return false;
+        }
+    }
+
+    private static boolean isNDay(Medication medication, int n) {
+        int dateNum = medication.getDayAdded();
+        int currentDayValue = currentDate.getDayOfYear();
+        int daysDiff = currentDayValue - dateNum;
+        return daysDiff % n == 0;
+    }
+
+    private static void addToSubLists(Medication medication) {
+        DailyMedication dailyMedication = new DailyMedication(medication.getName());
+        if(medication.getDosageMorning() != 0.0) {
             morningMedications.add(dailyMedication);
         }
-        if (medication.getDosageAfternoon() != null) {
+        if(medication.getDosageAfternoon() != 0.0) {
             afternoonMedications.add(dailyMedication);
         }
-        if (medication.getDosageEvening() != null) {
+        if(medication.getDosageEvening() != 0.0) {
             eveningMedications.add(dailyMedication);
         }
     }

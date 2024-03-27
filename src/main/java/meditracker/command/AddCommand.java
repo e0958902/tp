@@ -19,6 +19,7 @@ import meditracker.argument.ExpirationDateArgument;
 import meditracker.argument.IntakeFrequencyArgument;
 import meditracker.argument.RemarksArgument;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 /**
@@ -77,7 +78,7 @@ public class AddCommand extends Command {
 
         Medication medication = createMedication();
         medicationManager.addMedication(medication);
-        DailyMedicationManager.addToSubLists(medication);
+        DailyMedicationManager.checkForDaily(medication);
         assertionTest(medicationManager);
         Ui.showAddCommandMessage();
     }
@@ -104,9 +105,12 @@ public class AddCommand extends Command {
         parseStringToValues(medicationQuantityArg, medicationDosageArg, medicationDosageMorningArg,
                 medicationDosageAfternoonArg, medicationDosageEveningArg);
 
+        LocalDate currentDate = LocalDate.now();
+        int dayAdded = currentDate.getDayOfYear();
+
         return new Medication(medicationName, medicationQuantity, medicationDosage,
                 medicationDosageMorning, medicationDosageAfternoon, medicationDosageEvening,
-                expiryDate, intakeFreq, remarks, repeat);
+                expiryDate, intakeFreq, remarks, repeat, dayAdded);
     }
 
     /**
@@ -117,8 +121,8 @@ public class AddCommand extends Command {
     private void assertionTest(MedicationManager medicationManager) {
         assert medicationManager.getTotalMedications() != 0 : "Total medications in medication " +
                 "manager should not be 0!";
-        assert DailyMedicationManager.getTotalDailyMedication() != 0 : "Total medications in daily medication " +
-                "manager should not be 0!";
+//        assert DailyMedicationManager.getTotalDailyMedication() != 0 : "Total medications in daily medication " +
+//                "manager should not be 0!";
     }
 
     /**

@@ -1,4 +1,4 @@
-add -n Medication_A -q 60.0 -d 500.0 -e 01/07/25 -f morning -dM 500.0 -dA 250.0 -r cause_dizziness -rep daily
+add -n Medication_A -q 60.0 -d 500.0 -e 01/07/25 -f morning -dM 500.0 -dA 250.0 -r cause_dizziness -rep 1
 modify -l 1 -n Medication_A
 delete -l 1
 take -l 1
