@@ -20,8 +20,10 @@ public class DailyMedicationManager {
     private static final List<DailyMedication> morningMedications = new ArrayList<>();
     private static final List<DailyMedication> afternoonMedications = new ArrayList<>();
     private static final List<DailyMedication> eveningMedications = new ArrayList<>();
-    private static final Medication medication = null;
     private static final LocalDate currentDate = LocalDate.now();
+    private static Double dosageMorning = 0.0;
+    private static Double dosageAfternoon = 0.0;
+    private static Double dosageEvening = 0.0;
 
     /**
      * Creates DailyMedicationManager to save medications from MedicationManager
@@ -46,9 +48,7 @@ public class DailyMedicationManager {
     public static void importDailyMedicationManager(List<String> lines) {
         try {
             for (String line : lines) {
-                DailyMedication dailyMedication = parseImportedLine(line);
-                addDailyMedication(dailyMedication);
-                // TODO
+                parseImportedLine(line);
             }
         } catch (Exception e) {
             System.out.println("Error" + e.getMessage());
@@ -69,11 +69,6 @@ public class DailyMedicationManager {
      */
     public static void addDailyMedication(DailyMedication dailyMedication) {
         dailyMedications.add(dailyMedication);
-        try {
-            FileReaderWriter.saveDailyMedicationData(getDailyMedicationStringData());
-        } catch (FileReadWriteException e) {
-            System.out.println("Cannot write into today.txt");
-        }
     }
 
     /**
@@ -141,7 +136,7 @@ public class DailyMedicationManager {
      * @param line each line read from the textfile
      * @return dailyMedication object to add into the DailyMedicationManager
      */
-    private static DailyMedication parseImportedLine(String line) {
+    private static void parseImportedLine(String line) {
         String[] fields = line.split("\\|");
         boolean isTaken = Boolean.parseBoolean(fields[1].trim());
         DailyMedication dailyMedication = new DailyMedication(fields[2].trim());
@@ -150,7 +145,17 @@ public class DailyMedicationManager {
         } else {
             dailyMedication.untake();
         }
-        return dailyMedication;
+        addImportToSubLists(fields[0], dailyMedication);
+    }
+
+    private static void addImportToSubLists(String period, DailyMedication dailyMedication) {
+        if (period.equals("M")) {
+            morningMedications.add(dailyMedication);
+        } else if (period.equals("A")) {
+            afternoonMedications.add(dailyMedication);
+        } else {
+            eveningMedications.add(dailyMedication);
+        }
     }
 
     /**
@@ -163,9 +168,11 @@ public class DailyMedicationManager {
         List<String> dailyMedicationStrings = new ArrayList<>();
         for (DailyMedication morningMedication : morningMedications) {
             dailyMedicationStrings.add("M|" + morningMedication.isTaken() + "|" + morningMedication.getName());
-        }for (DailyMedication afternoonMedication : afternoonMedications) {
+        }
+        for (DailyMedication afternoonMedication : afternoonMedications) {
             dailyMedicationStrings.add("A|" + afternoonMedication.isTaken() + "|" + afternoonMedication.getName());
-        }for (DailyMedication eveningMedication : eveningMedications) {
+        }
+        for (DailyMedication eveningMedication : eveningMedications) {
             dailyMedicationStrings.add("E|" + eveningMedication.isTaken() + "|" + eveningMedication.getName());
         }
         return dailyMedicationStrings;
@@ -227,6 +234,9 @@ public class DailyMedicationManager {
 
     private static void addToSubLists(Medication medication) {
         DailyMedication dailyMedication = new DailyMedication(medication.getName());
+        dosageMorning = medication.getDosageMorning();
+        dosageAfternoon = medication.getDosageAfternoon();
+        dosageEvening = medication.getDosageEvening();
         if(medication.getDosageMorning() != 0.0) {
             morningMedications.add(dailyMedication);
         }
@@ -235,6 +245,11 @@ public class DailyMedicationManager {
         }
         if(medication.getDosageEvening() != 0.0) {
             eveningMedications.add(dailyMedication);
+        }
+        try {
+            FileReaderWriter.saveDailyMedicationData(getDailyMedicationStringData());
+        } catch (FileReadWriteException e) {
+            System.out.println("Cannot write into today.txt");
         }
     }
 }
