@@ -14,7 +14,10 @@ import java.util.List;
  * @see DailyMedication
  */
 public class DailyMedicationManager {
-    private static List<DailyMedication> dailyMedications = new ArrayList<>();
+    private static final List<DailyMedication> dailyMedications = new ArrayList<>();
+    private static final List<DailyMedication> morningMedications = new ArrayList<>();
+    private static final List<DailyMedication> afternoonMedications = new ArrayList<>();
+    private static final List<DailyMedication> eveningMedications = new ArrayList<>();
 
     /**
      * Creates DailyMedicationManager to save medications from MedicationManager
@@ -157,5 +160,26 @@ public class DailyMedicationManager {
      */
     public static int getTotalDailyMedication() {
         return dailyMedications.size();
+    }
+
+    private static DailyMedication getMedsNames(Medication medication) {
+        String medsName = medication.getName();
+        return new DailyMedication(medsName);
+    }
+
+    public static void addToSubLists(Medication medication) {
+        DailyMedication dailyMedication = getMedsNames(medication);
+        if (medication.getRepeat().equals("daily")) {
+            addDailyMedication(dailyMedication);
+        }
+        if (medication.getDosageMorning() != null) {
+            morningMedications.add(dailyMedication);
+        }
+        if (medication.getDosageAfternoon() != null) {
+            afternoonMedications.add(dailyMedication);
+        }
+        if (medication.getDosageEvening() != null) {
+            eveningMedications.add(dailyMedication);
+        }
     }
 }

@@ -1,6 +1,5 @@
 package meditracker.command;
 
-import meditracker.DailyMedication;
 import meditracker.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.medication.Medication;
@@ -77,9 +76,8 @@ public class AddCommand extends Command {
             NumberFormatException {
 
         Medication medication = createMedication();
-        DailyMedication dailyMedication = new DailyMedication(medicationName);
         medicationManager.addMedication(medication);
-        DailyMedicationManager.addDailyMedication(dailyMedication);
+        DailyMedicationManager.addToSubLists(medication);
         assertionTest(medicationManager);
         Ui.showAddCommandMessage();
     }
