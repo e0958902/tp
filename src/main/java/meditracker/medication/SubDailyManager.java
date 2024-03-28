@@ -52,7 +52,7 @@ public class SubDailyManager {
     }
 
     /**
-     * Gets the DailyMedication object from each of morning list
+     * Gets the DailyMedication object from morning list
      * Also converts the index to 0-based indexing before being used.
      * Similarly, for afternoon and evening lists
      *
@@ -128,11 +128,11 @@ public class SubDailyManager {
      */
     private static void addImportToSubLists(String period, DailyMedication dailyMedication) {
         if (period.equals("M")) {
-            morningMedications.add(dailyMedication);
+            addToMorningList(dailyMedication);
         } else if (period.equals("A")) {
-            afternoonMedications.add(dailyMedication);
+            addToAfternoonList(dailyMedication);
         } else {
-            eveningMedications.add(dailyMedication);
+            addToEveningList(dailyMedication);
         }
     }
 
@@ -227,19 +227,37 @@ public class SubDailyManager {
     private static void addToSubLists(Medication medication) {
         DailyMedication dailyMedication = new DailyMedication(medication.getName());
         if(medication.getDosageMorning() != 0.0) {
-            morningMedications.add(dailyMedication);
+            addToMorningList(dailyMedication);
         }
         if(medication.getDosageAfternoon() != 0.0) {
-            afternoonMedications.add(dailyMedication);
+            addToAfternoonList(dailyMedication);
         }
         if(medication.getDosageEvening() != 0.0) {
-            eveningMedications.add(dailyMedication);
+            addToEveningList(dailyMedication);
         }
         try {
             FileReaderWriter.saveDailyMedicationData(getDailyMedicationStringData());
         } catch (FileReadWriteException e) {
             System.out.println("Cannot write into today.txt");
         }
+    }
+
+    public static void addToEveningList(DailyMedication dailyMedication) {
+        eveningMedications.add(dailyMedication);
+    }
+
+    public static void addToAfternoonList(DailyMedication dailyMedication) {
+        afternoonMedications.add(dailyMedication);
+    }
+
+    public static void addToMorningList(DailyMedication dailyMedication) {
+        morningMedications.add(dailyMedication);
+    }
+
+    public static void clearAllSubLists() {
+        morningMedications.clear();
+        afternoonMedications.clear();
+        eveningMedications.clear();
     }
 
 }

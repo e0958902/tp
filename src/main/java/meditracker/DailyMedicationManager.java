@@ -52,7 +52,7 @@ public class DailyMedicationManager {
      * @see DailyMedication#take()
      */
     public static void takeDailyMedication(int listIndex) throws FileReadWriteException {
-        DailyMedication dailyMedication = getDailyMedication(listIndex);
+        DailyMedication dailyMedication = SubDailyManager.getMorningMedication(listIndex);
         dailyMedication.take();
         try {
             FileReaderWriter.saveDailyMedicationData(SubDailyManager.getDailyMedicationStringData());
@@ -69,7 +69,7 @@ public class DailyMedicationManager {
      * @see DailyMedication#untake()
      */
     public static void untakeDailyMedication(int listIndex) throws FileReadWriteException {
-        DailyMedication dailyMedication = getDailyMedication(listIndex);
+        DailyMedication dailyMedication = SubDailyManager.getMorningMedication(listIndex);
         dailyMedication.untake();
         try {
             FileReaderWriter.saveDailyMedicationData(SubDailyManager.getDailyMedicationStringData());

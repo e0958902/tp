@@ -21,6 +21,7 @@ public class DailyMedicationManagerTest {
     @Test
     public void addDailyMedication_genericDailyMedication_dailyMedicationAdded() throws ArgumentNotFoundException,
             DuplicateArgumentFoundException {
+        SubDailyManager.clearAllSubLists();
         String inputString = "add -n Medication_A -q 60.0 -d 500.0 -e 01/07/25 -f morning -dM 500.0 -dA 250.0 "
                 + "-dE 300.0 -r cause_dizziness -rep 1";
         MedicationManager medicationManager = new MedicationManager();
@@ -62,28 +63,28 @@ public class DailyMedicationManagerTest {
 
     @Test
     public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken() throws FileReadWriteException {
-        DailyMedicationManager.clearDailyMedication();
+        SubDailyManager.clearAllSubLists();
         DailyMedication dailyMedication = new DailyMedication("TestMedication");
         assertFalse(dailyMedication.isTaken());
-        DailyMedicationManager.addDailyMedication(dailyMedication);
+        SubDailyManager.addToMorningList(dailyMedication);
 
         int actualIndex = 1; // 1-based indexing
         DailyMedicationManager.takeDailyMedication(actualIndex);
-        DailyMedication dailyMedicationTest = DailyMedicationManager.getDailyMedication(actualIndex);
+        DailyMedication dailyMedicationTest = SubDailyManager.getMorningMedication(actualIndex);
         assertTrue(dailyMedicationTest.isTaken());
     }
 
     @Test
     public void untakeDailyMedication_genericDailyMedication_dailyMedicationNotTaken() throws FileReadWriteException {
-        DailyMedicationManager.clearDailyMedication();
+        SubDailyManager.clearAllSubLists();
         DailyMedication dailyMedication = new DailyMedication("TestMedication");
         dailyMedication.take();
         assertTrue(dailyMedication.isTaken());
-        DailyMedicationManager.addDailyMedication(dailyMedication);
+        SubDailyManager.addToMorningList(dailyMedication);
 
         int actualIndex = 1; // 1-based indexing
         DailyMedicationManager.untakeDailyMedication(actualIndex);
-        DailyMedication dailyMedicationTest = DailyMedicationManager.getDailyMedication(actualIndex);
+        DailyMedication dailyMedicationTest = SubDailyManager.getMorningMedication(actualIndex);
         assertFalse(dailyMedicationTest.isTaken());
     }
 }
