@@ -10,7 +10,19 @@ import meditracker.command.UntakeCommand;
 
 import java.util.List;
 
+/**
+ * ArgumentHelper class to handle generating the help messages,
+ * consisting of the general command usage and a breakdown of the
+ * various command argument options.
+ */
 public class ArgumentHelper {
+
+    /**
+     * Gets the help message for the corresponding Command
+     *
+     * @param commandName Enum of the Command that is getting the help message
+     * @return The help message for that Command
+     */
     public static String getHelpMessage(CommandName commandName) {
         switch (commandName) {
         case ADD:
@@ -33,6 +45,13 @@ public class ArgumentHelper {
         }
     }
 
+    /**
+     * Generates the help message for the corresponding Command
+     *
+     * @param commandName Enum of the Command that is generating the help message
+     * @param argumentList Corresponding list of Argument for that Command
+     * @return The help message generated for the corresponding Command
+     */
     public static String getHelpMessage(CommandName commandName, ArgumentList argumentList) {
         StringBuilder message = new StringBuilder();
         String usage = getUsage(commandName, argumentList);
@@ -42,6 +61,13 @@ public class ArgumentHelper {
         return message.toString();
     }
 
+    /**
+     * Generates the usage for the corresponding Command
+     *
+     * @param commandName Enum of the Command that is generating the help message
+     * @param argumentList Corresponding list of Argument for that Command
+     * @return The usage for the corresponding Command
+     */
     private static String getUsage(CommandName commandName, ArgumentList argumentList) {
         StringBuilder usageString = new StringBuilder("Usage:");
         usageString.append(System.lineSeparator());
@@ -65,6 +91,12 @@ public class ArgumentHelper {
         return usageString.toString();
     }
 
+    /**
+     * Generates the command options for the corresponding Command
+     *
+     * @param argumentList Corresponding list of Argument for that Command
+     * @return The command options for the corresponding Command
+     */
     private static String getOptions(ArgumentList argumentList) {
         StringBuilder optionsString = new StringBuilder("Options:");
         List<Argument> arguments = argumentList.getArguments();
@@ -87,6 +119,12 @@ public class ArgumentHelper {
         return optionsString.toString();
     }
 
+    /**
+     * Formats the argument depending on whether it has value or not
+     *
+     * @param argument Argument to format
+     * @return The string in the format of flag (and name)
+     */
     private static String getArgumentFormat(Argument argument) {
         String flag = argument.getFlag();
         String name = argument.getName().value;
