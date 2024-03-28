@@ -80,8 +80,7 @@ class ArgumentParser {
      * @return Index of the argument flag
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
      */
-    private static int getArgumentIndex(List<String> rawInputSplit,
-                                        String flag)
+    private static int getArgumentIndex(List<String> rawInputSplit, String flag)
             throws DuplicateArgumentFoundException {
         int firstFlagIndex = rawInputSplit.indexOf(flag);
         int lastFlagIndex = rawInputSplit.lastIndexOf(flag);
