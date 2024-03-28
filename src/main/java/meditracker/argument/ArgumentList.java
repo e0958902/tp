@@ -3,6 +3,7 @@ package meditracker.argument;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,9 @@ public class ArgumentList {
      * @param arguments Arguments to be included in the list
      */
     public ArgumentList(Argument... arguments) {
-        this.arguments = List.of(arguments);
+        List<Argument> newArguments = new ArrayList<>(List.of(arguments));
+        newArguments.add(new HelpArgument());
+        this.arguments = newArguments;
 
         // assertion test: check for flag collisions
         Set<String> flags = new HashSet<>();
