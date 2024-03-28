@@ -1,8 +1,12 @@
 package meditracker;
 
 import meditracker.command.Command;
+import meditracker.command.CommandName;
+import meditracker.command.ModifyCommand;
 import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.CommandNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MediTrackerException;
 import meditracker.logging.MediLogger;
 import meditracker.medication.MedicationManager;
@@ -52,22 +56,32 @@ public class MediTracker {
         Ui.showWelcomeMessage();
         boolean isExit = false;
         while (!isExit) {
-            String fullCommand = Ui.readCommand();
-            Command command = null;
             Ui.showLine();
+            String fullCommand = Ui.readCommand();
+
+            CommandParser commandParser;
             try {
-                command = CommandParser.parse(fullCommand);
-                command.execute(medicationManager);
-            } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | MediTrackerException ex) {
-                System.out.println(ex.getMessage());
-            } catch (NullPointerException ex) {
-                System.out.println("Invalid MediTracker command! Please refer to the user guide.");
-            } catch (NumberFormatException ex) {
-                System.out.println("Dosage/Quantity should be of type double!");
+                commandParser = new CommandParser(fullCommand);
+            } catch (CommandNotFoundException e) {
+                // Just pressing enter into console, skip processing
+                continue;
             }
-            if (command != null) {
-                isExit = command.isExit();
+            CommandName commandName = commandParser.getCommandName();
+
+            Command command;
+            try {
+                command = commandParser.getCommand();
+            } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | CommandNotFoundException e) {
+                System.out.println(e.getMessage());
+                continue;
+            } catch (HelpInvokedException e) {
+                String helpMessage = e.getMessage(commandName);
+                System.out.println(helpMessage);
+                continue;
             }
+
+            command.execute(medicationManager);
+            isExit = command.isExit();
         }
     }
 
