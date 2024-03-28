@@ -111,6 +111,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the sub lists of dailyMedications based on the period
+     *
+     * @param medsList list of medications from MedicationManager
+     * @param dailyMedications subList of dailyMedication
+     * @param period Specified period of the day
+     */
     public static void printMedsLists(List<Medication> medsList,
                                       List<DailyMedication> dailyMedications, String period) {
         int numbering = 0;
@@ -130,6 +137,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Gets index of the dailyMedication in the Main Medication list
+     *
+     * @param medsList list of medications from MedicationManager
+     * @param name name of DailyMedication
+     * @return index of the medication in main medication
+     */
     private static int getIndex(List<Medication> medsList, String name) {
         int index = 0;
         for (Medication medication: medsList) {

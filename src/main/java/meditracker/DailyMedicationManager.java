@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Manages a list of DailyMedication and CRUD-operations (Create, Read, Update, Delete)
+ *
  * @see DailyMedication
  */
 public class DailyMedicationManager {
@@ -26,6 +27,7 @@ public class DailyMedicationManager {
      * Creates DailyMedicationManager to save medications from MedicationManager
      * so that program can output to textfile
      *
+     * @param medicationManager gets the medications list
      * @see DailyMedication
      */
     public static void createDailyMedicationManager(MedicationManager medicationManager) {
@@ -71,6 +73,7 @@ public class DailyMedicationManager {
     /**
      * Gets the DailyMedication object from the dailyMedications list.
      * Also converts the index to 0-based indexing before being used.
+     * Similarly, for getMorningMedication, getAfterMedication, getEveningMedication
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
      * @return DailyMedication object at the corresponding index (0-based indexing)
@@ -100,15 +103,16 @@ public class DailyMedicationManager {
      * Fetches the corresponding DailyMedication and set the medication to taken
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
+     * @throws FileReadWriteException when unable to write to textfile
      * @see DailyMedication#take()
      */
-    public static void takeDailyMedication(int listIndex) {
+    public static void takeDailyMedication(int listIndex) throws FileReadWriteException {
         DailyMedication dailyMedication = getDailyMedication(listIndex);
         dailyMedication.take();
         try {
             FileReaderWriter.saveDailyMedicationData(getDailyMedicationStringData());
         } catch (FileReadWriteException e) {
-            // TODO: Handle exception
+            throw new FileReadWriteException("IO Error: Unable to write to JSON File");
         }
     }
 
@@ -116,18 +120,24 @@ public class DailyMedicationManager {
      * Fetches the corresponding DailyMedication and set the medication to not taken
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
+     * @throws FileReadWriteException when unable to write to textfile
      * @see DailyMedication#untake()
      */
-    public static void untakeDailyMedication(int listIndex) {
+    public static void untakeDailyMedication(int listIndex) throws FileReadWriteException {
         DailyMedication dailyMedication = getDailyMedication(listIndex);
         dailyMedication.untake();
         try {
             FileReaderWriter.saveDailyMedicationData(getDailyMedicationStringData());
         } catch (FileReadWriteException e) {
-            // TODO: Handle exception
+            throw new FileReadWriteException("IO Error: Unable to write to text File");
         }
     }
 
+    /**
+     * Prints all medications to be taken today
+     *
+     * @param medications list of medications from MedicationManager
+     */
     public static void printTodayMedications(List<Medication> medications) {
         System.out.println("Here are the Daily Medications you have to take today: ");
         printTodayMedications(medications, morningMedications, "Morning:");
@@ -135,11 +145,18 @@ public class DailyMedicationManager {
         printTodayMedications(medications, eveningMedications, "Evening:");
     }
 
+    /**
+     * Prints the sub lists according to the period of the day
+     *
+     * @param medications list of medications from MedicationManager
+     * @param subList sublist of daily medication
+     * @param period time of the day
+     */
     public static void printTodayMedications(List<Medication> medications,
-                                             List<DailyMedication> medicationList, String period) {
-        if (!medicationList.isEmpty()) {
+                                             List<DailyMedication> subList, String period) {
+        if (!subList.isEmpty()) {
             System.out.println(period);
-            Ui.printMedsLists(medications, medicationList, period);
+            Ui.printMedsLists(medications, subList, period);
         }
     }
 
@@ -161,6 +178,12 @@ public class DailyMedicationManager {
         addImportToSubLists(fields[0], dailyMedication);
     }
 
+    /**
+     * Imports data from the read text file
+     *
+     * @param period time of the day
+     * @param dailyMedication daily medication to be taken for the day to add to respective sub lists
+     */
     private static void addImportToSubLists(String period, DailyMedication dailyMedication) {
         if (period.equals("M")) {
             morningMedications.add(dailyMedication);
@@ -193,7 +216,7 @@ public class DailyMedicationManager {
 
     /**
      * Returns the total number of daily medications in the list.
-     *
+     * Similarly, for the getMorningMedications/getAfternoonMedications/getEveningMedications
      * @return The total number of daily medications.
      */
     public static int getTotalDailyMedication() {
@@ -212,39 +235,63 @@ public class DailyMedicationManager {
         return eveningMedications;
     }
 
+    /**
+     * Checks if added medication is to be taken at morning/afternoon/evening
+     *
+     * @param medication list of medications from MedicationManager
+     */
     public static void checkForDaily(Medication medication) {
         if (shouldAddToDailyList(medication)) {
             addToSubLists(medication);
         }
     }
 
-    // Method to determine if an item should be added to the daily list based on repeat setting
+    /**
+     * Returns boolean if medication can be added to today's daily list based on the repeat setting
+     *
+     * @param medication list of medications from MedicationManager
+     * @return true if medication can be added to today's list
+     */
     private static boolean shouldAddToDailyList(Medication medication) {
         Repeat repeat = Repeat.repeatDays(medication.getRepeat());
 
         switch (repeat) {
         case DAILY:
-            return true;
+            return true;                       //everyday
         case EVERY_OTHER_DAY:
-            return isNDay(medication, 2);
+            return isNDay(medication, 2); //every 2 days
         case EVERY_3_DAYS:
-            return isNDay(medication, 3);
+            return isNDay(medication, 3); //every 3 days
         case EVERY_4_DAYS:
-            return isNDay(medication, 4);
+            return isNDay(medication, 4); //every 4 days
         case EVERY_WEEK:
-            return isNDay(medication, 7);
+            return isNDay(medication, 7); //every 7 days
         default:
             return false;
         }
     }
 
+    /**
+     * Determines the difference between today's date and the date medication was added
+     *
+     * @param medication list of medications from MedicationManager
+     * @param n repeat set by user
+     * @return true if the modulus of the date difference is 0
+     */
     private static boolean isNDay(Medication medication, int n) {
         int dateNum = medication.getDayAdded();
         int currentDayValue = currentDate.getDayOfYear();
         int daysDiff = currentDayValue - dateNum;
-        return daysDiff % n == 0;
+        return daysDiff % n == 0;       //modulo to find out if dailyMedication can be added to today's list
+                                        //based on the repeat number set by user
     }
 
+    /**
+     * Adds dailyMedication into sub list morning/afternoon/evening
+     * and writes into the text file
+     *
+     * @param medication list of medications from MedicationManager
+     */
     private static void addToSubLists(Medication medication) {
         DailyMedication dailyMedication = new DailyMedication(medication.getName());
         if(medication.getDosageMorning() != 0.0) {
