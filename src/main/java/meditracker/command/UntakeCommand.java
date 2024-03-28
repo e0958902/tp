@@ -18,10 +18,10 @@ import java.util.Map;
  * It extends the Command class.
  */
 public class UntakeCommand extends Command {
-    public static final ArgumentList argumentList = new ArgumentList(
+    public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
             new ListIndexArgument(false)
     );
-    public static final String helpMessage = ArgumentHelper.getHelpMessage(CommandName.UNTAKE, argumentList);
+    public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.UNTAKE, ARGUMENT_LIST);
     private final Map<ArgumentName, String> parsedArguments;
 
     /**
@@ -34,7 +34,7 @@ public class UntakeCommand extends Command {
      */
     public UntakeCommand(String arguments)
             throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
-        parsedArguments = argumentList.parse(arguments);
+        parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
     /**

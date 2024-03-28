@@ -14,17 +14,17 @@ public class ArgumentHelper {
     public static String getHelpMessage(CommandName commandName) {
         switch (commandName) {
         case ADD:
-            return AddCommand.helpMessage;
+            return AddCommand.HELP_MESSAGE;
         case MODIFY:
-            return ModifyCommand.helpMessage;
+            return ModifyCommand.HELP_MESSAGE;
         case LIST:
-            return ListCommand.helpMessage;
+            return ListCommand.HELP_MESSAGE;
         case DELETE:
-            return DeleteCommand.helpMessage;
+            return DeleteCommand.HELP_MESSAGE;
         case TAKE:
-            return TakeCommand.helpMessage;
+            return TakeCommand.HELP_MESSAGE;
         case UNTAKE:
-            return UntakeCommand.helpMessage;
+            return UntakeCommand.HELP_MESSAGE;
         case SEARCH: // fall through
         case EXIT: // fall through
         case UNKNOWN: // fall through

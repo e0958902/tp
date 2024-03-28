@@ -34,7 +34,7 @@ public class AddCommand extends Command {
     /**
      * The argumentList contains all the arguments needed for adding a medication.
      */
-    public static final ArgumentList argumentList = new ArgumentList(
+    public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
             new NameArgument(false),
             new QuantityArgument(false),
             new DosageArgument(false),
@@ -47,7 +47,7 @@ public class AddCommand extends Command {
             new RemarksArgument(true)
     );
 
-    public static final String helpMessage = ArgumentHelper.getHelpMessage(CommandName.ADD, argumentList);
+    public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.ADD, ARGUMENT_LIST);
 
     private final Map<ArgumentName, String> parsedArguments;
 
@@ -68,7 +68,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String arguments)
             throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
-        parsedArguments = argumentList.parse(arguments);
+        parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
     /**
