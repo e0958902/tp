@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import meditracker.logging.MediLogger;
 import meditracker.medication.MedicationManager;
 
+//@@author annoy-o-mus
 /**
  * A class to handle the importing of raw json file data and process them.
  * Passes the data in an intermediate format to the various Managers involved for them to initialise.
@@ -25,13 +26,13 @@ public class JsonImporter {
     private static Logger logger = MediLogger.getMediLogger();
 
     /**
-     * Converts information from JSONArray into a List of <String, String> mappings.
+     * Converts information from JSONArray into a List of (String, String) mappings.
      * The JSONArray should contain purely JSONObjects, and each JSONObject should contain purely
      * keys of type String and values of type String.
      *
-     * @param jsonArray A JSONArray of JSONObjects containing key-value pairs of type <String, String>.
-     * @return A list of <String, String> key-value pairs. May contain only partial entries if there are entries not
-     * in the specified type.
+     * @param jsonArray A JSONArray of JSONObjects containing key-value pairs of type (String, String).
+     * @return A list of (String, String) key-value pairs. May contain only partial entries if there are entries not
+     *     in the specified type.
      */
     private static List<Map<String, String>> convertJsonArrayToStringMap(JSONArray jsonArray) {
         // Solution adapted from
@@ -48,7 +49,7 @@ public class JsonImporter {
                     String key = keys.next();
                     String value = jsonObject.get(key).toString();
                     kvMap.put(key,value);
-               }
+                }
                 list.add(kvMap);
             } catch (JSONException e) {
                 logger.warning("JSONArray to List<Map<String,String>> Error: " + e.getMessage());
@@ -119,5 +120,6 @@ public class JsonImporter {
         }
 
         List<Map<String,String>> medicationStringMap = convertJsonArrayToStringMap(medicationList);
+        medManager.addMedicationFromSaveFile(medicationStringMap);
     }
 }

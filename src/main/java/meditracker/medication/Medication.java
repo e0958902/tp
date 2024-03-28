@@ -20,6 +20,25 @@ public class Medication {
     private String repeat;
 
     /**
+     * Constructs a new Medication object with default placeholder values.
+     * Used by MedicationManager to populate medication data from the save file.
+     */
+    public Medication() {
+        double placeholderValue = -1.0;
+
+        setName("");
+        setQuantity(placeholderValue);
+        setDosage(placeholderValue);
+        setDosageMorning(placeholderValue);
+        setDosageAfternoon(placeholderValue);
+        setDosageEvening(placeholderValue);
+        setExpiryDate("");
+        setIntakeFreq("");
+        setRemarks("");
+        setRepeat("");
+    }
+
+    /**
      * Constructs a Medication object with the specified information.
      * @param name The name of the medication.
      * @param quantity The quantity of the medication.

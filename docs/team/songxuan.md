@@ -17,15 +17,12 @@
 <!-- To talk about Issue 25 -->
 
 ### PR Reviews
-#2, #5, #40, #44, #51
 #2, #5, #40, #44, #51, #66, #82
 
 ### Team-based tasks
-- Added PR Template.
 - Added PR Template (#11, #21).
 - Set up the GitHub Team organisation and Repo
   - Restricted direct master branch merging
   - Disabled rebase and squash merging (thanks @wenenhoe)
-- Brought in the JSON package (https://github.com/stleary/JSON-java)
 - Brought in the JSON package (https://github.com/stleary/JSON-java) (#26)
 

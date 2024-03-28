@@ -23,4 +23,21 @@ public enum ArgumentName {
     ArgumentName(String value) {
         this.value = value;
     }
+
+    //@@author annoy-o-mus
+    /**
+     * Performs a reverse search to get the enum value from the associated string.
+     *
+     * @param valueToCompare The String value to compare to get the enum.
+     * @return The corresponding enum if it matches the value compared. Null otherwise.
+     * @see meditracker.command.CommandName for a similar implementation (adapted from there)
+     */
+    public static ArgumentName getEnumOfArgumentValue(String valueToCompare) {
+        for (ArgumentName argName : values()) {
+            if (argName.value.equals(valueToCompare)) {
+                return argName;
+            }
+        }
+        return null;
+    }
 }
