@@ -8,6 +8,7 @@ import meditracker.exception.MediTrackerException;
 import meditracker.logging.MediLogger;
 import meditracker.medication.MedicationManager;
 import meditracker.command.CommandParser;
+import meditracker.medication.SubDailyManager;
 import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
 
@@ -27,7 +28,7 @@ public class MediTracker {
      */
     public MediTracker() {
         medicationManager = new MedicationManager();
-        DailyMedicationManager.createDailyMedicationManager(medicationManager);
+        SubDailyManager.createDailyMedicationManager(medicationManager);
     }
 
     /**
@@ -37,7 +38,7 @@ public class MediTracker {
      */
     public MediTracker(List<String> dailyMedicationList) {
         medicationManager = new MedicationManager();
-        DailyMedicationManager.importDailyMedicationManager(dailyMedicationList);
+        SubDailyManager.importDailyMedicationManager(dailyMedicationList);
     }
 
     /**

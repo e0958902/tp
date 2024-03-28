@@ -6,6 +6,7 @@ import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.FileReadWriteException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
+import meditracker.medication.SubDailyManager;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -42,17 +43,17 @@ public class DailyMedicationManagerTest {
 
         List<Medication> medicationList = medicationManager.getMedications();
 
-        DailyMedicationManager.printTodayMedications(medicationList,
+        SubDailyManager.printTodayMedications(medicationList,
                 morningMedications, "Morning:");
-        DailyMedicationManager.printTodayMedications(medicationList,
+        SubDailyManager.printTodayMedications(medicationList,
                 afternoonMedications, "Afternoon:");
-        DailyMedicationManager.printTodayMedications(medicationList,
+        SubDailyManager.printTodayMedications(medicationList,
                 eveningMedications, "Evening:");
 
         int actualIndex = 1; // 1-based indexing
-        DailyMedication morningMedicationTest = DailyMedicationManager.getMorningMedication(actualIndex);
-        DailyMedication afternoonMedicationTest = DailyMedicationManager.getAfternoonMedication(actualIndex);
-        DailyMedication eveningMedicationTest = DailyMedicationManager.getEveningMedication(actualIndex);
+        DailyMedication morningMedicationTest = SubDailyManager.getMorningMedication(actualIndex);
+        DailyMedication afternoonMedicationTest = SubDailyManager.getAfternoonMedication(actualIndex);
+        DailyMedication eveningMedicationTest = SubDailyManager.getEveningMedication(actualIndex);
 
         assertEquals(morningMeds.toString(), morningMedicationTest.toString());
         assertEquals(afternoonMeds.toString(), afternoonMedicationTest.toString());

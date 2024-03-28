@@ -5,6 +5,7 @@ import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
+import meditracker.medication.SubDailyManager;
 import meditracker.ui.Ui;
 
 import meditracker.argument.ArgumentName;
@@ -80,7 +81,7 @@ public class AddCommand extends Command {
 
         Medication medication = createMedication();
         medicationManager.addMedication(medication);
-        DailyMedicationManager.checkForDaily(medication);
+        SubDailyManager.checkForDaily(medication);
         assertionTest(medicationManager);
         Ui.showAddCommandMessage();
     }

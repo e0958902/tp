@@ -8,6 +8,7 @@ import meditracker.argument.ListTypeArgument;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.MedicationManager;
+import meditracker.medication.SubDailyManager;
 
 import java.util.List;
 import java.util.Map;
@@ -41,21 +42,21 @@ public class ListCommand extends Command {
             medicationManager.printAllMedications();
             break;
         case "today":
-            DailyMedicationManager.printTodayMedications(medicationManager.getMedications());
+            SubDailyManager.printTodayMedications(medicationManager.getMedications());
             break;
         case "today-m":
-            List<DailyMedication> morningMedications = DailyMedicationManager.getMorningMedications();
-            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
+            List<DailyMedication> morningMedications = SubDailyManager.getMorningMedications();
+            SubDailyManager.printTodayMedications(medicationManager.getMedications(),
                     morningMedications, "Morning:");
             break;
         case "today-a":
-            List<DailyMedication> afternoonMedications = DailyMedicationManager.getAfternoonMedications();
-            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
+            List<DailyMedication> afternoonMedications = SubDailyManager.getAfternoonMedications();
+            SubDailyManager.printTodayMedications(medicationManager.getMedications(),
                     afternoonMedications, "Afternoon:");
             break;
         case "today-e":
-            List<DailyMedication> eveningMedications = DailyMedicationManager.getEveningMedications();
-            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
+            List<DailyMedication> eveningMedications = SubDailyManager.getEveningMedications();
+            SubDailyManager.printTodayMedications(medicationManager.getMedications(),
                     eveningMedications, "Evening:");
             break;
         default:
