@@ -1,7 +1,6 @@
-package meditracker;
+package meditracker.dailyMeds;
 
 import meditracker.exception.FileReadWriteException;
-import meditracker.medication.SubDailyManager;
 import meditracker.storage.FileReaderWriter;
 
 import java.util.ArrayList;

@@ -8,7 +8,7 @@ import meditracker.exception.MediTrackerException;
 import meditracker.logging.MediLogger;
 import meditracker.medication.MedicationManager;
 import meditracker.command.CommandParser;
-import meditracker.medication.SubDailyManager;
+import meditracker.dailyMeds.SubDailyManager;
 import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
 

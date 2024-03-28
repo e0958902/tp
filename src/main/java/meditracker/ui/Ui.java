@@ -1,6 +1,6 @@
 package meditracker.ui;
 
-import meditracker.DailyMedication;
+import meditracker.dailyMeds.DailyMedication;
 import meditracker.library.SearchResult;
 import meditracker.medication.Medication;
 

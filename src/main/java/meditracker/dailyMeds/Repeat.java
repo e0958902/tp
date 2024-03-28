@@ -1,4 +1,4 @@
-package meditracker.medication;
+package meditracker.dailyMeds;
 
 //@@author nickczh
 //with appropriate modifications

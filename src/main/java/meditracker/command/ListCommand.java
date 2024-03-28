@@ -1,13 +1,13 @@
 package meditracker.command;
 
-import meditracker.DailyMedication;
+import meditracker.dailyMeds.DailyMedication;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListTypeArgument;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.MedicationManager;
-import meditracker.medication.SubDailyManager;
+import meditracker.dailyMeds.SubDailyManager;
 
 import java.util.List;
 import java.util.Map;

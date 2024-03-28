@@ -4,7 +4,7 @@ import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
-import meditracker.medication.SubDailyManager;
+import meditracker.dailyMeds.SubDailyManager;
 import meditracker.ui.Ui;
 
 import meditracker.argument.ArgumentName;

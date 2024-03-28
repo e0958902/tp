@@ -1,7 +1,8 @@
-package meditracker.medication;
+package meditracker.dailyMeds;
 
-import meditracker.DailyMedication;
 import meditracker.exception.FileReadWriteException;
+import meditracker.medication.Medication;
+import meditracker.medication.MedicationManager;
 import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
 

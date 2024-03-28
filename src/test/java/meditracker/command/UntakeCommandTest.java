@@ -1,11 +1,11 @@
 package meditracker.command;
 
-import meditracker.DailyMedication;
+import meditracker.dailyMeds.DailyMedication;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.FileReadWriteException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.MedicationManager;
-import meditracker.medication.SubDailyManager;
+import meditracker.dailyMeds.SubDailyManager;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
