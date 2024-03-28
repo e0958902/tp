@@ -102,6 +102,7 @@ class ArgumentParser {
      * of the argument flags indexes.
      *
      * @param indexes A sorted map of arguments and their corresponding indexes
+     * @param rawInputSplit List of raw input split by spaces
      */
     //@@author wenenhoe-reused
     //Reused from https://github.com/wenenhoe/ip with modifications to support
