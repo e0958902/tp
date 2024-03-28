@@ -15,8 +15,8 @@ import java.util.TreeMap;
  * All arguments have to be specified with a flag.
  */
 class ArgumentParser {
-    private final ArgumentList argumentList;
     protected final Map<ArgumentName, String> parsedArguments = new HashMap<>();
+    private final ArgumentList argumentList;
 
     /**
      * Constructs ArgumentParser that parses raw input into corresponding key value pairs
