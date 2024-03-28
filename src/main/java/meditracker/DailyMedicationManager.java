@@ -283,7 +283,6 @@ public class DailyMedicationManager {
         int currentDayValue = currentDate.getDayOfYear();
         int daysDiff = currentDayValue - dateNum;
         return daysDiff % n == 0;       //modulo to find out if dailyMedication can be added to today's list
-                                        //based on the repeat number set by user
     }
 
     /**

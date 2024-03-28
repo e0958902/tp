@@ -2,6 +2,7 @@ package meditracker;
 
 import meditracker.command.AddCommand;
 import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.FileReadWriteException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
@@ -17,7 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DailyMedicationManagerTest {
     @Test
-    public void addDailyMedication_genericDailyMedication_dailyMedicationAdded() throws ArgumentNotFoundException {
+    public void addDailyMedication_genericDailyMedication_dailyMedicationAdded() throws ArgumentNotFoundException,
+            DuplicateArgumentFoundException {
         String inputString = "add -n Medication_A -q 60.0 -d 500.0 -e 01/07/25 -f morning -dM 500.0 -dA 250.0 "
                 + "-dE 300.0 -r cause_dizziness -rep 1";
         MedicationManager medicationManager = new MedicationManager();

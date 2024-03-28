@@ -4,6 +4,7 @@ import meditracker.DailyMedication;
 import meditracker.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.FileReadWriteException;
+import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.MedicationManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,8 +26,8 @@ public class TakeCommandTest {
     }
 
     @Test
-    void execute_inOrderArgument_expectDailyMedicationTaken() throws ArgumentNotFoundException,
-            FileReadWriteException {
+    void execute_inOrderArgument_expectDailyMedicationTaken()
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, FileReadWriteException {
         MedicationManager medicationManager = new MedicationManager();
         DailyMedication dailyMedication = new DailyMedication("Medication_A");
         DailyMedicationManager.addDailyMedication(dailyMedication);

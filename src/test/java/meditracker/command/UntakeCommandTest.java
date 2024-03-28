@@ -4,6 +4,7 @@ import meditracker.DailyMedication;
 import meditracker.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.FileReadWriteException;
+import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.MedicationManager;
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class UntakeCommandTest {
     @Test
-    void execute_inOrderArgument_expectDailyMedicationUntaken() throws ArgumentNotFoundException,
-            FileReadWriteException {
+    void execute_inOrderArgument_expectDailyMedicationUntaken()
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, FileReadWriteException {
         MedicationManager medicationManager = new MedicationManager();
         DailyMedication dailyMedication = new DailyMedication("Medication_A");
         DailyMedicationManager.addDailyMedication(dailyMedication);

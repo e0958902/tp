@@ -6,6 +6,7 @@ import meditracker.argument.ArgumentName;
 import meditracker.argument.ListIndexArgument;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.FileReadWriteException;
+import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.MedicationManager;
 import meditracker.ui.Ui;
 
@@ -23,9 +24,13 @@ public class TakeCommand extends Command {
 
     /**
      * Constructs a TakeCommand object with the specified arguments.
+     *
      * @param arguments The arguments containing information to be parsed.
+     * @throws ArgumentNotFoundException Argument flag specified not found
+     * @throws DuplicateArgumentFoundException Duplicate argument flag found
      */
-    public TakeCommand(String arguments) throws ArgumentNotFoundException {
+    public TakeCommand(String arguments)
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException {
         parsedArguments = argumentList.parse(arguments);
     }
 
@@ -35,6 +40,7 @@ public class TakeCommand extends Command {
      * It also displays a message confirming the modification of the daily medication status.
      *
      * @param medicationManager      The MedicationManager object representing the list of medications.
+     * @throws FileReadWriteException when there is error to write into text file.
      */
     @Override
     public void execute(MedicationManager medicationManager) throws FileReadWriteException {

@@ -6,6 +6,7 @@ import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListTypeArgument;
 import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.MedicationManager;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class ListCommand extends Command {
 
     private final Map<ArgumentName, String> parsedArguments;
 
-    public ListCommand(String arguments) throws ArgumentNotFoundException {
+    public ListCommand(String arguments) throws ArgumentNotFoundException, DuplicateArgumentFoundException {
         parsedArguments = argumentList.parse(arguments);
     }
 
