@@ -1,6 +1,7 @@
 package meditracker.command;
 
 import meditracker.DailyMedicationManager;
+import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListTypeArgument;
@@ -19,6 +20,8 @@ public class ListCommand extends Command {
 
     public ArgumentList argumentList = new ArgumentList(
             new ListTypeArgument(false));
+
+    public static final String helpMessage = ArgumentHelper.getHelpMessage(CommandName.LIST, argumentList);
 
     private final Map<ArgumentName, String> parsedArguments;
 

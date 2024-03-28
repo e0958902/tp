@@ -2,6 +2,7 @@ package meditracker.command;
 
 import meditracker.DailyMedication;
 import meditracker.DailyMedicationManager;
+import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.DosageArgument;
@@ -34,6 +35,7 @@ public class ModifyCommand extends Command {
             new IntakeFrequencyArgument(true),
             new RemarksArgument(true)
     );
+    public static final String helpMessage = ArgumentHelper.getHelpMessage(CommandName.MODIFY, argumentList);
     private final Map<ArgumentName, String> parsedArguments;
 
     /**

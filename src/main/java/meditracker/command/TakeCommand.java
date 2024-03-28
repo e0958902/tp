@@ -1,6 +1,7 @@
 package meditracker.command;
 
 import meditracker.DailyMedicationManager;
+import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListIndexArgument;
@@ -20,6 +21,7 @@ public class TakeCommand extends Command {
     public final ArgumentList argumentList = new ArgumentList(
             new ListIndexArgument(false)
     );
+    public static final String helpMessage = ArgumentHelper.getHelpMessage(CommandName.TAKE, argumentList);
     private final Map<ArgumentName, String> parsedArguments;
 
     /**

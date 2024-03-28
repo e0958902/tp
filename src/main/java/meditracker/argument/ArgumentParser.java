@@ -34,7 +34,7 @@ class ArgumentParser {
         SortedMap<Integer, Argument> indexes = getArgumentIndexes(rawInputSplit);
 
         if (indexes.isEmpty()) {
-            throw new HelpInvokedException(argumentList);
+            throw new HelpInvokedException();
         }
         getArgumentValues(indexes, rawInputSplit);
     }

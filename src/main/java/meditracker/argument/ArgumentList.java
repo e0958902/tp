@@ -56,7 +56,7 @@ public class ArgumentList {
 
         boolean hasCalledForHelp = argumentParser.parsedArguments.get(ArgumentName.HELP) != null;
         if (hasCalledForHelp) {
-            throw new HelpInvokedException(this);
+            throw new HelpInvokedException();
         }
 
         argumentParser.checkForMissingRequiredArguments(); // throws ArgumentNotFoundException

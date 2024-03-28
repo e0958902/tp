@@ -2,6 +2,7 @@ package meditracker.command;
 
 import meditracker.DailyMedication;
 import meditracker.DailyMedicationManager;
+import meditracker.argument.ArgumentHelper;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
@@ -45,6 +46,8 @@ public class AddCommand extends Command {
             new RepeatArgument(true),
             new RemarksArgument(true)
     );
+
+    public static final String helpMessage = ArgumentHelper.getHelpMessage(CommandName.ADD, argumentList);
 
     private final Map<ArgumentName, String> parsedArguments;
 
