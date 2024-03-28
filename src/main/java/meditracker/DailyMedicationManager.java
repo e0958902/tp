@@ -21,9 +21,6 @@ public class DailyMedicationManager {
     private static final List<DailyMedication> afternoonMedications = new ArrayList<>();
     private static final List<DailyMedication> eveningMedications = new ArrayList<>();
     private static final LocalDate currentDate = LocalDate.now();
-    private static Double dosageMorning = 0.0;
-    private static Double dosageAfternoon = 0.0;
-    private static Double dosageEvening = 0.0;
 
     /**
      * Creates DailyMedicationManager to save medications from MedicationManager
@@ -84,6 +81,21 @@ public class DailyMedicationManager {
         return dailyMedications.get(listIndex);
     }
 
+    public static DailyMedication getMorningMedication(int listIndex) throws IndexOutOfBoundsException {
+        listIndex--; // Decremented to 0-base indexing
+        return morningMedications.get(listIndex);
+    }
+
+    public static DailyMedication getAfternoonMedication(int listIndex) throws IndexOutOfBoundsException {
+        listIndex--; // Decremented to 0-base indexing
+        return afternoonMedications.get(listIndex);
+    }
+
+    public static DailyMedication getEveningMedication(int listIndex) throws IndexOutOfBoundsException {
+        listIndex--; // Decremented to 0-base indexing
+        return eveningMedications.get(listIndex);
+    }
+
     /**
      * Fetches the corresponding DailyMedication and set the medication to taken
      *
@@ -116,17 +128,18 @@ public class DailyMedicationManager {
         }
     }
 
-    public static void printTodayMedications() {
+    public static void printTodayMedications(List<Medication> medications) {
         System.out.println("Here are the Daily Medications you have to take today: ");
-        printTodayMedications(morningMedications, "Morning:");
-        printTodayMedications(afternoonMedications, "Afternoon:");
-        printTodayMedications(eveningMedications, "Evening:");
+        printTodayMedications(medications, morningMedications, "Morning:");
+        printTodayMedications(medications, afternoonMedications, "Afternoon:");
+        printTodayMedications(medications, eveningMedications, "Evening:");
     }
 
-    public static void printTodayMedications(List<DailyMedication> medicationList, String period) {
+    public static void printTodayMedications(List<Medication> medications,
+                                             List<DailyMedication> medicationList, String period) {
         if (!medicationList.isEmpty()) {
             System.out.println(period);
-            Ui.printMedsList(medicationList);
+            Ui.printMedsLists(medications, medicationList, period);
         }
     }
 
@@ -234,9 +247,6 @@ public class DailyMedicationManager {
 
     private static void addToSubLists(Medication medication) {
         DailyMedication dailyMedication = new DailyMedication(medication.getName());
-        dosageMorning = medication.getDosageMorning();
-        dosageAfternoon = medication.getDosageAfternoon();
-        dosageEvening = medication.getDosageEvening();
         if(medication.getDosageMorning() != 0.0) {
             morningMedications.add(dailyMedication);
         }

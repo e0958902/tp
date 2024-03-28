@@ -8,7 +8,6 @@ import meditracker.argument.ListTypeArgument;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.medication.MedicationManager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,19 +40,22 @@ public class ListCommand extends Command {
             medicationManager.printAllMedications();
             break;
         case "today":
-            DailyMedicationManager.printTodayMedications();
+            DailyMedicationManager.printTodayMedications(medicationManager.getMedications());
             break;
         case "today-m":
             List<DailyMedication> morningMedications = DailyMedicationManager.getMorningMedications();
-            DailyMedicationManager.printTodayMedications(morningMedications, "Morning:");
+            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
+                    morningMedications, "Morning:");
             break;
         case "today-a":
             List<DailyMedication> afternoonMedications = DailyMedicationManager.getAfternoonMedications();
-            DailyMedicationManager.printTodayMedications(afternoonMedications, "Afternoon:");
+            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
+                    afternoonMedications, "Afternoon:");
             break;
         case "today-e":
             List<DailyMedication> eveningMedications = DailyMedicationManager.getEveningMedications();
-            DailyMedicationManager.printTodayMedications(eveningMedications, "Evening:");
+            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
+                    eveningMedications, "Evening:");
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + listTypeString);

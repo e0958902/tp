@@ -1,6 +1,8 @@
 package meditracker.ui;
 
+import meditracker.DailyMedication;
 import meditracker.library.SearchResult;
+import meditracker.medication.Medication;
 
 import java.util.List;
 import java.util.Scanner;
@@ -107,6 +109,36 @@ public class Ui {
             int numbering = medications.indexOf(medication) + 1;
             System.out.println("\t" + numbering + ". " + medication);
         }
+    }
+
+    public static void printMedsLists(List<Medication> medsList,
+                                      List<DailyMedication> dailyMedications, String period) {
+        int numbering = 0;
+        for (DailyMedication med: dailyMedications) {
+            String name = med.getName();
+            Double intakeDose;
+            int index = getIndex(medsList, name);
+            if (period.equals("Morning:")) {
+                intakeDose = medsList.get(0).getDosageMorning();
+            } else if (period.equals("Afternoon:")) {
+                intakeDose = medsList.get(0).getDosageAfternoon();
+            } else {
+                intakeDose = medsList.get(index).getDosageEvening();
+            }
+            numbering++;
+            System.out.println("\t" + numbering + ". " + med + " | " + intakeDose);
+        }
+    }
+
+    private static int getIndex(List<Medication> medsList, String name) {
+        int index = 0;
+        for (Medication medication: medsList) {
+            if (medication.getName().equals(name)) {
+                return index;
+            }
+            index++;
+        }
+        return -1;
     }
 
     public static void showLibraryNotFoundMessage() {
