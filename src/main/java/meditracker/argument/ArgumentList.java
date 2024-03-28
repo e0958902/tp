@@ -51,6 +51,7 @@ public class ArgumentList {
     public Map<ArgumentName, String> parse(String rawInput)
             throws ArgumentNotFoundException, DuplicateArgumentFoundException {
         ArgumentParser argumentParser = new ArgumentParser(this, rawInput);
+        argumentParser.checkForMissingRequiredArguments(); // throws ArgumentNotFoundException
         return argumentParser.parsedArguments;
     }
 

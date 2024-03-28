@@ -14,6 +14,7 @@ import java.util.TreeMap;
  * All arguments have to be specified with a flag.
  */
 class ArgumentParser {
+    private final ArgumentList argumentList;
     protected final Map<ArgumentName, String> parsedArguments = new HashMap<>();
 
     /**
@@ -21,14 +22,35 @@ class ArgumentParser {
      *
      * @param argumentList List of argument
      * @param rawInput Raw input to be parsed
-     * @throws ArgumentNotFoundException Argument flag specified not found
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
      */
     public ArgumentParser(ArgumentList argumentList, String rawInput)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException {
+            throws DuplicateArgumentFoundException {
+        this.argumentList = argumentList;
+
         List<String> rawInputSplit = List.of(rawInput.split(" "));
-        SortedMap<Integer, Argument> indexes = ArgumentParser.getArgumentIndexes(argumentList, rawInputSplit);
+        SortedMap<Integer, Argument> indexes = getArgumentIndexes(rawInputSplit);
         getArgumentValues(indexes, rawInputSplit);
+    }
+
+    /**
+     * Checks for missing required arguments
+     *
+     * @throws ArgumentNotFoundException Argument flag specified not found
+     */
+    public void checkForMissingRequiredArguments() throws ArgumentNotFoundException {
+        for (Argument argument: argumentList.getArguments()) {
+            String flag = argument.getFlag();
+            boolean isFoundInParsedArgs = parsedArguments.containsKey(argument.getName());
+            boolean isRequired = !argument.isOptional();
+            boolean isMissing = isRequired && !isFoundInParsedArgs;
+
+            if (isMissing) {
+                // arg keyword not found in additional input
+                String errorContext = String.format("Missing \"%s\" argument", flag);
+                throw new ArgumentNotFoundException(errorContext);
+            }
+        }
     }
 
     /**
@@ -70,28 +92,20 @@ class ArgumentParser {
      *
      * @param rawInputSplit List of raw input split by spaces
      * @return A sorted map of arguments and their corresponding indexes
-     * @throws ArgumentNotFoundException Argument flag specified not found
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
      */
     //@@author wenenhoe-reused
     //Reused from https://github.com/wenenhoe/ip with minor modifications
-    private static SortedMap<Integer, Argument> getArgumentIndexes(ArgumentList argumentList,
-                                                                   List<String> rawInputSplit)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException {
+    private SortedMap<Integer, Argument> getArgumentIndexes(List<String> rawInputSplit)
+            throws DuplicateArgumentFoundException {
         SortedMap<Integer, Argument> indexes = new TreeMap<>();
         for (Argument argument: argumentList.getArguments()) {
             String flag = argument.getFlag();
-            boolean isRequired = !argument.isOptional();
-
             int flagIndex = ArgumentParser.getArgumentIndex(rawInputSplit, flag);
-            boolean isNotFound = flagIndex == -1;
 
+            boolean isNotFound = flagIndex == -1;
             if (!isNotFound) {
                 indexes.put(flagIndex, argument);
-            } else if (isRequired) {
-                // arg keyword not found in additional input
-                String errorContext = String.format("Missing \"%s\" argument", flag);
-                throw new ArgumentNotFoundException(errorContext);
             }
         }
         return indexes;
