@@ -2,6 +2,7 @@ package meditracker.command;
 
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ModifyCommandTest {
     @Test
     void execute_inOrderArgument_expectMedicationModified()
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException {
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
         MedicationManager medicationManager = new MedicationManager();
         Medication medication = new Medication(
                 "Medication_A",
@@ -38,7 +39,7 @@ public class ModifyCommandTest {
 
     @Test
     void execute_outOfOrderArgument_expectMedicationModified()
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException {
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
         MedicationManager medicationManager = new MedicationManager();
         Medication medication = new Medication(
                 "Medication_A",

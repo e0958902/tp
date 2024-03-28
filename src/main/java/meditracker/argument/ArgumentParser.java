@@ -2,6 +2,7 @@ package meditracker.argument;
 
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,13 +24,18 @@ class ArgumentParser {
      * @param argumentList List of argument
      * @param rawInput Raw input to be parsed
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
+     * @throws HelpInvokedException When help argument is used or help message needed
      */
     public ArgumentParser(ArgumentList argumentList, String rawInput)
-            throws DuplicateArgumentFoundException {
+            throws DuplicateArgumentFoundException, HelpInvokedException {
         this.argumentList = argumentList;
 
         List<String> rawInputSplit = List.of(rawInput.split(" "));
         SortedMap<Integer, Argument> indexes = getArgumentIndexes(rawInputSplit);
+
+        if (indexes.isEmpty()) {
+            throw new HelpInvokedException(argumentList);
+        }
         getArgumentValues(indexes, rawInputSplit);
     }
 
