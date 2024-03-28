@@ -57,8 +57,8 @@ public class SubDailyManager {
      * Similarly, for afternoon and evening lists
      *
      * @param listIndex
-     * @return
-     * @throws IndexOutOfBoundsException
+     * @return the dailyMedication at the given index
+     * @throws IndexOutOfBoundsException Out of range index specified
      */
     public static DailyMedication getMorningMedication(int listIndex) throws IndexOutOfBoundsException {
         listIndex--; // Decremented to 0-base indexing
