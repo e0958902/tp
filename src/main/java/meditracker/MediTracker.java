@@ -2,6 +2,7 @@ package meditracker;
 
 import meditracker.command.Command;
 import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.FileReadWriteException;
 import meditracker.exception.MediTrackerException;
 import meditracker.logging.MediLogger;
 import meditracker.medication.MedicationManager;
@@ -46,8 +47,9 @@ public class MediTracker {
      * @throws ArgumentNotFoundException Argument required not found.
      * @throws NullPointerException When the command does not exist.
      * @throws NumberFormatException If the argument of type double is not supplied as type double.
+     * @throws FileReadWriteException when there is error to write into text file.
      */
-    public void run() {
+    public void run() throws FileReadWriteException {
         //@@author nickczh-reused
         //Reused from https://github.com/nickczh/ip
         //with minor modifications
@@ -67,6 +69,8 @@ public class MediTracker {
                 System.out.println("Invalid MediTracker command! Please refer to the user guide.");
             } catch (NumberFormatException ex) {
                 System.out.println("Dosage/Quantity should be of type double!");
+            } catch (FileReadWriteException e) {
+                throw new FileReadWriteException("IO Error: Unable to write to text File");
             }
             if (command != null) {
                 isExit = command.isExit();
@@ -79,7 +83,7 @@ public class MediTracker {
      * It creates a new MediTracker object and calls its run() method.
      * @param args Command-line arguments.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileReadWriteException {
         MediLogger.initialiseLogger();
 
         List<String> dailyMedicationList = FileReaderWriter.loadDailyMedicationData();

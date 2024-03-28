@@ -2,6 +2,7 @@ package meditracker;
 
 import meditracker.command.AddCommand;
 import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.FileReadWriteException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import org.junit.jupiter.api.Test;
@@ -57,7 +58,7 @@ public class DailyMedicationManagerTest {
     }
 
     @Test
-    public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken() {
+    public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken() throws FileReadWriteException {
         DailyMedicationManager.clearDailyMedication();
         DailyMedication dailyMedication = new DailyMedication("TestMedication");
         assertFalse(dailyMedication.isTaken());
@@ -70,7 +71,7 @@ public class DailyMedicationManagerTest {
     }
 
     @Test
-    public void untakeDailyMedication_genericDailyMedication_dailyMedicationNotTaken() {
+    public void untakeDailyMedication_genericDailyMedication_dailyMedicationNotTaken() throws FileReadWriteException {
         DailyMedicationManager.clearDailyMedication();
         DailyMedication dailyMedication = new DailyMedication("TestMedication");
         dailyMedication.take();
