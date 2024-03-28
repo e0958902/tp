@@ -18,7 +18,7 @@ import java.util.Map;
  * It extends the Command class.
  */
 public class TakeCommand extends Command {
-    public final ArgumentList argumentList = new ArgumentList(
+    public static final ArgumentList argumentList = new ArgumentList(
             new ListIndexArgument(false)
     );
     public static final String helpMessage = ArgumentHelper.getHelpMessage(CommandName.TAKE, argumentList);

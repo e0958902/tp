@@ -34,7 +34,7 @@ public class AddCommand extends Command {
     /**
      * The argumentList contains all the arguments needed for adding a medication.
      */
-    public final ArgumentList argumentList = new ArgumentList(
+    public static final ArgumentList argumentList = new ArgumentList(
             new NameArgument(false),
             new QuantityArgument(false),
             new DosageArgument(false),

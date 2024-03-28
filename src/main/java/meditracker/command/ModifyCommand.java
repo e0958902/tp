@@ -26,7 +26,7 @@ import java.util.Map;
  * It extends the Command class.
  */
 public class ModifyCommand extends Command {
-    public final ArgumentList argumentList = new ArgumentList(
+    public static final ArgumentList argumentList = new ArgumentList(
             new ListIndexArgument(false),
             new NameArgument(true),
             new QuantityArgument(true),

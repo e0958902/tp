@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class ListCommand extends Command {
 
-    public ArgumentList argumentList = new ArgumentList(
+    public static final ArgumentList argumentList = new ArgumentList(
             new ListTypeArgument(false));
 
     public static final String helpMessage = ArgumentHelper.getHelpMessage(CommandName.LIST, argumentList);
