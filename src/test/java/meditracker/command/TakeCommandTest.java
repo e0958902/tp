@@ -29,6 +29,7 @@ public class TakeCommandTest {
     @Test
     void execute_inOrderArgument_expectDailyMedicationTaken()
             throws ArgumentNotFoundException, DuplicateArgumentFoundException, FileReadWriteException {
+        SubDailyManager.clearAllSubLists();
         MedicationManager medicationManager = new MedicationManager();
         DailyMedication dailyMedication = new DailyMedication("Medication_A");
         SubDailyManager.addToMorningList(dailyMedication);
