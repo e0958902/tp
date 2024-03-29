@@ -46,8 +46,6 @@ public class MediTracker {
      * This method displays a welcome message, reads user commands, and processes them until the user exits the
      * application.
      *
-     * @throws NullPointerException When the command does not exist.
-     * @throws NumberFormatException If the argument of type double is not supplied as type double.
      * @throws FileReadWriteException when there is error to write into text file.
      */
     public void run() throws FileReadWriteException {
