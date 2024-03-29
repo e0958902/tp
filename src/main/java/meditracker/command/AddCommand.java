@@ -123,8 +123,6 @@ public class AddCommand extends Command {
     private void assertionTest(MedicationManager medicationManager) {
         assert medicationManager.getTotalMedications() != 0 : "Total medications in medication " +
                 "manager should not be 0!";
-//        assert DailyMedicationManager.getTotalDailyMedication() != 0 : "Total medications in daily medication " +
-//                "manager should not be 0!";
     }
 
     /**

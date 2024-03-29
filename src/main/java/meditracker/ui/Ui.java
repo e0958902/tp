@@ -126,9 +126,9 @@ public class Ui {
             Double intakeDose;
             int index = getIndex(medsList, name);
             if (period.equals("Morning:")) {
-                intakeDose = medsList.get(0).getDosageMorning();
+                intakeDose = medsList.get(index).getDosageMorning();
             } else if (period.equals("Afternoon:")) {
-                intakeDose = medsList.get(0).getDosageAfternoon();
+                intakeDose = medsList.get(index).getDosageAfternoon();
             } else {
                 intakeDose = medsList.get(index).getDosageEvening();
             }

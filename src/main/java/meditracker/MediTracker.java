@@ -46,8 +46,6 @@ public class MediTracker {
      * This method displays a welcome message, reads user commands, and processes them until the user exits the
      * application.
      *
-     * @throws MediTrackerException If an error occurs during the execution of the application.
-     * @throws ArgumentNotFoundException Argument required not found.
      * @throws NullPointerException When the command does not exist.
      * @throws NumberFormatException If the argument of type double is not supplied as type double.
      * @throws FileReadWriteException when there is error to write into text file.
@@ -74,8 +72,6 @@ public class MediTracker {
                 System.out.println("Dosage/Quantity should be of type double!");
             } catch (FileReadWriteException e) {
                 throw new FileReadWriteException("IO Error: Unable to write to text File");
-            } catch (Exception e) {
-                throw new RuntimeException(e);
             }
             if (command != null) {
                 isExit = command.isExit();
@@ -86,7 +82,9 @@ public class MediTracker {
     /**
      * Starts the MediTracker application.
      * It creates a new MediTracker object and calls its run() method.
+     *
      * @param args Command-line arguments.
+     * @throws FileReadWriteException when there is error to write into text file.
      */
     public static void main(String[] args) throws FileReadWriteException {
         MediLogger.initialiseLogger();

@@ -31,7 +31,7 @@ public class TakeCommandTest {
             throws ArgumentNotFoundException, DuplicateArgumentFoundException, FileReadWriteException {
         MedicationManager medicationManager = new MedicationManager();
         DailyMedication dailyMedication = new DailyMedication("Medication_A");
-        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
+        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);  //only test Morning for now
 
         String inputString = "take -l 1";
         TakeCommand command = new TakeCommand(inputString);

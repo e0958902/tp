@@ -83,6 +83,7 @@ public class ModifyCommand extends Command {
                 // Update medication name in DailyMedication
                 DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, Period.MORNING);
                 dailyMedication.setName(argumentValue);
+                // TODO: update afternoon and evening list
                 break;
             case QUANTITY:
                 medication.setQuantity(Double.parseDouble(argumentValue));

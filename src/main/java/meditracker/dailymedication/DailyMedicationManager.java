@@ -191,6 +191,7 @@ public class DailyMedicationManager {
     public static void takeDailyMedication(int listIndex) throws FileReadWriteException {
         DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, Period.MORNING);
         dailyMedication.take();
+        // TODO: afternoon and evening
         try {
             FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
         } catch (FileReadWriteException e) {
@@ -208,6 +209,7 @@ public class DailyMedicationManager {
     public static void untakeDailyMedication(int listIndex) throws FileReadWriteException {
         DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, Period.MORNING);
         dailyMedication.untake();
+        // TODO: afternoon and evening
         try {
             FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
         } catch (FileReadWriteException e) {

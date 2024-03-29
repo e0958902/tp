@@ -1,5 +1,6 @@
 package meditracker.command;
 
+import meditracker.exception.FileReadWriteException;
 import meditracker.medication.MedicationManager;
 
 public abstract class Command {
@@ -10,7 +11,7 @@ public abstract class Command {
      *
      * @param medicationManager      The MedicationList object representing the list of medications.
      */
-    public abstract void execute(MedicationManager medicationManager) throws Exception;
+    public abstract void execute(MedicationManager medicationManager) throws FileReadWriteException;
 
     /**
      * Returns the boolean to exit the program.

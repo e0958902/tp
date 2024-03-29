@@ -40,7 +40,6 @@ public class TakeCommand extends Command {
      * It also displays a message confirming the modification of the daily medication status.
      *
      * @param medicationManager      The MedicationManager object representing the list of medications.
-     * @throws FileReadWriteException when there is error to write into text file.
      */
     @Override
     public void execute(MedicationManager medicationManager) throws FileReadWriteException {
