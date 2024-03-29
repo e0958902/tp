@@ -17,7 +17,6 @@ public class ModifyCommandTest {
     @Test
     void execute_inOrderArgument_expectMedicationModified()
             throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
-        MedicationManager medicationManager = new MedicationManager();
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
@@ -30,7 +29,7 @@ public class ModifyCommandTest {
                 "cause_dizziness",
                 1,
                 87);
-        medicationManager.addMedication(medication);
+        MedicationManager.addMedication(medication);
 
         DailyMedication dailyMedication = new DailyMedication("Medication_A");
         DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
@@ -38,16 +37,15 @@ public class ModifyCommandTest {
         String newName = "Medication_B";
         String inputString = "modify -l 1 -n " + newName;
         ModifyCommand command = new ModifyCommand(inputString);
-        command.execute(medicationManager);
+        command.execute();
 
-        Medication updatedMedication = medicationManager.getMedication(1);
+        Medication updatedMedication = MedicationManager.getMedication(1);
         assertEquals(updatedMedication.getName(), newName);
     }
 
     @Test
     void execute_outOfOrderArgument_expectMedicationModified()
             throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
-        MedicationManager medicationManager = new MedicationManager();
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
@@ -60,14 +58,14 @@ public class ModifyCommandTest {
                 "cause_dizziness",
                 1,
                 87);
-        medicationManager.addMedication(medication);
+        MedicationManager.addMedication(medication);
 
         String newName = "Medication_B";
         String inputString = String.format("modify -n %s -l 1", newName);
         ModifyCommand command = new ModifyCommand(inputString);
-        command.execute(medicationManager);
+        command.execute();
 
-        Medication updatedMedication = medicationManager.getMedication(1);
+        Medication updatedMedication = MedicationManager.getMedication(1);
         assertTrue(updatedMedication.getName().equals(newName));
     }
 }
