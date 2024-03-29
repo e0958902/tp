@@ -102,6 +102,13 @@ public class Ui {
         return input.nextLine();
     }
 
+
+    /**
+     * Prints the medication list
+     *
+     * @param medications The list of medications
+     * @param <T> Generic class for code reusability
+     */
     public static <T> void printMedsList(List<T> medications) {
         for (T medication : medications) {
             int numbering = medications.indexOf(medication) + 1;
