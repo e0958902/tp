@@ -264,18 +264,22 @@ public class DailyMedicationManager {
      * @return true if medication can be added to today's list
      */
     private static boolean shouldAddToDailyList(Medication medication) {
-        Repeat repeat = Repeat.repeatDays(medication.getRepeat());
+        int num = medication.getRepeat();
 
-        switch (repeat) {
-        case DAILY:
-            return true;                       //everyday
-        case EVERY_OTHER_DAY:
+        switch (num) {
+        case 1:
+            return true;                     //everyday
+        case 2:
             return isNDay(medication, 2); //every 2 days
-        case EVERY_3_DAYS:
+        case 3:
             return isNDay(medication, 3); //every 3 days
-        case EVERY_4_DAYS:
+        case 4:
             return isNDay(medication, 4); //every 4 days
-        case EVERY_WEEK:
+        case 5:
+            return isNDay(medication, 5); //every 5 days
+        case 6:
+            return isNDay(medication, 6); //every 6 days
+        case 7:
             return isNDay(medication, 7); //every 7 days
         default:
             return false;
