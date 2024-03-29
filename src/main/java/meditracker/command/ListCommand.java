@@ -1,13 +1,18 @@
 package meditracker.command;
 
-import meditracker.DailyMedicationManager;
+import meditracker.argument.ArgumentHelper;
+import meditracker.dailymedication.DailyMedication;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListTypeArgument;
+import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.dailymedication.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
 import meditracker.medication.MedicationManager;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,17 +21,29 @@ import java.util.Map;
  */
 public class ListCommand extends Command {
 
-    public ArgumentList argumentList = new ArgumentList(
+    public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
             new ListTypeArgument(false));
+
+    public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.LIST, ARGUMENT_LIST);
 
     private final Map<ArgumentName, String> parsedArguments;
 
-    public ListCommand(String arguments) throws ArgumentNotFoundException, DuplicateArgumentFoundException {
-        parsedArguments = argumentList.parse(arguments);
+    /**
+     * Constructs a ListCommand object with the specified arguments.
+     *
+     * @param arguments The arguments containing information to be parsed.
+     * @throws ArgumentNotFoundException Argument flag specified not found
+     * @throws DuplicateArgumentFoundException Duplicate argument flag found
+     * @throws HelpInvokedException When help argument is used or help message needed
+     */
+    public ListCommand(String arguments)
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+        parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
     /**
-     * Executes the list command.
+     * Executes the list command and performs its specific task, -t.
+     * Uses a switch to do a, list all and, list today
      *
      * @param medicationManager      The MedicationManager object representing the list of medications.
      */
@@ -39,7 +56,22 @@ public class ListCommand extends Command {
             medicationManager.printAllMedications();
             break;
         case "today":
-            DailyMedicationManager.printMedications();
+            DailyMedicationManager.printTodayMedications(medicationManager.getMedications());
+            break;
+        case "today-m":
+            List<DailyMedication> morningMedications = DailyMedicationManager.getDailyMedications(Period.MORNING);
+            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
+                    morningMedications, "Morning:");
+            break;
+        case "today-a":
+            List<DailyMedication> afternoonMedications = DailyMedicationManager.getDailyMedications(Period.AFTERNOON);
+            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
+                    afternoonMedications, "Afternoon:");
+            break;
+        case "today-e":
+            List<DailyMedication> eveningMedications = DailyMedicationManager.getDailyMedications(Period.EVENING);
+            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
+                    eveningMedications, "Evening:");
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + listTypeString);

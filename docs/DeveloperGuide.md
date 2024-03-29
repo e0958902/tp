@@ -12,6 +12,7 @@ Additional Packages used: JSON
 
 ## Setting up and getting started
 
+
 ## Design & implementation
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
@@ -28,15 +29,40 @@ Given below is an example usage scenario and how the add command behaves at each
 
 ---
 
+### List Medication Command
+The list medication command extends from Command parent class and contains the following methods:
+- execute(MedicationManager medicationManager) - Executes the list command and performs its specific task, -t.
+```Where the task can be either 'list -t all' to list all medications or 'list -t today' to list medications for the day, which is divided into three categories -> Morning, Afternoon and Evening. ```
+
+The 'list -t' command requires the following:
+1. 'all' - to run printAllMedications() from the MedicationManager.
+2. 'today' - to run printMedications() from the DailyMedicationManager.
+3. 'today -m' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+   from the DailyMedicationManager
+4. 'today -a' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+   from the DailyMedicationManager
+5. 'today -e' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+   from the DailyMedicationManager
+
+### Search Medication Command
+The search medication command extends from Command parent class and contains the following methods:
+- execute(MedicationManager, DailyMedicationManager, Ui) - Searches the local medication library for medication names,
+what illnesses they treat and their side effects, and prints the results to the user.
+
+The 'search' command requires the following:
+1. To be added.
+
 ### Utilising the argument parser
 The `ArgumentParser` requires the following to work:
 1. `ArgumentList` object
 2. Raw user input in `String`
 
-The `ArgumentList` object constitutes to a combination of `Argument` objects. The constructor for 
+The `ArgumentList` object constitutes a combination of `Argument` objects. The constructor for 
 the `ArgumentList` takes in a variable amount of `Argument`-extended classes. Additional assertion
 tests have been added to ensure that certain attributes of the `Argument` classes do not clash with
-one another.
+one another. `HelpArgument` is automatically added when an `ArgumentList` object is instantiated.
+Calling `ArgumentList.parse` with empty `String` or invoking with the argument `-h` will trigger the
+help message to be printed on the console.
 
 An `Argument` object consists of the following:
 1. `name`: Name of the argument, uses enum type `ArgumentName` as this value is used by `ArgumentParser` as well
@@ -46,7 +72,7 @@ An `Argument` object consists of the following:
 5. `isOptional`: A `boolean` value to specify whether this argument is optional or not. This value is utilised
 by the `ArgumentParser` to determine whether the argument is required, and will throw a `ArgumentNotFound` 
 exception if this argument is required but not found in user specified argument string.
-6. `hasNoValue`: A `boolean` value to specify whether this argument has a corresponding value tied to it. 
+6. `hasValue`: A `boolean` value to specify whether this argument has a corresponding value tied to it. 
 `ArgumentParser` requires this to know whether to take the value specified by the user.
 
 Additional information regarding the `ArgumentName` enum:
@@ -74,19 +100,26 @@ Overview of the `meditracker.argument` core classes:
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+People who are taking medications on a daily basis.
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+MediTracker ensures that you would now forget your overall schedule on what time and day to take your medication.
+Ensuring that you would not forget your next dose of medication.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
-|v1.0|multipurpose user|Store data locally|Use the application and see the data even when offline between sessions|
+|Version| As a ...          | I want to ...                                                | So that I can ...                                                                                                                                      |
+|--------|-------------------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|v1.0| user              | enter my medications with its relevant information in one go | add my medication entry efficiently and refer to them when I forget my medication information                                                          |
+|v1.0| user              | indicate the medications that I have taken                   | know when is my next dose and how well I am following doctors orders, and show how well I am taking my medications at the appropriate times of the day |
+|v1.0| user              | know what medications i have to take throughout the day      | mark them as takenor not, thus not miss or forget to take what I have to take for the day                                                              |
+|v1.0| user              | edit the details in my medication list                       | ensure that its medication information is up-to-date with my medifications                                                                             |
+|v1.0| user              | delete medications medication list                           | remove medications that I do not need will not be there anymore                                                                                        |
+|v1.0| user              | search medications from existing medicine library            | search medications locally to have a quick preview of them and their purpose without the web                                                           |
+|v1.0| multipurpose user | Store data locally                                           | Use the application and see the data even when offline between sessions                                                                                |
+|v1.0| user              | know the list of medications I have added                    | have a quick overview of the medication list and check the quantity and expiry date of each medication                                                 |
+|v2.0| user              | find a to-do item by name                                    | locate a to-do without having to go through the entire list                                                                                            |
 
 ## Non-Functional Requirements
 {Give non-functional requirements}

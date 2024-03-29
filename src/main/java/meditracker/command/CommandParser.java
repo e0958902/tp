@@ -1,31 +1,45 @@
 package meditracker.command;
 
 import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.CommandNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
-import meditracker.exception.MediTrackerException;
+import meditracker.exception.HelpInvokedException;
 
 /**
  * The Parser class parses user input commands into Command objects.
  */
 public class CommandParser {
+    private final CommandName commandName;
+    private final String arguments;
 
     /**
-     * Parses a full command string into a Command object.
+     * Parses a full command string into a CommandName enum and arguments.
      *
      * @param fullCommand The full command string entered by the user.
+     * @throws CommandNotFoundException Command specified not found
+     */
+    public CommandParser(String fullCommand) throws CommandNotFoundException {
+        if (fullCommand.isEmpty()) {
+            throw new CommandNotFoundException();
+        }
+
+        String[] commands = fullCommand.split(" ", 2);
+        arguments = (commands.length == 2) ? commands[1] : "";
+        commandName = CommandName.valueOfLabel(commands[0]);
+    }
+
+    /**
+     * Gets the Command object based on the CommandName enum type
+     *
      * @return A Command object corresponding to the parsed command.
-     * @throws MediTrackerException If an error occurs during parsing.
-     * @throws NullPointerException      If the fullCommand is null.
      * @throws ArgumentNotFoundException When argument required not found
      * @throws DuplicateArgumentFoundException When duplicate argument found
+     * @throws HelpInvokedException When help argument is used or help message needed
+     * @throws CommandNotFoundException Command specified not found
      */
-    public static Command parse(String fullCommand)
-            throws MediTrackerException, NullPointerException,
-            ArgumentNotFoundException, DuplicateArgumentFoundException {
-        String[] commands = fullCommand.split(" ", 2);
-        String arguments = (commands.length == 2) ? commands[1] : "";
-        CommandName commandName = CommandName.valueOfLabel(commands[0]);
-
+    public Command getCommand()
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException,
+            CommandNotFoundException {
         switch (commandName) {
         case EXIT:
             return new ExitCommand();
@@ -43,9 +57,14 @@ public class CommandParser {
             return new TakeCommand(arguments);
         case UNTAKE:
             return new UntakeCommand(arguments);
+        case UNKNOWN:
+            // fall through
         default:
-            String errorContext = "Invalid MediTracker command! Please refer to the user guide. hello";
-            throw new MediTrackerException(errorContext);
+            throw new CommandNotFoundException();
         }
+    }
+
+    public CommandName getCommandName() {
+        return commandName;
     }
 }

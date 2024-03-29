@@ -1,9 +1,10 @@
 package meditracker.command;
 
-import meditracker.DailyMedication;
-import meditracker.DailyMedicationManager;
+import meditracker.argument.ArgumentHelper;
+import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.ui.Ui;
@@ -21,6 +22,7 @@ import meditracker.argument.ExpirationDateArgument;
 import meditracker.argument.IntakeFrequencyArgument;
 import meditracker.argument.RemarksArgument;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 /**
@@ -32,7 +34,7 @@ public class AddCommand extends Command {
     /**
      * The argumentList contains all the arguments needed for adding a medication.
      */
-    public final ArgumentList argumentList = new ArgumentList(
+    public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
             new NameArgument(false),
             new QuantityArgument(false),
             new DosageArgument(false),
@@ -41,13 +43,14 @@ public class AddCommand extends Command {
             new DosageEveningArgument(true),
             new ExpirationDateArgument(false),
             new IntakeFrequencyArgument(false),
-            new RepeatArgument(true),
-            new RemarksArgument(true)
+            new RemarksArgument(true),
+            new RepeatArgument(true)
     );
+
+    public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.ADD, ARGUMENT_LIST);
 
     private final Map<ArgumentName, String> parsedArguments;
 
-    private String medicationName;
     private double medicationQuantity;
     private double medicationDosage;
     private double medicationDosageMorning = 0.0;
@@ -60,9 +63,11 @@ public class AddCommand extends Command {
      * @param arguments The arguments containing medication information to be parsed.
      * @throws ArgumentNotFoundException if a required argument is not found.
      * @throws DuplicateArgumentFoundException Duplicate argument found
+     * @throws HelpInvokedException When help argument is used
      */
-    public AddCommand(String arguments) throws ArgumentNotFoundException, DuplicateArgumentFoundException {
-        parsedArguments = argumentList.parse(arguments);
+    public AddCommand(String arguments)
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+        parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
     /**
@@ -79,9 +84,8 @@ public class AddCommand extends Command {
             NumberFormatException {
 
         Medication medication = createMedication();
-        DailyMedication dailyMedication = new DailyMedication(medicationName);
         medicationManager.addMedication(medication);
-        DailyMedicationManager.addDailyMedication(dailyMedication);
+        DailyMedicationManager.checkForDaily(medication);
         assertionTest(medicationManager);
         Ui.showAddCommandMessage();
     }
@@ -93,11 +97,11 @@ public class AddCommand extends Command {
      * @throws NullPointerException  if any of the required arguments are null.
      */
     private Medication createMedication() throws NumberFormatException, NullPointerException {
-        medicationName = parsedArguments.get(ArgumentName.NAME);
+        String medicationName = parsedArguments.get(ArgumentName.NAME);
         String expiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
         String intakeFreq = parsedArguments.get(ArgumentName.INTAKE_FREQUENCY);
         String remarks = parsedArguments.get(ArgumentName.REMARKS);
-        String repeat = parsedArguments.get(ArgumentName.REPEAT);
+        int repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
 
         String medicationQuantityArg = parsedArguments.get(ArgumentName.QUANTITY);
         String medicationDosageArg = parsedArguments.get(ArgumentName.DOSAGE);
@@ -108,9 +112,12 @@ public class AddCommand extends Command {
         parseStringToValues(medicationQuantityArg, medicationDosageArg, medicationDosageMorningArg,
                 medicationDosageAfternoonArg, medicationDosageEveningArg);
 
+        LocalDate currentDate = LocalDate.now();
+        int dayAdded = currentDate.getDayOfYear();
+
         return new Medication(medicationName, medicationQuantity, medicationDosage,
                 medicationDosageMorning, medicationDosageAfternoon, medicationDosageEvening,
-                expiryDate, intakeFreq, repeat, remarks);
+                expiryDate, intakeFreq, remarks, repeat, dayAdded);
     }
 
     /**
@@ -120,8 +127,6 @@ public class AddCommand extends Command {
      */
     private void assertionTest(MedicationManager medicationManager) {
         assert medicationManager.getTotalMedications() != 0 : "Total medications in medication " +
-                "manager should not be 0!";
-        assert DailyMedicationManager.getTotalDailyMedication() != 0 : "Total medications in daily medication " +
                 "manager should not be 0!";
     }
 

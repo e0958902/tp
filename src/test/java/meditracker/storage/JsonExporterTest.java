@@ -35,7 +35,8 @@ public class JsonExporterTest {
                 "23/11/24",
                 "2",
                 "No Remarks",
-                ""
+                1,
+                87
         );
 
         Medication med2 = new Medication(
@@ -48,7 +49,8 @@ public class JsonExporterTest {
                 "01/01/25",
                 "4",
                 "",
-                ""
+                1,
+                87
         );
 
         Medication med3 = new Medication(
@@ -61,7 +63,8 @@ public class JsonExporterTest {
                 "",
                 "",
                 "null",
-                ""
+                1,
+                87
         );
 
         medManager.addMedication(med1);

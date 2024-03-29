@@ -17,7 +17,8 @@ public class Medication {
     private String expiryDate;
     private String intakeFreq;
     private String remarks;
-    private String repeat;
+    private int repeat;
+    private int dayAdded;
 
     /**
      * Constructs a new Medication object with default placeholder values.
@@ -53,7 +54,7 @@ public class Medication {
      */
     public Medication(String name, Double quantity, Double dosage, Double dosageMorning, Double dosageAfternoon,
                       Double dosageEvening, String expiryDate,
-                      String intakeFreq, String remarks, String repeat) {
+                      String intakeFreq, String remarks, int repeat, int dayAdded) {
         this.name = name;
         this.quantity = quantity;
         this.dosage = dosage;
@@ -64,6 +65,7 @@ public class Medication {
         this.intakeFreq = intakeFreq;
         this.remarks = remarks;
         this.repeat = repeat;
+        this.dayAdded = dayAdded;
     }
 
     public String getName() {
@@ -138,16 +140,19 @@ public class Medication {
         this.remarks = remarks;
     }
 
-    public String getRepeat() {
+    public int getRepeat() {
         return repeat;
     }
 
-    public void setRepeat(String repeat) {
+    public void setRepeat(int repeat) {
         this.repeat = repeat;
+    }
+    public int getDayAdded() {
+        return dayAdded;
     }
 
     @Override
     public String toString() {
-        return getName() + " | " + getQuantity() + " | " + getDosage();
+        return getName() + " | " + getQuantity() +  " | " + getExpiryDate() + " | " + getRemarks();
     }
 }

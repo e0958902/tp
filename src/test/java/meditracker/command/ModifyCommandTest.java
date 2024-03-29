@@ -1,7 +1,11 @@
 package meditracker.command;
 
+import meditracker.dailymedication.DailyMedication;
+import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.dailymedication.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import org.junit.jupiter.api.Test;
@@ -12,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ModifyCommandTest {
     @Test
     void execute_inOrderArgument_expectMedicationModified()
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException {
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
         MedicationManager medicationManager = new MedicationManager();
         Medication medication = new Medication(
                 "Medication_A",
@@ -24,8 +28,12 @@ public class ModifyCommandTest {
                 "01/07/25",
                 "morning",
                 "cause_dizziness",
-                "");
+                1,
+                87);
         medicationManager.addMedication(medication);
+
+        DailyMedication dailyMedication = new DailyMedication("Medication_A");
+        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
 
         String newName = "Medication_B";
         String inputString = "modify -l 1 -n " + newName;
@@ -38,19 +46,20 @@ public class ModifyCommandTest {
 
     @Test
     void execute_outOfOrderArgument_expectMedicationModified()
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException {
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
         MedicationManager medicationManager = new MedicationManager();
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
                 500.0,
-                null,
+                300.0,
                 null,
                 null,
                 "01/07/25",
                 "morning",
                 "cause_dizziness",
-                "");
+                1,
+                87);
         medicationManager.addMedication(medication);
 
         String newName = "Medication_B";
