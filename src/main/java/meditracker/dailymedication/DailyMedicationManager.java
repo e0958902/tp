@@ -121,6 +121,7 @@ public class DailyMedicationManager {
      * Also converts the index to 0-based indexing before being used.
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
+     * @param period Time period of day (Morning, afternoon or evening)
      * @return DailyMedication object at the corresponding index (0-based indexing)
      * @throws IndexOutOfBoundsException Out of range index specified
      */
@@ -139,7 +140,13 @@ public class DailyMedicationManager {
         }
     }
 
-    public static List<DailyMedication> getDailyMedications (Period period) {
+    /**
+     * Gets the relevant list of DailyMedication objects depending on the time period of day
+     *
+     * @param period Time period of day (Morning, afternoon or evening)
+     * @return The relevant list of DailyMedication objects
+     */
+    public static List<DailyMedication> getDailyMedications(Period period) {
         switch (period) {
         case MORNING:
             return morningMedications;
