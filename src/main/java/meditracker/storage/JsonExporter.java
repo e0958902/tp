@@ -42,15 +42,14 @@ class JsonExporter {
     /**
      * Populates the JSON array with Medication information in JSON form.
      *
-     * @param medManager The instance of the MedicationManager.
      * @return JSON array containing a list of medication in JSON form.
      */
-    private static JSONArray populateJsonMedicationList(MedicationManager medManager){
+    private static JSONArray populateJsonMedicationList(){
         JSONArray medicationList = new JSONArray();
-        int numberOfMedication = medManager.getTotalMedications();
+        int numberOfMedication = MedicationManager.getTotalMedications();
         // Start with 1 since the `getMedication` method will be converting from 1-based to 0-based
         for (int i = 1; i <= numberOfMedication; i++) {
-            Medication medicationInfo = medManager.getMedication(i);
+            Medication medicationInfo = MedicationManager.getMedication(i);
             JSONObject medObject = convertMedicationInfoToJsonObject(medicationInfo);
             medicationList.put(medObject);
         }
@@ -77,10 +76,9 @@ class JsonExporter {
     /**
      * Save all the medication information into a JSON file.
      *
-     * @param medManager The instance of the MedicationManager
      * @param fileToWrite The File object containing the abstract pathname of the JSON file to write to.
      */
-    static void saveMedicationDataToJson(MedicationManager medManager, File fileToWrite) {
+    static void saveMedicationDataToJson(File fileToWrite) {
         // Solution on how to write to a JSON file is adapted from:
         // https://stackoverflow.com/a/62947435
         // and https://javadoc.io/doc/org.json/json/latest/org/json/JSONObject.html
@@ -89,7 +87,7 @@ class JsonExporter {
         JSONObject rootData = new JSONObject();
         rootData.put("version", 1.0);
 
-        JSONArray medicationList = populateJsonMedicationList(medManager);
+        JSONArray medicationList = populateJsonMedicationList();
         rootData.put("medicationList", medicationList);
 
         writeJsonData(rootData, fileToWrite);
