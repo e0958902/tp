@@ -6,7 +6,7 @@ import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListTypeArgument;
 import meditracker.dailymedication.DailyMedicationManager;
-import meditracker.dailymedication.Period;
+import meditracker.time.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;

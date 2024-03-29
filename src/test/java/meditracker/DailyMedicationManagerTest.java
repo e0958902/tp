@@ -3,7 +3,7 @@ package meditracker;
 import meditracker.command.AddCommand;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
-import meditracker.dailymedication.Period;
+import meditracker.time.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.FileReadWriteException;
