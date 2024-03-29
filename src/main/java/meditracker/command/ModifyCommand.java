@@ -1,8 +1,7 @@
 package meditracker.command;
 
-import meditracker.DailyMedication;
-import meditracker.DailyMedicationManager;
 import meditracker.argument.ArgumentHelper;
+import meditracker.dailymedication.DailyMedication;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.DosageArgument;
@@ -12,6 +11,8 @@ import meditracker.argument.ListIndexArgument;
 import meditracker.argument.NameArgument;
 import meditracker.argument.QuantityArgument;
 import meditracker.argument.RemarksArgument;
+import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.dailymedication.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
@@ -84,8 +85,9 @@ public class ModifyCommand extends Command {
                 medication.setName(argumentValue);
 
                 // Update medication name in DailyMedication
-                DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex);
+                DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, Period.MORNING);
                 dailyMedication.setName(argumentValue);
+                // TODO: update afternoon and evening list
                 break;
             case QUANTITY:
                 medication.setQuantity(Double.parseDouble(argumentValue));

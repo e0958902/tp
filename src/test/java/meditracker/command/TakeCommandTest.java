@@ -1,8 +1,10 @@
 package meditracker.command;
 
-import meditracker.DailyMedication;
-import meditracker.DailyMedicationManager;
+import meditracker.dailymedication.DailyMedication;
+import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.dailymedication.Period;
 import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.FileReadWriteException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,9 +28,10 @@ public class TakeCommandTest {
 
     @Test
     void execute_inOrderArgument_expectDailyMedicationTaken()
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException,
+            FileReadWriteException {
         DailyMedication dailyMedication = new DailyMedication("Medication_A");
-        DailyMedicationManager.addDailyMedication(dailyMedication);
+        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);  //only test Morning for now
 
         String inputString = "take -l 1";
         TakeCommand command = new TakeCommand(inputString);

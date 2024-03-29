@@ -4,9 +4,11 @@ import meditracker.argument.ArgumentHelper;
 import meditracker.command.Command;
 import meditracker.command.CommandName;
 import meditracker.command.CommandParser;
+import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.CommandNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.FileReadWriteException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.logging.MediLogger;
 import meditracker.medication.MedicationManager;
@@ -46,8 +48,10 @@ public class MediTracker {
      * Runs the MediTracker application.
      * This method displays a welcome message, reads user commands, and processes them until the user exits the
      * application.
+     *
+     * @throws FileReadWriteException when there is error to write into text file.
      */
-    public void run() {
+    public void run() throws FileReadWriteException {
         //@@author nickczh-reused
         //Reused from https://github.com/nickczh/ip
         //with minor modifications
@@ -79,7 +83,11 @@ public class MediTracker {
                 continue;
             }
 
-            command.execute(medicationManager);
+            try {
+                command.execute(medicationManager);
+            } catch (FileReadWriteException e) {
+                throw new FileReadWriteException("IO Error: Unable to write to text File");
+            }
             isExit = command.isExit();
         }
     }
@@ -87,9 +95,11 @@ public class MediTracker {
     /**
      * Starts the MediTracker application.
      * It creates a new MediTracker object and calls its run() method.
+     *
      * @param args Command-line arguments.
+     * @throws FileReadWriteException when there is error to write into text file.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileReadWriteException {
         MediLogger.initialiseLogger();
 
         List<String> dailyMedicationList = FileReaderWriter.loadDailyMedicationData();

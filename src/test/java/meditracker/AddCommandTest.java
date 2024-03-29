@@ -17,7 +17,8 @@ class AddCommandTest {
     void execute_addCommand_expectOneMedication()
             throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
         // setup lines
-        String inputString = "add -n Medication_A -q 60 -d 500 -e 01/07/25 -f morning -r cause_dizziness";
+        String inputString = "add -n Medication_A -q 60.0 -d 500.0 -e 01/07/25 -f morning -dM 500.0 -dA 250.0 "
+                + "-r cause_dizziness -rep 1";
         MedicationManager medicationManager = new MedicationManager();
         AddCommand command = new AddCommand(inputString);
         command.execute(medicationManager);

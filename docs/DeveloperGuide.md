@@ -12,6 +12,7 @@ Additional Packages used: JSON
 
 ## Setting up and getting started
 
+
 ## Design & implementation
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
@@ -27,6 +28,21 @@ Given below is an example usage scenario and how the add command behaves at each
 - Step 2. To be added.
 
 ---
+
+### List Medication Command
+The list medication command extends from Command parent class and contains the following methods:
+- execute(MedicationManager medicationManager) - Executes the list command and performs its specific task, -t.
+```Where the task can be either 'list -t all' to list all medications or 'list -t today' to list medications for the day, which is divided into three categories -> Morning, Afternoon and Evening. ```
+
+The 'list -t' command requires the following:
+1. 'all' - to run printAllMedications() from the MedicationManager.
+2. 'today' - to run printMedications() from the DailyMedicationManager.
+3. 'today -m' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+   from the DailyMedicationManager
+4. 'today -a' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+   from the DailyMedicationManager
+5. 'today -e' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+   from the DailyMedicationManager
 
 ### Utilising the argument parser
 The `ArgumentParser` requires the following to work:
@@ -76,19 +92,25 @@ Overview of the `meditracker.argument` core classes:
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+People who are taking medications on a daily basis.
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+MediTracker ensures that you would now forget your overall schedule on what time and day to take your medication.
+Ensuring that you would not forget your next dose of medication.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
-|v1.0|multipurpose user|Store data locally|Use the application and see the data even when offline between sessions|
+|Version| As a ...          | I want to ...                                                | So that I can ...                                                                                                                                      |
+|--------|-------------------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|v1.0| user              | enter my medications with its relevant information in one go | add my medication entry efficiently and refer to them when I forget my medication information                                                          |
+|v1.0| user              | indicate the medications that I have taken                   | know when is my next dose and how well I am following doctors orders, and show how well I am taking my medications at the appropriate times of the day |
+|v1.0| user              | know what medications i have to take throughout the day      | mark them as takenor not, thus not miss or forget to take what I have to take for the day                                                              |
+|v1.0| user              | edit the details in my medication list                       | ensure that its medication information is up-to-date with my medifications                                                                             |
+|v1.0| user              | delete medications medication list                           | remove medications that I do not need will not be there anymore                                                                                       |
+|v1.0| user              | search medications from existing medicine library            | search medications locally to have a quick preview of them and their purpose without the web
+|v1.0| multipurpose user | Store data locally                                           | Use the application and see the data even when offline between sessions                                                                                |
+|v2.0| user              | find a to-do item by name                                    | locate a to-do without having to go through the entire list                                                                                            |
 
 ## Non-Functional Requirements
 {Give non-functional requirements}

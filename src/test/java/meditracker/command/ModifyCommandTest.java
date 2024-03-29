@@ -1,5 +1,8 @@
 package meditracker.command;
 
+import meditracker.dailymedication.DailyMedication;
+import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.dailymedication.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
@@ -25,8 +28,12 @@ public class ModifyCommandTest {
                 "01/07/25",
                 "morning",
                 "cause_dizziness",
-                "");
+                1,
+                87);
         medicationManager.addMedication(medication);
+
+        DailyMedication dailyMedication = new DailyMedication("Medication_A");
+        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
 
         String newName = "Medication_B";
         String inputString = "modify -l 1 -n " + newName;
@@ -45,13 +52,14 @@ public class ModifyCommandTest {
                 "Medication_A",
                 60.0,
                 500.0,
-                null,
+                300.0,
                 null,
                 null,
                 "01/07/25",
                 "morning",
                 "cause_dizziness",
-                "");
+                1,
+                87);
         medicationManager.addMedication(medication);
 
         String newName = "Medication_B";

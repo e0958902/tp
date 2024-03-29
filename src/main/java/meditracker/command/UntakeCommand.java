@@ -1,11 +1,12 @@
 package meditracker.command;
 
-import meditracker.DailyMedicationManager;
 import meditracker.argument.ArgumentHelper;
+import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListIndexArgument;
 import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.FileReadWriteException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.medication.MedicationManager;
@@ -43,9 +44,10 @@ public class UntakeCommand extends Command {
      * It also displays a message confirming the modification of the daily medication status.
      *
      * @param medicationManager      The MedicationManager object representing the list of medications.
+     * @throws FileReadWriteException when there is error to write into text file.
      */
     @Override
-    public void execute(MedicationManager medicationManager) {
+    public void execute(MedicationManager medicationManager) throws FileReadWriteException {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
         DailyMedicationManager.untakeDailyMedication(listIndex);
