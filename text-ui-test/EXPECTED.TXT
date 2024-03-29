@@ -24,7 +24,7 @@ ____________________________________________________________
 Medicine has been successfully added!
 ____________________________________________________________
 You have 1 medications listed below.
-	Format: Name | Quantity | Dosage | Expiry Date | Remarks
+Format: Name | Quantity | Expiry Date | Remarks
 	1. Medication_A | 60.0 | 01/07/25 | 1
 ____________________________________________________________
 Thank you for using MediTracker. Hope to see you again!
