@@ -16,7 +16,6 @@ import java.io.File;
  * A class to test the JSON export functionality.
  */
 public class JsonExporterTest {
-    private static MedicationManager medManager = new MedicationManager();
     private static File exportedJsonFile = null;
 
     /**
@@ -67,9 +66,9 @@ public class JsonExporterTest {
                 87
         );
 
-        medManager.addMedication(med1);
-        medManager.addMedication(med2);
-        medManager.addMedication(med3);
+        MedicationManager.addMedication(med1);
+        MedicationManager.addMedication(med2);
+        MedicationManager.addMedication(med3);
     }
 
     @BeforeEach
@@ -91,6 +90,6 @@ public class JsonExporterTest {
 
     @Test
     public void placeHolder() {
-        JsonExporter.saveMedicationDataToJson(medManager, exportedJsonFile);
+        JsonExporter.saveMedicationDataToJson(exportedJsonFile);
     }
 }
