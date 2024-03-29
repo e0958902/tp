@@ -82,7 +82,7 @@ public class DailyMedicationManagerTest {
         DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
 
         int actualIndex = 1; // 1-based indexing
-        DailyMedicationManager.takeDailyMedication(actualIndex);
+        DailyMedicationManager.takeDailyMedication(actualIndex, Period.MORNING);
         DailyMedication dailyMedicationTest = DailyMedicationManager.getDailyMedication(actualIndex, Period.MORNING);
         assertTrue(dailyMedicationTest.isTaken());
     }
@@ -95,7 +95,7 @@ public class DailyMedicationManagerTest {
         DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
 
         int actualIndex = 1; // 1-based indexing
-        DailyMedicationManager.untakeDailyMedication(actualIndex);
+        DailyMedicationManager.untakeDailyMedication(actualIndex, Period.MORNING);
         DailyMedication dailyMedicationTest = DailyMedicationManager.getDailyMedication(actualIndex, Period.MORNING);
         assertFalse(dailyMedicationTest.isTaken());
     }

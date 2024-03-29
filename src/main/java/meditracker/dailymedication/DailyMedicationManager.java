@@ -190,13 +190,14 @@ public class DailyMedicationManager {
      * Fetches the corresponding DailyMedication and set the medication to taken
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
+     * @param period Time period of day (Morning, afternoon or evening)
      * @throws FileReadWriteException when unable to write to textfile
      * @see DailyMedication#take()
      */
-    public static void takeDailyMedication(int listIndex) throws FileReadWriteException {
-        DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, Period.MORNING);
+    public static void takeDailyMedication(int listIndex, Period period) throws FileReadWriteException {
+        DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, period);
         dailyMedication.take();
-        // TODO: afternoon and evening
+
         try {
             FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
         } catch (FileReadWriteException e) {
@@ -208,13 +209,14 @@ public class DailyMedicationManager {
      * Fetches the corresponding DailyMedication and set the medication to not taken
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
+     * @param period Time period of day (Morning, afternoon or evening)
      * @throws FileReadWriteException when unable to write to textfile
      * @see DailyMedication#untake()
      */
-    public static void untakeDailyMedication(int listIndex) throws FileReadWriteException {
-        DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, Period.MORNING);
+    public static void untakeDailyMedication(int listIndex, Period period) throws FileReadWriteException {
+        DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, period);
         dailyMedication.untake();
-        // TODO: afternoon and evening
+
         try {
             FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
         } catch (FileReadWriteException e) {
