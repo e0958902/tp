@@ -129,7 +129,6 @@ public class Medication {
 
     @Override
     public String toString() {
-        return getName() + " | " + getQuantity() + " | " + getDosage() + " | " +
-                getExpiryDate() + " | " + getIntakeFreq() + " | " + getRemarks();
+        return getName() + " | " + getQuantity() +  " | " + getExpiryDate() + " | " + getRemarks();
     }
 }
