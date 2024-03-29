@@ -75,18 +75,17 @@ public class AddCommand extends Command {
      * This method creates a new Medication object using the provided information and adds it to the medication list.
      * It also displays a message confirming the addition of the medication.
      *
-     * @param medicationManager      The MedicationManager object representing the list of medications.
      * @throws NullPointerException   if any of the required objects are null.
      * @throws NumberFormatException  if there is an error in parsing numeric values.
      */
     @Override
-    public void execute(MedicationManager medicationManager) throws NullPointerException,
+    public void execute() throws NullPointerException,
             NumberFormatException {
 
         Medication medication = createMedication();
-        medicationManager.addMedication(medication);
+        MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
-        assertionTest(medicationManager);
+        assertionTest();
         Ui.showAddCommandMessage();
     }
 
@@ -123,10 +122,9 @@ public class AddCommand extends Command {
     /**
      * Performs assertion tests for medication and daily medication managers.
      *
-     * @param medicationManager      The MedicationManager object representing the list of medications.
      */
-    private void assertionTest(MedicationManager medicationManager) {
-        assert medicationManager.getTotalMedications() != 0 : "Total medications in medication " +
+    private void assertionTest() {
+        assert MedicationManager.getTotalMedications() != 0 : "Total medications in medication " +
                 "manager should not be 0!";
     }
 
@@ -159,4 +157,5 @@ public class AddCommand extends Command {
             this.medicationDosageEvening = Double.parseDouble(medicationDosageEvening);
         }
     }
+
 }

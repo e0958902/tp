@@ -9,7 +9,6 @@ import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.FileReadWriteException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.medication.MedicationManager;
 import meditracker.ui.Ui;
 
 import java.util.Map;
@@ -43,10 +42,9 @@ public class TakeCommand extends Command {
      * This method marks an existing Medication object using the provided list index.
      * It also displays a message confirming the modification of the daily medication status.
      *
-     * @param medicationManager      The MedicationManager object representing the list of medications.
      */
     @Override
-    public void execute(MedicationManager medicationManager) throws FileReadWriteException {
+    public void execute() throws FileReadWriteException {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
         DailyMedicationManager.takeDailyMedication(listIndex);
