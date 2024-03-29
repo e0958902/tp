@@ -17,7 +17,10 @@ public enum ArgumentName {
     QUANTITY("quantity"),
     REMARKS("remarks"),
     LIST_TYPE("listType"),
-    HELP("help");
+    HELP("help"),
+    MORNING("morning"),
+    AFTERNOON("afternoon"),
+    EVENING("evening");
 
     public final String value;
 
