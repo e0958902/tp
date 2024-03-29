@@ -26,7 +26,8 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Executes the list command.
+     * Executes the list command and performs its specific task, -t.
+     * Uses a switch to do a, list all and, list today
      *
      * @param medicationManager      The MedicationManager object representing the list of medications.
      */
