@@ -1,13 +1,14 @@
 package meditracker.command;
 
-import meditracker.dailyMeds.DailyMedication;
+import meditracker.dailymedication.DailyMedication;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListTypeArgument;
+import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.dailymedication.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.MedicationManager;
-import meditracker.dailyMeds.SubDailyManager;
 
 import java.util.List;
 import java.util.Map;
@@ -41,21 +42,21 @@ public class ListCommand extends Command {
             medicationManager.printAllMedications();
             break;
         case "today":
-            SubDailyManager.printTodayMedications(medicationManager.getMedications());
+            DailyMedicationManager.printTodayMedications(medicationManager.getMedications());
             break;
         case "today-m":
-            List<DailyMedication> morningMedications = SubDailyManager.getMorningMedications();
-            SubDailyManager.printTodayMedications(medicationManager.getMedications(),
+            List<DailyMedication> morningMedications = DailyMedicationManager.getDailyMedications(Period.MORNING);
+            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
                     morningMedications, "Morning:");
             break;
         case "today-a":
-            List<DailyMedication> afternoonMedications = SubDailyManager.getAfternoonMedications();
-            SubDailyManager.printTodayMedications(medicationManager.getMedications(),
+            List<DailyMedication> afternoonMedications = DailyMedicationManager.getDailyMedications(Period.AFTERNOON);
+            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
                     afternoonMedications, "Afternoon:");
             break;
         case "today-e":
-            List<DailyMedication> eveningMedications = SubDailyManager.getEveningMedications();
-            SubDailyManager.printTodayMedications(medicationManager.getMedications(),
+            List<DailyMedication> eveningMedications = DailyMedicationManager.getDailyMedications(Period.EVENING);
+            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
                     eveningMedications, "Evening:");
             break;
         default:

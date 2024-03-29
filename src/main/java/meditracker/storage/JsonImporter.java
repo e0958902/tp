@@ -45,7 +45,7 @@ public class JsonImporter {
                         medicationInfoJson.getString("expiryDate"),
                         medicationInfoJson.getString("intakeFrequency"),
                         medicationInfoJson.getString("remarks"),
-                        medicationInfoJson.getString("repeat"),
+                        Integer.parseInt(medicationInfoJson.getString("repeat")),
                         Integer.parseInt(medicationInfoJson.getString("dayAdded"))
                 );
                 medManager.addMedication(med);

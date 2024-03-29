@@ -1,6 +1,6 @@
 package meditracker.command;
 
-import meditracker.dailyMeds.DailyMedicationManager;
+import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListIndexArgument;

@@ -23,7 +23,7 @@ public class DeleteCommandTest {
                 "01/07/25",
                 "morning",
                 "cause_dizziness",
-                "Fortnightly",
+                1,
                 87);
         medicationManager.addMedication(medication);
 

@@ -1,10 +1,10 @@
 package meditracker.command;
 
+import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
-import meditracker.dailyMeds.SubDailyManager;
 import meditracker.ui.Ui;
 
 import meditracker.argument.ArgumentName;
@@ -80,7 +80,7 @@ public class AddCommand extends Command {
 
         Medication medication = createMedication();
         medicationManager.addMedication(medication);
-        SubDailyManager.checkForDaily(medication);
+        DailyMedicationManager.checkForDaily(medication);
         assertionTest(medicationManager);
         Ui.showAddCommandMessage();
     }
@@ -96,7 +96,7 @@ public class AddCommand extends Command {
         String expiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
         String intakeFreq = parsedArguments.get(ArgumentName.INTAKE_FREQUENCY);
         String remarks = parsedArguments.get(ArgumentName.REMARKS);
-        String repeat = parsedArguments.get(ArgumentName.REPEAT);
+        int repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
 
         String medicationQuantityArg = parsedArguments.get(ArgumentName.QUANTITY);
         String medicationDosageArg = parsedArguments.get(ArgumentName.DOSAGE);

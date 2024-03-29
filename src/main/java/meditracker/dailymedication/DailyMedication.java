@@ -1,4 +1,4 @@
-package meditracker.dailyMeds;
+package meditracker.dailymedication;
 
 /**
  * Stores name and the status of daily medication (taken or not)

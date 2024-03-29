@@ -17,7 +17,7 @@ public class Medication {
     private String expiryDate;
     private String intakeFreq;
     private String remarks;
-    private String repeat;
+    private int repeat;
     private int dayAdded;
 
     /**
@@ -35,7 +35,7 @@ public class Medication {
      */
     public Medication(String name, Double quantity, Double dosage, Double dosageMorning, Double dosageAfternoon,
                       Double dosageEvening, String expiryDate,
-                      String intakeFreq, String remarks, String repeat, int dayAdded) {
+                      String intakeFreq, String remarks, int repeat, int dayAdded) {
         this.name = name;
         this.quantity = quantity;
         this.dosage = dosage;
@@ -121,11 +121,11 @@ public class Medication {
         this.remarks = remarks;
     }
 
-    public String getRepeat() {
+    public int getRepeat() {
         return repeat;
     }
 
-    public void setRepeat(String repeat) {
+    public void setRepeat(int repeat) {
         this.repeat = repeat;
     }
     public int getDayAdded() {

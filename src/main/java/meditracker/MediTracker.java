@@ -1,6 +1,7 @@
 package meditracker;
 
 import meditracker.command.Command;
+import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.FileReadWriteException;
 import meditracker.exception.DuplicateArgumentFoundException;
@@ -8,7 +9,6 @@ import meditracker.exception.MediTrackerException;
 import meditracker.logging.MediLogger;
 import meditracker.medication.MedicationManager;
 import meditracker.command.CommandParser;
-import meditracker.dailyMeds.SubDailyManager;
 import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
 
@@ -28,7 +28,7 @@ public class MediTracker {
      */
     public MediTracker() {
         medicationManager = new MedicationManager();
-        SubDailyManager.createDailyMedicationManager(medicationManager);
+        DailyMedicationManager.createDailyMedicationManager(medicationManager);
     }
 
     /**
@@ -38,7 +38,7 @@ public class MediTracker {
      */
     public MediTracker(List<String> dailyMedicationList) {
         medicationManager = new MedicationManager();
-        SubDailyManager.importDailyMedicationManager(dailyMedicationList);
+        DailyMedicationManager.importDailyMedicationManager(dailyMedicationList);
     }
 
     /**
@@ -74,6 +74,8 @@ public class MediTracker {
                 System.out.println("Dosage/Quantity should be of type double!");
             } catch (FileReadWriteException e) {
                 throw new FileReadWriteException("IO Error: Unable to write to text File");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
             if (command != null) {
                 isExit = command.isExit();

@@ -35,7 +35,7 @@ public class JsonExporterTest {
                 "23/11/24",
                 "2",
                 "No Remarks",
-                "",
+                1,
                 87
         );
 
@@ -49,7 +49,7 @@ public class JsonExporterTest {
                 "01/01/25",
                 "4",
                 "",
-                "",
+                1,
                 87
         );
 
@@ -63,7 +63,7 @@ public class JsonExporterTest {
                 "",
                 "",
                 "null",
-                "",
+                1,
                 87
         );
 

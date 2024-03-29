@@ -1,11 +1,12 @@
 package meditracker.command;
 
-import meditracker.dailyMeds.DailyMedication;
+import meditracker.dailymedication.DailyMedication;
+import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.dailymedication.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
-import meditracker.dailyMeds.SubDailyManager;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,12 +27,12 @@ public class ModifyCommandTest {
                 "01/07/25",
                 "morning",
                 "cause_dizziness",
-                "",
+                1,
                 87);
         medicationManager.addMedication(medication);
 
         DailyMedication dailyMedication = new DailyMedication("Medication_A");
-        SubDailyManager.addToMorningList(dailyMedication);
+        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
 
         String newName = "Medication_B";
         String inputString = "modify -l 1 -n " + newName;
@@ -56,7 +57,7 @@ public class ModifyCommandTest {
                 "01/07/25",
                 "morning",
                 "cause_dizziness",
-                "1",
+                1,
                 87);
         medicationManager.addMedication(medication);
 
