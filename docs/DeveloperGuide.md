@@ -44,6 +44,14 @@ The 'list -t' command requires the following:
 5. 'today -e' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
    from the DailyMedicationManager
 
+### Search Medication Command
+The search medication command extends from Command parent class and contains the following methods:
+- execute(MedicationManager, DailyMedicationManager, Ui) - Searches the local medication library for medication names,
+what illnesses they treat and their side effects, and prints the results to the user.
+
+The 'search' command requires the following:
+1. To be added.
+
 ### Utilising the argument parser
 The `ArgumentParser` requires the following to work:
 1. `ArgumentList` object
@@ -105,9 +113,10 @@ Ensuring that you would not forget your next dose of medication.
 |v1.0| user              | indicate the medications that I have taken                   | know when is my next dose and how well I am following doctors orders, and show how well I am taking my medications at the appropriate times of the day |
 |v1.0| user              | know what medications i have to take throughout the day      | mark them as takenor not, thus not miss or forget to take what I have to take for the day                                                              |
 |v1.0| user              | edit the details in my medication list                       | ensure that its medication information is up-to-date with my medifications                                                                             |
-|v1.0| user              | delete medications medication list                           | remove medications that I do not need will not be there anymore                                                                                       |
-|v1.0| user              | search medications from existing medicine library            | search medications locally to have a quick preview of them and their purpose without the web
+|v1.0| user              | delete medications medication list                           | remove medications that I do not need will not be there anymore                                                                                        |
+|v1.0| user              | search medications from existing medicine library            | search medications locally to have a quick preview of them and their purpose without the web                                                           |
 |v1.0| multipurpose user | Store data locally                                           | Use the application and see the data even when offline between sessions                                                                                |
+|v1.0| user              | know the list of medications I have added                    | have a quick overview of the medication list and check the quantity and expiry date of each medication                                                 |
 |v2.0| user              | find a to-do item by name                                    | locate a to-do without having to go through the entire list                                                                                            |
 
 ## Non-Functional Requirements
