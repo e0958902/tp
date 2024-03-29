@@ -99,9 +99,8 @@ public class JsonImporter {
      * a warning will be thrown to the user and the program will run as if it is the first time running.
      *
      * @param mediTrackerJsonPath The Path object specifying the path to the MediTracker save data.
-     * @param medManager The instance of MedicationManager.
      */
-    static void processMediTrackerJsonFile (Path mediTrackerJsonPath, MedicationManager medManager) {
+    static void processMediTrackerJsonFile (Path mediTrackerJsonPath) {
         String jsonStringData = loadRawJsonFileData(mediTrackerJsonPath);
         if (jsonStringData == null) {
             return;
@@ -120,6 +119,6 @@ public class JsonImporter {
         }
 
         List<Map<String,String>> medicationStringMap = convertJsonArrayToStringMap(medicationList);
-        medManager.addMedicationFromSaveFile(medicationStringMap);
+        MedicationManager.addMedicationFromSaveFile(medicationStringMap);
     }
 }
