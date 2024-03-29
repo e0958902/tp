@@ -1,5 +1,6 @@
 package meditracker.command;
 
+import meditracker.argument.ArgumentHelper;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
@@ -14,6 +15,7 @@ import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.dailymedication.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.ui.Ui;
@@ -25,7 +27,7 @@ import java.util.Map;
  * It extends the Command class.
  */
 public class ModifyCommand extends Command {
-    public final ArgumentList argumentList = new ArgumentList(
+    public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
             new ListIndexArgument(false),
             new NameArgument(true),
             new QuantityArgument(true),
@@ -34,6 +36,7 @@ public class ModifyCommand extends Command {
             new IntakeFrequencyArgument(true),
             new RemarksArgument(true)
     );
+    public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.MODIFY, ARGUMENT_LIST);
     private final Map<ArgumentName, String> parsedArguments;
 
     /**
@@ -42,10 +45,11 @@ public class ModifyCommand extends Command {
      * @param arguments The arguments containing medication information to be parsed.
      * @throws ArgumentNotFoundException Argument flag specified not found
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
+     * @throws HelpInvokedException When help argument is used or help message needed
      */
     public ModifyCommand(String arguments)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException {
-        parsedArguments = argumentList.parse(arguments);
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+        parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
     /**

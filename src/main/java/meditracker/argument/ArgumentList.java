@@ -2,7 +2,9 @@ package meditracker.argument;
 
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +26,9 @@ public class ArgumentList {
      * @param arguments Arguments to be included in the list
      */
     public ArgumentList(Argument... arguments) {
-        this.arguments = List.of(arguments);
+        List<Argument> newArguments = new ArrayList<>(List.of(arguments));
+        newArguments.add(new HelpArgument());
+        this.arguments = newArguments;
 
         // assertion test: check for flag collisions
         Set<String> flags = new HashSet<>();
@@ -43,11 +47,19 @@ public class ArgumentList {
      * @return A map of argument name as key and the corresponding value
      * @throws ArgumentNotFoundException When argument required not found
      * @throws DuplicateArgumentFoundException When duplicate argument found
+     * @throws HelpInvokedException When help argument is used or help message needed
      * @see ArgumentParser
      */
     public Map<ArgumentName, String> parse(String rawInput)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException {
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
         ArgumentParser argumentParser = new ArgumentParser(this, rawInput);
+
+        boolean hasCalledForHelp = argumentParser.parsedArguments.get(ArgumentName.HELP) != null;
+        if (hasCalledForHelp) {
+            throw new HelpInvokedException();
+        }
+
+        argumentParser.checkForMissingRequiredArguments(); // throws ArgumentNotFoundException
         return argumentParser.parsedArguments;
     }
 

@@ -1,5 +1,6 @@
 package meditracker.command;
 
+import meditracker.argument.ArgumentHelper;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
@@ -8,6 +9,7 @@ import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.dailymedication.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
 import meditracker.medication.MedicationManager;
 
 import java.util.List;
@@ -19,13 +21,24 @@ import java.util.Map;
  */
 public class ListCommand extends Command {
 
-    public ArgumentList argumentList = new ArgumentList(
+    public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
             new ListTypeArgument(false));
+
+    public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.LIST, ARGUMENT_LIST);
 
     private final Map<ArgumentName, String> parsedArguments;
 
-    public ListCommand(String arguments) throws ArgumentNotFoundException, DuplicateArgumentFoundException {
-        parsedArguments = argumentList.parse(arguments);
+    /**
+     * Constructs a ListCommand object with the specified arguments.
+     *
+     * @param arguments The arguments containing information to be parsed.
+     * @throws ArgumentNotFoundException Argument flag specified not found
+     * @throws DuplicateArgumentFoundException Duplicate argument flag found
+     * @throws HelpInvokedException When help argument is used or help message needed
+     */
+    public ListCommand(String arguments)
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+        parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
     /**

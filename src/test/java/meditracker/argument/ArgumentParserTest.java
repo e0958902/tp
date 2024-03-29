@@ -2,6 +2,7 @@ package meditracker.argument;
 
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -32,7 +33,7 @@ public class ArgumentParserTest {
         Map<ArgumentName, String> parsedArgs;
         try {
             parsedArgs = testArgumentList.parse(testArgumentString);
-        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException e) {
+        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException e) {
             throw new RuntimeException(e);
         }
 
@@ -57,7 +58,7 @@ public class ArgumentParserTest {
         Map<ArgumentName, String> parsedArgs;
         try {
             parsedArgs = testArgumentList.parse(testArgumentString);
-        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException e) {
+        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException e) {
             throw new RuntimeException(e);
         }
 
@@ -82,7 +83,7 @@ public class ArgumentParserTest {
         Map<ArgumentName, String> parsedArgs;
         try {
             parsedArgs = testArgumentList.parse(testArgumentString);
-        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException e) {
+        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException e) {
             throw new RuntimeException(e);
         }
 
