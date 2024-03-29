@@ -164,7 +164,12 @@ public class MedicationManager {
                     medication.setRemarks(value);
                     break;
                 case REPEAT:
-                    medication.setRepeat(value);
+                    int repeatValue = (int) convertStringToDouble(value);
+                    medication.setRepeat(repeatValue);
+                    break;
+                case DAY_ADDED:
+                    int dayValue = (int) convertStringToDouble(value);
+                    medication.setDayAdded(dayValue);
                     break;
                 default:
                     logger.warning("Unhandled ArgumentName Enum Type " + keyEnum.value);

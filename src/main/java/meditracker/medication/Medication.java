@@ -25,7 +25,7 @@ public class Medication {
      * Used by MedicationManager to populate medication data from the save file.
      */
     public Medication() {
-        double placeholderValue = -1.0;
+        final double placeholderValue = -1.0;
 
         setName("");
         setQuantity(placeholderValue);
@@ -36,7 +36,8 @@ public class Medication {
         setExpiryDate("");
         setIntakeFreq("");
         setRemarks("");
-        setRepeat("");
+        setRepeat((int) placeholderValue);
+        setDayAdded((int) placeholderValue);
     }
 
     /**
@@ -147,8 +148,13 @@ public class Medication {
     public void setRepeat(int repeat) {
         this.repeat = repeat;
     }
+
     public int getDayAdded() {
         return dayAdded;
+    }
+
+    public void setDayAdded(int dayAdded) {
+        this.dayAdded = dayAdded;
     }
 
     @Override

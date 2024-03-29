@@ -12,6 +12,7 @@ public enum ArgumentName {
     EXPIRATION_DATE("expirationDate"),
     INTAKE_FREQUENCY("intakeFrequency"),
     REPEAT("repeat"),
+    DAY_ADDED("dayAdded"),
     LIST_INDEX("listIndex"),
     NAME("name"),
     QUANTITY("quantity"),

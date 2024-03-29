@@ -34,6 +34,7 @@ class JsonExporter {
         medObject.put(ArgumentName.INTAKE_FREQUENCY.value, medInfo.getIntakeFreq());
         medObject.put(ArgumentName.REMARKS.value, medInfo.getRemarks());
         medObject.put(ArgumentName.REPEAT.value, medInfo.getRepeat());
+        medObject.put(ArgumentName.DAY_ADDED.value, medInfo.getDayAdded());
 
         return medObject;
     }
