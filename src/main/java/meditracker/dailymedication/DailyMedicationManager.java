@@ -16,7 +16,6 @@ import java.util.List;
  * @see DailyMedication
  */
 public class DailyMedicationManager {
-    private static final List<DailyMedication> dailyMedications = new ArrayList<>();
     private static final List<DailyMedication> morningMedications = new ArrayList<>();
     private static final List<DailyMedication> afternoonMedications = new ArrayList<>();
     private static final List<DailyMedication> eveningMedications = new ArrayList<>();
@@ -115,7 +114,6 @@ public class DailyMedicationManager {
         default:
             System.out.println("Cannot add to sublist");
         }
-        dailyMedications.add(dailyMedication);
     }
 
     /**
@@ -235,15 +233,6 @@ public class DailyMedicationManager {
             dailyMedicationStrings.add("E|" + eveningMedication.isTaken() + "|" + eveningMedication.getName());
         }
         return dailyMedicationStrings;
-    }
-
-    /**
-     * Returns the total number of daily medications in the list.
-     *
-     * @return The total number of daily medications.
-     */
-    public static int getTotalDailyMedication() {
-        return dailyMedications.size();
     }
 
     /**
