@@ -1,6 +1,6 @@
 package meditracker.ui;
 
-import meditracker.DailyMedication;
+import meditracker.dailymedication.DailyMedication;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

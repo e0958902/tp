@@ -1,10 +1,11 @@
 package meditracker.command;
 
-import meditracker.DailyMedicationManager;
+import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListIndexArgument;
 import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.FileReadWriteException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.medication.MedicationManager;
 import meditracker.ui.Ui;
@@ -41,7 +42,7 @@ public class TakeCommand extends Command {
      * @param medicationManager      The MedicationManager object representing the list of medications.
      */
     @Override
-    public void execute(MedicationManager medicationManager) {
+    public void execute(MedicationManager medicationManager) throws FileReadWriteException {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
         DailyMedicationManager.takeDailyMedication(listIndex);

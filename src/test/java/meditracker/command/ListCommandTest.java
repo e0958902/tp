@@ -24,7 +24,9 @@ class ListCommandTest {
                 "01/08/25",
                 "night",
                 "for_flu_or_allergy",
-                "");
+                1,
+                87
+        );
 
         medicationManager.addMedication(medication);
 
