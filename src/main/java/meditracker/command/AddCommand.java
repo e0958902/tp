@@ -41,8 +41,8 @@ public class AddCommand extends Command {
             new DosageEveningArgument(true),
             new ExpirationDateArgument(false),
             new IntakeFrequencyArgument(false),
-            new RepeatArgument(true),
-            new RemarksArgument(true)
+            new RemarksArgument(true),
+            new RepeatArgument(true)
     );
 
     private final Map<ArgumentName, String> parsedArguments;
