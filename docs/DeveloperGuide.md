@@ -37,6 +37,12 @@ The list medication command extends from Command parent class and contains the f
 The 'list -t' command requires the following:
 1. 'all' - to run printAllMedications() from the MedicationManager.
 2. 'today' - to run printMedications() from the DailyMedicationManager.
+3. 'today -m' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+   from the DailyMedicationManager
+4. 'today -a' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+   from the DailyMedicationManager
+5. 'today -e' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+   from the DailyMedicationManager
 
 ### Utilising the argument parser
 The `ArgumentParser` requires the following to work:
@@ -99,6 +105,8 @@ Ensuring that you would not forget your next dose of medication.
 |v1.0| user              | indicate the medications that I have taken                   | know when is my next dose and how well I am following doctors orders, and show how well I am taking my medications at the appropriate times of the day |
 |v1.0| user              | know what medications i have to take throughout the day      | mark them as takenor not, thus not miss or forget to take what I have to take for the day                                                              |
 |v1.0| user              | edit the details in my medication list                       | ensure that its medication information is up-to-date with my medifications                                                                             |
+|v1.0| user              | delete medications medication list                           | remove medications that I do not need will not be there anymore                                                                                       |
+|v1.0| user              | search medications from existing medicine library            | search medications locally to have a quick preview of them and their purpose without the web
 |v1.0| multipurpose user | Store data locally                                           | Use the application and see the data even when offline between sessions                                                                                |
 |v2.0| user              | find a to-do item by name                                    | locate a to-do without having to go through the entire list                                                                                            |
 
