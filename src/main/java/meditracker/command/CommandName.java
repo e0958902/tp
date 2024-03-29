@@ -4,6 +4,7 @@ package meditracker.command;
  * The CommandName enum represents the names of commands supported by the application.
  */
 public enum CommandName {
+    UNKNOWN("unknown"),
     EXIT("exit"),
     ADD("add"),
     MODIFY("modify"),
@@ -39,6 +40,6 @@ public enum CommandName {
                 return e;
             }
         }
-        return null;
+        return CommandName.UNKNOWN;
     }
 }

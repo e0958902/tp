@@ -57,10 +57,12 @@ The `ArgumentParser` requires the following to work:
 1. `ArgumentList` object
 2. Raw user input in `String`
 
-The `ArgumentList` object constitutes to a combination of `Argument` objects. The constructor for 
+The `ArgumentList` object constitutes a combination of `Argument` objects. The constructor for 
 the `ArgumentList` takes in a variable amount of `Argument`-extended classes. Additional assertion
 tests have been added to ensure that certain attributes of the `Argument` classes do not clash with
-one another.
+one another. `HelpArgument` is automatically added when an `ArgumentList` object is instantiated.
+Calling `ArgumentList.parse` with empty `String` or invoking with the argument `-h` will trigger the
+help message to be printed on the console.
 
 An `Argument` object consists of the following:
 1. `name`: Name of the argument, uses enum type `ArgumentName` as this value is used by `ArgumentParser` as well
@@ -70,7 +72,7 @@ An `Argument` object consists of the following:
 5. `isOptional`: A `boolean` value to specify whether this argument is optional or not. This value is utilised
 by the `ArgumentParser` to determine whether the argument is required, and will throw a `ArgumentNotFound` 
 exception if this argument is required but not found in user specified argument string.
-6. `hasNoValue`: A `boolean` value to specify whether this argument has a corresponding value tied to it. 
+6. `hasValue`: A `boolean` value to specify whether this argument has a corresponding value tied to it. 
 `ArgumentParser` requires this to know whether to take the value specified by the user.
 
 Additional information regarding the `ArgumentName` enum:

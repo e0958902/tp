@@ -1,8 +1,10 @@
 package meditracker.command;
 
+import meditracker.argument.ArgumentHelper;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.ui.Ui;
@@ -32,7 +34,7 @@ public class AddCommand extends Command {
     /**
      * The argumentList contains all the arguments needed for adding a medication.
      */
-    public final ArgumentList argumentList = new ArgumentList(
+    public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
             new NameArgument(false),
             new QuantityArgument(false),
             new DosageArgument(false),
@@ -45,9 +47,10 @@ public class AddCommand extends Command {
             new RepeatArgument(true)
     );
 
+    public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.ADD, ARGUMENT_LIST);
+
     private final Map<ArgumentName, String> parsedArguments;
 
-    private String medicationName;
     private double medicationQuantity;
     private double medicationDosage;
     private double medicationDosageMorning = 0.0;
@@ -60,9 +63,11 @@ public class AddCommand extends Command {
      * @param arguments The arguments containing medication information to be parsed.
      * @throws ArgumentNotFoundException if a required argument is not found.
      * @throws DuplicateArgumentFoundException Duplicate argument found
+     * @throws HelpInvokedException When help argument is used
      */
-    public AddCommand(String arguments) throws ArgumentNotFoundException, DuplicateArgumentFoundException {
-        parsedArguments = argumentList.parse(arguments);
+    public AddCommand(String arguments)
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+        parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
     /**
@@ -92,7 +97,7 @@ public class AddCommand extends Command {
      * @throws NullPointerException  if any of the required arguments are null.
      */
     private Medication createMedication() throws NumberFormatException, NullPointerException {
-        medicationName = parsedArguments.get(ArgumentName.NAME);
+        String medicationName = parsedArguments.get(ArgumentName.NAME);
         String expiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
         String intakeFreq = parsedArguments.get(ArgumentName.INTAKE_FREQUENCY);
         String remarks = parsedArguments.get(ArgumentName.REMARKS);
