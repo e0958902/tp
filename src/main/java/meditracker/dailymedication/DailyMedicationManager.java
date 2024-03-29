@@ -308,13 +308,13 @@ public class DailyMedicationManager {
      */
     private static void addToSubLists(Medication medication) {
         DailyMedication dailyMedication = new DailyMedication(medication.getName());
-        if(medication.getDosageMorning() != 0.0) {
+        if (medication.getDosageMorning() != 0.0) {
             addDailyMedication(dailyMedication, Period.MORNING);
         }
-        if(medication.getDosageAfternoon() != 0.0) {
+        if (medication.getDosageAfternoon() != 0.0) {
             addDailyMedication(dailyMedication, Period.AFTERNOON);
         }
-        if(medication.getDosageEvening() != 0.0) {
+        if (medication.getDosageEvening() != 0.0) {
             addDailyMedication(dailyMedication, Period.EVENING);
         }
         try {
