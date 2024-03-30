@@ -8,8 +8,8 @@ import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.CommandNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
-import meditracker.exception.FileReadWriteException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.InvalidArgumentException;
 import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
@@ -42,10 +42,8 @@ public class MediTracker {
      * Runs the MediTracker application.
      * This method displays a welcome message, reads user commands, and processes them until the user exits the
      * application.
-     *
-     * @throws FileReadWriteException when there is error to write into text file.
      */
-    public void run() throws FileReadWriteException {
+    public void run() {
         //@@author nickczh-reused
         //Reused from https://github.com/nickczh/ip
         //with minor modifications
@@ -76,7 +74,12 @@ public class MediTracker {
                 System.out.println(helpMessage);
                 continue;
             }
-            command.execute();
+
+            try {
+                command.execute();
+            } catch (InvalidArgumentException e) {
+                System.out.println(e.getMessage());
+            }
             isExit = command.isExit();
         }
     }
@@ -86,9 +89,8 @@ public class MediTracker {
      * It creates a new MediTracker object and calls its run() method.
      *
      * @param args Command-line arguments.
-     * @throws FileReadWriteException when there is error to write into text file.
      */
-    public static void main(String[] args) throws FileReadWriteException {
+    public static void main(String[] args) {
         MediLogger.initialiseLogger();
 
         List<String> dailyMedicationList = FileReaderWriter.loadDailyMedicationData();
