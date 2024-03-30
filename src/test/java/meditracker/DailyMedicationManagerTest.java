@@ -33,6 +33,16 @@ public class DailyMedicationManagerTest {
         resetDailyMedicationManagerMethod.setAccessible(true);
         resetDailyMedicationManagerMethod.invoke(DailyMedicationManager.class);
     }
+
+    @BeforeEach
+    public void resetMedicationManager() throws InvocationTargetException,
+            IllegalAccessException, NoSuchMethodException {
+        Method resetMedicationManagerMethod
+                = MedicationManager.class.getDeclaredMethod("clearMedication");
+        resetMedicationManagerMethod.setAccessible(true);
+        resetMedicationManagerMethod.invoke(MedicationManager.class);
+    }
+
     @Test
     public void addDailyMedication_genericDailyMedication_dailyMedicationAdded()
             throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
@@ -77,7 +87,24 @@ public class DailyMedicationManagerTest {
 
     @Test
     public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken() throws FileReadWriteException {
-        DailyMedication dailyMedication = new DailyMedication("TestMedication");
+        String medicationName = "TestMedication";
+        double oldQuantity = 60;
+        double dosage = 10;
+        Medication medication = new Medication(
+                medicationName,
+                oldQuantity,
+                500.0,
+                dosage,
+                null,
+                null,
+                "01/07/25",
+                "morning",
+                "cause_dizziness",
+                1,
+                87);
+        MedicationManager.addMedication(medication);
+
+        DailyMedication dailyMedication = new DailyMedication(medicationName);
         assertFalse(dailyMedication.isTaken());
         DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
 
@@ -85,11 +112,30 @@ public class DailyMedicationManagerTest {
         DailyMedicationManager.takeDailyMedication(actualIndex, Period.MORNING);
         DailyMedication dailyMedicationTest = DailyMedicationManager.getDailyMedication(actualIndex, Period.MORNING);
         assertTrue(dailyMedicationTest.isTaken());
+        double expectedQuantity = oldQuantity - dosage;
+        assertEquals(medication.getQuantity(), expectedQuantity);
     }
 
     @Test
     public void untakeDailyMedication_genericDailyMedication_dailyMedicationNotTaken() throws FileReadWriteException {
-        DailyMedication dailyMedication = new DailyMedication("TestMedication");
+        String medicationName = "TestMedication";
+        double oldQuantity = 60;
+        double dosage = 10;
+        Medication medication = new Medication(
+                medicationName,
+                oldQuantity,
+                500.0,
+                dosage,
+                null,
+                null,
+                "01/07/25",
+                "morning",
+                "cause_dizziness",
+                1,
+                87);
+        MedicationManager.addMedication(medication);
+
+        DailyMedication dailyMedication = new DailyMedication(medicationName);
         dailyMedication.take();
         assertTrue(dailyMedication.isTaken());
         DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
@@ -98,5 +144,7 @@ public class DailyMedicationManagerTest {
         DailyMedicationManager.untakeDailyMedication(actualIndex, Period.MORNING);
         DailyMedication dailyMedicationTest = DailyMedicationManager.getDailyMedication(actualIndex, Period.MORNING);
         assertFalse(dailyMedicationTest.isTaken());
+        double expectedQuantity = oldQuantity + dosage;
+        assertEquals(medication.getQuantity(), expectedQuantity);
     }
 }

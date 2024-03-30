@@ -2,6 +2,7 @@ package meditracker.medication;
 
 import meditracker.argument.ArgumentName;
 import meditracker.logging.MediLogger;
+import meditracker.time.Period;
 import meditracker.ui.Ui;
 
 import java.util.ArrayList;
@@ -65,6 +66,22 @@ public class MedicationManager {
         return medications.get(listIndex);
     }
 
+    /**
+     * Gets the Medication object from the medications list.
+     * Uses the Medication name to retrieve from the list.
+     *
+     * @param name Name of the medication to retrieve
+     * @return Corresponding Medication object with the matched name
+     */
+    public static Medication getMedication(String name) {
+        for (Medication medication : medications) {
+            if (medication.getName().equals(name)) {
+                return medication;
+            }
+        }
+        return null;
+    }
+
     public static List<Medication> getMedications() {
         return medications;
     }
@@ -80,6 +97,35 @@ public class MedicationManager {
         listIndex--; // Decremented to 0-base indexing
         medications.remove(listIndex);
         saveMediTrackerData();
+    }
+
+    /**
+     * Gets the dosage from the Medication object based the specified Period
+     *
+     * @param medication Medication object to obtain the dosage from
+     * @param period Time period of day to reference
+     * @return The appropriate dosage depending on the time Period
+     */
+    public static Double getMedicationDosage(Medication medication, Period period) {
+        double dosage;
+        switch (period) {
+        case MORNING:
+            dosage = medication.getDosageMorning();
+            break;
+        case AFTERNOON:
+            dosage = medication.getDosageAfternoon();
+            break;
+        case EVENING:
+            dosage = medication.getDosageEvening();
+            break;
+        case UNKNOWN:
+        case NONE:
+        default:
+            dosage = 0.0;
+            break;
+        }
+
+        return dosage;
     }
 
     /**
@@ -181,5 +227,41 @@ public class MedicationManager {
             }
             addMedication(medication);
         }
+    }
+
+    /**
+     * Increases the medication quantity based on the specified time period
+     *
+     * @param medicationName Name of the medication to increase medication quantity
+     * @param period Time period of day to reference
+     */
+    public static void increaseMedicationQuantity(String medicationName, Period period) {
+        Medication medication = getMedication(medicationName);
+        if (medication == null) {
+            return;
+        }
+
+        double dosage = getMedicationDosage(medication, period);
+        double oldQuantity = medication.getQuantity();
+        double newQuantity = oldQuantity + dosage;
+        medication.setQuantity(newQuantity);
+    }
+
+    /**
+     * Decreases the medication quantity based on the specified time period
+     *
+     * @param medicationName Name of the medication to decrease medication quantity
+     * @param period Time period of day to reference
+     */
+    public static void decreaseMedicationQuantity(String medicationName, Period period) {
+        Medication medication = getMedication(medicationName);
+        if (medication == null) {
+            return;
+        }
+
+        double dosage = getMedicationDosage(medication, period);
+        double oldQuantity = medication.getQuantity();
+        double newQuantity = oldQuantity - dosage;
+        medication.setQuantity(newQuantity);
     }
 }
