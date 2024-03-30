@@ -10,44 +10,41 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
 
+import meditracker.MediTrackerConfig;
 import meditracker.exception.FileReadWriteException;
 import meditracker.logging.MediLogger;
-import meditracker.medication.MedicationManager;
 
 //@@author annoy-o-mus
 /**
  * A static class to handle the reading and writing to the filesystem.
- * Currently, only supports the default path and file.
  */
 public class FileReaderWriter {
-    private static Logger logger = MediLogger.getMediLogger();
+    private static final Logger logger = MediLogger.getMediLogger();
 
-    private static String jsonDataFileName = "MediTrackerData.json";
-    private static String jsonDataFolderName = "data";
-    private static String dailyMedicationFileName = "today.txt"; // To be changed in v2.0
-    private static String dailyMedicationFolderName = "data/dailymed";
-
-    private static String getJsonDataFolderName() {
-        return jsonDataFolderName;
-    }
-
-    private static String getDailyMedicationFolderName() {
-        return dailyMedicationFolderName;
-    }
-
-    private static String getFullJsonDataFilePath() {
-        return jsonDataFolderName + "/" + jsonDataFileName;
-    }
-
-    private static String getFullDailyMedFilePath() {
-        return dailyMedicationFolderName + "/" + dailyMedicationFileName;
+    /**
+     * Returns either the folder name or the file name of the path provided.
+     *
+     * @param path The path containing the folder name and file name.
+     * @param getFolder Whether to return the folder name or the file name.
+     * @return Either the file name or the folder name. Null if the chosen field is empty.
+     */
+    private static String getFullPathComponent(String path, boolean getFolder) {
+        File f = new File(path);
+        if (getFolder) {
+            return f.getParent();
+        } else {
+            String fileName = f.getName();
+            if (fileName.isEmpty()) {
+                return null;
+            }
+            return fileName;
+        }
     }
 
     /**
-     * Creates new directories to allow for writing of MediTracker data to the save file.
-     * Currently, only implements the default paths and files.
+     * Creates new directories to allow writing of MediTracker data to the save file.
      *
-     * @param folderName The diretory, including its parents, to initialise.
+     * @param folderName The directory, including its parents, to create. If null, the creation is skipped.
      * @throws FileReadWriteException When there is any issue creating the directories.
      */
     private static void initialiseDirectory(String folderName) throws FileReadWriteException {
@@ -57,7 +54,8 @@ public class FileReaderWriter {
         try {
             directory = new File(folderName);
         } catch (NullPointerException e) {
-            throw new FileReadWriteException("Unable to create folder: Folder name to contain the JSON file is null");
+            logger.info("Directory portion is null. Skipping creation.");
+            return;
         }
 
         try {
@@ -75,9 +73,10 @@ public class FileReaderWriter {
      * @return The File object that corresponds to the write file.
      * @throws FileReadWriteException If the file is unable to be created due to system issues.
      */
-    public static File createJsonSaveFile() throws FileReadWriteException {
-        String fullFilePath = getFullJsonDataFilePath();
-        initialiseDirectory(getJsonDataFolderName());
+    static File createJsonSaveFile() throws FileReadWriteException {
+        String fullFilePath = MediTrackerConfig.getFullJsonSaveFilePath();
+        String folderPath = getFullPathComponent(fullFilePath,true);
+        initialiseDirectory(folderPath);
         File fileToWrite = new File(fullFilePath);
         try {
             // TODO: Introduce a more robust way (rename, create then delete - Done by another function)
@@ -98,16 +97,16 @@ public class FileReaderWriter {
      * If the file is not found, a warning will be thrown to alert the user, and the program
      * will execute without the saved data (fresh state).
      *
-     * @param medicationManager The instance of MedicationManager.
      */
-    public static void loadMediTrackerData(MedicationManager medicationManager) {
+    public static void loadMediTrackerData() {
         Path mediTrackerJsonPath = null;
+        String jsonDataFilePath = MediTrackerConfig.getFullJsonSaveFilePath();
 
         try {
             // https://stackoverflow.com/a/20838298
-            mediTrackerJsonPath = FileSystems.getDefault().getPath(getFullJsonDataFilePath());
+            mediTrackerJsonPath = FileSystems.getDefault().getPath(jsonDataFilePath);
         } catch (InvalidPathException e) {
-            logger.warning("Unable to find the file " + jsonDataFileName + " to read from. "
+            logger.warning("Unable to find the file " + jsonDataFilePath + " to read from. "
                     + "Program will run with no data loaded.");
         }
 
@@ -131,24 +130,26 @@ public class FileReaderWriter {
 
     /**
      * Saves the daily medication information to a fixed file data/dailymed/today.txt.
-     * The file creation is the same as `createJsonSaveFile` (to be abstracted).
-     * The saving functionality will be improved in v2.0.
      *
      * @param dailyMedData A list of type String for the daily medication data.
      * @throws FileReadWriteException if there is an issue creating the file.
      */
     public static void saveDailyMedicationData(List<String> dailyMedData) throws FileReadWriteException {
-        initialiseDirectory(getDailyMedicationFolderName());
+        String dailyMedFullSavePath = MediTrackerConfig.getFullDailySaveFilePath();
 
+        String dailyMedFolder = getFullPathComponent(dailyMedFullSavePath, true);
+        initialiseDirectory(dailyMedFolder);
+
+        // TODO: Refactor this part out as well.
         // This part is similar to `createJsonSaveFile()`
-        File fileToWrite = new File(getFullDailyMedFilePath());
+        File fileToWrite = new File(dailyMedFullSavePath);
         try {
             fileToWrite.delete();
             fileToWrite.createNewFile();
         } catch (IOException e) {
-            throw new FileReadWriteException("IO Error: Unable to write to JSON File");
+            throw new FileReadWriteException("IO Error: Unable to write to DailyMedication txt file");
         } catch (SecurityException e) {
-            throw new FileReadWriteException("Unable to create save JSON file. Please make sure that "
+            throw new FileReadWriteException("Unable to create save DailyMedication txt file. Please make sure that "
                     + "the file has the appropriate permissions for MediTracker to write to.");
         }
 
@@ -163,22 +164,23 @@ public class FileReaderWriter {
             f.flush();
             f.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            logger.severe("Unable to write DailyMedication data to file.");
         }
     }
 
     /**
      * Loads the daily medication information from a fixed file data/dailymed/today.txt.
-     * The loading functionality will be improved in v2.0.
      *
      * @return A list of string with the daily medication data. null if the file could not be loaded.
      */
     public static List<String> loadDailyMedicationData() {
         try {
-            Path dailyMedTextFile = FileSystems.getDefault().getPath(getFullDailyMedFilePath());
+            Path dailyMedTextFile = FileSystems.getDefault()
+                    .getPath(MediTrackerConfig.getFullDailySaveFilePath());
             return Files.readAllLines(dailyMedTextFile);
         } catch (IOException e) {
-            logger.warning(e.getMessage());
+            logger.warning("Unable to Read Daily medication data. "
+                    + "Daily medication data starting with clean state.");
             return null;
         }
     }

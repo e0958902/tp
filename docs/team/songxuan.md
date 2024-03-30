@@ -6,6 +6,7 @@
 ## Summary of Contributions
 ### Code related Contributions
 - Issue #41: Create a common logging class for the whole program
+- Issue #97: Deal with storage and OS-related path checks and handling
 - Issue #25: Create and Open the JSON save file 
 - Issue #27, #55: Read and Write medication-related data to JSON file
 - Issue #48: Read and wrote daily medication related data to txt file
@@ -17,7 +18,7 @@
 <!-- To talk about Issue 25 -->
 
 ### PR Reviews
-#2, #5, #40, #44, #51, #66, #82, #87
+#2, #5, #40, #44, #51, #66, #82, #87, #93
 
 ### Team-based tasks
 - Added PR Template (#11, #21).

@@ -103,6 +103,7 @@ public class JsonImporter {
     static void processMediTrackerJsonFile(Path mediTrackerJsonPath) {
         String jsonStringData = loadRawJsonFileData(mediTrackerJsonPath);
         if (jsonStringData == null) {
+            logger.info("Empty JSON file. MediTracker will run with a clean state.");
             return;
         }
 

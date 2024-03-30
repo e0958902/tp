@@ -11,7 +11,6 @@ import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.FileReadWriteException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.logging.MediLogger;
-import meditracker.medication.MedicationManager;
 import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
 
@@ -22,9 +21,6 @@ import java.util.List;
  * It initializes the user interface and runs the application loop.
  */
 public class MediTracker {
-
-    private MedicationManager medicationManager;
-
     /**
      * Constructs a new MediTracker object and initializes both medicationManager and
      * dailyMedicationManager.
@@ -53,7 +49,7 @@ public class MediTracker {
         //@@author nickczh-reused
         //Reused from https://github.com/nickczh/ip
         //with minor modifications
-        FileReaderWriter.loadMediTrackerData(medicationManager);
+        FileReaderWriter.loadMediTrackerData();
         Ui.showWelcomeMessage();
         boolean isExit = false;
         while (!isExit) {
