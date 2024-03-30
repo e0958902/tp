@@ -7,8 +7,8 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
-import java.util.logging.Logger;
 import java.util.List;
+import java.util.logging.Logger;
 
 import meditracker.exception.FileReadWriteException;
 import meditracker.logging.MediLogger;

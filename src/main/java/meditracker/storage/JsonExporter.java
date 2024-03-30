@@ -1,14 +1,15 @@
 package meditracker.storage;
 
-import meditracker.argument.ArgumentName;
-import meditracker.medication.Medication;
-import meditracker.medication.MedicationManager;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import meditracker.argument.ArgumentName;
+import meditracker.medication.Medication;
+import meditracker.medication.MedicationManager;
 
 //@@author annoy-o-mus
 /**
@@ -44,7 +45,7 @@ class JsonExporter {
      *
      * @return JSON array containing a list of medication in JSON form.
      */
-    private static JSONArray populateJsonMedicationList(){
+    private static JSONArray populateJsonMedicationList() {
         JSONArray medicationList = new JSONArray();
         int numberOfMedication = MedicationManager.getTotalMedications();
         // Start with 1 since the `getMedication` method will be converting from 1-based to 0-based
