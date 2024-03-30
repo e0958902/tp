@@ -5,15 +5,28 @@ import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DeleteCommandTest {
+
+    @BeforeEach
+    public void resetMedicationManager() throws InvocationTargetException,
+            IllegalAccessException, NoSuchMethodException {
+        Method resetMedicationManagerMethod
+                = MedicationManager.class.getDeclaredMethod("clearMedication");
+        resetMedicationManagerMethod.setAccessible(true);
+        resetMedicationManagerMethod.invoke(MedicationManager.class);
+    }
+
     @Test
     void execute_inOrderArgument_expectMedicationDeleted()
             throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
-        MedicationManager medicationManager = new MedicationManager();
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
@@ -26,12 +39,14 @@ public class DeleteCommandTest {
                 "cause_dizziness",
                 1,
                 87);
-        medicationManager.addMedication(medication);
+        MedicationManager.addMedication(medication);
+
+        MedicationManager.printAllMedications();
 
         String inputString = "delete -l 1";
         DeleteCommand command = new DeleteCommand(inputString);
-        command.execute(medicationManager);
+        command.execute();
 
-        assertThrows(IndexOutOfBoundsException.class, () -> medicationManager.getMedication(1));
+        assertThrows(IndexOutOfBoundsException.class, () -> MedicationManager.getMedication(1));
     }
 }

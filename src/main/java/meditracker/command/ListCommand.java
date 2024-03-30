@@ -45,32 +45,31 @@ public class ListCommand extends Command {
      * Executes the list command and performs its specific task, -t.
      * Uses a switch to do a, list all and, list today
      *
-     * @param medicationManager      The MedicationManager object representing the list of medications.
      */
     @Override
-    public void execute(MedicationManager medicationManager) {
+    public void execute() {
         String listTypeString = parsedArguments.get(ArgumentName.LIST_TYPE);
         
         switch (listTypeString) {
         case "all":
-            medicationManager.printAllMedications();
+            MedicationManager.printAllMedications();
             break;
         case "today":
-            DailyMedicationManager.printTodayMedications(medicationManager.getMedications());
+            DailyMedicationManager.printTodayMedications(MedicationManager.getMedications());
             break;
         case "today-m":
             List<DailyMedication> morningMedications = DailyMedicationManager.getDailyMedications(Period.MORNING);
-            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
+            DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
                     morningMedications, "Morning:");
             break;
         case "today-a":
             List<DailyMedication> afternoonMedications = DailyMedicationManager.getDailyMedications(Period.AFTERNOON);
-            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
+            DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
                     afternoonMedications, "Afternoon:");
             break;
         case "today-e":
             List<DailyMedication> eveningMedications = DailyMedicationManager.getDailyMedications(Period.EVENING);
-            DailyMedicationManager.printTodayMedications(medicationManager.getMedications(),
+            DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
                     eveningMedications, "Evening:");
             break;
         default:

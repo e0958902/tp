@@ -57,13 +57,12 @@ public class ModifyCommand extends Command {
      * This method modifies an existing Medication object using the provided information in the medication list.
      * It also displays a message confirming the modification of the medication.
      *
-     * @param medicationManager      The MedicationList object representing the list of medications.
      */
     @Override
-    public void execute(MedicationManager medicationManager) {
+    public void execute() {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
-        Medication medication = medicationManager.getMedication(listIndex);
+        Medication medication = MedicationManager.getMedication(listIndex);
 
         for (Map.Entry<ArgumentName, String> argument: parsedArguments.entrySet()) {
             ArgumentName argumentName = argument.getKey();

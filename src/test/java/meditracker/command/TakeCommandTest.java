@@ -35,7 +35,7 @@ public class TakeCommandTest {
 
         String inputString = "take -l 1";
         TakeCommand command = new TakeCommand(inputString);
-        command.execute(null);
+        command.execute();
 
         assertTrue(dailyMedication.isTaken());
     }

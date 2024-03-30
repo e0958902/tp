@@ -112,19 +112,17 @@ public class FileReaderWriter {
         }
 
         if (mediTrackerJsonPath != null) {
-            JsonImporter.processMediTrackerJsonFile(mediTrackerJsonPath, medicationManager);
+            JsonImporter.processMediTrackerJsonFile(mediTrackerJsonPath);
         }
     }
 
     /**
      * Saves the medication information found in `MedicationManager`.
-     *
-     * @param medManager The instance of the MedicationManager that contains the Medication information.
      */
-    public static void saveMediTrackerData(MedicationManager medManager) {
+    public static void saveMediTrackerData() {
         try {
             File fileToWrite = createJsonSaveFile();
-            JsonExporter.saveMedicationDataToJson(medManager, fileToWrite);
+            JsonExporter.saveMedicationDataToJson(fileToWrite);
             //TODO: Delete the renamed save file by `createJsonSaveFile`
         } catch (FileReadWriteException e) {
             System.out.println(e.getMessage());

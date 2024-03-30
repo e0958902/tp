@@ -9,9 +9,8 @@ public abstract class Command {
     /**
      * Executes the command
      *
-     * @param medicationManager      The MedicationList object representing the list of medications.
      */
-    public abstract void execute(MedicationManager medicationManager) throws FileReadWriteException;
+    public abstract void execute() throws FileReadWriteException;
 
     /**
      * Returns the boolean to exit the program.
