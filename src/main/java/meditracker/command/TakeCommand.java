@@ -6,7 +6,6 @@ import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListIndexArgument;
 import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.FileReadWriteException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.ui.Ui;
@@ -44,7 +43,7 @@ public class TakeCommand extends Command {
      *
      */
     @Override
-    public void execute() throws FileReadWriteException {
+    public void execute() {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
         DailyMedicationManager.takeDailyMedication(listIndex);

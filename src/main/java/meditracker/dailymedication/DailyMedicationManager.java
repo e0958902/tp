@@ -193,15 +193,11 @@ public class DailyMedicationManager {
      * @throws FileReadWriteException when unable to write to textfile
      * @see DailyMedication#take()
      */
-    public static void takeDailyMedication(int listIndex) throws FileReadWriteException {
+    public static void takeDailyMedication(int listIndex) {
         DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, Period.MORNING);
         dailyMedication.take();
         // TODO: afternoon and evening
-        try {
-            FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
-        } catch (FileReadWriteException e) {
-            throw new FileReadWriteException("IO Error: Unable to write to JSON File");
-        }
+        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
     }
 
     /**
@@ -211,15 +207,12 @@ public class DailyMedicationManager {
      * @throws FileReadWriteException when unable to write to textfile
      * @see DailyMedication#untake()
      */
-    public static void untakeDailyMedication(int listIndex) throws FileReadWriteException {
+    public static void untakeDailyMedication(int listIndex) {
         DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, Period.MORNING);
         dailyMedication.untake();
         // TODO: afternoon and evening
-        try {
-            FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
-        } catch (FileReadWriteException e) {
-            throw new FileReadWriteException("IO Error: Unable to write to text File");
-        }
+        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
+
     }
 
     /**
@@ -322,10 +315,6 @@ public class DailyMedicationManager {
         if(medication.getDosageEvening() != 0.0) {
             addDailyMedication(dailyMedication, Period.EVENING);
         }
-        try {
-            FileReaderWriter.saveDailyMedicationData(getDailyMedicationStringData());
-        } catch (FileReadWriteException e) {
-            System.out.println("Cannot write into today.txt");
-        }
+        FileReaderWriter.saveDailyMedicationData(getDailyMedicationStringData());
     }
 }

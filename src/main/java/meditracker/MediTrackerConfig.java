@@ -1,5 +1,6 @@
 package meditracker;
 
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import meditracker.logging.MediLogger;
@@ -12,11 +13,12 @@ public class MediTrackerConfig {
     private static final Logger logger = MediLogger.getMediLogger();
 
     /* Path to save Medication related information.*/
-    private static String fullJsonSaveFilePath = "data/MediTrackerData.json";
+    private static Path fullJsonSaveFilePath = Path.of("data/MediTrackerData.json");
     /* Path to save medication for the day. Not customisable.*/
-    private static String fullDailySaveFilePath = "data/dailymed/today.txt";
+    private static Path fullDailySaveFilePath = Path.of("data/dailymed/today.txt");
 
-    public static String getFullJsonSaveFilePath() {
+
+    public static Path getFullJsonSaveFilePath() {
         return fullJsonSaveFilePath;
     }
 
@@ -29,7 +31,7 @@ public class MediTrackerConfig {
         //MediTrackerConfig.fullJsonSaveFilePath = fullJsonSaveFilePath;
     }
 
-    public static String getFullDailySaveFilePath() {
+    public static Path getFullDailySaveFilePath() {
         return fullDailySaveFilePath;
     }
 }

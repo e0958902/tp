@@ -76,12 +76,7 @@ public class MediTracker {
                 System.out.println(helpMessage);
                 continue;
             }
-
-            try {
-                command.execute();
-            } catch (FileReadWriteException e) {
-                throw new FileReadWriteException("IO Error: Unable to write to text File");
-            }
+            command.execute();
             isExit = command.isExit();
         }
     }

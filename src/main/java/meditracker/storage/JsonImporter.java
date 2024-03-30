@@ -101,9 +101,13 @@ public class JsonImporter {
      * @param mediTrackerJsonPath The Path object specifying the path to the MediTracker save data.
      */
     static void processMediTrackerJsonFile(Path mediTrackerJsonPath) {
+        if (mediTrackerJsonPath == null) {
+            logger.warning("No path specified to read the JSON file. Defaulting to empty state.");
+            return;
+        }
+
         String jsonStringData = loadRawJsonFileData(mediTrackerJsonPath);
         if (jsonStringData == null) {
-            logger.info("Empty JSON file. MediTracker will run with a clean state.");
             return;
         }
 

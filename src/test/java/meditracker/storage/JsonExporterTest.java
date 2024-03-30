@@ -1,13 +1,15 @@
 package meditracker.storage;
 
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
+import meditracker.MediTrackerConfig;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import meditracker.exception.FileReadWriteException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 
@@ -17,7 +19,7 @@ import meditracker.medication.MedicationManager;
  * A class to test the JSON export functionality.
  */
 public class JsonExporterTest {
-    private static File exportedJsonFile = null;
+    private static Path fileToExport = null;
 
     /**
      * Pre-populate the medication manager with some medications that we need to simulate data exporting. They can be
@@ -74,23 +76,24 @@ public class JsonExporterTest {
 
     @BeforeEach
     public void setUpWriteFile() {
-
-        try {
-            exportedJsonFile = FileReaderWriter.createJsonSaveFile();
-        } catch (FileReadWriteException e) {
-            System.out.println(e.getMessage());
-        }
+        Path jsonSaveFile = MediTrackerConfig.getFullJsonSaveFilePath();
+        Path jsonFolder = FileReaderWriter.getFullPathComponent(jsonSaveFile, true);
+        fileToExport = FileReaderWriter.createTempSaveFile(jsonFolder);
     }
 
     @AfterEach
     public void cleanup() {
-        if (exportedJsonFile != null && exportedJsonFile.exists()) {
-            exportedJsonFile.delete();
+        try {
+            if (fileToExport != null) {
+                Files.deleteIfExists(fileToExport);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     @Test
     public void placeHolder() {
-        JsonExporter.saveMedicationDataToJson(exportedJsonFile);
+        JsonExporter.saveMedicationDataToJson(fileToExport);
     }
 }

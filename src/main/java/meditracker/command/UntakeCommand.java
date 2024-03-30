@@ -45,7 +45,7 @@ public class UntakeCommand extends Command {
      * @throws FileReadWriteException when there is error to write into text file.
      */
     @Override
-    public void execute() throws FileReadWriteException {
+    public void execute() {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
         DailyMedicationManager.untakeDailyMedication(listIndex);
