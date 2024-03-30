@@ -11,6 +11,12 @@ public class TimeRange {
         this.end = end;
     }
 
+    /**
+     * Checks whether a given time is within the time range
+     *
+     * @param time Given time to check the range
+     * @return True if it is within the time range, else False
+     */
     public boolean isWithinTimeRange(LocalTime time) {
         boolean isWithinStartAndEnd = time.isAfter(start) && time.isBefore(end);
         return start.equals(time) || end.equals(time) || isWithinStartAndEnd;
