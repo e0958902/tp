@@ -153,10 +153,10 @@ public class MedicationManager {
         try {
             return Double.parseDouble(doubleString);
         } catch (NumberFormatException e) {
-            logger.warning("Possibly corrupt data. Unable to parse String '" + doubleString +
-                    "' into double. Using placeholder value -1.0");
+            logger.warning("Possibly corrupt data. Unable to parse String '" + doubleString
+                    + "' into double. Using placeholder value -1.0");
             return placeholderValue;
-        } catch (NullPointerException e ) {
+        } catch (NullPointerException e) {
             logger.warning("Null Pointer passed for conversion to double. Using placeholder value -1.0");
             return placeholderValue;
         }
@@ -171,7 +171,7 @@ public class MedicationManager {
      * @param medInfoList The List of medication information that contains the (String, String) key-value.
      */
     public static void addMedicationFromSaveFile(List<Map<String, String>> medInfoList) {
-        for (Map<String,String> medInfo : medInfoList) {
+        for (Map<String, String> medInfo : medInfoList) {
             Medication medication = new Medication();
             for (String key : medInfo.keySet()) {
                 ArgumentName keyEnum = ArgumentName.getEnumOfArgumentValue(key);
