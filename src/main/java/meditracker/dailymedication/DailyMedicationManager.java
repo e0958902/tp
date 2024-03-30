@@ -23,15 +23,20 @@ public class DailyMedicationManager {
     private static final LocalDate currentDate = LocalDate.now();
 
     /**
+     * Prevents defaulting to the public constructor
+     * that allows instantiation of the DailyMedicationManager class
+     */
+    private DailyMedicationManager() {
+    }
+
+    /**
      * Creates DailyMedicationManager to save medications from MedicationManager
      * so that program can output to textfile
      *
-     * @param medicationManager gets the medications list
      * @see DailyMedication
      */
-    public static void createDailyMedicationManager(MedicationManager medicationManager) {
-        assert medicationManager != null;
-        for (Medication medication : medicationManager.getMedications()) {
+    public static void createDailyMedicationManager() {
+        for (Medication medication : MedicationManager.getMedications()) {
             if (shouldAddToDailyList(medication)) {
                 addToSubLists(medication);
             }

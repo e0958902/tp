@@ -31,8 +31,7 @@ public class MediTracker {
      * dailyMedicationManager.
      */
     public MediTracker() {
-        medicationManager = new MedicationManager();
-        DailyMedicationManager.createDailyMedicationManager(medicationManager);
+        DailyMedicationManager.createDailyMedicationManager();
     }
 
     /**
@@ -41,7 +40,6 @@ public class MediTracker {
      * @param dailyMedicationList Daily medication
      */
     public MediTracker(List<String> dailyMedicationList) {
-        medicationManager = new MedicationManager();
         DailyMedicationManager.importDailyMedicationManager(dailyMedicationList);
     }
 
@@ -85,7 +83,7 @@ public class MediTracker {
             }
 
             try {
-                command.execute(medicationManager);
+                command.execute();
             } catch (FileReadWriteException e) {
                 throw new FileReadWriteException("IO Error: Unable to write to text File");
             } catch (InvalidArgumentException e) {

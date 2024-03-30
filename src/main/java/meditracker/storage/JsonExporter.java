@@ -1,5 +1,6 @@
 package meditracker.storage;
 
+import meditracker.argument.ArgumentName;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import org.json.JSONArray;
@@ -11,52 +12,57 @@ import java.io.IOException;
 
 //@@author annoy-o-mus
 /**
- * A Class that converts data to JSON and write to the target file.
+ * A Class that converts Meditracker data to JSON and writes to the target file.
  */
 class JsonExporter {
     /**
-     * Converts the information inside the Medication object into a JSON Object.
+     * Converts the information inside a Medication object into a JSON Object.
      *
      * @param medInfo The Medication object.
      * @return The JSON object representing the Medication object.
      */
-    static JSONObject convertMedicationInfoToJson(Medication medInfo) {
+    private static JSONObject convertMedicationInfoToJsonObject(Medication medInfo) {
         JSONObject medObject = new JSONObject();
 
-        medObject.put("name", medInfo.getName());
-        medObject.put("quantity", medInfo.getQuantity());
-        medObject.put("dosage", medInfo.getDosage());
-        medObject.put("expiryDate", medInfo.getExpiryDate());
-        medObject.put("intakeFrequency", medInfo.getIntakeFreq());
-        medObject.put("remarks", medInfo.getRemarks());
+        medObject.put(ArgumentName.NAME.value, medInfo.getName());
+        medObject.put(ArgumentName.QUANTITY.value, medInfo.getQuantity());
+        medObject.put(ArgumentName.DOSAGE.value, medInfo.getDosage());
+        medObject.put(ArgumentName.DOSAGE_MORNING.value, medInfo.getDosageMorning());
+        medObject.put(ArgumentName.DOSAGE_AFTERNOON.value, medInfo.getDosageAfternoon());
+        medObject.put(ArgumentName.DOSAGE_EVENING.value, medInfo.getDosageEvening());
+        medObject.put(ArgumentName.EXPIRATION_DATE.value, medInfo.getExpiryDate());
+        medObject.put(ArgumentName.INTAKE_FREQUENCY.value, medInfo.getIntakeFreq());
+        medObject.put(ArgumentName.REMARKS.value, medInfo.getRemarks());
+        medObject.put(ArgumentName.REPEAT.value, medInfo.getRepeat());
+        medObject.put(ArgumentName.DAY_ADDED.value, medInfo.getDayAdded());
 
         return medObject;
     }
 
     /**
-     * Save all the medication information into the JSON file.
+     * Populates the JSON array with Medication information in JSON form.
      *
-     * @param medManager The instance of the MedicationManager
-     * @param fileToWrite The File object containing the abstract pathname of the JSON file to write to.
+     * @return JSON array containing a list of medication in JSON form.
      */
-    static void saveMedicationDataToJson(MedicationManager medManager, File fileToWrite) {
-        // Solution on how to write to a JSON file is adapted from:
-        // https://stackoverflow.com/a/62947435
-        // and https://javadoc.io/doc/org.json/json/latest/org/json/JSONObject.html
-        // and https://javadoc.io/doc/org.json/json/latest/org/json/JSONArray.html
-
-        JSONObject root = new JSONObject();
+    private static JSONArray populateJsonMedicationList(){
         JSONArray medicationList = new JSONArray();
-
-        int numberOfMedication = medManager.getTotalMedications();
+        int numberOfMedication = MedicationManager.getTotalMedications();
         // Start with 1 since the `getMedication` method will be converting from 1-based to 0-based
         for (int i = 1; i <= numberOfMedication; i++) {
-            Medication medicationInfo = medManager.getMedication(i);
-            medicationList.put(convertMedicationInfoToJson(medicationInfo));
+            Medication medicationInfo = MedicationManager.getMedication(i);
+            JSONObject medObject = convertMedicationInfoToJsonObject(medicationInfo);
+            medicationList.put(medObject);
         }
-        root.put("version", 1.0);
-        root.put("medicationList", medicationList);
+        return medicationList;
+    }
 
+    /**
+     * Writes the JSON object (starting with the root) to specified file.
+     *
+     * @param root The JSON object that contains all the JSON data.
+     * @param fileToWrite The File object containing the abstract pathname of the JSON file.
+     */
+    private static void writeJsonData(JSONObject root, File fileToWrite) {
         try {
             FileWriter fileWriter = new FileWriter(fileToWrite);
             fileWriter.write(root.toString());
@@ -65,5 +71,25 @@ class JsonExporter {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Save all the medication information into a JSON file.
+     *
+     * @param fileToWrite The File object containing the abstract pathname of the JSON file to write to.
+     */
+    static void saveMedicationDataToJson(File fileToWrite) {
+        // Solution on how to write to a JSON file is adapted from:
+        // https://stackoverflow.com/a/62947435
+        // and https://javadoc.io/doc/org.json/json/latest/org/json/JSONObject.html
+        // and https://javadoc.io/doc/org.json/json/latest/org/json/JSONArray.html
+
+        JSONObject rootData = new JSONObject();
+        rootData.put("version", 1.0);
+
+        JSONArray medicationList = populateJsonMedicationList();
+        rootData.put("medicationList", medicationList);
+
+        writeJsonData(rootData, fileToWrite);
     }
 }

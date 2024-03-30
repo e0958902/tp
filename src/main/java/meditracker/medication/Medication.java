@@ -21,6 +21,26 @@ public class Medication {
     private int dayAdded;
 
     /**
+     * Constructs a new Medication object with default placeholder values.
+     * Used by MedicationManager to populate medication data from the save file.
+     */
+    public Medication() {
+        final double placeholderValue = -1.0;
+
+        setName("");
+        setQuantity(placeholderValue);
+        setDosage(placeholderValue);
+        setDosageMorning(placeholderValue);
+        setDosageAfternoon(placeholderValue);
+        setDosageEvening(placeholderValue);
+        setExpiryDate("");
+        setIntakeFreq("");
+        setRemarks("");
+        setRepeat((int) placeholderValue);
+        setDayAdded((int) placeholderValue);
+    }
+
+    /**
      * Constructs a Medication object with the specified information.
      * @param name The name of the medication.
      * @param quantity The quantity of the medication.
@@ -128,8 +148,13 @@ public class Medication {
     public void setRepeat(int repeat) {
         this.repeat = repeat;
     }
+
     public int getDayAdded() {
         return dayAdded;
+    }
+
+    public void setDayAdded(int dayAdded) {
+        this.dayAdded = dayAdded;
     }
 
     @Override

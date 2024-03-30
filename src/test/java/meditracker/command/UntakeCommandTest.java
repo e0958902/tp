@@ -2,13 +2,12 @@ package meditracker.command;
 
 import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
-import meditracker.time.Period;
 import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.FileReadWriteException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.FileReadWriteException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.InvalidArgumentException;
-import meditracker.medication.MedicationManager;
+import meditracker.time.Period;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,13 +31,12 @@ public class UntakeCommandTest {
     void execute_inOrderArgument_expectDailyMedicationUntaken()
             throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException,
             FileReadWriteException, InvalidArgumentException {
-        MedicationManager medicationManager = new MedicationManager();
         DailyMedication dailyMedication = new DailyMedication("Medication_A");
         DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);    //only doing for MORNING sub list
 
         String inputString = "untake -l 1 -m";
         UntakeCommand command = new UntakeCommand(inputString);
-        command.execute(null);
+        command.execute();
 
         assertFalse(dailyMedication.isTaken());
     }

@@ -10,8 +10,6 @@ class ListCommandTest {
 
     @Test
     void execute_listCommand_expect() {
-        MedicationManager medicationManager = new MedicationManager();
-
         String medicationName = "Medication_B";
 
         Medication medication = new Medication(
@@ -28,12 +26,12 @@ class ListCommandTest {
                 87
         );
 
-        medicationManager.addMedication(medication);
+        MedicationManager.addMedication(medication);
 
-        assert medicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
                 "than 0 after adding in" + medicationName;
 
-        Medication addedMedication = medicationManager.getMedication(1);
+        Medication addedMedication = MedicationManager.getMedication(1);
         assertEquals(addedMedication.getName(), medicationName);
     }
 }

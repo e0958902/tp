@@ -1,20 +1,19 @@
 package meditracker.command;
 
-import meditracker.argument.ArgumentHelper;
 import meditracker.argument.AfternoonArgument;
-import meditracker.argument.EveningArgument;
-import meditracker.argument.MorningArgument;
-import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
+import meditracker.argument.EveningArgument;
 import meditracker.argument.ListIndexArgument;
-import meditracker.time.Period;
+import meditracker.argument.MorningArgument;
+import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.FileReadWriteException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.FileReadWriteException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.InvalidArgumentException;
-import meditracker.medication.MedicationManager;
+import meditracker.time.Period;
 import meditracker.ui.Ui;
 
 import java.time.LocalTime;
@@ -52,11 +51,10 @@ public class UntakeCommand extends Command {
      * This method unmarks an existing Medication object using the provided list index.
      * It also displays a message confirming the modification of the daily medication status.
      *
-     * @param medicationManager      The MedicationManager object representing the list of medications.
      * @throws FileReadWriteException when there is error to write into text file.
      */
     @Override
-    public void execute(MedicationManager medicationManager) throws FileReadWriteException, InvalidArgumentException {
+    public void execute() throws FileReadWriteException, InvalidArgumentException {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
 
