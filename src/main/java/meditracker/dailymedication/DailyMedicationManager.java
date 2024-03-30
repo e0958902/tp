@@ -4,6 +4,7 @@ import meditracker.exception.FileReadWriteException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.storage.FileReaderWriter;
+import meditracker.time.Period;
 import meditracker.ui.Ui;
 
 import java.time.LocalDate;
@@ -16,7 +17,6 @@ import java.util.List;
  * @see DailyMedication
  */
 public class DailyMedicationManager {
-    private static final List<DailyMedication> dailyMedications = new ArrayList<>();
     private static final List<DailyMedication> morningMedications = new ArrayList<>();
     private static final List<DailyMedication> afternoonMedications = new ArrayList<>();
     private static final List<DailyMedication> eveningMedications = new ArrayList<>();
@@ -120,7 +120,6 @@ public class DailyMedicationManager {
         default:
             System.out.println("Cannot add to sublist");
         }
-        dailyMedications.add(dailyMedication);
     }
 
     /**
@@ -128,6 +127,7 @@ public class DailyMedicationManager {
      * Also converts the index to 0-based indexing before being used.
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
+     * @param period Time period of day (Morning, afternoon or evening)
      * @return DailyMedication object at the corresponding index (0-based indexing)
      * @throws IndexOutOfBoundsException Out of range index specified
      */
@@ -146,7 +146,13 @@ public class DailyMedicationManager {
         }
     }
 
-    public static List<DailyMedication> getDailyMedications (Period period) {
+    /**
+     * Gets the relevant list of DailyMedication objects depending on the time period of day
+     *
+     * @param period Time period of day (Morning, afternoon or evening)
+     * @return The relevant list of DailyMedication objects
+     */
+    public static List<DailyMedication> getDailyMedications(Period period) {
         switch (period) {
         case MORNING:
             return morningMedications;
@@ -190,13 +196,15 @@ public class DailyMedicationManager {
      * Fetches the corresponding DailyMedication and set the medication to taken
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
+     * @param period Time period of day (Morning, afternoon or evening)
      * @throws FileReadWriteException when unable to write to textfile
      * @see DailyMedication#take()
      */
-    public static void takeDailyMedication(int listIndex) throws FileReadWriteException {
-        DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, Period.MORNING);
+    public static void takeDailyMedication(int listIndex, Period period) throws FileReadWriteException {
+        DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, period);
         dailyMedication.take();
-        // TODO: afternoon and evening
+        MedicationManager.decreaseMedicationQuantity(dailyMedication.getName(), period);
+
         try {
             FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
         } catch (FileReadWriteException e) {
@@ -208,13 +216,15 @@ public class DailyMedicationManager {
      * Fetches the corresponding DailyMedication and set the medication to not taken
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
+     * @param period Time period of day (Morning, afternoon or evening)
      * @throws FileReadWriteException when unable to write to textfile
      * @see DailyMedication#untake()
      */
-    public static void untakeDailyMedication(int listIndex) throws FileReadWriteException {
-        DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, Period.MORNING);
+    public static void untakeDailyMedication(int listIndex, Period period) throws FileReadWriteException {
+        DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, period);
         dailyMedication.untake();
-        // TODO: afternoon and evening
+        MedicationManager.increaseMedicationQuantity(dailyMedication.getName(), period);
+
         try {
             FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
         } catch (FileReadWriteException e) {
@@ -240,15 +250,6 @@ public class DailyMedicationManager {
             dailyMedicationStrings.add("E|" + eveningMedication.isTaken() + "|" + eveningMedication.getName());
         }
         return dailyMedicationStrings;
-    }
-
-    /**
-     * Returns the total number of daily medications in the list.
-     *
-     * @return The total number of daily medications.
-     */
-    public static int getTotalDailyMedication() {
-        return dailyMedications.size();
     }
 
     /**
@@ -313,13 +314,13 @@ public class DailyMedicationManager {
      */
     private static void addToSubLists(Medication medication) {
         DailyMedication dailyMedication = new DailyMedication(medication.getName());
-        if(medication.getDosageMorning() != 0.0) {
+        if (medication.getDosageMorning() != 0.0) {
             addDailyMedication(dailyMedication, Period.MORNING);
         }
-        if(medication.getDosageAfternoon() != 0.0) {
+        if (medication.getDosageAfternoon() != 0.0) {
             addDailyMedication(dailyMedication, Period.AFTERNOON);
         }
-        if(medication.getDosageEvening() != 0.0) {
+        if (medication.getDosageEvening() != 0.0) {
             addDailyMedication(dailyMedication, Period.EVENING);
         }
         try {

@@ -13,6 +13,7 @@
 - Issue #65: Bug Modify medication name does not update `DailyMedication` name
 - Issue #77: Add support for no value flag arguments
 - Issue #86: Add help messages for the different commands
+- Issue #91: Add time period arguments and quantity management logic
 
 ### Developer Guide Contributions
 - Information related to how `ArgumentParser` works
@@ -24,4 +25,4 @@ if more `Argument`s are needed
 
 ### PR Reviews
 #3, #6, #7, #10, #12, #17, #22, #28, #33, 
-#35, #47, #49, #58, #59, #73, #75, #80
+#35, #47, #49, #58, #59, #73, #75, #80, #84

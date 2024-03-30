@@ -1,16 +1,22 @@
 package meditracker.command;
 
+import meditracker.argument.AfternoonArgument;
 import meditracker.argument.ArgumentHelper;
-import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
+import meditracker.argument.EveningArgument;
 import meditracker.argument.ListIndexArgument;
+import meditracker.argument.MorningArgument;
+import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.FileReadWriteException;
 import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.FileReadWriteException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.InvalidArgumentException;
+import meditracker.time.Period;
 import meditracker.ui.Ui;
 
+import java.time.LocalTime;
 import java.util.Map;
 
 /**
@@ -19,7 +25,10 @@ import java.util.Map;
  */
 public class TakeCommand extends Command {
     public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
-            new ListIndexArgument(false)
+            new ListIndexArgument(false),
+            new MorningArgument(true),
+            new AfternoonArgument(true),
+            new EveningArgument(true)
     );
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.TAKE, ARGUMENT_LIST);
     private final Map<ArgumentName, String> parsedArguments;
@@ -44,10 +53,24 @@ public class TakeCommand extends Command {
      *
      */
     @Override
-    public void execute() throws FileReadWriteException {
+    public void execute() throws FileReadWriteException, InvalidArgumentException {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
-        DailyMedicationManager.takeDailyMedication(listIndex);
+
+        boolean isMorning = parsedArguments.get(ArgumentName.MORNING) != null;
+        boolean isAfternoon = parsedArguments.get(ArgumentName.AFTERNOON) != null;
+        boolean isEvening = parsedArguments.get(ArgumentName.EVENING) != null;
+        Period period = Period.getPeriod(isMorning, isAfternoon, isEvening);
+        if (period == Period.NONE) {
+            period = Period.getPeriod(LocalTime.now());
+        }
+
+        if (period == Period.UNKNOWN) {
+            throw new InvalidArgumentException("Unable to determine time period. " +
+                    "Please select 1 flag only or try again later.");
+        }
+
+        DailyMedicationManager.takeDailyMedication(listIndex, period);
         Ui.showTakeCommandMessage();
     }
 }

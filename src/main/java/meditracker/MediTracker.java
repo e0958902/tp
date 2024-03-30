@@ -10,6 +10,7 @@ import meditracker.exception.CommandNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.FileReadWriteException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.InvalidArgumentException;
 import meditracker.logging.MediLogger;
 import meditracker.medication.MedicationManager;
 import meditracker.storage.FileReaderWriter;
@@ -85,6 +86,8 @@ public class MediTracker {
                 command.execute();
             } catch (FileReadWriteException e) {
                 throw new FileReadWriteException("IO Error: Unable to write to text File");
+            } catch (InvalidArgumentException e) {
+                System.out.println(e.getMessage());
             }
             isExit = command.isExit();
         }
