@@ -7,7 +7,7 @@ import java.util.logging.Logger;
  */
 public class MediLogger {
     private static final String MEDILOGGER_NAME = "MediLogger";
-    private static Logger mediLogger  = null;
+    private static Logger mediLogger = null;
 
     /**
      * Gets the default logger for the MediTracker project.
@@ -16,7 +16,7 @@ public class MediLogger {
      *
      * @return The default logger for MediTracker project.
      */
-    public static Logger getMediLogger(){
+    public static Logger getMediLogger() {
         if (mediLogger == null) {
             initialiseLogger();
             mediLogger.warning("Logger initialised from unintended function");

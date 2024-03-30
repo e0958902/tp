@@ -40,15 +40,15 @@ public class JsonImporter {
         int numberOfElements = jsonArray.length();
         List<Map<String, String>> list = new ArrayList<>();
 
-        for (int i = 0; i < numberOfElements; i ++ ) {
-            Map<String,String> kvMap = new HashMap<>();
+        for (int i = 0; i < numberOfElements; i++) {
+            Map<String, String> kvMap = new HashMap<>();
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 Iterator<String> keys = jsonObject.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();
                     String value = jsonObject.get(key).toString();
-                    kvMap.put(key,value);
+                    kvMap.put(key, value);
                 }
                 list.add(kvMap);
             } catch (JSONException e) {
@@ -100,7 +100,7 @@ public class JsonImporter {
      *
      * @param mediTrackerJsonPath The Path object specifying the path to the MediTracker save data.
      */
-    static void processMediTrackerJsonFile (Path mediTrackerJsonPath) {
+    static void processMediTrackerJsonFile(Path mediTrackerJsonPath) {
         String jsonStringData = loadRawJsonFileData(mediTrackerJsonPath);
         if (jsonStringData == null) {
             return;
@@ -118,7 +118,7 @@ public class JsonImporter {
             return;
         }
 
-        List<Map<String,String>> medicationStringMap = convertJsonArrayToStringMap(medicationList);
+        List<Map<String, String>> medicationStringMap = convertJsonArrayToStringMap(medicationList);
         MedicationManager.addMedicationFromSaveFile(medicationStringMap);
     }
 }
