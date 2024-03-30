@@ -1,10 +1,11 @@
 package meditracker.logging;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.logging.Logger;
+
+import org.junit.jupiter.api.Test;
+
 
 public class MediLoggerTest {
 

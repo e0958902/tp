@@ -1,17 +1,18 @@
 package meditracker.storage;
 
-import meditracker.exception.FileReadWriteException;
-import meditracker.medication.Medication;
-import meditracker.medication.MedicationManager;
+import java.io.File;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
+import meditracker.exception.FileReadWriteException;
+import meditracker.medication.Medication;
+import meditracker.medication.MedicationManager;
+
 
 //@@author annoy-o-mus
-
 /**
  * A class to test the JSON export functionality.
  */
