@@ -10,12 +10,10 @@ public class Medication {
     // Medication attributes are intentionally declared String. To be modified later.
     private String name;
     private Double quantity;
-    private Double dosage;
     private Double dosageMorning;
     private Double dosageAfternoon;
     private Double dosageEvening;
     private String expiryDate;
-    private String intakeFreq;
     private String remarks;
     private int repeat;
     private int dayAdded;
@@ -29,12 +27,10 @@ public class Medication {
 
         setName("");
         setQuantity(placeholderValue);
-        setDosage(placeholderValue);
         setDosageMorning(placeholderValue);
         setDosageAfternoon(placeholderValue);
         setDosageEvening(placeholderValue);
         setExpiryDate("");
-        setIntakeFreq("");
         setRemarks("");
         setRepeat((int) placeholderValue);
         setDayAdded((int) placeholderValue);
@@ -44,26 +40,22 @@ public class Medication {
      * Constructs a Medication object with the specified information.
      * @param name The name of the medication.
      * @param quantity The quantity of the medication.
-     * @param dosage The dosage of the medication.
      * @param dosageMorning The morning dosage of the medication.
      * @param dosageAfternoon The afternoon dosage of the medication.
      * @param dosageEvening The evening dosage of the medication.
      * @param expiryDate The expiry date of the medication.
-     * @param intakeFreq The intake frequency of the medication in a day.
      * @param remarks Any remarks or notes about the medication.
      * @param repeat The repeat frequency of the medication.
      */
-    public Medication(String name, Double quantity, Double dosage, Double dosageMorning, Double dosageAfternoon,
-                      Double dosageEvening, String expiryDate,
-                      String intakeFreq, String remarks, int repeat, int dayAdded) {
+    public Medication(String name, Double quantity,
+                      Double dosageMorning, Double dosageAfternoon, Double dosageEvening,
+                      String expiryDate, String remarks, int repeat, int dayAdded) {
         this.name = name;
         this.quantity = quantity;
-        this.dosage = dosage;
         this.dosageMorning = dosageMorning;
         this.dosageAfternoon = dosageAfternoon;
         this.dosageEvening = dosageEvening;
         this.expiryDate = expiryDate;
-        this.intakeFreq = intakeFreq;
         this.remarks = remarks;
         this.repeat = repeat;
         this.dayAdded = dayAdded;
@@ -83,14 +75,6 @@ public class Medication {
 
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
-    }
-
-    public Double getDosage() {
-        return dosage;
-    }
-
-    public void setDosage(Double dosage) {
-        this.dosage = dosage;
     }
 
     public Double getDosageMorning() {
@@ -123,14 +107,6 @@ public class Medication {
 
     public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
-    }
-
-    public String getIntakeFreq() {
-        return intakeFreq;
-    }
-
-    public void setIntakeFreq(String intakeFreq) {
-        this.intakeFreq = intakeFreq;
     }
 
     public String getRemarks() {
