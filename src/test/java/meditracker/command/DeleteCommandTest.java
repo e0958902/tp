@@ -30,12 +30,10 @@ public class DeleteCommandTest {
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
-                500.0,
                 null,
                 null,
                 null,
                 "01/07/25",
-                "morning",
                 "cause_dizziness",
                 1,
                 87);

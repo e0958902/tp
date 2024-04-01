@@ -5,12 +5,10 @@ package meditracker.argument;
  * by Command classes and ArgumentParser
  */
 public enum ArgumentName {
-    DOSAGE("dosage"),
     DOSAGE_MORNING("dosageMorning"),
     DOSAGE_AFTERNOON("dosageAfternoon"),
     DOSAGE_EVENING("dosageEvening"),
     EXPIRATION_DATE("expirationDate"),
-    INTAKE_FREQUENCY("intakeFrequency"),
     REPEAT("repeat"),
     DAY_ADDED("dayAdded"),
     LIST_INDEX("listIndex"),

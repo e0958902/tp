@@ -10,7 +10,6 @@ import meditracker.argument.MorningArgument;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
-import meditracker.exception.FileReadWriteException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.InvalidArgumentException;
 import meditracker.time.Period;
@@ -53,7 +52,7 @@ public class TakeCommand extends Command {
      *
      */
     @Override
-    public void execute() throws FileReadWriteException, InvalidArgumentException {
+    public void execute() throws InvalidArgumentException {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
 
