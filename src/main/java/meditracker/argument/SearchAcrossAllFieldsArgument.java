@@ -3,8 +3,8 @@ package meditracker.argument;
 /**
  * Argument for the illness treated by the medicine.
  */
-public class searchAcrossAllFields extends Argument {
-    public searchAcrossAllFields(boolean isOptional) {
+public class SearchAcrossAllFieldsArgument extends Argument {
+    public SearchAcrossAllFieldsArgument(boolean isOptional) {
         super(
                 ArgumentName.SEARCH_ALL_FIELDS,
                 "-a",
@@ -12,6 +12,6 @@ public class searchAcrossAllFields extends Argument {
                 "Finds keyword from all fields of the library.",
                 isOptional,
                 true
-                );
+        );
     }
 }

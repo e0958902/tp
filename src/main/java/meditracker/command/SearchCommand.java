@@ -1,6 +1,12 @@
 package meditracker.command;
 
-import meditracker.argument.*;
+import meditracker.argument.ArgumentHelper;
+import meditracker.argument.ArgumentList;
+import meditracker.argument.ArgumentName;
+import meditracker.argument.IllnessArgument;
+import meditracker.argument.NameArgument;
+import meditracker.argument.SearchAcrossAllFieldsArgument;
+import meditracker.argument.SideEffectsArgument;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
@@ -20,11 +26,13 @@ public class SearchCommand extends Command{
             new NameArgument(true),
             new IllnessArgument(true),
             new SideEffectsArgument(true),
-            new searchAcrossAllFields(true)
+            new SearchAcrossAllFieldsArgument(true)
     );
 
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.SEARCH, ARGUMENT_LIST);
     private final Map<ArgumentName, String> parsedArguments;
+    LibraryManager libraryManager = new LibraryManager();
+
 
     /**
      * Constructs a new search command with the specified keyword.
@@ -44,7 +52,6 @@ public class SearchCommand extends Command{
      */
     @Override
     public void execute() throws NullPointerException, IllegalArgumentException {
-        LibraryManager libraryManager = new LibraryManager();
         String keyword = "";
         try {
             if (parsedArguments.containsKey(ArgumentName.SEARCH_ALL_FIELDS)) {

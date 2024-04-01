@@ -14,17 +14,28 @@ public class LibraryManager {
 
     private static final String FILE_PATH = "/medicationLibrary.txt";
     private static final List<SearchResult> medicationLibrary = new ArrayList<>();
-    private static final List<SearchResult> searchResults = new ArrayList<>();
+    private static List<SearchResult> searchResults = new ArrayList<>();
+
+    /**
+     * Static initializer block.
+     *
+     * This block of code is executed when the LibraryManager class is loaded into memory.
+     * It calls the loadMedicationLibrary method to load the medication library from a text file.
+     * This ensures that the medication library is loaded only once, regardless of how many instances of LibraryManager
+     * are created.
+     */
+    static {
+        loadMedicationLibrary();
+    }
 
     public LibraryManager() {
-        loadMedicationLibrary();
     }
 
     /**
      * Loads the medication library from a text file.
      */
-    private void loadMedicationLibrary() {
-        InputStream file = getClass().getResourceAsStream(FILE_PATH);
+    private static void loadMedicationLibrary() {
+        InputStream file = LibraryManager.class.getResourceAsStream(FILE_PATH);
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
