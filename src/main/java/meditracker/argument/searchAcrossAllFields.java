@@ -1,9 +1,12 @@
 package meditracker.argument;
 
-public class FindAllFieldsArgument extends Argument {
-    public FindAllFieldsArgument(boolean isOptional) {
+/**
+ * Argument for the illness treated by the medicine.
+ */
+public class searchAcrossAllFields extends Argument {
+    public searchAcrossAllFields(boolean isOptional) {
         super(
-                ArgumentName.FIND_ALL_FIELDS,
+                ArgumentName.SEARCH_ALL_FIELDS,
                 "-a",
                 "What do you want to find? (medications, illnesses, side effects)",
                 "Finds keyword from all fields of the library.",

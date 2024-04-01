@@ -13,11 +13,14 @@ import java.util.Map;
  * Represents a command to search for medications from the local medication library based on a keyword.
  */
 public class SearchCommand extends Command{
+    /*
+     * The argumentList contains all the arguments needed for searching for medication from the medication library.
+     */
     public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
             new NameArgument(true),
             new IllnessArgument(true),
             new SideEffectsArgument(true),
-            new FindAllFieldsArgument(true)
+            new searchAcrossAllFields(true)
     );
 
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.SEARCH, ARGUMENT_LIST);
@@ -28,22 +31,24 @@ public class SearchCommand extends Command{
      *
      * @param arguments The keyword to search for in the medication library.
      */
-
     public SearchCommand(String arguments)
             throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
     /**
-     * Executes the search command to search for medications in the library based on the keyword.
+     * Executes the search command based on the keyword.
+     *
+     * @throws NullPointerException if the keyword is not found.
+     * @throws IllegalArgumentException if the library is corrupted.
      */
     @Override
     public void execute() throws NullPointerException, IllegalArgumentException {
         LibraryManager libraryManager = new LibraryManager();
         String keyword = "";
         try {
-            if (parsedArguments.containsKey(ArgumentName.FIND_ALL_FIELDS)) {
-                keyword = parsedArguments.get(ArgumentName.FIND_ALL_FIELDS).toLowerCase().trim();
+            if (parsedArguments.containsKey(ArgumentName.SEARCH_ALL_FIELDS)) {
+                keyword = parsedArguments.get(ArgumentName.SEARCH_ALL_FIELDS).toLowerCase().trim();
                 LibraryManager.searchLibrary(keyword);
             } else if (parsedArguments.containsKey(ArgumentName.NAME)) {
                 keyword = parsedArguments.get(ArgumentName.NAME).toLowerCase().trim();

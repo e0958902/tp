@@ -1,6 +1,5 @@
 package meditracker.library;
 
-import meditracker.exception.ArgumentNotFoundException;
 import meditracker.ui.Ui;
 
 import java.io.InputStream;
@@ -21,6 +20,9 @@ public class LibraryManager {
         loadMedicationLibrary();
     }
 
+    /**
+     * Loads the medication library from a text file.
+     */
     private void loadMedicationLibrary() {
         InputStream file = getClass().getResourceAsStream(FILE_PATH);
         Scanner scanner = new Scanner(file);
@@ -49,6 +51,12 @@ public class LibraryManager {
         }
     }
 
+
+    /**
+     * Searches medication names in the library based on a keyword.
+     *
+     * @param keyword The keyword to search for in the medication library.
+     */
     public void findMedication(String keyword) {
         if (keyword.isEmpty()) {
             throw new NullPointerException();
@@ -62,6 +70,11 @@ public class LibraryManager {
         }
     }
 
+    /**
+     * Searches for medications based on the illness they treat.
+     *
+     * @param keyword The keyword to search for in the medication library.
+     */
     public void findIllness(String keyword) {
         if (keyword.isEmpty()) {
             throw new NullPointerException();
@@ -75,6 +88,11 @@ public class LibraryManager {
         }
     }
 
+    /**
+     * Searches for medications based on their side effects.
+     *
+     * @param keyword The keyword to search for in the medication library.
+     */
     public void findSideEffects(String keyword) {
         if (keyword.isEmpty()) {
             throw new NullPointerException();
