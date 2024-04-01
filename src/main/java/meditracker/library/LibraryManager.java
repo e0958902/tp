@@ -16,14 +16,6 @@ public class LibraryManager {
     private static final List<SearchResult> medicationLibrary = new ArrayList<>();
     private static List<SearchResult> searchResults = new ArrayList<>();
 
-    /**
-     * Static initializer block.
-     *
-     * This block of code is executed when the LibraryManager class is loaded into memory.
-     * It calls the loadMedicationLibrary method to load the medication library from a text file.
-     * This ensures that the medication library is loaded only once, regardless of how many instances of LibraryManager
-     * are created.
-     */
     static {
         loadMedicationLibrary();
     }

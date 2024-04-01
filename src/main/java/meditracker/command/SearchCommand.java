@@ -31,8 +31,6 @@ public class SearchCommand extends Command{
 
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.SEARCH, ARGUMENT_LIST);
     private final Map<ArgumentName, String> parsedArguments;
-    LibraryManager libraryManager = new LibraryManager();
-
 
     /**
      * Constructs a new search command with the specified keyword.
@@ -52,6 +50,7 @@ public class SearchCommand extends Command{
      */
     @Override
     public void execute() throws NullPointerException, IllegalArgumentException {
+        LibraryManager libraryManager = new LibraryManager();
         String keyword = "";
         try {
             if (parsedArguments.containsKey(ArgumentName.SEARCH_ALL_FIELDS)) {
