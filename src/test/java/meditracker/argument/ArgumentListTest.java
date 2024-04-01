@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ArgumentListTest {
     ArgumentList testArgumentList = new ArgumentList(
             new NameArgument(false),
-            new DosageArgument(false),
+            new DosageMorningArgument(false),
             new QuantityArgument(false)
     );
 
@@ -41,7 +41,7 @@ public class ArgumentListTest {
         String name = "Medication";
         String dosage = "100";
         String quantity = "2000";
-        String testArgumentString = String.format("-n %s -d %s -q %s", name, dosage, quantity);
+        String testArgumentString = String.format("-n %s -dM %s -q %s", name, dosage, quantity);
 
         Map<ArgumentName, String> parsedArgs;
         try {
@@ -51,7 +51,7 @@ public class ArgumentListTest {
         }
 
         assertEquals(parsedArgs.get(ArgumentName.NAME), name);
-        assertEquals(parsedArgs.get(ArgumentName.DOSAGE), dosage);
+        assertEquals(parsedArgs.get(ArgumentName.DOSAGE_MORNING), dosage);
         assertEquals(parsedArgs.get(ArgumentName.QUANTITY), quantity);
     }
 
@@ -59,7 +59,7 @@ public class ArgumentListTest {
     void parse_missingArgumentSpecified_argumentNotFoundException() {
         String name = "Medication";
         String dosage = "100";
-        String testArgumentString = String.format("-n %s -d %s", name, dosage);
+        String testArgumentString = String.format("-n %s -dM %s", name, dosage);
 
         assertThrows(
                 ArgumentNotFoundException.class,

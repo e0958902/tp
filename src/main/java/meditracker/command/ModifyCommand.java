@@ -1,23 +1,25 @@
 package meditracker.command;
 
 import meditracker.argument.ArgumentHelper;
-import meditracker.dailymedication.DailyMedication;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
-import meditracker.argument.DosageArgument;
+import meditracker.argument.DosageAfternoonArgument;
+import meditracker.argument.DosageEveningArgument;
+import meditracker.argument.DosageMorningArgument;
 import meditracker.argument.ExpirationDateArgument;
-import meditracker.argument.IntakeFrequencyArgument;
 import meditracker.argument.ListIndexArgument;
 import meditracker.argument.NameArgument;
 import meditracker.argument.QuantityArgument;
 import meditracker.argument.RemarksArgument;
+import meditracker.argument.RepeatArgument;
+import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
-import meditracker.time.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
+import meditracker.time.Period;
 import meditracker.ui.Ui;
 
 import java.util.Map;
@@ -31,10 +33,12 @@ public class ModifyCommand extends Command {
             new ListIndexArgument(false),
             new NameArgument(true),
             new QuantityArgument(true),
-            new DosageArgument(true),
+            new DosageMorningArgument(true),
+            new DosageAfternoonArgument(true),
+            new DosageEveningArgument(true),
             new ExpirationDateArgument(true),
-            new IntakeFrequencyArgument(true),
-            new RemarksArgument(true)
+            new RemarksArgument(true),
+            new RepeatArgument(true)
     );
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.MODIFY, ARGUMENT_LIST);
     private final Map<ArgumentName, String> parsedArguments;
@@ -69,14 +73,20 @@ public class ModifyCommand extends Command {
             String argumentValue = argument.getValue();
 
             switch (argumentName) {
-            case DOSAGE:
-                medication.setDosage(Double.parseDouble(argumentValue));
+            case DOSAGE_MORNING:
+                medication.setDosageMorning(Double.valueOf(argumentValue));
+                break;
+            case DOSAGE_AFTERNOON:
+                medication.setDosageAfternoon(Double.valueOf(argumentValue));
+                break;
+            case DOSAGE_EVENING:
+                medication.setDosageEvening(Double.valueOf(argumentValue));
                 break;
             case EXPIRATION_DATE:
                 medication.setExpiryDate(argumentValue);
                 break;
-            case INTAKE_FREQUENCY:
-                medication.setIntakeFreq(argumentValue);
+            case REPEAT:
+                medication.setRepeat(Integer.parseInt(argumentValue));
                 break;
             case LIST_INDEX:
                 continue;

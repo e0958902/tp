@@ -27,12 +27,10 @@ class JsonExporter {
 
         medObject.put(ArgumentName.NAME.value, medInfo.getName());
         medObject.put(ArgumentName.QUANTITY.value, medInfo.getQuantity());
-        medObject.put(ArgumentName.DOSAGE.value, medInfo.getDosage());
         medObject.put(ArgumentName.DOSAGE_MORNING.value, medInfo.getDosageMorning());
         medObject.put(ArgumentName.DOSAGE_AFTERNOON.value, medInfo.getDosageAfternoon());
         medObject.put(ArgumentName.DOSAGE_EVENING.value, medInfo.getDosageEvening());
         medObject.put(ArgumentName.EXPIRATION_DATE.value, medInfo.getExpiryDate());
-        medObject.put(ArgumentName.INTAKE_FREQUENCY.value, medInfo.getIntakeFreq());
         medObject.put(ArgumentName.REMARKS.value, medInfo.getRemarks());
         medObject.put(ArgumentName.REPEAT.value, medInfo.getRepeat());
         medObject.put(ArgumentName.DAY_ADDED.value, medInfo.getDayAdded());

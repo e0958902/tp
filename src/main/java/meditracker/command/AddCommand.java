@@ -17,9 +17,7 @@ import meditracker.argument.DosageMorningArgument;
 import meditracker.argument.DosageEveningArgument;
 import meditracker.argument.NameArgument;
 import meditracker.argument.QuantityArgument;
-import meditracker.argument.DosageArgument;
 import meditracker.argument.ExpirationDateArgument;
-import meditracker.argument.IntakeFrequencyArgument;
 import meditracker.argument.RemarksArgument;
 
 import java.time.LocalDate;
@@ -37,12 +35,10 @@ public class AddCommand extends Command {
     public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
             new NameArgument(false),
             new QuantityArgument(false),
-            new DosageArgument(false),
             new DosageMorningArgument(true),
             new DosageAfternoonArgument(true),
             new DosageEveningArgument(true),
             new ExpirationDateArgument(false),
-            new IntakeFrequencyArgument(false),
             new RemarksArgument(true),
             new RepeatArgument(true)
     );
@@ -52,7 +48,6 @@ public class AddCommand extends Command {
     private final Map<ArgumentName, String> parsedArguments;
 
     private double medicationQuantity;
-    private double medicationDosage;
     private double medicationDosageMorning = 0.0;
     private double medicationDosageAfternoon = 0.0;
     private double medicationDosageEvening = 0.0;
@@ -98,25 +93,23 @@ public class AddCommand extends Command {
     private Medication createMedication() throws NumberFormatException, NullPointerException {
         String medicationName = parsedArguments.get(ArgumentName.NAME);
         String expiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
-        String intakeFreq = parsedArguments.get(ArgumentName.INTAKE_FREQUENCY);
         String remarks = parsedArguments.get(ArgumentName.REMARKS);
         int repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
 
         String medicationQuantityArg = parsedArguments.get(ArgumentName.QUANTITY);
-        String medicationDosageArg = parsedArguments.get(ArgumentName.DOSAGE);
         String medicationDosageMorningArg = parsedArguments.get(ArgumentName.DOSAGE_MORNING);
         String medicationDosageAfternoonArg = parsedArguments.get(ArgumentName.DOSAGE_AFTERNOON);
         String medicationDosageEveningArg = parsedArguments.get(ArgumentName.DOSAGE_EVENING);
 
-        parseStringToValues(medicationQuantityArg, medicationDosageArg, medicationDosageMorningArg,
+        parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
                 medicationDosageAfternoonArg, medicationDosageEveningArg);
 
         LocalDate currentDate = LocalDate.now();
         int dayAdded = currentDate.getDayOfYear();
 
-        return new Medication(medicationName, medicationQuantity, medicationDosage,
+        return new Medication(medicationName, medicationQuantity,
                 medicationDosageMorning, medicationDosageAfternoon, medicationDosageEvening,
-                expiryDate, intakeFreq, remarks, repeat, dayAdded);
+                expiryDate, remarks, repeat, dayAdded);
     }
 
     /**
@@ -132,20 +125,18 @@ public class AddCommand extends Command {
      * Parses string values to double for medication attributes.
      *
      * @param medicationQuantity      The quantity of the medication.
-     * @param medicationDosage        The dosage of the medication.
      * @param medicationDosageMorning The morning dosage of the medication.
      * @param medicationDosageAfternoon The afternoon dosage of the medication.
      * @param medicationDosageEvening The evening dosage of the medication.
      * @throws NumberFormatException if there is an error in parsing numeric values.
      * @throws NullPointerException  if any of the required arguments are null.
      */
-    private void parseStringToValues(String medicationQuantity, String medicationDosage,
+    private void parseStringToValues(String medicationQuantity,
                                      String medicationDosageMorning,
                                      String medicationDosageAfternoon, String medicationDosageEvening)
             throws NumberFormatException, NullPointerException {
 
         this.medicationQuantity = Double.parseDouble(medicationQuantity);
-        this.medicationDosage = Double.parseDouble(medicationDosage);
 
         if (medicationDosageMorning != null) {
             this.medicationDosageMorning = Double.parseDouble(medicationDosageMorning);

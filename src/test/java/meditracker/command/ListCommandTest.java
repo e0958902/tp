@@ -15,12 +15,10 @@ class ListCommandTest {
         Medication medication = new Medication(
                 medicationName,
                 30.0,
-                1000.0,
                 null,
                 null,
                 null,
                 "01/08/25",
-                "night",
                 "for_flu_or_allergy",
                 1,
                 87
