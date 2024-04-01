@@ -1,12 +1,6 @@
 package meditracker.argument;
 
-import meditracker.command.AddCommand;
-import meditracker.command.CommandName;
-import meditracker.command.DeleteCommand;
-import meditracker.command.ListCommand;
-import meditracker.command.ModifyCommand;
-import meditracker.command.TakeCommand;
-import meditracker.command.UntakeCommand;
+import meditracker.command.*;
 
 import java.util.List;
 
@@ -37,7 +31,8 @@ public class ArgumentHelper {
             return TakeCommand.HELP_MESSAGE;
         case UNTAKE:
             return UntakeCommand.HELP_MESSAGE;
-        case SEARCH: // fall through
+        case SEARCH:
+            return SearchCommand.HELP_MESSAGE;
         case EXIT: // fall through
         case UNKNOWN: // fall through
         default:

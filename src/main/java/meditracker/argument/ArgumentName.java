@@ -21,7 +21,10 @@ public enum ArgumentName {
     HELP("help"),
     MORNING("morning"),
     AFTERNOON("afternoon"),
-    EVENING("evening");
+    EVENING("evening"),
+    ILLNESS("illness"),
+    SIDE_EFFECTS("sideEffects"),
+    FIND_ALL_FIELDS("findAllFields");
 
     public final String value;
 
