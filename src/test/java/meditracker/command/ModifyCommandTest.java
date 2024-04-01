@@ -20,12 +20,10 @@ public class ModifyCommandTest {
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
-                500.0,
                 null,
                 null,
                 null,
                 "01/07/25",
-                "morning",
                 "cause_dizziness",
                 1,
                 87);
@@ -49,12 +47,10 @@ public class ModifyCommandTest {
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
-                500.0,
                 300.0,
                 null,
                 null,
                 "01/07/25",
-                "morning",
                 "cause_dizziness",
                 1,
                 87);

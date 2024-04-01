@@ -30,12 +30,10 @@ public class JsonExporterTest {
         Medication med1 = new Medication(
                 "Test Valid Medication 1",
                 69.0,
-                1.0,
                 null,
                 null,
                 null,
                 "23/11/24",
-                "2",
                 "No Remarks",
                 1,
                 87
@@ -44,12 +42,10 @@ public class JsonExporterTest {
         Medication med2 = new Medication(
                 "Test Valid Medication 2",
                 10000.0,
-                10.0,
                 null,
                 null,
                 null,
                 "01/01/25",
-                "4",
                 "",
                 1,
                 87
@@ -58,11 +54,9 @@ public class JsonExporterTest {
         Medication med3 = new Medication(
                 "Invalid Medication 4",
                 999.0,
-                3.1425926535,
                 0.0,
                 0.0,
                 0.0,
-                "",
                 "",
                 "null",
                 1,
