@@ -2,29 +2,29 @@ package meditracker.command;
 
 import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.dailymedication.DailyMedicationManagerTest;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
+import meditracker.medication.MedicationManagerTest;
 import meditracker.time.Period;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ModifyCommandTest {
 
     @BeforeEach
-    public void resetMedicationManager() throws InvocationTargetException,
-            IllegalAccessException, NoSuchMethodException {
-        Method resetMedicationManagerMethod
-                = MedicationManager.class.getDeclaredMethod("clearMedication");
-        resetMedicationManagerMethod.setAccessible(true);
-        resetMedicationManagerMethod.invoke(MedicationManager.class);
+    @AfterEach
+    public void resetManagers() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        DailyMedicationManagerTest.resetDailyMedicationManager();
+        MedicationManagerTest.resetMedicationManager();
     }
 
     @Test
