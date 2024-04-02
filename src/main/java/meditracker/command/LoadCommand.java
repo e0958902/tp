@@ -18,11 +18,11 @@ import java.util.Map;
 public class LoadCommand extends Command {
     private static final ArgumentList ARGUMENT_LIST = new ArgumentList(new LoadArgument());
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.LOAD, ARGUMENT_LIST);
-    private final Map<ArgumentName, String> PARSED_ARGUMENTS;
+    private final Map<ArgumentName, String> parsedArguments;
 
     public LoadCommand(String arguments)
             throws DuplicateArgumentFoundException, HelpInvokedException, ArgumentNotFoundException {
-        PARSED_ARGUMENTS = ARGUMENT_LIST.parse(arguments);
+        parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
     /**
@@ -39,9 +39,9 @@ public class LoadCommand extends Command {
 
     @Override
     public void execute() {
-        assert (PARSED_ARGUMENTS != null);
+        assert (parsedArguments != null);
 
-        String loadFileLocation = PARSED_ARGUMENTS.get(ArgumentName.LOAD_FILE);
+        String loadFileLocation = parsedArguments.get(ArgumentName.LOAD_FILE);
         Path pathOfLoadFile = FilePathChecker.validateUserPathArgument(loadFileLocation);
         if (pathOfLoadFile == null) {
             return;

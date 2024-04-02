@@ -159,7 +159,7 @@ public class FilePathChecker {
      *
      * @param fileLocationArgument The argument specifying the location of the file (as String)
      * @return The Path object corresponding to the argument for the save file if it passes validation checks.
-     * null otherwise.
+     *     null otherwise.
      */
     public static Path validateUserPathArgument(String fileLocationArgument) {
 

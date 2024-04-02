@@ -111,7 +111,7 @@ public class FileReaderWriter {
      * Saves the medication information in MediTracker.
      *
      * @param path The Path object (relative or absolute) to save the information to. If null, the path will be the
-     * path specified in `MediTrackerConfig`.
+     *     path specified in `MediTrackerConfig`.
      * @return true if the saving is successful, false otherwise.
      */
     public static boolean saveMediTrackerData(Path path) {
