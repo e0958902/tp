@@ -55,7 +55,15 @@ public class DeleteCommand extends Command {
     public void execute() {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
-        Medication medication = MedicationManager.getMedication(listIndex);
+
+        Medication medication;
+        try {
+            medication = MedicationManager.getMedication(listIndex);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showErrorMessage("Invalid index specified");
+            return;
+        }
+
         MedicationManager.removeMedication(listIndex);
         deleteDailyMedication(medication);
         Ui.showSuccessMessage("Medicine has been deleted");
