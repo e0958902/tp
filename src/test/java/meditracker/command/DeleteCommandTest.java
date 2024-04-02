@@ -2,6 +2,7 @@ package meditracker.command;
 
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.dailymedication.DailyMedicationManagerTest;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
@@ -27,7 +28,8 @@ public class DeleteCommandTest {
 
     @Test
     void execute_inOrderArgument_expectMedicationDeleted()
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException {
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,

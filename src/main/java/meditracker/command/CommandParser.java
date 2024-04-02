@@ -1,5 +1,6 @@
 package meditracker.command;
 
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.CommandNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
@@ -33,13 +34,14 @@ public class CommandParser {
      *
      * @return A Command object corresponding to the parsed command.
      * @throws ArgumentNotFoundException When argument required not found
+     * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException When duplicate argument found
      * @throws HelpInvokedException When help argument is used or help message needed
      * @throws CommandNotFoundException Command specified not found
      */
     public Command getCommand()
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException,
-            CommandNotFoundException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException, CommandNotFoundException {
         switch (commandName) {
         case EXIT:
             return new ExitCommand();

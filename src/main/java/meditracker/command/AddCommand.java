@@ -2,6 +2,7 @@ package meditracker.command;
 
 import meditracker.argument.ArgumentHelper;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
@@ -57,11 +58,13 @@ public class AddCommand extends Command {
      *
      * @param arguments The arguments containing medication information to be parsed.
      * @throws ArgumentNotFoundException if a required argument is not found.
+     * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException Duplicate argument found
      * @throws HelpInvokedException When help argument is used
      */
     public AddCommand(String arguments)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 

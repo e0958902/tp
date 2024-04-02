@@ -1,6 +1,7 @@
 package meditracker.command;
 
 import meditracker.dailymedication.DailyMedicationManagerTest;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
@@ -27,7 +28,8 @@ class AddCommandTest {
     // methodBeingTested_conditionToTest_expectedOutcome
     @Test
     void execute_addCommand_expectOneMedication()
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException {
         // setup lines
         String inputString = "add -n Medication_A -q 60.0 -e 01/07/25 -dM 500.0 -dA 250.0 "
                 + "-r cause_dizziness -rep 1";

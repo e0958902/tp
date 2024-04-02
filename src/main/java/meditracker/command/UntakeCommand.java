@@ -8,6 +8,7 @@ import meditracker.argument.EveningArgument;
 import meditracker.argument.ListIndexArgument;
 import meditracker.argument.MorningArgument;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
@@ -37,11 +38,13 @@ public class UntakeCommand extends Command {
      *
      * @param arguments The arguments containing information to be parsed.
      * @throws ArgumentNotFoundException Argument flag specified not found
+     * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
      */
     public UntakeCommand(String arguments)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 

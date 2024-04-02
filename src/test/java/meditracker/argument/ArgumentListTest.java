@@ -1,5 +1,6 @@
 package meditracker.argument;
 
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
@@ -46,7 +47,8 @@ public class ArgumentListTest {
         Map<ArgumentName, String> parsedArgs;
         try {
             parsedArgs = testArgumentList.parse(testArgumentString);
-        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException e) {
+        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException |
+                 ArgumentNoValueException e) {
             throw new RuntimeException(e);
         }
 

@@ -6,11 +6,13 @@ import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListTypeArgument;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.time.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.medication.MedicationManager;
+import meditracker.ui.Ui;
 
 import java.util.List;
 import java.util.Map;
@@ -33,11 +35,13 @@ public class ListCommand extends Command {
      *
      * @param arguments The arguments containing information to be parsed.
      * @throws ArgumentNotFoundException Argument flag specified not found
+     * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
      */
     public ListCommand(String arguments)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
@@ -73,7 +77,7 @@ public class ListCommand extends Command {
                     eveningMedications, "Evening:");
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + listTypeString);
+            Ui.showErrorMessage(String.format("Unknown list type -> \"%s\"", listTypeString));
         }
     }
 }

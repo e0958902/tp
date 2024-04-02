@@ -4,6 +4,7 @@ import meditracker.command.Command;
 import meditracker.command.CommandName;
 import meditracker.command.CommandParser;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.CommandNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
@@ -64,7 +65,8 @@ public class MediTracker {
             Command command;
             try {
                 command = commandParser.getCommand();
-            } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | CommandNotFoundException e) {
+            } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | CommandNotFoundException |
+                     ArgumentNoValueException e) {
                 Ui.showErrorMessage(e);
                 continue;
             } catch (HelpInvokedException e) {

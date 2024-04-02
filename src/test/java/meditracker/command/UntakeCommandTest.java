@@ -3,6 +3,7 @@ package meditracker.command;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.dailymedication.DailyMedicationManagerTest;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
@@ -27,7 +28,8 @@ public class UntakeCommandTest {
 
     @Test
     void execute_inOrderArgument_expectDailyMedicationUntaken()
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException {
         DailyMedication dailyMedication = new DailyMedication("Medication_A");
         DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);    //only doing for MORNING sub list
 

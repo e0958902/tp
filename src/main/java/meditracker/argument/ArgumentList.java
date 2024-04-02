@@ -1,5 +1,6 @@
 package meditracker.argument;
 
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
@@ -46,12 +47,14 @@ public class ArgumentList {
      * @param rawInput Raw input to be parsed
      * @return A map of argument name as key and the corresponding value
      * @throws ArgumentNotFoundException When argument required not found
+     * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException When duplicate argument found
      * @throws HelpInvokedException When help argument is used or help message needed
      * @see ArgumentParser
      */
     public Map<ArgumentName, String> parse(String rawInput)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException {
         ArgumentParser argumentParser = new ArgumentParser(this, rawInput);
 
         boolean hasCalledForHelp = argumentParser.parsedArguments.get(ArgumentName.HELP) != null;

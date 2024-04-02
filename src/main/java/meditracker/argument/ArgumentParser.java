@@ -1,5 +1,6 @@
 package meditracker.argument;
 
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
@@ -25,9 +26,10 @@ class ArgumentParser {
      * @param rawInput Raw input to be parsed
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
+     * @throws ArgumentNoValueException When argument requires value but no value specified
      */
     public ArgumentParser(ArgumentList argumentList, String rawInput)
-            throws DuplicateArgumentFoundException, HelpInvokedException {
+            throws DuplicateArgumentFoundException, HelpInvokedException, ArgumentNoValueException {
         this.argumentList = argumentList;
 
         List<String> rawInputSplit = List.of(rawInput.split(" "));
@@ -122,11 +124,13 @@ class ArgumentParser {
      *
      * @param indexes A sorted map of arguments and their corresponding indexes
      * @param rawInputSplit List of raw input split by spaces
+     * @throws ArgumentNoValueException When argument requires value but no value specified
      */
     //@@author wenenhoe-reused
     //Reused from https://github.com/wenenhoe/ip with modifications to support
     //arguments without corresponding value
-    private void getArgumentValues(SortedMap<Integer, Argument> indexes, List<String> rawInputSplit) {
+    private void getArgumentValues(SortedMap<Integer, Argument> indexes, List<String> rawInputSplit)
+            throws ArgumentNoValueException {
         Argument argument = indexes.get(indexes.firstKey());
         ArgumentName argKey = argument.getName();
         boolean hasValue = argument.hasValue();
@@ -141,11 +145,10 @@ class ArgumentParser {
             }
 
             endIndex = index.getKey();
-            String argValue;
-            if (hasValue) {
-                argValue = ArgumentParser.getArgumentValue(rawInputSplit, startIndex, endIndex);
-            } else {
-                argValue = ""; // No value to be stored
+            String argValue = ArgumentParser.getArgumentValue(rawInputSplit, startIndex, endIndex);
+            if (hasValue && argValue.isEmpty()) {
+                String errorContext = String.format("No value found for argument \"%s\"", argument.getFlag());
+                throw new ArgumentNoValueException(errorContext);
             }
             parsedArguments.put(argKey, argValue);
 
@@ -157,6 +160,10 @@ class ArgumentParser {
 
         endIndex = rawInputSplit.size();
         String argValue = ArgumentParser.getArgumentValue(rawInputSplit, startIndex, endIndex);
+        if (hasValue && argValue.isEmpty()) {
+            String errorContext = String.format("No value found for argument \"%s\"", argument.getFlag());
+            throw new ArgumentNoValueException(errorContext);
+        }
         parsedArguments.put(argKey, argValue);
     }
 }
