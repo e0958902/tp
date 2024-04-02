@@ -113,15 +113,6 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Performs assertion tests for medication and daily medication managers.
-     *
-     */
-    private void assertionTest() {
-        assert MedicationManager.getTotalMedications() != 0 : "Total medications in medication " +
-                "manager should not be 0!";
-    }
-
-    /**
      * Parses string values to double for medication attributes.
      *
      * @param medicationQuantity      The quantity of the medication.
@@ -147,6 +138,14 @@ public class AddCommand extends Command {
         if (medicationDosageEvening != null) {
             this.medicationDosageEvening = Double.parseDouble(medicationDosageEvening);
         }
+    }
+
+    /**
+     * Performs assertion tests for medication and daily medication managers.
+     */
+    private void assertionTest() {
+        assert MedicationManager.getTotalMedications() != 0 : "Total medications in medication " +
+                "manager should not be 0!";
     }
 
 }
