@@ -24,7 +24,7 @@ public enum ArgumentName {
     EVENING("evening"),
     ILLNESS("illness"),
     SIDE_EFFECTS("sideEffects"),
-    SEARCH_ALL_FIELDS("findAllFields");
+    ALL_FIELDS("findAllFields");
 
     public final String value;
 

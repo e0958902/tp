@@ -14,7 +14,6 @@ public class LibraryManager {
 
     private static final String FILE_PATH = "/medicationLibrary.txt";
     private static final List<SearchResult> medicationLibrary = new ArrayList<>();
-    private static List<SearchResult> searchResults = new ArrayList<>();
 
     static {
         loadMedicationLibrary();
@@ -39,9 +38,10 @@ public class LibraryManager {
     /**
      * Searches for medications in the library based on a keyword.
      *
-     * @param keyword The keyword to search for in the medication library.
+     * @param searchResults The list to store the search results.
+     * @param keyword       The keyword to search for in the medication library.
      */
-    public static void searchLibrary(String keyword) {
+    public static void searchLibrary(List<SearchResult> searchResults, String keyword) {
         if (keyword.isEmpty()) {
             throw new NullPointerException();
         }
@@ -58,9 +58,10 @@ public class LibraryManager {
     /**
      * Searches medication names in the library based on a keyword.
      *
-     * @param keyword The keyword to search for in the medication library.
+     * @param searchResults The list of search results to store the search results.
+     * @param keyword       The keyword to search for in the medication library.
      */
-    public void findMedication(String keyword) {
+    public void findMedication(List<SearchResult> searchResults, String keyword) {
         if (keyword.isEmpty()) {
             throw new NullPointerException();
         }
@@ -76,9 +77,10 @@ public class LibraryManager {
     /**
      * Searches for medications based on the illness they treat.
      *
-     * @param keyword The keyword to search for in the medication library.
+     * @param searchResults The list of search results to store the search results.
+     * @param keyword       The keyword to search for in the medication library.
      */
-    public void findIllness(String keyword) {
+    public void findIllness(List<SearchResult> searchResults, String keyword) {
         if (keyword.isEmpty()) {
             throw new NullPointerException();
         }
@@ -94,9 +96,10 @@ public class LibraryManager {
     /**
      * Searches for medications based on their side effects.
      *
-     * @param keyword The keyword to search for in the medication library.
+     * @param searchResults The list of search results to store the search results.
+     * @param keyword       The keyword to search for in the medication library.
      */
-    public void findSideEffects(String keyword) {
+    public void findSideEffects(List<SearchResult> searchResults, String keyword) {
         if (keyword.isEmpty()) {
             throw new NullPointerException();
         }
@@ -111,8 +114,10 @@ public class LibraryManager {
 
     /**
      * Prints the search results to the user interface.
+     *
+     * @param searchResults The list of search results to print.
      */
-    public void printSearchResults() {
+    public void printSearchResults(List<SearchResult> searchResults) {
         if (searchResults.isEmpty()) {
             Ui.showNoSearchResultsMessage();
         } else {
