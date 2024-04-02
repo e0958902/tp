@@ -162,19 +162,38 @@ public class Ui {
         return -1;
     }
 
-    public static void showLibraryNotFoundMessage() {
-        System.out.println("Library not found! Please download the library from the website.");
-    }
-
+    /**
+     * Prints when there are no search results found
+     */
     public static void showNoSearchResultsMessage() {
         System.out.println("No search results found!");
     }
 
+
+    /**
+     * Prints when the library is corrupted
+     */
+    public static void showLibraryIsCorruptedMessage() {
+        System.out.println("The library is corrupted! Please download the library from the website.");
+    }
+
+    /**
+     * Prints the search results
+     *
+     * @param searchResults list of search results
+     */
     public static void showSearchResults(List<SearchResult> searchResults) {
         System.out.println("Here are the search results:");
 
         for (int i = 0; i < searchResults.size(); i++) {
             System.out.println((i + 1) + ". " + searchResults.get(i));
         }
+    }
+
+    /**
+     * Prints when there is no keyword provided for search command
+     */
+    public static void showSearchKeywordNotFoundMessage() {
+        System.out.println("You have not provided a keyword to search for! Please try again.");
     }
 }

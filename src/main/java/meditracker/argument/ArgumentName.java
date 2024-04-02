@@ -19,7 +19,10 @@ public enum ArgumentName {
     HELP("help"),
     MORNING("morning"),
     AFTERNOON("afternoon"),
-    EVENING("evening");
+    EVENING("evening"),
+    ILLNESS("illness"),
+    SIDE_EFFECTS("sideEffects"),
+    ALL_FIELDS("allFields");
 
     public final String value;
 
