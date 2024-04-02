@@ -34,9 +34,9 @@ public class ModifyCommandTest {
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
-                null,
-                null,
-                null,
+                10.0,
+                10.0,
+                10.0,
                 "01/07/25",
                 "cause_dizziness",
                 1,

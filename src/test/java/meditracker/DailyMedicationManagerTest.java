@@ -4,6 +4,7 @@ import meditracker.command.AddCommand;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.InsufficientQuantityException;
+import meditracker.exception.MedicationNotFoundException;
 import meditracker.time.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
@@ -88,7 +89,8 @@ public class DailyMedicationManagerTest {
     }
 
     @Test
-    public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken() throws InsufficientQuantityException {
+    public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken()
+            throws InsufficientQuantityException, MedicationNotFoundException {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;
@@ -119,7 +121,7 @@ public class DailyMedicationManagerTest {
     @Test
     public void takeDailyMedication_lowQuantityMedication_insufficientQuantity() {
         String medicationName = "TestMedication";
-        double oldQuantity = 60;
+        double oldQuantity = 5;
         double dosage = 10;
         Medication medication = new Medication(
                 medicationName,
@@ -144,7 +146,8 @@ public class DailyMedicationManagerTest {
     }
 
     @Test
-    public void untakeDailyMedication_genericDailyMedication_dailyMedicationNotTaken() {
+    public void untakeDailyMedication_genericDailyMedication_dailyMedicationNotTaken()
+            throws MedicationNotFoundException {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;
