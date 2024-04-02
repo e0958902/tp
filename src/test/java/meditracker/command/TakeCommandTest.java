@@ -7,6 +7,7 @@ import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
@@ -31,7 +32,7 @@ public class TakeCommandTest {
     @Test
     void execute_inOrderArgument_expectDailyMedicationTaken()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException {
+            HelpInvokedException, UnknownArgumentFoundException {
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,

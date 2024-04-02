@@ -9,6 +9,7 @@ import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.CommandNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
@@ -66,7 +67,7 @@ public class MediTracker {
             try {
                 command = commandParser.getCommand();
             } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | CommandNotFoundException |
-                     ArgumentNoValueException e) {
+                     ArgumentNoValueException | UnknownArgumentFoundException e) {
                 Ui.showErrorMessage(e);
                 continue;
             } catch (HelpInvokedException e) {

@@ -6,6 +6,7 @@ import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.ui.Ui;
@@ -61,10 +62,11 @@ public class AddCommand extends Command {
      * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException Duplicate argument found
      * @throws HelpInvokedException When help argument is used
+     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
      */
     public AddCommand(String arguments)
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException {
+            HelpInvokedException, UnknownArgumentFoundException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 

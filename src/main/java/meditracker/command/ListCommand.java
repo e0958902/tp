@@ -7,6 +7,7 @@ import meditracker.argument.ArgumentName;
 import meditracker.argument.ListTypeArgument;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNoValueException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.time.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
@@ -38,10 +39,11 @@ public class ListCommand extends Command {
      * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
+     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
      */
     public ListCommand(String arguments)
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException {
+            HelpInvokedException, UnknownArgumentFoundException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 

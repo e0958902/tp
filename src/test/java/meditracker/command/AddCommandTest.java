@@ -5,6 +5,7 @@ import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
 import org.junit.jupiter.api.AfterEach;
@@ -29,7 +30,7 @@ class AddCommandTest {
     @Test
     void execute_addCommand_expectOneMedication()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException {
+            HelpInvokedException, UnknownArgumentFoundException {
         // setup lines
         String inputString = "add -n Medication_A -q 60.0 -e 01/07/25 -dM 500.0 -dA 250.0 "
                 + "-r cause_dizziness -rep 1";

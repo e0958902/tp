@@ -19,6 +19,7 @@ import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MedicationNotFoundException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.time.Period;
@@ -53,10 +54,11 @@ public class ModifyCommand extends Command {
      * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
+     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
      */
     public ModifyCommand(String arguments)
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException {
+            HelpInvokedException, UnknownArgumentFoundException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
