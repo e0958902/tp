@@ -70,6 +70,6 @@ public class TakeCommand extends Command {
         }
 
         DailyMedicationManager.takeDailyMedication(listIndex, period);
-        Ui.showTakeCommandMessage();
+        Ui.showSuccessMessage("Medicine has been taken");
     }
 }

@@ -109,6 +109,6 @@ public class ModifyCommand extends Command {
             }
         }
 
-        Ui.showModifyCommandMessage();
+        Ui.showSuccessMessage("Medicine has been modified");
     }
 }

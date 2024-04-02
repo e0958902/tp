@@ -72,28 +72,9 @@ public class Ui {
         System.out.println("Thank you for using MediTracker. Hope to see you again!");
     }
 
-    public static void showAddCommandMessage() {
-        System.out.println("Medicine has been successfully added!");
-    }
-
-    public static void showModifyCommandMessage() {
-        System.out.println("Medicine has been successfully modified!");
-    }
-
-    public static void showListCommandMessage() {
-        System.out.println("Your list of medications has been successfully shown!");
-    }
-
-    public static void showDeleteCommandMessage() {
-        System.out.println("Medicine has been successfully deleted");
-    }
-
-    public static void showTakeCommandMessage() {
-        System.out.println("Medicine has been successfully taken");
-    }
-
-    public static void showUntakeCommandMessage() {
-        System.out.println("Medicine has been successfully untaken");
+    public static void showSuccessMessage(String message) {
+        System.out.print("SUCCESS: ");
+        System.out.println(message);
     }
 
     public static void showErrorMessage(String message) {

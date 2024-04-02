@@ -69,6 +69,6 @@ public class UntakeCommand extends Command {
         }
 
         DailyMedicationManager.untakeDailyMedication(listIndex, period);
-        Ui.showUntakeCommandMessage();
+        Ui.showSuccessMessage("Medicine has been untaken");
     }
 }

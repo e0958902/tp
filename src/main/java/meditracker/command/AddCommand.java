@@ -81,7 +81,7 @@ public class AddCommand extends Command {
         MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
         assertionTest();
-        Ui.showAddCommandMessage();
+        Ui.showSuccessMessage("Medicine has been added");
     }
 
     /**

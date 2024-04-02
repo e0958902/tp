@@ -47,10 +47,10 @@ public class DeleteCommand extends Command {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
         MedicationManager.removeMedication(listIndex);
+        Ui.showSuccessMessage("Medicine has been deleted");
 
         // TODO: remove medication from DailyMedicationManager as well.
 
-        Ui.showDeleteCommandMessage();
     }
 
 }
