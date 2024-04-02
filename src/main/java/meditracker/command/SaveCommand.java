@@ -20,14 +20,14 @@ import meditracker.storage.FileReaderWriter;
 public class SaveCommand extends Command {
     private static final ArgumentList ARGUMENT_LIST = new ArgumentList(new SaveArgument());
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.SAVE, ARGUMENT_LIST);
-    private final Map<ArgumentName, String> parsedArguments;
+    private final Map<ArgumentName, String> PARSED_ARGUMENTS;
 
     public SaveCommand(String arguments)
             throws DuplicateArgumentFoundException, HelpInvokedException, ArgumentNotFoundException {
         if (arguments.isEmpty()) {
-            parsedArguments = null;
+            PARSED_ARGUMENTS = null;
         } else {
-            parsedArguments = ARGUMENT_LIST.parse(arguments);
+            PARSED_ARGUMENTS = ARGUMENT_LIST.parse(arguments);
         }
     }
 
@@ -61,20 +61,18 @@ public class SaveCommand extends Command {
         }
     }
 
-
-
     /**
      * Executes the `save` command.
      */
     @Override
     public void execute() {
-        if (parsedArguments == null) {
+        if (PARSED_ARGUMENTS == null) {
             saveJsonToDefaultLocation();
             return;
         }
-        assert (parsedArguments != null);
+        assert (PARSED_ARGUMENTS!= null);
 
-        String saveFileLocation = parsedArguments.get(ArgumentName.SAVE_FILE);
+        String saveFileLocation = PARSED_ARGUMENTS.get(ArgumentName.SAVE_FILE);
         Path pathOfSaveFile = FilePathChecker.validateUserPathArgument(saveFileLocation);
         if (pathOfSaveFile != null) {
             saveJsonToSpecifiedLocation(pathOfSaveFile);

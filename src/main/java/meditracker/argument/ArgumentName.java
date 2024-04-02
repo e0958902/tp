@@ -20,7 +20,8 @@ public enum ArgumentName {
     MORNING("morning"),
     AFTERNOON("afternoon"),
     EVENING("evening"),
-    SAVE_FILE("saveFile");
+    SAVE_FILE("saveFile"),
+    LOAD_FILE("loadFile");
 
     public final String value;
 

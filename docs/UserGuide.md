@@ -46,6 +46,10 @@ Format: `save [-o outputFile]`
 - Ensure that the file does not end with a space or a dot (.)
 - System folders, don't save there. Ensure that the folder you are going to write to has the proper access rights
 
+### Writing to a file
+- A Prompt will ask for your confirmation as an additional layer of safeguard.
+- Loading will overwrite existing running data, so be sure to save a copy first before deciding to overwrite
+- (The rest are more or less the same as above)
 
 ## FAQ
 
