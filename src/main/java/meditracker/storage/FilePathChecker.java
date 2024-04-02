@@ -3,6 +3,7 @@ package meditracker.storage;
 import meditracker.logging.MediLogger;
 
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.logging.Logger;
@@ -151,5 +152,45 @@ public class FilePathChecker {
         }
 
         return true;
+    }
+
+    /**
+     * Validates the path input and return the Path object if successfully validated.
+     *
+     * @param fileLocationArgument The argument specifying the location of the file (as String)
+     * @return The Path object corresponding to the argument for the save file if it passes validation checks.
+     * null otherwise.
+     */
+    public static Path validateUserPathArgument(String fileLocationArgument) {
+
+        assert (fileLocationArgument != null);
+        if (fileLocationArgument == null) {
+            return null;
+        }
+
+        boolean hasIllegalCharacters = FilePathChecker.containsIllegalCharacters(fileLocationArgument);
+        if (hasIllegalCharacters) {
+            System.out.println("The supplied input contains potentially illegal characters. Please ensure that "
+                    + "the supplied path does not have illegal character");
+            return null;
+        }
+
+        Path pathOfSaveFile;
+        try {
+            pathOfSaveFile = Path.of(fileLocationArgument);
+        } catch (InvalidPathException e) {
+            MEDILOGGER.severe(e.getMessage());
+            System.out.println("Unable to convert input into Path object. Data is not saved.");
+            return null;
+        }
+
+        boolean isValidFilePath = FilePathChecker.isValidFullPath(pathOfSaveFile);
+        if (!isValidFilePath) {
+            System.out.println("Path contains invalid folder names or missing valid file extension (.json).");
+            System.out.println("Please ensure the path contains valid folder names and ends with .json");
+            return null;
+        }
+
+        return pathOfSaveFile;
     }
 }

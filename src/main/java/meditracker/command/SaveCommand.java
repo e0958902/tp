@@ -1,9 +1,7 @@
 package meditracker.command;
 
-import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import meditracker.MediTrackerConfig;
 import meditracker.argument.ArgumentHelper;
@@ -13,7 +11,6 @@ import meditracker.argument.SaveArgument;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.logging.MediLogger;
 import meditracker.storage.FilePathChecker;
 import meditracker.storage.FileReaderWriter;
 
@@ -21,8 +18,6 @@ import meditracker.storage.FileReaderWriter;
  * The Save Command.
  */
 public class SaveCommand extends Command {
-    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
-
     private static final ArgumentList ARGUMENT_LIST = new ArgumentList(new SaveArgument());
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.SAVE, ARGUMENT_LIST);
     private final Map<ArgumentName, String> parsedArguments;
@@ -66,39 +61,7 @@ public class SaveCommand extends Command {
         }
     }
 
-    /**
-     * Validates the path input and return the Path object if successfully validated.
-     *
-     * @return The Path object corresponding to the argument for the save file if it passes validation checks.
-     * null otherwise.
-     */
-    private Path validateUserPathArgument() {
-        String saveFileLocation = parsedArguments.get(ArgumentName.SAVE_FILE);
-        boolean hasIllegalCharacters = FilePathChecker.containsIllegalCharacters(saveFileLocation);
-        if (hasIllegalCharacters) {
-            System.out.println("The supplied input contains potentially illegal characters. Please ensure that "
-                    + "the supplied path does not have illegal character");
-            return null;
-        }
 
-        Path pathOfSaveFile;
-        try {
-            pathOfSaveFile = Path.of(saveFileLocation);
-        } catch (InvalidPathException e) {
-            MEDILOGGER.severe(e.getMessage());
-            System.out.println("Unable to convert input into Path object. Data is not saved.");
-            return null;
-        }
-
-        boolean isValidFilePath = FilePathChecker.isValidFullPath(pathOfSaveFile);
-        if (!isValidFilePath) {
-            System.out.println("Path contains invalid folder names or missing valid file extension (.json).");
-            System.out.println("Please ensure the path contains valid folder names and ends with .json");
-            return null;
-        }
-
-        return pathOfSaveFile;
-    }
 
     /**
      * Executes the `save` command.
@@ -111,7 +74,8 @@ public class SaveCommand extends Command {
         }
         assert (parsedArguments != null);
 
-        Path pathOfSaveFile = validateUserPathArgument();
+        String saveFileLocation = parsedArguments.get(ArgumentName.SAVE_FILE);
+        Path pathOfSaveFile = FilePathChecker.validateUserPathArgument(saveFileLocation);
         if (pathOfSaveFile != null) {
             saveJsonToSpecifiedLocation(pathOfSaveFile);
         }
