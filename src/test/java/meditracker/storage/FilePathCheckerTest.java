@@ -1,10 +1,12 @@
 package meditracker.storage;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 
 public class FilePathCheckerTest {
@@ -93,8 +95,12 @@ public class FilePathCheckerTest {
         result = FilePathChecker.containsIllegalCharacters("/data/out>.json");
         assertTrue(result);
 
+        // The check for colon is done by `containsIllegalFolderNames`
+        // Furthermore, the `Path.of` will throw an `InvalidPathException` if it encounters the colon.
         result = FilePathChecker.containsIllegalCharacters("/data/:fold/out.json");
-        assertTrue(result);
+        assertFalse(result);
+        assertThrows(InvalidPathException.class, () -> Path.of("/data/:fold/out.json"));
+
 
         result = FilePathChecker.containsIllegalCharacters("/data/\"IllegalQuote\"/out.json");
         assertTrue(result);

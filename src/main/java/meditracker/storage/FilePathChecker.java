@@ -23,7 +23,7 @@ public class FilePathChecker {
      * @param path The Path object to check for illegal names (and improper use of periods).
      * @return true if illegal names are found, false otherwise.
      */
-    private static boolean containsIllegalFolderNames(Path path) {
+    static boolean containsIllegalFolderNames(Path path) {
         Iterator<Path> splitPath = path.iterator();
         while (splitPath.hasNext()) {
             Path subpath = splitPath.next();
