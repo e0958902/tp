@@ -95,12 +95,17 @@ public class FilePathCheckerTest {
         result = FilePathChecker.containsIllegalCharacters("/data/out>.json");
         assertTrue(result);
 
-        // The check for colon is done by `containsIllegalFolderNames`
-        // Furthermore, the `Path.of` will throw an `InvalidPathException` if it encounters the colon.
+        // The check for colon is done by `containsIllegalFolderNames` (for unix)
+        // Furthermore, the `Path.of` will throw an `InvalidPathException` if it encounters the colon (for windows)
         result = FilePathChecker.containsIllegalCharacters("/data/:fold/out.json");
         assertFalse(result);
-        assertThrows(InvalidPathException.class, () -> Path.of("/data/:fold/out.json"));
-
+        try {
+            Path path = Path.of("/data/:fold/out.json");
+            result = FilePathChecker.containsIllegalFolderNames(path);
+            assertTrue(result);
+        } catch (InvalidPathException e) {
+            assertTrue(true);
+        }
 
         result = FilePathChecker.containsIllegalCharacters("/data/\"IllegalQuote\"/out.json");
         assertTrue(result);
