@@ -148,4 +148,22 @@ public class ArgumentParserTest {
                 () -> testArgumentList.parse(testArgumentString)
         );
     }
+
+    @Test
+    void argumentParser_unknownArgumentFlags_unknownArgumentFoundException() {
+        String name = "Medication";
+        String dosage = "100";
+        String quantity = "2000";
+        String remarks = "Take before meals";
+        String testArgumentString = String.format("-n %s -m -dM %s -a -q %s -r %s -e",
+                name,
+                dosage,
+                quantity,
+                remarks);
+
+        assertThrows(
+                UnknownArgumentFoundException.class,
+                () -> testArgumentList.parse(testArgumentString)
+        );
+    }
 }
