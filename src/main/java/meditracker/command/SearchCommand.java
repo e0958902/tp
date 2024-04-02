@@ -56,10 +56,10 @@ public class SearchCommand extends Command{
         LibraryManager libraryManager = new LibraryManager();
         List<SearchResult> searchResults = new ArrayList<>();
         try {
-            String keyword = "";
+            String keyword;
             if (parsedArguments.containsKey(ArgumentName.ALL_FIELDS)) {
                 keyword = parsedArguments.get(ArgumentName.ALL_FIELDS).toLowerCase().trim();
-                LibraryManager.searchLibrary(searchResults, keyword);
+                libraryManager.searchLibrary(searchResults, keyword);
             } else if (parsedArguments.containsKey(ArgumentName.NAME)) {
                 keyword = parsedArguments.get(ArgumentName.NAME).toLowerCase().trim();
                 libraryManager.findMedication(searchResults, keyword);
