@@ -79,7 +79,6 @@ public class LibraryManager {
      *
      * @param searchResults The list of search results to store the search results.
      * @param keyword       The keyword to search for in the medication library.
-     * @return The list of search results.
      */
     public void findIllness(List<SearchResult> searchResults, String keyword) {
         if (keyword.isEmpty()) {
@@ -99,7 +98,6 @@ public class LibraryManager {
      *
      * @param searchResults The list of search results to store the search results.
      * @param keyword       The keyword to search for in the medication library.
-     * @return The list of search results.
      */
     public void findSideEffects(List<SearchResult> searchResults, String keyword) {
         if (keyword.isEmpty()) {
