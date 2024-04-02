@@ -1,4 +1,4 @@
-package meditracker;
+package meditracker.dailymedication;
 
 import meditracker.command.AddCommand;
 import meditracker.dailymedication.DailyMedication;

@@ -1,4 +1,4 @@
-package meditracker;
+package meditracker.command;
 
 import meditracker.command.AddCommand;
 import meditracker.exception.ArgumentNotFoundException;
