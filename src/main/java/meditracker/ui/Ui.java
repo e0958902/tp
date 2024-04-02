@@ -64,7 +64,8 @@ public class Ui {
      */
     public static void showWelcome() {
         System.out.println("Welcome to MediTracker, your best companion to track your medicine intake.");
-        System.out.println("Let's begin tracking!\n");
+        System.out.println("Let's begin tracking!");
+        System.out.println();
     }
 
     /**
@@ -98,9 +99,9 @@ public class Ui {
      * @return The user input command as a String.
      */
     public static String readCommand() {
+        System.out.print("meditracker> ");
         return input.nextLine();
     }
-
 
     /**
      * Prints the medication list

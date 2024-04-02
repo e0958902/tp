@@ -1,9 +1,6 @@
 package meditracker.command;
 
-import meditracker.medication.MedicationManager;
-
 public abstract class Command {
-    private MedicationManager medicationManager;
 
     /**
      * Executes the command

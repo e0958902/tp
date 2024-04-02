@@ -74,9 +74,7 @@ public class AddCommand extends Command {
      * @throws NumberFormatException  if there is an error in parsing numeric values.
      */
     @Override
-    public void execute() throws NullPointerException,
-            NumberFormatException {
-
+    public void execute() throws NullPointerException, NumberFormatException {
         Medication medication = createMedication();
         MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
