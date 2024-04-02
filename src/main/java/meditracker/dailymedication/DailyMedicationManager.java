@@ -1,5 +1,7 @@
 package meditracker.dailymedication;
 
+import meditracker.exception.InsufficientQuantityException;
+import meditracker.exception.MedicationNotFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.storage.FileReaderWriter;
@@ -196,13 +198,26 @@ public class DailyMedicationManager {
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
      * @param period Time period of day (Morning, afternoon or evening)
+     * @throws IndexOutOfBoundsException If listIndex is outside of range of DailyMedication list
+     * @throws InsufficientQuantityException Existing quantity insufficient for operation
      * @see DailyMedication#take()
      */
-    public static void takeDailyMedication(int listIndex, Period period) {
+    public static void takeDailyMedication(int listIndex, Period period)
+            throws IndexOutOfBoundsException, InsufficientQuantityException {
         DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, period);
-        dailyMedication.take();
-        MedicationManager.decreaseMedicationQuantity(dailyMedication.getName(), period);
+        if (dailyMedication.isTaken()) {
+            return; // Already taken, do not need to run additional code
+        }
 
+        try {
+            MedicationManager.decreaseMedicationQuantity(dailyMedication.getName(), period);
+        } catch (MedicationNotFoundException e) {
+            Ui.showWarningMessage("Possible corruption of data. " +
+                    "Unable to increase Medication quantity as object not found");
+            return;
+        }
+
+        dailyMedication.take();
         FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
     }
 
@@ -211,13 +226,24 @@ public class DailyMedicationManager {
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
      * @param period Time period of day (Morning, afternoon or evening)
+     * @throws IndexOutOfBoundsException If listIndex is outside of range of DailyMedication list
      * @see DailyMedication#untake()
      */
-    public static void untakeDailyMedication(int listIndex, Period period) {
+    public static void untakeDailyMedication(int listIndex, Period period) throws IndexOutOfBoundsException {
         DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, period);
-        dailyMedication.untake();
-        MedicationManager.increaseMedicationQuantity(dailyMedication.getName(), period);
+        if (!dailyMedication.isTaken()) {
+            return; // Already untaken, do not need to run additional code
+        }
 
+        try {
+            MedicationManager.increaseMedicationQuantity(dailyMedication.getName(), period);
+        } catch (MedicationNotFoundException e) {
+            Ui.showWarningMessage("Possible corruption of data. " +
+                    "Unable to increase Medication quantity as object not found");
+            return;
+        }
+
+        dailyMedication.untake();
         FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
     }
 

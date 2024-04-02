@@ -11,6 +11,7 @@ import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.InsufficientQuantityException;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
@@ -69,7 +70,15 @@ public class TakeCommand extends Command {
             return;
         }
 
-        DailyMedicationManager.takeDailyMedication(listIndex, period);
+        try {
+            DailyMedicationManager.takeDailyMedication(listIndex, period);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showErrorMessage("Invalid index specified");
+            return;
+        } catch (InsufficientQuantityException e) {
+            Ui.showErrorMessage(e);
+            return;
+        }
         Ui.showSuccessMessage("Medicine has been taken");
     }
 }

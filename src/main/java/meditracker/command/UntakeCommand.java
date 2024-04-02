@@ -68,7 +68,12 @@ public class UntakeCommand extends Command {
             return;
         }
 
-        DailyMedicationManager.untakeDailyMedication(listIndex, period);
+        try {
+            DailyMedicationManager.untakeDailyMedication(listIndex, period);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showErrorMessage("Invalid index specified");
+            return;
+        }
         Ui.showSuccessMessage("Medicine has been untaken");
     }
 }
