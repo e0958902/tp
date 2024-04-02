@@ -96,6 +96,11 @@ public class Ui {
         System.out.println("Medicine has been successfully untaken");
     }
 
+    public static void showErrorMessage(String message) {
+        System.out.print("ERROR: ");
+        System.out.println(message);
+    }
+
     /**
      * Reads user input command.
      * @return The user input command as a String.

@@ -11,7 +11,6 @@ import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.InvalidArgumentException;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
@@ -51,7 +50,7 @@ public class UntakeCommand extends Command {
      * It also displays a message confirming the modification of the daily medication status.
      */
     @Override
-    public void execute() throws InvalidArgumentException {
+    public void execute() {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
 
@@ -64,8 +63,9 @@ public class UntakeCommand extends Command {
         }
 
         if (period == Period.UNKNOWN) {
-            throw new InvalidArgumentException("Unable to determine time period. " +
+            Ui.showErrorMessage("Unable to determine time period. " +
                     "Please select 1 flag only or try again later.");
+            return;
         }
 
         DailyMedicationManager.untakeDailyMedication(listIndex, period);

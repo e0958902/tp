@@ -1,6 +1,5 @@
 package meditracker.command;
 
-import meditracker.exception.InvalidArgumentException;
 import meditracker.medication.MedicationManager;
 
 public abstract class Command {
@@ -10,7 +9,7 @@ public abstract class Command {
      * Executes the command
      *
      */
-    public abstract void execute() throws InvalidArgumentException;
+    public abstract void execute();
 
     /**
      * Returns the boolean to exit the program.
