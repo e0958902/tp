@@ -188,10 +188,6 @@ public class MedicationManager {
                     double qty = convertStringToDouble(value);
                     medication.setQuantity(qty);
                     break;
-                case DOSAGE:
-                    double dose = convertStringToDouble(value);
-                    medication.setDosage(dose);
-                    break;
                 case DOSAGE_MORNING:
                     double doseMorning = convertStringToDouble(value);
                     medication.setDosageMorning(doseMorning);
@@ -206,9 +202,6 @@ public class MedicationManager {
                     break;
                 case EXPIRATION_DATE:
                     medication.setExpiryDate(value);
-                    break;
-                case INTAKE_FREQUENCY:
-                    medication.setIntakeFreq(value);
                     break;
                 case REMARKS:
                     medication.setRemarks(value);
