@@ -12,6 +12,7 @@ import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.InsufficientQuantityException;
+import meditracker.exception.MedicationNotFoundException;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
@@ -77,6 +78,10 @@ public class TakeCommand extends Command {
             return;
         } catch (InsufficientQuantityException e) {
             Ui.showErrorMessage(e);
+            return;
+        } catch (MedicationNotFoundException e) {
+            Ui.showWarningMessage("Possible corruption of data. " +
+                    "Unable to increase Medication quantity as object not found");
             return;
         }
         Ui.showSuccessMessage("Medicine has been taken");

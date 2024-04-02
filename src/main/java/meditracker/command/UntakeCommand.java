@@ -11,6 +11,7 @@ import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MedicationNotFoundException;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
@@ -72,6 +73,10 @@ public class UntakeCommand extends Command {
             DailyMedicationManager.untakeDailyMedication(listIndex, period);
         } catch (IndexOutOfBoundsException e) {
             Ui.showErrorMessage("Invalid index specified");
+            return;
+        } catch (MedicationNotFoundException e) {
+            Ui.showWarningMessage("Possible corruption of data. " +
+                    "Unable to increase Medication quantity as object not found");
             return;
         }
         Ui.showSuccessMessage("Medicine has been untaken");
