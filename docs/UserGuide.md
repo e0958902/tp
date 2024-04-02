@@ -46,10 +46,12 @@ Format: `save [-o outputFile]`
 - Ensure that the file does not end with a space or a dot (.)
 - System folders, don't save there. Ensure that the folder you are going to write to has the proper access rights
 
-### Writing to a file
+### Reading from a file
 - A Prompt will ask for your confirmation as an additional layer of safeguard.
 - Loading will overwrite existing running data, so be sure to save a copy first before deciding to overwrite
 - (The rest are more or less the same as above)
+- Rmb the JSON if you modify and you mess it up, either it will not load, or the program loads with corrupt data.
+- So make sure you know what you are doing and keep a backup before you make any sort of modifications!
 
 ## FAQ
 

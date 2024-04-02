@@ -8,6 +8,7 @@ import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.storage.FilePathChecker;
+import meditracker.storage.JsonImporter;
 import meditracker.ui.Ui;
 
 import java.nio.file.Files;
@@ -57,6 +58,9 @@ public class LoadCommand extends Command {
             return;
         }
 
-        //overwriteExistingMediTrackerData();
+        boolean isLoadSuccess = JsonImporter.processMediTrackerJsonFile(pathOfLoadFile);
+        if (isLoadSuccess) {
+            System.out.println("Data Loaded Successfully!");
+        }
     }
 }

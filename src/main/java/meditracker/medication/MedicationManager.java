@@ -36,7 +36,8 @@ public class MedicationManager {
     }
 
     /**
-     * Clears and resets MedicationManager for testing purpose
+     * Clears and resets MedicationManager
+     * Used by tests and overwriting from the JSON save file.
      */
     protected static void clearMedication() {
         medications.clear();
@@ -168,6 +169,7 @@ public class MedicationManager {
      * @param medInfoList The List of medication information that contains the (String, String) key-value.
      */
     public static void addMedicationFromSaveFile(List<Map<String, String>> medInfoList) {
+        clearMedication(); // Reset for the case of overwriting data with another JSON file.
         for (Map<String, String> medInfo : medInfoList) {
             Medication medication = new Medication();
             for (String key : medInfo.keySet()) {

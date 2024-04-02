@@ -76,7 +76,7 @@ public class JsonImporter {
         try {
             jsonFileData = Files.readAllLines(mediTrackerJsonPath);
         } catch (IOException e) {
-            logger.warning("Unable to read from the JSON save file. Defaulting to empty state.");
+            logger.warning("Unable to read from the JSON save file.");
             return null;
         }
 
@@ -99,16 +99,17 @@ public class JsonImporter {
      * a warning will be thrown to the user and the program will run as if it is the first time running.
      *
      * @param mediTrackerJsonPath The Path object specifying the path to the MediTracker save data.
+     * @return true if the JSON file has been successfully loaded, false otherwise.
      */
-    static void processMediTrackerJsonFile(Path mediTrackerJsonPath) {
+    public static boolean processMediTrackerJsonFile(Path mediTrackerJsonPath) {
         if (mediTrackerJsonPath == null) {
-            logger.warning("No path specified to read the JSON file. Defaulting to empty state.");
-            return;
+            logger.warning("No path specified to read the JSON file.");
+            return false;
         }
 
         String jsonStringData = loadRawJsonFileData(mediTrackerJsonPath);
         if (jsonStringData == null) {
-            return;
+            return false;
         }
 
         // Solution on reading and parsing a JSON file adapted from
@@ -119,11 +120,12 @@ public class JsonImporter {
             medicationList = rawJsonData.getJSONArray("medicationList");
         } catch (JSONException e) {
             logger.warning("JSON Read Error: " + e.getMessage());
-            logger.warning("JSON Save Data not read and processed. Going with Empty state.");
-            return;
+            logger.warning("JSON Save Data not read and processed.");
+            return false;
         }
 
         List<Map<String, String>> medicationStringMap = convertJsonArrayToStringMap(medicationList);
         MedicationManager.addMedicationFromSaveFile(medicationStringMap);
+        return true;
     }
 }
