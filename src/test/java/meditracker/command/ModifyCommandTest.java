@@ -1,6 +1,5 @@
 package meditracker.command;
 
-import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.dailymedication.DailyMedicationManagerTest;
 import meditracker.exception.ArgumentNotFoundException;
@@ -9,7 +8,6 @@ import meditracker.exception.HelpInvokedException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
-import meditracker.time.Period;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,9 +39,7 @@ public class ModifyCommandTest {
                 1,
                 87);
         MedicationManager.addMedication(medication);
-
-        DailyMedication dailyMedication = new DailyMedication("Medication_A");
-        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
+        DailyMedicationManager.checkForDaily(medication);
 
         String newName = "Medication_B";
         String inputString = "modify -l 1 -n " + newName;
@@ -60,14 +56,15 @@ public class ModifyCommandTest {
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
-                300.0,
-                null,
-                null,
+                10.0,
+                10.0,
+                10.0,
                 "01/07/25",
                 "cause_dizziness",
                 1,
                 87);
         MedicationManager.addMedication(medication);
+        DailyMedicationManager.checkForDaily(medication);
 
         String newName = "Medication_B";
         String inputString = String.format("modify -n %s -l 1", newName);
