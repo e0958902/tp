@@ -105,7 +105,8 @@ public class ModifyCommand extends Command {
                     updateDailyMedicationName(medication, oldName, argumentValue);
                 } catch (MedicationNotFoundException e) {
                     Ui.showWarningMessage("Possible corruption of data. " +
-                            "Unable to remove DailyMedication when using `modify`");
+                            "Unable to update DailyMedication when using `modify`");
+                    return;
                 }
                 break;
             case QUANTITY:
