@@ -71,6 +71,12 @@ public class DeleteCommand extends Command {
         Ui.showSuccessMessage("Medicine has been deleted");
     }
 
+    /**
+     * Delete all instance of DailyMedication related to the Medication object
+     *
+     * @param medication The Medication object that will result in the deletion of
+     *                   DailyMedication objects
+     */
     private static void deleteDailyMedication(Medication medication) {
         String name = medication.getName();
 
