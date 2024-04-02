@@ -1,6 +1,5 @@
 package meditracker;
 
-import meditracker.argument.ArgumentHelper;
 import meditracker.command.Command;
 import meditracker.command.CommandName;
 import meditracker.command.CommandParser;
@@ -69,8 +68,7 @@ public class MediTracker {
                 Ui.showErrorMessage(e);
                 continue;
             } catch (HelpInvokedException e) {
-                String helpMessage = ArgumentHelper.getHelpMessage(commandName);
-                System.out.println(helpMessage);
+                Ui.showHelpMessage(commandName);
                 continue;
             }
 

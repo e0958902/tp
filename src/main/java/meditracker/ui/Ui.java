@@ -1,5 +1,7 @@
 package meditracker.ui;
 
+import meditracker.argument.ArgumentHelper;
+import meditracker.command.CommandName;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.library.SearchResult;
 import meditracker.medication.Medication;
@@ -84,6 +86,11 @@ public class Ui {
     
     public static void showErrorMessage(Throwable throwable) {
         showErrorMessage(throwable.getMessage());
+    }
+
+    public static void showHelpMessage(CommandName commandName) {
+        String helpMessage = ArgumentHelper.getHelpMessage(commandName);
+        System.out.println(helpMessage);
     }
 
     /**
