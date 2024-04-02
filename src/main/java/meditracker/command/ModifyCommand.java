@@ -106,6 +106,11 @@ public class ModifyCommand extends Command {
             case NAME:
                 String oldName = medication.getName();
                 medication.setName(argumentValue);
+
+                if (!DailyMedicationManager.doesBelongToDailyList(medication)) {
+                    continue;
+                }
+
                 try {
                     updateDailyMedicationName(medication, oldName, argumentValue);
                 } catch (MedicationNotFoundException e) {

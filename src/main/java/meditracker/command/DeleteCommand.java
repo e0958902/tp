@@ -65,7 +65,9 @@ public class DeleteCommand extends Command {
         }
 
         MedicationManager.removeMedication(listIndex);
-        deleteDailyMedication(medication);
+        if (DailyMedicationManager.doesBelongToDailyList(medication)) {
+            deleteDailyMedication(medication);
+        }
         Ui.showSuccessMessage("Medicine has been deleted");
     }
 

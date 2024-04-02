@@ -38,7 +38,7 @@ public class DailyMedicationManager {
      */
     public static void createDailyMedicationManager() {
         for (Medication medication : MedicationManager.getMedications()) {
-            if (shouldAddToDailyList(medication)) {
+            if (doesBelongToDailyList(medication)) {
                 addToSubLists(medication);
             }
         }
@@ -326,7 +326,7 @@ public class DailyMedicationManager {
      * @param medication list of medications from MedicationManager
      */
     public static void checkForDaily(Medication medication) {
-        if (shouldAddToDailyList(medication)) {
+        if (doesBelongToDailyList(medication)) {
             addToSubLists(medication);
         }
     }
@@ -337,7 +337,7 @@ public class DailyMedicationManager {
      * @param medication list of medications from MedicationManager
      * @return true if medication can be added to today's list
      */
-    private static boolean shouldAddToDailyList(Medication medication) {
+    public static boolean doesBelongToDailyList(Medication medication) {
         int num = medication.getRepeat();
 
         switch (num) {
