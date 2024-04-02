@@ -3,6 +3,7 @@ package meditracker;
 import meditracker.command.AddCommand;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.exception.InsufficientQuantityException;
 import meditracker.time.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -86,7 +88,7 @@ public class DailyMedicationManagerTest {
     }
 
     @Test
-    public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken() throws FileReadWriteException {
+    public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken() throws InsufficientQuantityException {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;
@@ -115,7 +117,34 @@ public class DailyMedicationManagerTest {
     }
 
     @Test
-    public void untakeDailyMedication_genericDailyMedication_dailyMedicationNotTaken() throws FileReadWriteException {
+    public void takeDailyMedication_lowQuantityMedication_insufficientQuantity() {
+        String medicationName = "TestMedication";
+        double oldQuantity = 60;
+        double dosage = 10;
+        Medication medication = new Medication(
+                medicationName,
+                oldQuantity,
+                dosage,
+                null,
+                null,
+                "01/07/25",
+                "cause_dizziness",
+                1,
+                87);
+        MedicationManager.addMedication(medication);
+
+        DailyMedication dailyMedication = new DailyMedication(medicationName);
+        assertFalse(dailyMedication.isTaken());
+        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
+
+        int actualIndex = 1; // 1-based indexing
+        assertThrows(
+                InsufficientQuantityException.class,
+                () -> DailyMedicationManager.takeDailyMedication(actualIndex, Period.MORNING));
+    }
+
+    @Test
+    public void untakeDailyMedication_genericDailyMedication_dailyMedicationNotTaken() {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;

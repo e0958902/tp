@@ -8,12 +8,26 @@ import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ModifyCommandTest {
+
+    @BeforeEach
+    public void resetMedicationManager() throws InvocationTargetException,
+            IllegalAccessException, NoSuchMethodException {
+        Method resetMedicationManagerMethod
+                = MedicationManager.class.getDeclaredMethod("clearMedication");
+        resetMedicationManagerMethod.setAccessible(true);
+        resetMedicationManagerMethod.invoke(MedicationManager.class);
+    }
+
     @Test
     void execute_inOrderArgument_expectMedicationModified()
             throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
@@ -62,6 +76,6 @@ public class ModifyCommandTest {
         command.execute();
 
         Medication updatedMedication = MedicationManager.getMedication(1);
-        assertTrue(updatedMedication.getName().equals(newName));
+        assertEquals(updatedMedication.getName(), newName);
     }
 }
