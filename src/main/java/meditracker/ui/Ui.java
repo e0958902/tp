@@ -84,7 +84,7 @@ public class Ui {
         System.out.print("ERROR: ");
         System.out.println(message);
     }
-    
+
     public static void showErrorMessage(Throwable throwable) {
         showErrorMessage(throwable.getMessage());
     }
@@ -92,6 +92,11 @@ public class Ui {
     public static void showHelpMessage(CommandName commandName) {
         String helpMessage = ArgumentHelper.getHelpMessage(commandName);
         System.out.println(helpMessage);
+    }
+
+    public static void showWarningMessage(String message) {
+        System.out.print("WARNING: ");
+        System.out.println(message);
     }
 
     /**
