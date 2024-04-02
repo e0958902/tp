@@ -66,7 +66,7 @@ public class MediTracker {
             try {
                 command = commandParser.getCommand();
             } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | CommandNotFoundException e) {
-                System.out.println(e.getMessage());
+                Ui.showErrorMessage(e);
                 continue;
             } catch (HelpInvokedException e) {
                 String helpMessage = ArgumentHelper.getHelpMessage(commandName);

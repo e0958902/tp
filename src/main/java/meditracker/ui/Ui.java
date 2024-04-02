@@ -81,6 +81,10 @@ public class Ui {
         System.out.print("ERROR: ");
         System.out.println(message);
     }
+    
+    public static void showErrorMessage(Throwable throwable) {
+        showErrorMessage(throwable.getMessage());
+    }
 
     /**
      * Reads user input command.
