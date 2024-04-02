@@ -70,7 +70,7 @@ public class JsonExporterTest {
 
     @BeforeEach
     public void setUpWriteFile() {
-        Path jsonSaveFile = MediTrackerConfig.getFullJsonSaveFilePath();
+        Path jsonSaveFile = MediTrackerConfig.getDefaultJsonSaveFilePath();
         Path jsonFolder = FileReaderWriter.getFullPathComponent(jsonSaveFile, true);
         fileToExport = FileReaderWriter.createTempSaveFile(jsonFolder);
     }

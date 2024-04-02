@@ -34,6 +34,19 @@ Example of usage:
 
 `todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
 
+
+
+
+### Saving to a file
+Saves the JSON file at the specified path.
+
+Format: `save [-o outputFile]`
+- If the `-o outputFile` is not specified, it will write to its default save location.
+- As far as possible, refrain from using spaces in the file path, especially with a -h i.e. path/to -h/
+- Ensure that the file does not end with a space or a dot (.)
+- System folders, don't save there. Ensure that the folder you are going to write to has the proper access rights
+
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 

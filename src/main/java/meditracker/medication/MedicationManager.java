@@ -2,6 +2,7 @@ package meditracker.medication;
 
 import meditracker.argument.ArgumentName;
 import meditracker.logging.MediLogger;
+import meditracker.storage.FileReaderWriter;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
@@ -9,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import static meditracker.storage.FileReaderWriter.saveMediTrackerData;
 
 /**
  * The MedicationManager class represents a list of medications.
@@ -50,7 +49,7 @@ public class MedicationManager {
      */
     public static void addMedication(Medication medication) {
         medications.add(medication);
-        saveMediTrackerData();
+        FileReaderWriter.saveMediTrackerData(null);
     }
 
     /**
@@ -96,7 +95,7 @@ public class MedicationManager {
     public static void removeMedication(int listIndex) throws IndexOutOfBoundsException {
         listIndex--; // Decremented to 0-base indexing
         medications.remove(listIndex);
-        saveMediTrackerData();
+        FileReaderWriter.saveMediTrackerData(null);
     }
 
     /**

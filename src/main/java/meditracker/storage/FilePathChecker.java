@@ -1,14 +1,18 @@
 package meditracker.storage;
 
+import meditracker.logging.MediLogger;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 /**
  * A class that perform checks on the supplied file path.
  * This does not check for file permissions (to be created, read, accessed etc.).
  */
 public class FilePathChecker {
+    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
      * Checks if the Path object contains illegal folder names.
@@ -23,8 +27,14 @@ public class FilePathChecker {
         while (splitPath.hasNext()) {
             Path subpath = splitPath.next();
             String subpathString = subpath.toString().toLowerCase();
+            // Path should not have multiple periods or colons
+            if (subpathString.contains("..") || subpathString.contains(":")) {
+                MEDILOGGER.warning("Sub-path contains .. or : which is not allowed.");
+                return true;
+            }
 
-            if (subpathString.contains("..")) { // Path should not have multiple periods
+            if (subpathString.endsWith(".") || subpathString.endsWith(" ")) {
+                MEDILOGGER.warning("Sub-path ends with '.' or (space) which is not allowed.");
                 return true;
             }
 
@@ -53,6 +63,7 @@ public class FilePathChecker {
             case "lpt8": // fallthrough
             case "lpt9": // fallthrough
             case ".": // Path should not have a lone period.
+                MEDILOGGER.warning("Path contains potentially invalid folder: " + subpathString);
                 return true;
             default:
                 continue;
@@ -82,6 +93,7 @@ public class FilePathChecker {
         if (Files.exists(root)) {
             return true;
         } else {
+            MEDILOGGER.warning("File Root " + root + " does not exist on the filesystem.");
             return false;
         }
     }
@@ -96,10 +108,11 @@ public class FilePathChecker {
      */
     public static boolean containsIllegalCharacters (String inputToCheck) {
         // Credit: https://stackoverflow.com/a/31976060
-        String[] illegalCharacters = {"<", ">", ":", "\"", "'", "|", "?", "*"};
+        String[] illegalCharacters = {"<", ">", "\"", "'", "|", "?", "*"};
 
         for (String illegalChar : illegalCharacters) {
             if (inputToCheck.contains(illegalChar)) {
+                MEDILOGGER.warning("String contains potentially illegal character: " + illegalChar);
                 return true;
             }
         }
@@ -127,11 +140,13 @@ public class FilePathChecker {
 
         Path fileName = FileReaderWriter.getFullPathComponent(path,false);
         if (fileName == null) {
+            MEDILOGGER.warning("There is no valid file name supplied.");
             return false;
         }
 
         String fileNameString = fileName.toString().toLowerCase();
         if (!fileNameString.endsWith(".json")) {
+            MEDILOGGER.warning("File does not end in .json");
             return false;
         }
 

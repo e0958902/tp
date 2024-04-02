@@ -13,15 +13,15 @@ public class MediTrackerConfig {
     private static final Logger logger = MediLogger.getMediLogger();
 
     /* Path to save Medication related information.*/
-    private static final Path fullJsonSaveFilePath = Path.of("data/MediTrackerData.json");
+    private static final Path defaultJsonSaveFilePath = Path.of("data/MediTrackerData.json");
     /* Path to save medication for the day. Not customisable.*/
-    private static final Path fullDailySaveFilePath = Path.of("data/dailymed/today.txt");
+    private static final Path defaultDailySaveFilePath = Path.of("data/dailymed/today.txt");
 
-    public static Path getFullJsonSaveFilePath() {
-        return fullJsonSaveFilePath;
+    public static Path getDefaultJsonSaveFilePath() {
+        return defaultJsonSaveFilePath;
     }
 
-    public static Path getFullDailySaveFilePath() {
-        return fullDailySaveFilePath;
+    public static Path getDefaultDailySaveFilePath() {
+        return defaultDailySaveFilePath;
     }
 }

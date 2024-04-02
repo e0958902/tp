@@ -11,6 +11,7 @@
 - Issue #27, #55: Read and Write medication-related data to JSON file
 - Issue #48: Read and wrote daily medication related data to txt file
 - Issue #41: Introduce MediTracker Logger for logging
+- Issue #96: Introduce save to and load from custom location
 
 ### Developer Guide Contributions
 

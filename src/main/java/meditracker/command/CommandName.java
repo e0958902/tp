@@ -12,7 +12,8 @@ public enum CommandName {
     DELETE("delete"),
     SEARCH("search"),
     TAKE("take"),
-    UNTAKE("untake");
+    UNTAKE("untake"),
+    SAVE("save");
 
     public final String value;
 

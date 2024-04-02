@@ -57,6 +57,8 @@ public class CommandParser {
             return new TakeCommand(arguments);
         case UNTAKE:
             return new UntakeCommand(arguments);
+        case SAVE:
+            return new SaveCommand(arguments);
         case UNKNOWN:
             // fall through
         default:
