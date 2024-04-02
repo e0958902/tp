@@ -4,10 +4,14 @@ import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListIndexArgument;
+import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MedicationNotFoundException;
+import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
+import meditracker.time.Period;
 import meditracker.ui.Ui;
 
 import java.util.Map;
@@ -46,11 +50,56 @@ public class DeleteCommand extends Command {
     public void execute() {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
+        Medication medication = MedicationManager.getMedication(listIndex);
         MedicationManager.removeMedication(listIndex);
+        deleteDailyMedication(medication);
         Ui.showSuccessMessage("Medicine has been deleted");
-
-        // TODO: remove medication from DailyMedicationManager as well.
-
     }
 
+    private static void deleteDailyMedication(Medication medication) {
+        String name = medication.getName();
+
+        for (Period period : Period.values()) {
+            switch (period) {
+            case MORNING:
+                if (medication.getDosageMorning() == 0) {
+                    continue;
+                }
+
+                try {
+                    DailyMedicationManager.removeDailyMedication(name, Period.MORNING);
+                } catch (MedicationNotFoundException e) {
+                    Ui.showWarningMessage("Possible corruption of data. " +
+                            "Unable to remove DailyMedication when using `delete`");
+                }
+                break;
+            case AFTERNOON:
+                if (medication.getDosageAfternoon() == 0) {
+                    continue;
+                }
+
+                try {
+                    DailyMedicationManager.removeDailyMedication(name, Period.AFTERNOON);
+                } catch (MedicationNotFoundException e) {
+                    Ui.showWarningMessage("Possible corruption of data. " +
+                            "Unable to remove DailyMedication when using `delete`");
+                }
+                break;
+            case EVENING:
+                if (medication.getDosageEvening() == 0) {
+                    continue;
+                }
+
+                try {
+                    DailyMedicationManager.removeDailyMedication(name, Period.EVENING);
+                } catch (MedicationNotFoundException e) {
+                    Ui.showWarningMessage("Possible corruption of data. " +
+                            "Unable to remove DailyMedication when using `delete`");
+                }
+                break;
+            default:
+                break;
+            }
+        }
+    }
 }

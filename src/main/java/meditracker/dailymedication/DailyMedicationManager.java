@@ -124,6 +124,32 @@ public class DailyMedicationManager {
     }
 
     /**
+     * Removes the DailyMedication object in the corresponding Period list that
+     * matches the specified name.
+     *
+     * @param name Name of the DailyMedications object to get
+     * @param period Time period of day (Morning, afternoon or evening)
+     * @throws MedicationNotFoundException No DailyMedication matching specified name found
+     */
+    public static void removeDailyMedication(String name, Period period)
+            throws MedicationNotFoundException {
+        int listIndex = getDailyMedicationIndex(name, period);
+        switch (period) {
+        case MORNING:
+            morningMedications.remove(listIndex);
+            break;
+        case AFTERNOON:
+            afternoonMedications.remove(listIndex);
+            break;
+        case EVENING:
+            eveningMedications.remove(listIndex);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + period);
+        }
+    }
+
+    /**
      * Gets the DailyMedication object from the morning/afternoon/evening lists
      * Also converts the index to 0-based indexing before being used.
      *
@@ -145,6 +171,42 @@ public class DailyMedicationManager {
         default:
             throw new IllegalStateException("Unexpected value: " + period);
         }
+    }
+
+    /**
+     * Gets the DailyMedication object from the morning/afternoon/evening lists
+     *
+     * @param name Name of the DailyMedications object to get
+     * @param period Time period of day (Morning, afternoon or evening)
+     * @return DailyMedication object that matches the specified name
+     * @throws IndexOutOfBoundsException Out of range index specified
+     * @throws MedicationNotFoundException No DailyMedication matching specified name found
+     */
+    public static DailyMedication getDailyMedication(String name, Period period)
+            throws IndexOutOfBoundsException, MedicationNotFoundException {
+        int listIndex = getDailyMedicationIndex(name, period); // 0-based indexing
+        listIndex++; // Convert to 1-based indexing
+        return getDailyMedication(listIndex, period);
+    }
+
+    /**
+     * Gets the DailyMedication index in the morning/afternoon/evening lists
+     *
+     * @param name Name of the DailyMedications object to get
+     * @param period Time period of day (Morning, afternoon or evening)
+     * @return Index of the DailyMedication object that matches the specified name
+     * @throws MedicationNotFoundException No DailyMedication matching specified name found
+     */
+    public static int getDailyMedicationIndex(String name, Period period)
+            throws MedicationNotFoundException {
+        List<DailyMedication> dailyMedications = getDailyMedications(period);
+        for (int i = 0; i < dailyMedications.size(); i++) {
+            DailyMedication dailyMedication = dailyMedications.get(i);
+            if (dailyMedication.getName().equals(name)) {
+                return i;
+            }
+        }
+        throw new MedicationNotFoundException();
     }
 
     /**

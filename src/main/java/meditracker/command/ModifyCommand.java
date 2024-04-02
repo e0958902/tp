@@ -17,6 +17,7 @@ import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MedicationNotFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.time.Period;
@@ -66,7 +67,14 @@ public class ModifyCommand extends Command {
     public void execute() {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
-        Medication medication = MedicationManager.getMedication(listIndex);
+
+        Medication medication;
+        try {
+            medication = MedicationManager.getMedication(listIndex);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showErrorMessage("Invalid index specified");
+            return;
+        }
 
         for (Map.Entry<ArgumentName, String> argument: parsedArguments.entrySet()) {
             ArgumentName argumentName = argument.getKey();
@@ -91,12 +99,14 @@ public class ModifyCommand extends Command {
             case LIST_INDEX:
                 continue;
             case NAME:
+                String oldName = medication.getName();
                 medication.setName(argumentValue);
-
-                // Update medication name in DailyMedication
-                DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, Period.MORNING);
-                dailyMedication.setName(argumentValue);
-                // TODO: update afternoon and evening list
+                try {
+                    updateDailyMedicationName(medication, oldName, argumentValue);
+                } catch (MedicationNotFoundException e) {
+                    Ui.showWarningMessage("Possible corruption of data. " +
+                            "Unable to remove DailyMedication when using `modify`");
+                }
                 break;
             case QUANTITY:
                 medication.setQuantity(Double.parseDouble(argumentValue));
@@ -110,5 +120,43 @@ public class ModifyCommand extends Command {
         }
 
         Ui.showSuccessMessage("Medicine has been modified");
+    }
+
+    /**
+     * Updates all instances of DailyMedication name to new name
+     *
+     * @param medication Medication object being updated
+     * @param oldName Existing old name of Medication object to search for
+     * @param newName New name to replace with
+     * @throws MedicationNotFoundException No DailyMedication matching specified name found
+     */
+    private static void updateDailyMedicationName(Medication medication, String oldName, String newName)
+            throws MedicationNotFoundException {
+        for (Period period : Period.values()) {
+            DailyMedication dailyMedication;
+            switch (period) {
+            case MORNING:
+                if (medication.getDosageMorning() == 0) {
+                    continue;
+                }
+                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, Period.MORNING);
+                break;
+            case AFTERNOON:
+                if (medication.getDosageAfternoon() == 0) {
+                    continue;
+                }
+                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, Period.AFTERNOON);
+                break;
+            case EVENING:
+                if (medication.getDosageEvening() == 0) {
+                    continue;
+                }
+                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, Period.EVENING);
+                break;
+            default:
+                continue;
+            }
+            dailyMedication.setName(newName);
+        }
     }
 }
