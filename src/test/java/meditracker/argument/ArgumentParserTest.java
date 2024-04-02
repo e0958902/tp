@@ -131,4 +131,20 @@ public class ArgumentParserTest {
                 () -> testArgumentList.parse(testArgumentString)
         );
     }
+
+    @Test
+    void argumentParser_missingArgumentValues_argumentNoValueException() {
+        String name = "Medication";
+        String dosage = "100";
+        String quantity = "2000";
+        String testArgumentString = String.format("-n %s -dM %s -q %s -r",
+                name,
+                dosage,
+                quantity);
+
+        assertThrows(
+                ArgumentNoValueException.class,
+                () -> testArgumentList.parse(testArgumentString)
+        );
+    }
 }
