@@ -80,7 +80,8 @@ class ArgumentParser {
                 .map(Argument::getFlag)
                 .collect(Collectors.toList());
 
-        String pattern = "^-.+$";
+        String pattern = "^-.+$"; // regex pattern to find all flags with the form of `-*`
+                                  // where `*` represents any number of alphabetic characters
         List<String> unknownFlags = rawInputSplit.stream()
                 .filter((input) -> input.matches(pattern) && !argumentFlags.contains(input))
                 .collect(Collectors.toList());
