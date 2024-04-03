@@ -103,20 +103,30 @@ public class FileReaderWriter {
      * will run without the saved data (fresh state).
      */
     public static void loadMediTrackerData() {
-        Path mediTrackerJsonPath = MediTrackerConfig.getFullJsonSaveFilePath();
+        Path mediTrackerJsonPath = MediTrackerConfig.getDefaultJsonSaveFilePath();
         JsonImporter.processMediTrackerJsonFile(mediTrackerJsonPath);
     }
 
     /**
-     * Saves the medication information found in `MedicationManager`.
+     * Saves the medication information in MediTracker.
+     *
+     * @param path The Path object (relative or absolute) to save the information to. If null, the path will be the
+     *     path specified in `MediTrackerConfig`.
+     * @return true if the saving is successful, false otherwise.
      */
-    public static void saveMediTrackerData() {
-        Path fullJsonPath = MediTrackerConfig.getFullJsonSaveFilePath();
+    public static boolean saveMediTrackerData(Path path) {
+        Path fullJsonPath;
+        if (path == null) {
+            fullJsonPath = MediTrackerConfig.getDefaultJsonSaveFilePath();
+        } else {
+            fullJsonPath = path;
+        }
+
         Path jsonFolder = getFullPathComponent(fullJsonPath, true);
         Path tmpSaveFile = createTempSaveFile(jsonFolder);
 
         if (tmpSaveFile == null) {
-            return;
+            return false;
         }
 
         boolean saveStatus = JsonExporter.saveMedicationDataToJson(tmpSaveFile);
@@ -128,7 +138,9 @@ public class FileReaderWriter {
             }
         } catch (IOException e) {
             logger.severe("IO Exception occurred when trying to update existing save file.");
+            return false;
         }
+        return true;
     }
 
     /**
@@ -137,7 +149,7 @@ public class FileReaderWriter {
      * @param dailyMedData A list of type String for the daily medication data.
      */
     public static void saveDailyMedicationData(List<String> dailyMedData) {
-        Path dailyMedFullSavePath = MediTrackerConfig.getFullDailySaveFilePath();
+        Path dailyMedFullSavePath = MediTrackerConfig.getDefaultDailySaveFilePath();
         Path dailyMedFolder = getFullPathComponent(dailyMedFullSavePath, true);
         Path tmpSaveFile = createTempSaveFile(dailyMedFolder);
 
@@ -177,7 +189,7 @@ public class FileReaderWriter {
      */
     public static List<String> loadDailyMedicationData() {
         try {
-            Path dailyMedTextFile = MediTrackerConfig.getFullDailySaveFilePath();
+            Path dailyMedTextFile = MediTrackerConfig.getDefaultDailySaveFilePath();
             return Files.readAllLines(dailyMedTextFile);
         } catch (IOException e) {
             logger.warning("Unable to Read Daily medication data. "
