@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 
 public class FilePathCheckerTest {
@@ -93,8 +94,17 @@ public class FilePathCheckerTest {
         result = FilePathChecker.containsIllegalCharacters("/data/out>.json");
         assertTrue(result);
 
+        // The check for colon is done by `containsIllegalFolderNames` (for unix)
+        // Furthermore, the `Path.of` will throw an `InvalidPathException` if it encounters the colon (for windows)
         result = FilePathChecker.containsIllegalCharacters("/data/:fold/out.json");
-        assertTrue(result);
+        assertFalse(result);
+        try {
+            Path path = Path.of("/data/:fold/out.json");
+            result = FilePathChecker.containsIllegalFolderNames(path);
+            assertTrue(result);
+        } catch (InvalidPathException e) {
+            assertTrue(true);
+        }
 
         result = FilePathChecker.containsIllegalCharacters("/data/\"IllegalQuote\"/out.json");
         assertTrue(result);

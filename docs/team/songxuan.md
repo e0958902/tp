@@ -9,8 +9,11 @@
 - Issue #97, #100: Deal with storage and OS-related path checks and handling
 - Issue #25: Create and Open the JSON save file 
 - Issue #27, #55: Read and Write medication-related data to JSON file
-- Issue #48: Read and wrote daily medication related data to txt file
+- Issue #48, #121: Read and wrote daily medication related data to txt file
 - Issue #41: Introduce MediTracker Logger for logging
+- Issue #96: Introduce save to and load from custom location
+- Issue #43: Simulated Time
+
 
 ### Developer Guide Contributions
 

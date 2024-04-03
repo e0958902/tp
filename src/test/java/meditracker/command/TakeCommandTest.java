@@ -2,39 +2,54 @@ package meditracker.command;
 
 import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
-import meditracker.time.Period;
+import meditracker.dailymedication.DailyMedicationManagerTest;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.FileReadWriteException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.InvalidArgumentException;
+import meditracker.exception.UnknownArgumentFoundException;
+import meditracker.medication.Medication;
+import meditracker.medication.MedicationManager;
+import meditracker.medication.MedicationManagerTest;
+import meditracker.time.Period;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TakeCommandTest {
 
     @BeforeEach
-    public void resetDailyMedicationManager() throws InvocationTargetException,
-            IllegalAccessException, NoSuchMethodException {
-        Method resetDailyMedicationManagerMethod
-                = DailyMedicationManager.class.getDeclaredMethod("clearDailyMedication");
-        resetDailyMedicationManagerMethod.setAccessible(true);
-        resetDailyMedicationManagerMethod.invoke(DailyMedicationManager.class);
+    @AfterEach
+    public void resetManagers() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        DailyMedicationManagerTest.resetDailyMedicationManager();
+        MedicationManagerTest.resetMedicationManager();
     }
 
     @Test
     void execute_inOrderArgument_expectDailyMedicationTaken()
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException,
-            FileReadWriteException, InvalidArgumentException {
-        DailyMedication dailyMedication = new DailyMedication("Medication_A");
-        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);  //only test Morning for now
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException, UnknownArgumentFoundException {
+        Medication medication = new Medication(
+                "Medication_A",
+                60.0,
+                10.0,
+                0.0,
+                0.0,
+                "01/07/25",
+                "cause_dizziness",
+                1,
+                87);
+        MedicationManager.addMedication(medication);
+        DailyMedicationManager.checkForDaily(medication);
 
-        String inputString = "take -l 1 -m";
+        int listIndex = 1;
+        DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, Period.MORNING);
+
+        String inputString = String.format("take -l %d -m", listIndex);
         TakeCommand command = new TakeCommand(inputString);
         command.execute();
 

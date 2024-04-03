@@ -9,12 +9,14 @@ import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListTypeArgument;
 import meditracker.dailymedication.DailyMedicationManager;
-import meditracker.exception.InvalidArgumentException;
+import meditracker.exception.ArgumentNoValueException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.time.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.medication.MedicationManager;
+import meditracker.ui.Ui;
 
 import java.util.List;
 import java.util.Map;
@@ -41,11 +43,14 @@ public class ListCommand extends Command {
      *
      * @param arguments The arguments containing information to be parsed.
      * @throws ArgumentNotFoundException Argument flag specified not found
+     * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
+     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
      */
     public ListCommand(String arguments)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException, UnknownArgumentFoundException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
@@ -55,7 +60,7 @@ public class ListCommand extends Command {
      *
      */
     @Override
-    public void execute() throws InvalidArgumentException {
+    public void execute() {
         String listTypeString = parsedArguments.get(ArgumentName.LIST_TYPE);
         boolean isMorning = parsedArguments.get(ArgumentName.MORNING) != null;
         boolean isAfternoon = parsedArguments.get(ArgumentName.AFTERNOON) != null;
@@ -92,7 +97,7 @@ public class ListCommand extends Command {
             }
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + listTypeString);
+            Ui.showErrorMessage(String.format("Unknown list type -> \"%s\"", listTypeString));
         }
     }
 }

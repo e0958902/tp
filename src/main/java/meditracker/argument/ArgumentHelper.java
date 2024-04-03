@@ -8,6 +8,8 @@ import meditracker.command.ModifyCommand;
 import meditracker.command.SearchCommand;
 import meditracker.command.TakeCommand;
 import meditracker.command.UntakeCommand;
+import meditracker.command.SaveCommand;
+import meditracker.command.LoadCommand;
 
 import java.util.List;
 
@@ -40,6 +42,10 @@ public class ArgumentHelper {
             return UntakeCommand.HELP_MESSAGE;
         case SEARCH:
             return SearchCommand.HELP_MESSAGE;
+        case SAVE:
+            return SaveCommand.HELP_MESSAGE;
+        case LOAD:
+            return LoadCommand.HELP_MESSAGE;
         case EXIT: // fall through
         case UNKNOWN: // fall through
         default:

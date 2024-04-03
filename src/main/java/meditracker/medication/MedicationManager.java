@@ -1,7 +1,10 @@
 package meditracker.medication;
 
 import meditracker.argument.ArgumentName;
+import meditracker.exception.InsufficientQuantityException;
+import meditracker.exception.MedicationNotFoundException;
 import meditracker.logging.MediLogger;
+import meditracker.storage.FileReaderWriter;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
@@ -9,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import static meditracker.storage.FileReaderWriter.saveMediTrackerData;
 
 /**
  * The MedicationManager class represents a list of medications.
@@ -37,7 +38,8 @@ public class MedicationManager {
     }
 
     /**
-     * Clears and resets MedicationManager for testing purpose
+     * Clears and resets MedicationManager
+     * Used by tests and overwriting from the JSON save file.
      */
     protected static void clearMedication() {
         medications.clear();
@@ -50,7 +52,7 @@ public class MedicationManager {
      */
     public static void addMedication(Medication medication) {
         medications.add(medication);
-        saveMediTrackerData();
+        FileReaderWriter.saveMediTrackerData(null);
     }
 
     /**
@@ -72,14 +74,15 @@ public class MedicationManager {
      *
      * @param name Name of the medication to retrieve
      * @return Corresponding Medication object with the matched name
+     * @throws MedicationNotFoundException No Medication matching the specified name found
      */
-    public static Medication getMedication(String name) {
+    public static Medication getMedication(String name) throws MedicationNotFoundException {
         for (Medication medication : medications) {
             if (medication.getName().equals(name)) {
                 return medication;
             }
         }
-        return null;
+        throw new MedicationNotFoundException();
     }
 
     public static List<Medication> getMedications() {
@@ -96,7 +99,7 @@ public class MedicationManager {
     public static void removeMedication(int listIndex) throws IndexOutOfBoundsException {
         listIndex--; // Decremented to 0-base indexing
         medications.remove(listIndex);
-        saveMediTrackerData();
+        FileReaderWriter.saveMediTrackerData(null);
     }
 
     /**
@@ -169,6 +172,7 @@ public class MedicationManager {
      * @param medInfoList The List of medication information that contains the (String, String) key-value.
      */
     public static void addMedicationFromSaveFile(List<Map<String, String>> medInfoList) {
+        clearMedication(); // Reset for the case of overwriting data with another JSON file.
         for (Map<String, String> medInfo : medInfoList) {
             Medication medication = new Medication();
             for (String key : medInfo.keySet()) {
@@ -225,13 +229,11 @@ public class MedicationManager {
      *
      * @param medicationName Name of the medication to increase medication quantity
      * @param period Time period of day to reference
+     * @throws MedicationNotFoundException No Medication matching specified name found
      */
-    public static void increaseMedicationQuantity(String medicationName, Period period) {
+    public static void increaseMedicationQuantity(String medicationName, Period period)
+            throws MedicationNotFoundException {
         Medication medication = getMedication(medicationName);
-        if (medication == null) {
-            return;
-        }
-
         double dosage = getMedicationDosage(medication, period);
         double oldQuantity = medication.getQuantity();
         double newQuantity = oldQuantity + dosage;
@@ -243,16 +245,20 @@ public class MedicationManager {
      *
      * @param medicationName Name of the medication to decrease medication quantity
      * @param period Time period of day to reference
+     * @throws MedicationNotFoundException No Medication matching specified name found
+     * @throws InsufficientQuantityException Existing quantity insufficient for operation
      */
-    public static void decreaseMedicationQuantity(String medicationName, Period period) {
+    public static void decreaseMedicationQuantity(String medicationName, Period period)
+            throws MedicationNotFoundException, InsufficientQuantityException {
         Medication medication = getMedication(medicationName);
-        if (medication == null) {
-            return;
-        }
-
         double dosage = getMedicationDosage(medication, period);
         double oldQuantity = medication.getQuantity();
         double newQuantity = oldQuantity - dosage;
+
+        if (newQuantity < 0) {
+            throw new InsufficientQuantityException(dosage, oldQuantity);
+        }
+
         medication.setQuantity(newQuantity);
     }
 }

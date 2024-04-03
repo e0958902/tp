@@ -104,6 +104,30 @@ Example of usage:
 
 `todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
 
+
+
+
+### Saving to a file
+Saves the JSON file at the specified path.
+
+Format: `save [-o outputFile]`
+- If the `-o outputFile` is not specified, it will write to its default save location.
+- As far as possible, refrain from using spaces in the file path, especially with a -h i.e. path/to -h/
+- Ensure that the file does not end with a space or a dot (.)
+- System folders, don't save there. Ensure that the folder you are going to write to has the proper access rights
+
+### Reading from a file
+- A Prompt will ask for your confirmation as an additional layer of safeguard.
+- Loading will overwrite existing running data, so be sure to save a copy first before deciding to overwrite
+- (The rest are more or less the same as above)
+- Rmb the JSON if you modify and you mess it up, either it will not load, or the program loads with corrupt data.
+- So make sure you know what you are doing and keep a backup before you make any sort of modifications!
+
+### Advanced Feature: Setting an arbitrary time
+- Still show how to use it (simply)
+- This is intended for the developers only.
+- See Developer Guide for more information.
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 

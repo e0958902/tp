@@ -12,7 +12,9 @@ public enum CommandName {
     DELETE("delete"),
     SEARCH("search"),
     TAKE("take"),
-    UNTAKE("untake");
+    UNTAKE("untake"),
+    SAVE("save"),
+    LOAD("load");
 
     public final String value;
 
