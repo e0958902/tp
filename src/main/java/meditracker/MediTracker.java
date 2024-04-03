@@ -10,6 +10,7 @@ import meditracker.exception.CommandNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.InvalidArgumentException;
+import meditracker.exception.MediTrackerException;
 import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
@@ -77,7 +78,7 @@ public class MediTracker {
 
             try {
                 command.execute();
-            } catch (InvalidArgumentException e) {
+            } catch (InvalidArgumentException | MediTrackerException e) {
                 System.out.println(e.getMessage());
             }
             isExit = command.isExit();
