@@ -3,6 +3,7 @@ package meditracker.dailymedication;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.storage.FileReaderWriter;
+import meditracker.time.MediTrackerTime;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
@@ -19,7 +20,7 @@ public class DailyMedicationManager {
     private static final List<DailyMedication> morningMedications = new ArrayList<>();
     private static final List<DailyMedication> afternoonMedications = new ArrayList<>();
     private static final List<DailyMedication> eveningMedications = new ArrayList<>();
-    private static final LocalDate currentDate = LocalDate.now();
+    private static final LocalDate currentDate = MediTrackerTime.getCurrentDate();
 
     /**
      * Prevents defaulting to the public constructor
