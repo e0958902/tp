@@ -30,6 +30,10 @@ public class FileReaderWriter {
      * @return The Path object of either the file name or the folder name. Null if the chosen field is empty.
      */
     static Path getFullPathComponent(Path path, boolean getFolder) {
+        if (path == null) {
+            return null;
+        }
+
         if (getFolder) {
             return path.getParent();
         } else {

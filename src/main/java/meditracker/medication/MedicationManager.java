@@ -142,7 +142,6 @@ public class MedicationManager {
         Ui.printMedsList(medications);
     }
 
-    //@@author annoy-o-mus
     /**
      * Converts a String to a double.
      * Introduced to help populate the Medication object from the save file.
@@ -166,7 +165,6 @@ public class MedicationManager {
     }
 
 
-    //@@author annoy-o-mus
     /**
      * Populates the MedicationManager from the save file.
      * If there are corrupt data, it may be substituted with placeholder values.

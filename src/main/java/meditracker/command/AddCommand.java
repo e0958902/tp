@@ -6,6 +6,7 @@ import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MediTrackerException;
 import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
@@ -42,7 +43,7 @@ public class AddCommand extends Command {
             new DosageEveningArgument(true),
             new ExpirationDateArgument(false),
             new RemarksArgument(true),
-            new RepeatArgument(true)
+            new RepeatArgument(false)
     );
 
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.ADD, ARGUMENT_LIST);
@@ -74,13 +75,15 @@ public class AddCommand extends Command {
      * Executes the add command.
      * This method creates a new Medication object using the provided information and adds it to the medication list.
      * It also displays a message confirming the addition of the medication.
-     *
-     * @throws NullPointerException   if any of the required objects are null.
-     * @throws NumberFormatException  if there is an error in parsing numeric values.
      */
     @Override
-    public void execute() throws NullPointerException, NumberFormatException {
-        Medication medication = createMedication();
+    public void execute() {
+        Medication medication = null;
+        try {
+            medication = createMedication();
+        } catch (MediTrackerException e) {
+            Ui.showErrorMessage(e);
+        }
         MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
         assertionTest();
@@ -90,38 +93,35 @@ public class AddCommand extends Command {
     /**
      * Sets the medication attributes based on parsed arguments.
      *
-     * @throws NumberFormatException if there is an error in parsing numeric values.
-     * @throws NullPointerException  if any of the required arguments are null.
+     * @throws MediTrackerException if there is an error encountered.
      */
-    private Medication createMedication() throws NumberFormatException, NullPointerException {
+    private Medication createMedication() throws MediTrackerException {
         String medicationName = parsedArguments.get(ArgumentName.NAME);
         String expiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
         String remarks = parsedArguments.get(ArgumentName.REMARKS);
-        int repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
+
 
         String medicationQuantityArg = parsedArguments.get(ArgumentName.QUANTITY);
         String medicationDosageMorningArg = parsedArguments.get(ArgumentName.DOSAGE_MORNING);
         String medicationDosageAfternoonArg = parsedArguments.get(ArgumentName.DOSAGE_AFTERNOON);
         String medicationDosageEveningArg = parsedArguments.get(ArgumentName.DOSAGE_EVENING);
 
-        parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
-                medicationDosageAfternoonArg, medicationDosageEveningArg);
+        int repeat = 0;
+        try {
+            repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
+            parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
+                    medicationDosageAfternoonArg, medicationDosageEveningArg);
+            LocalDate currentDate = LocalDate.now();
+            int dayAdded = currentDate.getDayOfYear();
 
-        LocalDate currentDate = LocalDate.now();
-        int dayAdded = currentDate.getDayOfYear();
-
-        return new Medication(medicationName, medicationQuantity,
-                medicationDosageMorning, medicationDosageAfternoon, medicationDosageEvening,
-                expiryDate, remarks, repeat, dayAdded);
-    }
-
-    /**
-     * Performs assertion tests for medication and daily medication managers.
-     *
-     */
-    private void assertionTest() {
-        assert MedicationManager.getTotalMedications() != 0 : "Total medications in medication " +
-                "manager should not be 0!";
+            return new Medication(medicationName, medicationQuantity,
+                    medicationDosageMorning, medicationDosageAfternoon, medicationDosageEvening,
+                    expiryDate, remarks, repeat, dayAdded);
+        } catch (NumberFormatException e) {
+            throw new MediTrackerException("Incorrect Number format given");
+        } catch (NullPointerException e) {
+            throw new MediTrackerException("Medication not found");
+        }
     }
 
     /**
@@ -150,6 +150,14 @@ public class AddCommand extends Command {
         if (medicationDosageEvening != null) {
             this.medicationDosageEvening = Double.parseDouble(medicationDosageEvening);
         }
+    }
+
+    /**
+     * Performs assertion tests for medication and daily medication managers.
+     */
+    private void assertionTest() {
+        assert MedicationManager.getTotalMedications() != 0 : "Total medications in medication " +
+                "manager should not be 0!";
     }
 
 }

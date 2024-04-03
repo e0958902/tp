@@ -19,7 +19,10 @@ public enum ArgumentName {
     HELP("help"),
     MORNING("morning"),
     AFTERNOON("afternoon"),
-    EVENING("evening");
+    EVENING("evening"),
+    ILLNESS("illness"),
+    SIDE_EFFECTS("sideEffects"),
+    ALL_FIELDS("allFields");
 
     public final String value;
 
@@ -27,7 +30,6 @@ public enum ArgumentName {
         this.value = value;
     }
 
-    //@@author annoy-o-mus
     /**
      * Performs a reverse search to get the enum value from the associated string.
      *
