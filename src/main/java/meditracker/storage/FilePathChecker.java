@@ -1,14 +1,19 @@
 package meditracker.storage;
 
+import meditracker.logging.MediLogger;
+
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 /**
  * A class that perform checks on the supplied file path.
  * This does not check for file permissions (to be created, read, accessed etc.).
  */
 public class FilePathChecker {
+    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
      * Checks if the Path object contains illegal folder names.
@@ -18,13 +23,19 @@ public class FilePathChecker {
      * @param path The Path object to check for illegal names (and improper use of periods).
      * @return true if illegal names are found, false otherwise.
      */
-    private static boolean containsIllegalFolderNames(Path path) {
+    static boolean containsIllegalFolderNames(Path path) {
         Iterator<Path> splitPath = path.iterator();
         while (splitPath.hasNext()) {
             Path subpath = splitPath.next();
             String subpathString = subpath.toString().toLowerCase();
+            // Path should not have multiple periods or colons
+            if (subpathString.contains("..") || subpathString.contains(":")) {
+                MEDILOGGER.warning("Sub-path contains .. or : which is not allowed.");
+                return true;
+            }
 
-            if (subpathString.contains("..")) { // Path should not have multiple periods
+            if (subpathString.endsWith(".") || subpathString.endsWith(" ")) {
+                MEDILOGGER.warning("Sub-path ends with '.' or (space) which is not allowed.");
                 return true;
             }
 
@@ -53,6 +64,7 @@ public class FilePathChecker {
             case "lpt8": // fallthrough
             case "lpt9": // fallthrough
             case ".": // Path should not have a lone period.
+                MEDILOGGER.warning("Path contains potentially invalid folder: " + subpathString);
                 return true;
             default:
                 continue;
@@ -82,6 +94,7 @@ public class FilePathChecker {
         if (Files.exists(root)) {
             return true;
         } else {
+            MEDILOGGER.warning("File Root " + root + " does not exist on the filesystem.");
             return false;
         }
     }
@@ -96,10 +109,11 @@ public class FilePathChecker {
      */
     public static boolean containsIllegalCharacters (String inputToCheck) {
         // Credit: https://stackoverflow.com/a/31976060
-        String[] illegalCharacters = {"<", ">", ":", "\"", "'", "|", "?", "*"};
+        String[] illegalCharacters = {"<", ">", "\"", "'", "|", "?", "*"};
 
         for (String illegalChar : illegalCharacters) {
             if (inputToCheck.contains(illegalChar)) {
+                MEDILOGGER.warning("String contains potentially illegal character: " + illegalChar);
                 return true;
             }
         }
@@ -127,14 +141,56 @@ public class FilePathChecker {
 
         Path fileName = FileReaderWriter.getFullPathComponent(path,false);
         if (fileName == null) {
+            MEDILOGGER.warning("There is no valid file name supplied.");
             return false;
         }
 
         String fileNameString = fileName.toString().toLowerCase();
         if (!fileNameString.endsWith(".json")) {
+            MEDILOGGER.warning("File does not end in .json");
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * Validates the path input and return the Path object if successfully validated.
+     *
+     * @param fileLocationArgument The argument specifying the location of the file (as String)
+     * @return The Path object corresponding to the argument for the save file if it passes validation checks.
+     *     null otherwise.
+     */
+    public static Path validateUserPathArgument(String fileLocationArgument) {
+
+        assert (fileLocationArgument != null);
+        if (fileLocationArgument == null) {
+            return null;
+        }
+
+        boolean hasIllegalCharacters = FilePathChecker.containsIllegalCharacters(fileLocationArgument);
+        if (hasIllegalCharacters) {
+            System.out.println("The supplied input contains potentially illegal characters. Please ensure that "
+                    + "the supplied path does not have illegal character");
+            return null;
+        }
+
+        Path pathOfSaveFile;
+        try {
+            pathOfSaveFile = Path.of(fileLocationArgument);
+        } catch (InvalidPathException e) {
+            MEDILOGGER.severe(e.getMessage());
+            System.out.println("Unable to convert input into Path object. Data is not saved.");
+            return null;
+        }
+
+        boolean isValidFilePath = FilePathChecker.isValidFullPath(pathOfSaveFile);
+        if (!isValidFilePath) {
+            System.out.println("Path contains invalid folder names or missing valid file extension (.json).");
+            System.out.println("Please ensure the path contains valid folder names and ends with .json");
+            return null;
+        }
+
+        return pathOfSaveFile;
     }
 }

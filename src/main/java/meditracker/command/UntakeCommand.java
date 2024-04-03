@@ -14,10 +14,10 @@ import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.UnknownArgumentFoundException;
+import meditracker.time.MediTrackerTime;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
-import java.time.LocalTime;
 import java.util.Map;
 
 /**
@@ -65,7 +65,7 @@ public class UntakeCommand extends Command {
         boolean isEvening = parsedArguments.get(ArgumentName.EVENING) != null;
         Period period = Period.getPeriod(isMorning, isAfternoon, isEvening);
         if (period == Period.NONE) {
-            period = Period.getPeriod(LocalTime.now());
+            period = Period.getPeriod(MediTrackerTime.getCurrentTime());
         }
 
         if (period == Period.UNKNOWN) {

@@ -9,12 +9,15 @@ import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.CommandNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.InvalidSimulatedTimeException;
 import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
+import meditracker.time.MediTrackerTime;
 import meditracker.ui.Ui;
 
 import java.util.List;
+
 
 /**
  * The main class for the MediTracker application.
@@ -84,9 +87,15 @@ public class MediTracker {
      * Starts the MediTracker application.
      * It creates a new MediTracker object and calls its run() method.
      *
-     * @param args Command-line arguments.
+     * @param args Command-line arguments for the program.
      */
     public static void main(String[] args) {
+        try {
+            MediTrackerTime.setUpSimulatedTime(args);
+        } catch (InvalidSimulatedTimeException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         MediLogger.initialiseLogger();
 
         List<String> dailyMedicationList = FileReaderWriter.loadDailyMedicationData();

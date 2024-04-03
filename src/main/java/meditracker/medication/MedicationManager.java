@@ -4,6 +4,7 @@ import meditracker.argument.ArgumentName;
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.logging.MediLogger;
+import meditracker.storage.FileReaderWriter;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
@@ -11,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import static meditracker.storage.FileReaderWriter.saveMediTrackerData;
 
 /**
  * The MedicationManager class represents a list of medications.
@@ -39,7 +38,8 @@ public class MedicationManager {
     }
 
     /**
-     * Clears and resets MedicationManager for testing purpose
+     * Clears and resets MedicationManager
+     * Used by tests and overwriting from the JSON save file.
      */
     protected static void clearMedication() {
         medications.clear();
@@ -52,7 +52,7 @@ public class MedicationManager {
      */
     public static void addMedication(Medication medication) {
         medications.add(medication);
-        saveMediTrackerData();
+        FileReaderWriter.saveMediTrackerData(null);
     }
 
     /**
@@ -99,7 +99,7 @@ public class MedicationManager {
     public static void removeMedication(int listIndex) throws IndexOutOfBoundsException {
         listIndex--; // Decremented to 0-base indexing
         medications.remove(listIndex);
-        saveMediTrackerData();
+        FileReaderWriter.saveMediTrackerData(null);
     }
 
     /**
@@ -172,6 +172,7 @@ public class MedicationManager {
      * @param medInfoList The List of medication information that contains the (String, String) key-value.
      */
     public static void addMedicationFromSaveFile(List<Map<String, String>> medInfoList) {
+        clearMedication(); // Reset for the case of overwriting data with another JSON file.
         for (Map<String, String> medInfo : medInfoList) {
             Medication medication = new Medication();
             for (String key : medInfo.keySet()) {

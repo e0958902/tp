@@ -97,6 +97,9 @@ Overview of the `meditracker.argument` core classes:
 - TODO: Design and Implementing of the Reading and Writing of JSON file (SX) (Issue #27)
 - TODO: Consider the design and impl. of #48
 
+### Simulated Time
+Talk about the advaned feature. Offset based on the system time so that the user or developer does not have to worry about calculating the time and can just type in the time.
+
 ## Product scope
 ### Target user profile
 

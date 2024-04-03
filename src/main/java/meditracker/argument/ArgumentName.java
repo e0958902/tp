@@ -22,7 +22,9 @@ public enum ArgumentName {
     EVENING("evening"),
     ILLNESS("illness"),
     SIDE_EFFECTS("sideEffects"),
-    ALL_FIELDS("allFields");
+    ALL_FIELDS("allFields"),
+    SAVE_FILE("saveFile"),
+    LOAD_FILE("loadFile");
 
     public final String value;
 
