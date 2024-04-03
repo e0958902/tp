@@ -98,7 +98,7 @@ Displays an overview of the list of medications that you will be taking for the 
 
 Format: `list -t today`
 * If you want to see for only a particular period of the day, simply enter `list -t today` followed by:
-  * `-m`m: Morning (Midnight to 12 Noon)
+  * `-m`: Morning (Midnight to 12 Noon)
   * `-a`: Afternoon (12pm to 6pm)
   * `-e`: Evening (6pm to Midnight)
   * Eg: `list -t today -m` - will display the list of medications to be taken in the morning only
