@@ -116,9 +116,6 @@ public class Ui {
      * @param <T> Generic class for code reusability
      */
     public static <T> void printMedsList(List<T> medications) {
-        System.out.println("You have " + MedicationManager.getTotalMedications()
-                + " medications listed below.");
-        System.out.println("Format: Name | Quantity | Expiry Date | Remarks");
         for (T medication : medications) {
             int numbering = medications.indexOf(medication) + 1;
             System.out.println("\t" + numbering + ". " + medication);
