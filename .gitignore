@@ -17,6 +17,7 @@ bin/
 text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 data/MediTrackerData.json
+data/dailymed/*
 
 # Others
 docs/.obsidian
