@@ -16,7 +16,7 @@ The following contains my contribution summary and pull request reviews.
 - Relevant user stories done in milestone v1.0
 
 ### User Guide Contributions
-- To be filled in.
+- Updated user guide to include list all and specific medication
 
 ### PR Reviews
 #9, #18, #20, #23, #53, #73, #75, #84, #88, 
