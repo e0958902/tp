@@ -16,13 +16,18 @@ import java.util.Scanner;
  */
 public class Ui {
     static Scanner input = new Scanner(System.in);
-    public static final String separator = System.lineSeparator();
 
     /**
      * Prevents defaulting to the public constructor
      * that allows instantiation of the Ui class
      */
     private Ui() {}
+
+    /**
+     * Shows the line separator
+     * also ensures compatibility across systems
+     */
+    public static String separator = System.lineSeparator();
 
     /**
      * Displays the welcome message and introduction name.
@@ -124,7 +129,6 @@ public class Ui {
             int numbering = medications.indexOf(medication) + 1;
             System.out.println("\t" + numbering + ". " + medication);
         }
-        showListCommandMessage();
     }
 
     /**
