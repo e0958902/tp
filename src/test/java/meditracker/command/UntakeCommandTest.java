@@ -2,35 +2,35 @@ package meditracker.command;
 
 import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.dailymedication.DailyMedicationManagerTest;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
-import meditracker.exception.FileReadWriteException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.InvalidArgumentException;
+import meditracker.exception.UnknownArgumentFoundException;
+import meditracker.medication.MedicationManagerTest;
 import meditracker.time.Period;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class UntakeCommandTest {
 
     @BeforeEach
-    public void resetDailyMedicationManager() throws InvocationTargetException,
-            IllegalAccessException, NoSuchMethodException {
-        Method resetDailyMedicationManagerMethod
-                = DailyMedicationManager.class.getDeclaredMethod("clearDailyMedication");
-        resetDailyMedicationManagerMethod.setAccessible(true);
-        resetDailyMedicationManagerMethod.invoke(DailyMedicationManager.class);
+    @AfterEach
+    public void resetManagers() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        DailyMedicationManagerTest.resetDailyMedicationManager();
+        MedicationManagerTest.resetMedicationManager();
     }
 
     @Test
     void execute_inOrderArgument_expectDailyMedicationUntaken()
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException,
-            FileReadWriteException, InvalidArgumentException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException, UnknownArgumentFoundException {
         DailyMedication dailyMedication = new DailyMedication("Medication_A");
         DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);    //only doing for MORNING sub list
 

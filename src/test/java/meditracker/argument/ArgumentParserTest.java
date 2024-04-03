@@ -1,8 +1,10 @@
 package meditracker.argument;
 
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.UnknownArgumentFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -33,7 +35,8 @@ public class ArgumentParserTest {
         Map<ArgumentName, String> parsedArgs;
         try {
             parsedArgs = testArgumentList.parse(testArgumentString);
-        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException e) {
+        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException |
+                 ArgumentNoValueException | UnknownArgumentFoundException e) {
             throw new RuntimeException(e);
         }
 
@@ -58,7 +61,8 @@ public class ArgumentParserTest {
         Map<ArgumentName, String> parsedArgs;
         try {
             parsedArgs = testArgumentList.parse(testArgumentString);
-        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException e) {
+        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException |
+                 ArgumentNoValueException | UnknownArgumentFoundException e) {
             throw new RuntimeException(e);
         }
 
@@ -83,7 +87,8 @@ public class ArgumentParserTest {
         Map<ArgumentName, String> parsedArgs;
         try {
             parsedArgs = testArgumentList.parse(testArgumentString);
-        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException e) {
+        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException |
+                 ArgumentNoValueException | UnknownArgumentFoundException e) {
             throw new RuntimeException(e);
         }
 
@@ -124,6 +129,40 @@ public class ArgumentParserTest {
 
         assertThrows(
                 ArgumentNotFoundException.class,
+                () -> testArgumentList.parse(testArgumentString)
+        );
+    }
+
+    @Test
+    void argumentParser_missingArgumentValues_argumentNoValueException() {
+        String name = "Medication";
+        String dosage = "100";
+        String quantity = "2000";
+        String testArgumentString = String.format("-n %s -dM %s -q %s -r",
+                name,
+                dosage,
+                quantity);
+
+        assertThrows(
+                ArgumentNoValueException.class,
+                () -> testArgumentList.parse(testArgumentString)
+        );
+    }
+
+    @Test
+    void argumentParser_unknownArgumentFlags_unknownArgumentFoundException() {
+        String name = "Medication";
+        String dosage = "100";
+        String quantity = "2000";
+        String remarks = "Take before meals";
+        String testArgumentString = String.format("-n %s -m -dM %s -a -q %s -r %s -e",
+                name,
+                dosage,
+                quantity,
+                remarks);
+
+        assertThrows(
+                UnknownArgumentFoundException.class,
                 () -> testArgumentList.parse(testArgumentString)
         );
     }

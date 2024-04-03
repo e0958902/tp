@@ -11,6 +11,8 @@ The following contains my contribution summary and pull request reviews.
 - Issue #69: Store `DailyMedication` list into testfile
 - Issue #79: Create private Ui constructor
 - Issue #81: Modify `DailyMedicationManager` to static
+- Issue #105: Fix bug to separate dailyMedication Object for items in each sub list
+- Issue #110: Fix bug to addCommand crash when repeat flag is not supplied
 
 
 ### Developer Guide Contributions
@@ -18,7 +20,7 @@ The following contains my contribution summary and pull request reviews.
 - Added command guide for list -t today -m/-a/-e will print
 
 ### User Guide Contributions
-- To be filled in.
+- Summary of list for the Daily Medication
 
 ### PR Reviews
 #4, #5, #8, #10, #54, #56, #57, #68, #75, #78, #85, #88

@@ -1,21 +1,23 @@
 package meditracker;
 
-import meditracker.argument.ArgumentHelper;
 import meditracker.command.Command;
 import meditracker.command.CommandName;
 import meditracker.command.CommandParser;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.CommandNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.InvalidArgumentException;
-import meditracker.exception.MediTrackerException;
+import meditracker.exception.InvalidSimulatedTimeException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
+import meditracker.time.MediTrackerTime;
 import meditracker.ui.Ui;
 
 import java.util.List;
+
 
 /**
  * The main class for the MediTracker application.
@@ -67,20 +69,16 @@ public class MediTracker {
             Command command;
             try {
                 command = commandParser.getCommand();
-            } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | CommandNotFoundException e) {
-                System.out.println(e.getMessage());
+            } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | CommandNotFoundException |
+                     ArgumentNoValueException | UnknownArgumentFoundException e) {
+                Ui.showErrorMessage(e);
                 continue;
             } catch (HelpInvokedException e) {
-                String helpMessage = ArgumentHelper.getHelpMessage(commandName);
-                System.out.println(helpMessage);
+                Ui.showHelpMessage(commandName);
                 continue;
             }
 
-            try {
-                command.execute();
-            } catch (InvalidArgumentException | MediTrackerException e) {
-                System.out.println(e.getMessage());
-            }
+            command.execute();
             isExit = command.isExit();
         }
     }
@@ -89,9 +87,15 @@ public class MediTracker {
      * Starts the MediTracker application.
      * It creates a new MediTracker object and calls its run() method.
      *
-     * @param args Command-line arguments.
+     * @param args Command-line arguments for the program.
      */
     public static void main(String[] args) {
+        try {
+            MediTrackerTime.setUpSimulatedTime(args);
+        } catch (InvalidSimulatedTimeException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         MediLogger.initialiseLogger();
 
         List<String> dailyMedicationList = FileReaderWriter.loadDailyMedicationData();

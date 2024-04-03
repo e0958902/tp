@@ -1,16 +1,18 @@
-package meditracker;
+package meditracker.dailymedication;
 
 import meditracker.command.AddCommand;
-import meditracker.dailymedication.DailyMedication;
-import meditracker.dailymedication.DailyMedicationManager;
-import meditracker.time.Period;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
-import meditracker.exception.FileReadWriteException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.MediTrackerException;
+import meditracker.exception.InsufficientQuantityException;
+import meditracker.exception.MedicationNotFoundException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
+import meditracker.medication.MedicationManagerTest;
+import meditracker.time.Period;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,33 +23,33 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class DailyMedicationManagerTest {
 
-    @BeforeEach
-    public void resetDailyMedicationManager() throws InvocationTargetException,
+    // @@author T0nyLin
+    public static void resetDailyMedicationManager() throws InvocationTargetException,
             IllegalAccessException, NoSuchMethodException {
         Method resetDailyMedicationManagerMethod
                 = DailyMedicationManager.class.getDeclaredMethod("clearDailyMedication");
         resetDailyMedicationManagerMethod.setAccessible(true);
         resetDailyMedicationManagerMethod.invoke(DailyMedicationManager.class);
     }
+    // @@author
 
     @BeforeEach
-    public void resetMedicationManager() throws InvocationTargetException,
-            IllegalAccessException, NoSuchMethodException {
-        Method resetMedicationManagerMethod
-                = MedicationManager.class.getDeclaredMethod("clearMedication");
-        resetMedicationManagerMethod.setAccessible(true);
-        resetMedicationManagerMethod.invoke(MedicationManager.class);
+    @AfterEach
+    public void resetManagers() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        resetDailyMedicationManager();
+        MedicationManagerTest.resetMedicationManager();
     }
 
     @Test
     public void addDailyMedication_genericDailyMedication_dailyMedicationAdded()
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException,
-            MediTrackerException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException, UnknownArgumentFoundException {
         String inputString = "add -n Medication_A -q 60.0 -e 01/07/25 -dM 500.0 -dA 250.0 "
                 + "-dE 300.0 -r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
@@ -88,7 +90,8 @@ public class DailyMedicationManagerTest {
     }
 
     @Test
-    public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken() throws FileReadWriteException {
+    public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken()
+            throws InsufficientQuantityException, MedicationNotFoundException {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;
@@ -117,7 +120,35 @@ public class DailyMedicationManagerTest {
     }
 
     @Test
-    public void untakeDailyMedication_genericDailyMedication_dailyMedicationNotTaken() throws FileReadWriteException {
+    public void takeDailyMedication_lowQuantityMedication_insufficientQuantity() {
+        String medicationName = "TestMedication";
+        double oldQuantity = 5;
+        double dosage = 10;
+        Medication medication = new Medication(
+                medicationName,
+                oldQuantity,
+                dosage,
+                null,
+                null,
+                "01/07/25",
+                "cause_dizziness",
+                1,
+                87);
+        MedicationManager.addMedication(medication);
+
+        DailyMedication dailyMedication = new DailyMedication(medicationName);
+        assertFalse(dailyMedication.isTaken());
+        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
+
+        int actualIndex = 1; // 1-based indexing
+        assertThrows(
+                InsufficientQuantityException.class,
+                () -> DailyMedicationManager.takeDailyMedication(actualIndex, Period.MORNING));
+    }
+
+    @Test
+    public void untakeDailyMedication_genericDailyMedication_dailyMedicationNotTaken()
+            throws MedicationNotFoundException {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;

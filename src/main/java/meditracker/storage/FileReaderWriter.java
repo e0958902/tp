@@ -149,7 +149,7 @@ public class FileReaderWriter {
      * @param dailyMedData A list of type String for the daily medication data.
      */
     public static void saveDailyMedicationData(List<String> dailyMedData) {
-        Path dailyMedFullSavePath = MediTrackerConfig.getDefaultDailySaveFilePath();
+        Path dailyMedFullSavePath = MediTrackerConfig.getDailySaveFilePath();
         Path dailyMedFolder = getFullPathComponent(dailyMedFullSavePath, true);
         Path tmpSaveFile = createTempSaveFile(dailyMedFolder);
 
@@ -189,7 +189,7 @@ public class FileReaderWriter {
      */
     public static List<String> loadDailyMedicationData() {
         try {
-            Path dailyMedTextFile = MediTrackerConfig.getDefaultDailySaveFilePath();
+            Path dailyMedTextFile = MediTrackerConfig.getDailySaveFilePath();
             return Files.readAllLines(dailyMedTextFile);
         } catch (IOException e) {
             logger.warning("Unable to Read Daily medication data. "

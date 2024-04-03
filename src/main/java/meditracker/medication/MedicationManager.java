@@ -1,6 +1,8 @@
 package meditracker.medication;
 
 import meditracker.argument.ArgumentName;
+import meditracker.exception.InsufficientQuantityException;
+import meditracker.exception.MedicationNotFoundException;
 import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
 import meditracker.time.Period;
@@ -72,14 +74,15 @@ public class MedicationManager {
      *
      * @param name Name of the medication to retrieve
      * @return Corresponding Medication object with the matched name
+     * @throws MedicationNotFoundException No Medication matching the specified name found
      */
-    public static Medication getMedication(String name) {
+    public static Medication getMedication(String name) throws MedicationNotFoundException {
         for (Medication medication : medications) {
             if (medication.getName().equals(name)) {
                 return medication;
             }
         }
-        return null;
+        throw new MedicationNotFoundException();
     }
 
     public static List<Medication> getMedications() {
@@ -236,13 +239,11 @@ public class MedicationManager {
      *
      * @param medicationName Name of the medication to increase medication quantity
      * @param period Time period of day to reference
+     * @throws MedicationNotFoundException No Medication matching specified name found
      */
-    public static void increaseMedicationQuantity(String medicationName, Period period) {
+    public static void increaseMedicationQuantity(String medicationName, Period period)
+            throws MedicationNotFoundException {
         Medication medication = getMedication(medicationName);
-        if (medication == null) {
-            return;
-        }
-
         double dosage = getMedicationDosage(medication, period);
         double oldQuantity = medication.getQuantity();
         double newQuantity = oldQuantity + dosage;
@@ -254,16 +255,20 @@ public class MedicationManager {
      *
      * @param medicationName Name of the medication to decrease medication quantity
      * @param period Time period of day to reference
+     * @throws MedicationNotFoundException No Medication matching specified name found
+     * @throws InsufficientQuantityException Existing quantity insufficient for operation
      */
-    public static void decreaseMedicationQuantity(String medicationName, Period period) {
+    public static void decreaseMedicationQuantity(String medicationName, Period period)
+            throws MedicationNotFoundException, InsufficientQuantityException {
         Medication medication = getMedication(medicationName);
-        if (medication == null) {
-            return;
-        }
-
         double dosage = getMedicationDosage(medication, period);
         double oldQuantity = medication.getQuantity();
         double newQuantity = oldQuantity - dosage;
+
+        if (newQuantity < 0) {
+            throw new InsufficientQuantityException(dosage, oldQuantity);
+        }
+
         medication.setQuantity(newQuantity);
     }
 }

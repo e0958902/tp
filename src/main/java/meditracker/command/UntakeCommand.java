@@ -8,14 +8,16 @@ import meditracker.argument.EveningArgument;
 import meditracker.argument.ListIndexArgument;
 import meditracker.argument.MorningArgument;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.InvalidArgumentException;
+import meditracker.exception.MedicationNotFoundException;
+import meditracker.exception.UnknownArgumentFoundException;
+import meditracker.time.MediTrackerTime;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
-import java.time.LocalTime;
 import java.util.Map;
 
 /**
@@ -37,11 +39,14 @@ public class UntakeCommand extends Command {
      *
      * @param arguments The arguments containing information to be parsed.
      * @throws ArgumentNotFoundException Argument flag specified not found
+     * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
+     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
      */
     public UntakeCommand(String arguments)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException, UnknownArgumentFoundException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
@@ -51,7 +56,7 @@ public class UntakeCommand extends Command {
      * It also displays a message confirming the modification of the daily medication status.
      */
     @Override
-    public void execute() throws InvalidArgumentException {
+    public void execute() {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
 
@@ -60,15 +65,25 @@ public class UntakeCommand extends Command {
         boolean isEvening = parsedArguments.get(ArgumentName.EVENING) != null;
         Period period = Period.getPeriod(isMorning, isAfternoon, isEvening);
         if (period == Period.NONE) {
-            period = Period.getPeriod(LocalTime.now());
+            period = Period.getPeriod(MediTrackerTime.getCurrentTime());
         }
 
         if (period == Period.UNKNOWN) {
-            throw new InvalidArgumentException("Unable to determine time period. " +
+            Ui.showErrorMessage("Unable to determine time period. " +
                     "Please select 1 flag only or try again later.");
+            return;
         }
 
-        DailyMedicationManager.untakeDailyMedication(listIndex, period);
-        Ui.showUntakeCommandMessage();
+        try {
+            DailyMedicationManager.untakeDailyMedication(listIndex, period);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showErrorMessage("Invalid index specified");
+            return;
+        } catch (MedicationNotFoundException e) {
+            Ui.showWarningMessage("Possible corruption of data. " +
+                    "Unable to increase Medication quantity as object not found");
+            return;
+        }
+        Ui.showSuccessMessage("Medicine has been untaken");
     }
 }

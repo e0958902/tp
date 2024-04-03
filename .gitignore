@@ -13,8 +13,10 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
+# Test Files
+text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
-text-ui-test/data/dailymed/today.txt
-data/dailymed/today.txt
 data/MediTrackerData.json
+
+# Others
+docs/.obsidian

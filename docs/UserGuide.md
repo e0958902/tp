@@ -4,19 +4,118 @@ https://se-education.org/addressbook-level3/UserGuide.html
 -->
 
 # User Guide
-
 ## Introduction
+MediTracker is a desktop app for users who want to track their medication intake on a daily basis. It offers intuitive
+features that works seamlessly right from the very beginning. With MediTracker, you do not have to worry about missing
+your daily medication dose. It tracks your daily intake and reminds you when your remaining amount is low, and enables
+data storage so that you can review your past medication intake.
+
+* [How to use the User Guide](#how-to-use-the-user-guide)
+* [Quick Start](#quick-start)
+* [Features](#features)
+  - [Add Medication:](#add)`add`
+  - [List Medication](#list-medication)
+    - [Summary of all medications:](#all-medications)`list -t all`
+    - [Summary of medications for the day](#daily-medications)`list -t today`
+    - [Get information of specific medication](#one-medication)`more -l`
+  - [Update medication information](#update)
+    - [Record taking of medication](#take-untake)`take/untake -l`
+    - [Modify medication information](#modify)`modify -l`
+  - [Delete medication information](#delete)`delete -l`
+  - [Search](#search)
+      - [Access Medicine Database](#access-database)`search`
+  - [Help](#help)
+  - [General data management](#general-data-management)
+    - [Read from file: load](#read-from-file)
+    - [Write to file: write](#write-to-file)
+- [FAQ](#faq)
+- [Glossary](#glossary)
+- [Command Summary](#command-summary)
+
+## How to Use the User Guide
 
 ## Quick Start
+1. Ensure that you have Java 11 or above installed. 
+   - If you using Windows:
+     - Press the `Windows Key` on your keyboard and enter `Command Prompt` or `cmd` and press enter.
+     - When the application opens, enter `java -version`.
+   - If you are using MacOS/Linux:
+     - Open the `Terminal`, then enter `java -version`.
+   - If Java 11 is installed, you should get an output similar to below:
+      - {SS}.
+   - If you see otherwise, please follow the instructions from [here](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A).
+3. Once that is settled, head over to the [link](https://github.com/AY2324S2-CS2113T-T09-1/tp/releases/latest) to obtain the latest version of `MediTracker`.
+4. Save the file in an empty folder in `Desktop`, then this will be your home folder for `MediTracker`.
+5. Double-click on meditracker.jar to start the app.
+   - Alternatively, you may also use the Command Prompt/Terminal. 
+   - Navigate to the home folder where you have saved the application in, and enter `java -jar meditracker.jar` to 
+   start the app.
 
-{Give steps to get started quickly}
-
-1. Ensure that you have Java 11 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
 
 ## Features 
 
-{Give detailed description of each feature}
+#### NOTES about the command format:
+
+## Add
+
+## List Medication: `list`
+When listing the medication list, you can list the medication(s) that you need to take for the day.
+The list can be further separated into the three different times of the day.
+
+### All medications:
+Displays the whole lists of medications that you have added.
+
+Format: `list -t all`
+
+Output:
+```
+You have 2 medications listed below.
+Format: Name | Quantity | Expiry Date | Remarks
+	1. Medication_A | 60.0 | 01/07/25 | cause_dizziness
+	2. Medication_B | 1000.0 | 01/09/25 | cause_headache
+Your list of medications has been successfully shown!
+```
+
+
+### View more information on a specific medication:
+Format: `view -l 1`<br>
+  This lists all relevant information regarding the specified medication.
+Output:
+```
+Name: Medication_A
+Quantity: 60.0
+Expiry Date: 01/07/25
+Remarks: cause_dizziness
+Morning Dosage: 500.0
+Afternoon Dosage: 250.0
+Evening Dosage: 0.0
+Repeat: 1
+Day Added: 91
+```
+
+### Daily medications:
+Displays an overview of the list of medications that you will be taking for the day.
+
+Format: `list -t today`
+* If you want to see for only a particular period of the day, simply enter `list -t today` followed by:
+  * `-m`m: Morning (Midnight to 12 Noon)
+  * `-a`: Afternoon (12pm to 6pm)
+  * `-e`: Evening (6pm to Midnight)
+  * Eg: `list -t today -m` - will display the list of medications to be taken in the morning
+
+{SS}
+
+## Update
+
+## Delete
+
+## Search
+
+## Help
+
+## General Data Management
+
+
 
 ### Adding a todo: `todo`
 Adds a new item to the list of todo items.
@@ -32,38 +131,6 @@ Example of usage:
 
 `todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
 
-### List Medication: `list`
-When listing the medication list, you can list the medication(s) that you need to take for the day. 
-The list can be further separated into the three different times of the day.
-
-### Summary of all medications
-* Syntax: `list -t all`<br>
-  This lists a compiled list of all the medications that you have inputted and also shows 
-the remaining amount of each medication with its corresponding dosage
-* Output:
-```
-You have 2 medications listed below.
-Format: Name | Quantity | Expiry Date | Remarks
-	1. Medication_A | 60.0 | 01/07/25 | cause_dizziness
-	2. Medication_B | 1000.0 | 01/09/25 | cause_headache
-Your list of medications has been successfully shown!
-```
-
-### View more information on a specific medication
-* Syntax: `view -l 1`<br>
-  This lists all relevant information regarding the specified medication.
-* Output:
-```
-Name: Medication_A
-Quantity: 60.0
-Expiry Date: 01/07/25
-Remarks: cause_dizziness
-Morning Dosage: 500.0
-Afternoon Dosage: 250.0
-Evening Dosage: 0.0
-Repeat: 1
-Day Added: 91
-```
 
 
 ### Saving to a file
@@ -82,6 +149,11 @@ Format: `save [-o outputFile]`
 - Rmb the JSON if you modify and you mess it up, either it will not load, or the program loads with corrupt data.
 - So make sure you know what you are doing and keep a backup before you make any sort of modifications!
 
+### Advanced Feature: Setting an arbitrary time
+- Still show how to use it (simply)
+- This is intended for the developers only.
+- See Developer Guide for more information.
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
@@ -89,6 +161,8 @@ Format: `save [-o outputFile]`
 **A**: {your answer here}
 
 - TODO: Add warning about modifying the text files
+
+## Glossary
 
 ## Command Summary
 

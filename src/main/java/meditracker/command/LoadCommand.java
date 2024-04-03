@@ -4,9 +4,11 @@ import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.LoadArgument;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.storage.FilePathChecker;
 import meditracker.storage.JsonImporter;
 import meditracker.ui.Ui;
@@ -21,7 +23,8 @@ public class LoadCommand extends Command {
     private final Map<ArgumentName, String> parsedArguments;
 
     public LoadCommand(String arguments)
-            throws DuplicateArgumentFoundException, HelpInvokedException, ArgumentNotFoundException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException, UnknownArgumentFoundException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 

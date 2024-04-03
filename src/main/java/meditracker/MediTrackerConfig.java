@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import meditracker.logging.MediLogger;
+import meditracker.time.MediTrackerTime;
 
 /**
  * A class that holds configuration related properties.
@@ -14,14 +15,16 @@ public class MediTrackerConfig {
 
     /* Path to save Medication related information.*/
     private static final Path defaultJsonSaveFilePath = Path.of("data/MediTrackerData.json");
-    /* Path to save medication for the day. Not customisable.*/
-    private static final Path defaultDailySaveFilePath = Path.of("data/dailymed/today.txt");
+    /* Folder containing save medication for the different days. Not customisable.*/
+    private static final Path dailySaveFolderPath = Path.of("data/dailymed");
 
     public static Path getDefaultJsonSaveFilePath() {
         return defaultJsonSaveFilePath;
     }
 
-    public static Path getDefaultDailySaveFilePath() {
-        return defaultDailySaveFilePath;
+    public static Path getDailySaveFilePath() {
+        String date = MediTrackerTime.getCurrentDate().toString();
+        String folderPathString = dailySaveFolderPath.toString();
+        return Path.of(folderPathString, date + ".txt");
     }
 }
