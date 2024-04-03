@@ -14,7 +14,6 @@ public class DosageMorningArgument extends Argument {
         super(
                 ArgumentName.DOSAGE_MORNING,
                 "-dM",
-                "What is the morning dosage of this medication?",
                 "Morning dosage of medication",
                 isOptional,
                 true

@@ -8,7 +8,6 @@ public class RemarksArgument extends Argument {
         super(
                 ArgumentName.REMARKS,
                 "-r",
-                "Any additional remarks?",
                 "Additional remarks on medication",
                 isOptional,
                 true

@@ -8,7 +8,6 @@ public class AllFieldsArgument extends Argument {
         super(
                 ArgumentName.ALL_FIELDS,
                 "-a",
-                "What do you want to find? (medications, illnesses, side effects)",
                 "Finds keyword from all fields of the library.",
                 isOptional,
                 true

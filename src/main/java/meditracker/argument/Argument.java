@@ -11,7 +11,6 @@ package meditracker.argument;
 public abstract class Argument {
     private final ArgumentName name;
     private final String flag;
-    private final String prompt;
     private final String help;
     private final boolean isOptional;
     private final boolean hasValue;
@@ -23,20 +22,17 @@ public abstract class Argument {
      * @param name Name of the argument
      * @param flag Corresponding flag for the argument, takes the form of "-*"
      *             where "*" represents a single letter
-     * @param prompt Guided prompt message
      * @param help Help message for additional context
      * @param isOptional Whether this argument is optional or required
      * @param hasValue Whether this argument requires a value specified with it
      */
     public Argument(ArgumentName name,
                     String flag,
-                    String prompt,
                     String help,
                     boolean isOptional,
                     boolean hasValue) {
         this.name = name;
         this.flag = flag;
-        this.prompt = prompt;
         this.help = help;
         this.isOptional = isOptional;
         this.hasValue = hasValue;
@@ -48,10 +44,6 @@ public abstract class Argument {
 
     public String getFlag() {
         return flag;
-    }
-
-    public String getPrompt() {
-        return prompt;
     }
 
     public String getHelp() {
