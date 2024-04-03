@@ -12,6 +12,8 @@
 - Issue #48: Read and wrote daily medication related data to txt file
 - Issue #41: Introduce MediTracker Logger for logging
 - Issue #96: Introduce save to and load from custom location
+- Issue #43: Simulated Time
+
 
 ### Developer Guide Contributions
 

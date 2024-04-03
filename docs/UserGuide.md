@@ -53,6 +53,11 @@ Format: `save [-o outputFile]`
 - Rmb the JSON if you modify and you mess it up, either it will not load, or the program loads with corrupt data.
 - So make sure you know what you are doing and keep a backup before you make any sort of modifications!
 
+### Advanced Feature: Setting an arbitrary time
+- Still show how to use it (simply)
+- This is intended for the developers only.
+- See Developer Guide for more information.
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
