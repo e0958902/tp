@@ -134,11 +134,21 @@ public class MedicationManager {
      */
     public static void printAllMedications() {
         assert medications != null;
-        System.out.println("You have " + getTotalMedications() + " medications listed below.");
-        System.out.println("Format: Name | Quantity | Expiry Date | Remarks");
         Ui.printMedsList(medications);
     }
 
+    /**
+     * Prints the specific medication specific according to the medication list index
+     * 
+     * @param listIndex The index of the medication in the Medication list
+     */
+    public static void printSpecificMedication(int listIndex) {
+        assert medications != null;
+        Medication medication = MedicationManager.getMedication(listIndex);
+        Ui.printSpecificMed(medication);
+    }
+
+    //@@author annoy-o-mus
     /**
      * Converts a String to a double.
      * Introduced to help populate the Medication object from the save file.
