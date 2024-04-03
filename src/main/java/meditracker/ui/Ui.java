@@ -3,6 +3,7 @@ package meditracker.ui;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.library.SearchResult;
 import meditracker.medication.Medication;
+import meditracker.medication.MedicationManager;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,6 +14,7 @@ import java.util.Scanner;
  */
 public class Ui {
     static Scanner input = new Scanner(System.in);
+    public static final String separator = System.lineSeparator();
 
     /**
      * Prevents defaulting to the public constructor
@@ -112,10 +114,40 @@ public class Ui {
      * @param <T> Generic class for code reusability
      */
     public static <T> void printMedsList(List<T> medications) {
+        System.out.println("You have " + MedicationManager.getTotalMedications()
+                + " medications listed below.");
+        System.out.println("Format: Name | Quantity | Expiry Date | Remarks");
         for (T medication : medications) {
             int numbering = medications.indexOf(medication) + 1;
             System.out.println("\t" + numbering + ". " + medication);
         }
+        showListCommandMessage();
+    }
+
+    /**
+     * Prints a specific medication in the medication list
+     *
+     * @param medication Contains a medication in the medication list
+     */
+    public static void printSpecificMed(Medication medication) {
+        System.out.printf("Name: %s" + separator +
+                        "Quantity: %.1f" + separator +
+                        "Expiry Date: %s" + separator +
+                        "Remarks: %s" + separator +
+                        "Morning Dosage: %.1f" + separator +
+                        "Afternoon Dosage: %.1f" + separator +
+                        "Evening Dosage: %.1f" + separator +
+                        "Repeat: %d" + separator +
+                        "Day Added: %d"+ separator,
+                medication.getName(),
+                medication.getQuantity(),
+                medication.getExpiryDate(),
+                medication.getRemarks(),
+                medication.getDosageMorning(),
+                medication.getDosageAfternoon(),
+                medication.getDosageEvening(),
+                medication.getRepeat(),
+                medication.getDayAdded());
     }
 
     /**
