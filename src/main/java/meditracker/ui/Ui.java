@@ -5,7 +5,6 @@ import meditracker.command.CommandName;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.library.SearchResult;
 import meditracker.medication.Medication;
-import meditracker.medication.MedicationManager;
 
 import java.util.List;
 import java.util.Scanner;
