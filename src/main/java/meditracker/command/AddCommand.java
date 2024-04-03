@@ -79,11 +79,12 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute() {
-        Medication medication = null;
+        Medication medication;
         try {
             medication = createMedication();
         } catch (MediTrackerException e) {
             Ui.showErrorMessage(e);
+            return;
         }
         MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
@@ -101,13 +102,12 @@ public class AddCommand extends Command {
         String expiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
         String remarks = parsedArguments.get(ArgumentName.REMARKS);
 
-
         String medicationQuantityArg = parsedArguments.get(ArgumentName.QUANTITY);
         String medicationDosageMorningArg = parsedArguments.get(ArgumentName.DOSAGE_MORNING);
         String medicationDosageAfternoonArg = parsedArguments.get(ArgumentName.DOSAGE_AFTERNOON);
         String medicationDosageEveningArg = parsedArguments.get(ArgumentName.DOSAGE_EVENING);
 
-        int repeat = 0;
+        int repeat;
         try {
             repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
             parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
