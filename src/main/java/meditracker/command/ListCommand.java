@@ -1,11 +1,15 @@
 package meditracker.command;
 
+import meditracker.argument.AfternoonArgument;
 import meditracker.argument.ArgumentHelper;
+import meditracker.argument.EveningArgument;
+import meditracker.argument.MorningArgument;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListTypeArgument;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.exception.InvalidArgumentException;
 import meditracker.time.Period;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
@@ -22,7 +26,11 @@ import java.util.Map;
 public class ListCommand extends Command {
 
     public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
-            new ListTypeArgument(false));
+            new ListTypeArgument(false),
+            new MorningArgument(true),
+            new AfternoonArgument(true),
+            new EveningArgument(true)
+    );
 
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.LIST, ARGUMENT_LIST);
 
@@ -43,34 +51,45 @@ public class ListCommand extends Command {
 
     /**
      * Executes the list command and performs its specific task, -t.
-     * Uses a switch to do a, list all and, list today
+     * Uses a switch to do list all and list today
      *
      */
     @Override
-    public void execute() {
+    public void execute() throws InvalidArgumentException {
         String listTypeString = parsedArguments.get(ArgumentName.LIST_TYPE);
+        boolean isMorning = parsedArguments.get(ArgumentName.MORNING) != null;
+        boolean isAfternoon = parsedArguments.get(ArgumentName.AFTERNOON) != null;
+        boolean isEvening = parsedArguments.get(ArgumentName.EVENING) != null;
+        Period period = Period.getPeriod(isMorning, isAfternoon, isEvening);
         
         switch (listTypeString) {
         case "all":
             MedicationManager.printAllMedications();
             break;
         case "today":
-            DailyMedicationManager.printTodayMedications(MedicationManager.getMedications());
-            break;
-        case "today-m":
-            List<DailyMedication> morningMedications = DailyMedicationManager.getDailyMedications(Period.MORNING);
-            DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
-                    morningMedications, "Morning:");
-            break;
-        case "today-a":
-            List<DailyMedication> afternoonMedications = DailyMedicationManager.getDailyMedications(Period.AFTERNOON);
-            DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
-                    afternoonMedications, "Afternoon:");
-            break;
-        case "today-e":
-            List<DailyMedication> eveningMedications = DailyMedicationManager.getDailyMedications(Period.EVENING);
-            DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
-                    eveningMedications, "Evening:");
+            switch (period) {
+            case MORNING:
+                List<DailyMedication> morningMedications = DailyMedicationManager.getDailyMedications(Period.MORNING);
+                DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
+                        morningMedications, "Morning:");
+                break;
+            case AFTERNOON:
+                List<DailyMedication> afternoonMedications
+                        = DailyMedicationManager.getDailyMedications(Period.AFTERNOON);
+                DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
+                        afternoonMedications, "Afternoon:");
+                break;
+            case EVENING:
+                List<DailyMedication> eveningMedications = DailyMedicationManager.getDailyMedications(Period.EVENING);
+                DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
+                        eveningMedications, "Evening:");
+                break;
+            case NONE:
+                DailyMedicationManager.printTodayMedications(MedicationManager.getMedications());
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + listTypeString);
+            }
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + listTypeString);
