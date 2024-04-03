@@ -5,6 +5,7 @@ import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MediTrackerException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.ui.Ui;
@@ -40,7 +41,7 @@ public class AddCommand extends Command {
             new DosageEveningArgument(true),
             new ExpirationDateArgument(false),
             new RemarksArgument(true),
-            new RepeatArgument(true)
+            new RepeatArgument(false)
     );
 
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.ADD, ARGUMENT_LIST);
@@ -74,9 +75,7 @@ public class AddCommand extends Command {
      * @throws NumberFormatException  if there is an error in parsing numeric values.
      */
     @Override
-    public void execute() throws NullPointerException,
-            NumberFormatException {
-
+    public void execute() throws MediTrackerException {
         Medication medication = createMedication();
         MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
@@ -90,26 +89,33 @@ public class AddCommand extends Command {
      * @throws NumberFormatException if there is an error in parsing numeric values.
      * @throws NullPointerException  if any of the required arguments are null.
      */
-    private Medication createMedication() throws NumberFormatException, NullPointerException {
+    private Medication createMedication() throws MediTrackerException {
         String medicationName = parsedArguments.get(ArgumentName.NAME);
         String expiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
         String remarks = parsedArguments.get(ArgumentName.REMARKS);
-        int repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
+
 
         String medicationQuantityArg = parsedArguments.get(ArgumentName.QUANTITY);
         String medicationDosageMorningArg = parsedArguments.get(ArgumentName.DOSAGE_MORNING);
         String medicationDosageAfternoonArg = parsedArguments.get(ArgumentName.DOSAGE_AFTERNOON);
         String medicationDosageEveningArg = parsedArguments.get(ArgumentName.DOSAGE_EVENING);
 
-        parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
-                medicationDosageAfternoonArg, medicationDosageEveningArg);
+        int repeat = 0;
+        try {
+            repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
+            parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
+                    medicationDosageAfternoonArg, medicationDosageEveningArg);
+            LocalDate currentDate = LocalDate.now();
+            int dayAdded = currentDate.getDayOfYear();
 
-        LocalDate currentDate = LocalDate.now();
-        int dayAdded = currentDate.getDayOfYear();
-
-        return new Medication(medicationName, medicationQuantity,
-                medicationDosageMorning, medicationDosageAfternoon, medicationDosageEvening,
-                expiryDate, remarks, repeat, dayAdded);
+            return new Medication(medicationName, medicationQuantity,
+                    medicationDosageMorning, medicationDosageAfternoon, medicationDosageEvening,
+                    expiryDate, remarks, repeat, dayAdded);
+        } catch (NumberFormatException e) {
+            throw new MediTrackerException("Incorrect Number format given");
+        } catch (NullPointerException e) {
+            throw new MediTrackerException("Medication not found");
+        }
     }
 
     /**

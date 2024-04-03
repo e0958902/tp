@@ -302,14 +302,16 @@ public class DailyMedicationManager {
      * @param medication list of medications from MedicationManager
      */
     private static void addToSubLists(Medication medication) {
-        DailyMedication dailyMedication = new DailyMedication(medication.getName());
         if (medication.getDosageMorning() != 0.0) {
+            DailyMedication dailyMedication = new DailyMedication(medication.getName());
             addDailyMedication(dailyMedication, Period.MORNING);
         }
         if (medication.getDosageAfternoon() != 0.0) {
+            DailyMedication dailyMedication = new DailyMedication(medication.getName());
             addDailyMedication(dailyMedication, Period.AFTERNOON);
         }
         if (medication.getDosageEvening() != 0.0) {
+            DailyMedication dailyMedication = new DailyMedication(medication.getName());
             addDailyMedication(dailyMedication, Period.EVENING);
         }
         FileReaderWriter.saveDailyMedicationData(getDailyMedicationStringData());
