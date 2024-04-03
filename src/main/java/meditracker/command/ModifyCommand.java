@@ -66,7 +66,6 @@ public class ModifyCommand extends Command {
      * Executes the modify command.
      * This method modifies an existing Medication object using the provided information in the medication list.
      * It also displays a message confirming the modification of the medication.
-     *
      */
     @Override
     public void execute() {
@@ -81,19 +80,40 @@ public class ModifyCommand extends Command {
             return;
         }
 
+        Medication medicationCopy = Medication.deepCopy(medication);
+        try {
+            updateMedication(medication);
+        } catch (NumberFormatException e) {
+            medication.revertMedication(medicationCopy);
+            String errorContext = String.format("Unable to format correctly. %s. Medicine has not been modified.",
+                    e.getMessage());
+            Ui.showErrorMessage(errorContext);
+            return;
+        }
+
+        Ui.showSuccessMessage("Medicine has been modified");
+    }
+
+    /**
+     * Updates Medication info
+     *
+     * @param medication Medication object to update
+     * @throws NumberFormatException When Double.parseDouble or Integer.parseInt fails
+     */
+    private void updateMedication(Medication medication) throws NumberFormatException {
         for (Map.Entry<ArgumentName, String> argument: parsedArguments.entrySet()) {
             ArgumentName argumentName = argument.getKey();
             String argumentValue = argument.getValue();
 
             switch (argumentName) {
             case DOSAGE_MORNING:
-                medication.setDosageMorning(Double.valueOf(argumentValue));
+                medication.setDosageMorning(Double.parseDouble(argumentValue));
                 break;
             case DOSAGE_AFTERNOON:
-                medication.setDosageAfternoon(Double.valueOf(argumentValue));
+                medication.setDosageAfternoon(Double.parseDouble(argumentValue));
                 break;
             case DOSAGE_EVENING:
-                medication.setDosageEvening(Double.valueOf(argumentValue));
+                medication.setDosageEvening(Double.parseDouble(argumentValue));
                 break;
             case EXPIRATION_DATE:
                 medication.setExpiryDate(argumentValue);
@@ -129,8 +149,6 @@ public class ModifyCommand extends Command {
                 throw new IllegalStateException("Unexpected value: " + argumentName);
             }
         }
-
-        Ui.showSuccessMessage("Medicine has been modified");
     }
 
     /**

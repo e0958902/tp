@@ -137,4 +137,43 @@ public class Medication {
     public String toString() {
         return getName() + " | " + getQuantity() +  " | " + getExpiryDate() + " | " + getRemarks();
     }
+
+    /**
+     * Replaces Medication info with the specified Medication object info
+     *
+     * @param medication Medication object values to replace with
+     */
+    public void revertMedication(Medication medication) {
+        setName(medication.getName());
+        setQuantity(medication.getQuantity());
+        setDosageMorning(medication.getDosageMorning());
+        setDosageAfternoon(medication.getDosageAfternoon());
+        setDosageEvening(medication.getDosageEvening());
+        setExpiryDate(medication.getExpiryDate());
+        setRemarks(medication.getRemarks());
+        setRepeat(medication.getRepeat());
+        setDayAdded(medication.getDayAdded());
+    }
+
+    /**
+     * Makes a deep copy of the specified Medication object
+     *
+     * @param medication Medication object to deep copy
+     * @return A deep copy of the specified Medication object
+     */
+    public static Medication deepCopy(Medication medication) {
+        Medication newMedication = new Medication();
+
+        newMedication.setName(medication.getName());
+        newMedication.setQuantity(medication.getQuantity());
+        newMedication.setDosageMorning(medication.getDosageMorning());
+        newMedication.setDosageAfternoon(medication.getDosageAfternoon());
+        newMedication.setDosageEvening(medication.getDosageEvening());
+        newMedication.setExpiryDate(medication.getExpiryDate());
+        newMedication.setRemarks(medication.getRemarks());
+        newMedication.setRepeat(medication.getRepeat());
+        newMedication.setDayAdded(medication.getDayAdded());
+
+        return newMedication;
+    }
 }
