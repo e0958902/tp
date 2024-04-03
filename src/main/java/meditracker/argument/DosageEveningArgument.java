@@ -14,7 +14,6 @@ public class DosageEveningArgument extends Argument {
         super(
                 ArgumentName.DOSAGE_EVENING,
                 "-dE",
-                "What is the evening dosage of this medication?",
                 "Evening dosage of medication",
                 isOptional,
                 true

@@ -8,7 +8,6 @@ public class QuantityArgument extends Argument {
         super(
                 ArgumentName.QUANTITY,
                 "-q",
-                "How much of the medication do you have?",
                 "Quantity of medication",
                 isOptional,
                 true
