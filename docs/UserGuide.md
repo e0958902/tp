@@ -13,7 +13,7 @@ data storage so that you can review your past medication intake.
 * [How to use the User Guide](#how-to-use-the-user-guide)
 * [Quick Start](#quick-start)
 * [Features](#features)
-  - [Add Medication:](#add)`add`
+  - [Add Medication](#adding-a-medication-add)`add`
   - [List Medication](#list-medication)
     - [Summary of all medications:](#all-medications)`list -t all`
     - [Summary of medications for the day](#daily-medications)`list -t today`
@@ -63,8 +63,36 @@ optional arguments)
 - Each option are specified with either just its flag (which is of the form `-*` where `*` signifies some alphabetic 
 characters), or the flag coupled with a value
 
-## Add
+## Adding a medication: `add`
 
+Adds a medication to the medication manager.
+
+Format: `add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM DOSAGE_MORNING -dA DOSAGE_AFTERNOON 
+-dE DOSAGE_EVENING -r REMARKS -rep REPEAT`
+
+```
+Options:
+-n name                 Name of medication
+-q quantity             Quantity of medication
+-e expirationDate       Expiration date of medication
+-dM dosageMorning       Morning dosage of medication
+-dA dosageAfternoon     Afternoon dosage of medication
+-dE dosageEvening       Evening dosage of medication
+-r remarks              Additional remarks on medication
+-rep                    How often to take medication (eg: Supply a number from 1 to 7)
+```
+
+> Tip: The dosage and remarks tags are optional.
+
+Examples:
+
+* `add -n Medication_A -q 5000 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 1`
+* `add -n Medication_B -q 1000 -e 30/09/24 -dM 500 -dA 250 -dE 50 -rep 6`
+
+Output:
+```
+SUCCESS: Medicine has been added
+```
 ## List Medication: `list`
 When listing the medication list, you can list the medication(s) that you need to take for the day.
 The list can be further separated into the three different times of the day.
