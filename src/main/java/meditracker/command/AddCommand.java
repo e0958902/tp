@@ -7,6 +7,7 @@ import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
+import meditracker.time.MediTrackerTime;
 import meditracker.ui.Ui;
 
 import meditracker.argument.ArgumentName;
@@ -104,7 +105,7 @@ public class AddCommand extends Command {
         parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
                 medicationDosageAfternoonArg, medicationDosageEveningArg);
 
-        LocalDate currentDate = LocalDate.now();
+        LocalDate currentDate = MediTrackerTime.getCurrentDate();
         int dayAdded = currentDate.getDayOfYear();
 
         return new Medication(medicationName, medicationQuantity,
