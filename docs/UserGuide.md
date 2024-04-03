@@ -17,11 +17,11 @@ data storage so that you can review your past medication intake.
   - [List Medication](#list-medication)
     - [Summary of all medications:](#all-medications)`list -t all`
     - [Summary of medications for the day](#daily-medications)`list -t today`
-    - [Get information of specific medication](#one-medication)`more -l`
+    - [Get information of specific medication](#Get-information-of-specific-medication)`view -l`
   - [Update medication information](#update)
-    - [Record taking of medication](#take-untake)`take/untake -l`
-    - [Modify medication information](#modify)`modify -l`
-  - [Delete medication information](#delete)`delete -l`
+    - [Record taking of medication](#record-taking-of-medication)`take/untake -l`
+    - [Modify medication information](#modify-medication-information)`modify -l`
+  - [Delete medication information](#delete-a-medication)`delete -l`
   - [Search](#search)
       - [Access Medicine Database](#access-database)`search`
   - [Help](#help)
@@ -58,6 +58,13 @@ data storage so that you can review your past medication intake.
 
 #### NOTES about the command format:
 
+- Each command starts with a command keyword
+- Following which, you may specify additional options
+- These options can be in round brackets `()` (which are mandatory arguments) and in square brackets `[]` (which are
+optional arguments)
+- Each option are specified with either just its flag (which is of the form `-*` where `*` signifies some alphabetic 
+characters), or the flag coupled with a value
+
 ## Add
 
 ## List Medication: `list`
@@ -79,7 +86,7 @@ Your list of medications has been successfully shown!
 ```
 
 
-### View more information on a specific medication:
+### Get information of specific medication:
 Format: `view -l 1`<br>
   This lists all relevant information regarding the specified medication.
 Output:
@@ -92,7 +99,6 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
-Day Added: 91
 ```
 
 ### Daily medications:
@@ -109,7 +115,100 @@ Format: `list -t today`
 
 ## Update
 
-## Delete
+### Modify Medication Information
+
+If you require modification to the medication information, you can type `modify`, followed by the list index 
+`-l listIndex` printed in the summary list of medications to modify it. For each of the fields that you would
+like to modify, you can specify the corresponding flag and the new value to make changes.
+
+```
+Usage: 
+    modify (-l listIndex) [-n name] [-q quantity] [-dM dosageMorning] [-dA dosageAfternoon] [-dE dosageEvening] 
+[-e expirationDate] [-r remarks] [-rep] [-h]
+
+Options:
+	-l listIndex            Index of item in list
+	-n name                 Name of medication
+	-q quantity             Quantity of medication
+	-dM dosageMorning       Morning dosage of medication
+	-dA dosageAfternoon     Afternoon dosage of medication
+	-dE dosageEvening       Evening dosage of medication
+	-e expirationDate       Expiration date of medication
+	-r remarks              Additional remarks on medication
+	-rep                    How often to take medication (eg: Supply a number from 1 to 7)
+	-h                      Prints this help message
+```
+
+Output:
+```
+SUCCESS: Medicine has been modified
+```
+
+### Record taking of medication
+
+#### Take a medication
+
+When you have taken your medication, you can type `take`, followed by the list index `-l listIndex` 
+printed in the summary list of daily medications to mark it as taken. This command is time aware and 
+will mark the index of the medication based on what time of day it is. Optionally, you can specify 
+`-m`, `-a`, `-e` to override the time aware feature.
+
+```
+Usage:
+	take (-l listIndex) [-m] [-a] [-e] [-h]
+Options:
+	-l listIndex     Index of item in list
+	-m               Time of day: Morning
+	-a               Time of day: Afternoon
+	-e               Time of day: Evening
+	-h               Prints this help message
+```
+
+Output:
+```
+SUCCESS: Medicine has been taken
+```
+
+#### Untake a medication
+
+If you have accidentally entered the wrong command and wish to untake the medication, you can type `untake`, 
+followed by the list index `-l listIndex` printed in the summary list of daily medications. This command is 
+time aware and will mark the index of the medication based on what time of day it is. Optionally, you can 
+specify `-m`, `-a`, `-e` to override the time aware feature.
+
+```
+Usage:
+	untake (-l listIndex) [-m] [-a] [-e] [-h]
+Options:
+	-l listIndex     Index of item in list
+	-m               Time of day: Morning
+	-a               Time of day: Afternoon
+	-e               Time of day: Evening
+	-h               Prints this help message
+```
+
+Output:
+```
+SUCCESS: Medicine has been untaken
+```
+
+## Delete a medication
+
+To delete a provided medication, you can type `delete`, followed by the list index `-l listIndex`
+printed in the summary list of medications to remove it.
+
+```
+Usage:
+	delete (-l listIndex) [-h]
+Options:
+	-l listIndex     Index of item in list
+	-h               Prints this help message
+```
+
+Output:
+```
+SUCCESS: Medicine has been deleted
+```
 
 ## Search
 
