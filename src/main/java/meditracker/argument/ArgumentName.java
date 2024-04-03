@@ -30,7 +30,6 @@ public enum ArgumentName {
         this.value = value;
     }
 
-    //@@author annoy-o-mus
     /**
      * Performs a reverse search to get the enum value from the associated string.
      *
