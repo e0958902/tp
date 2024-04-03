@@ -1,39 +1,80 @@
 package meditracker.command;
 
-import meditracker.ui.Ui;
+import meditracker.argument.ArgumentHelper;
+import meditracker.argument.ArgumentList;
+import meditracker.argument.ArgumentName;
+import meditracker.argument.IllnessArgument;
+import meditracker.argument.NameArgument;
+import meditracker.argument.AllFieldsArgument;
+import meditracker.argument.SideEffectsArgument;
+import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
 import meditracker.library.LibraryManager;
+import meditracker.library.SearchResult;
+import meditracker.ui.Ui;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a command to search for medications from the local medication library based on a keyword.
  */
-public class SearchCommand extends Command {
+public class SearchCommand extends Command{
+    /*
+     * The argumentList contains all the arguments needed for searching for medication from the medication library.
+     */
+    public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
+            new NameArgument(true),
+            new IllnessArgument(true),
+            new SideEffectsArgument(true),
+            new AllFieldsArgument(true)
+    );
 
-    private final String keyword;
+    public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.SEARCH, ARGUMENT_LIST);
+    private final Map<ArgumentName, String> parsedArguments;
 
     /**
-     * Constructs a SearchCommand object with the specified keyword.
+     * Constructs a new search command with the specified keyword.
      *
-     * @param arguments The keyword to search for.
+     * @param arguments The keyword to search for in the medication library.
      */
-    public SearchCommand(String arguments) {
-        this.keyword = arguments;
+    public SearchCommand(String arguments)
+            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+        parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
     /**
-     * Executes the search command to search for medications based on the provided keyword
-     * and displays the search results on the user interface.
+     * Executes the search command based on the keyword.
      *
+     * @throws NullPointerException if the keyword is not found.
+     * @throws IllegalArgumentException if the library is corrupted.
      */
     @Override
-    public void execute() {
+    public void execute() throws NullPointerException, IllegalArgumentException {
+        LibraryManager libraryManager = new LibraryManager();
+        List<SearchResult> searchResults = new ArrayList<>();
         try {
-            LibraryManager libraryManager = new LibraryManager();
-            libraryManager.searchMedication(keyword);
-            libraryManager.printSearchResults();
-        } catch (IOException e) {
-            Ui.showLibraryNotFoundMessage();
+            String keyword;
+            if (parsedArguments.containsKey(ArgumentName.ALL_FIELDS)) {
+                keyword = parsedArguments.get(ArgumentName.ALL_FIELDS).toLowerCase().trim();
+                libraryManager.searchLibrary(searchResults, keyword);
+            } else if (parsedArguments.containsKey(ArgumentName.NAME)) {
+                keyword = parsedArguments.get(ArgumentName.NAME).toLowerCase().trim();
+                libraryManager.findMedication(searchResults, keyword);
+            } else if (parsedArguments.containsKey(ArgumentName.ILLNESS)) {
+                keyword = parsedArguments.get(ArgumentName.ILLNESS).toLowerCase().trim();
+                libraryManager.findIllness(searchResults, keyword);
+            } else if (parsedArguments.containsKey(ArgumentName.SIDE_EFFECTS)) {
+                keyword = parsedArguments.get(ArgumentName.SIDE_EFFECTS).toLowerCase().trim();
+                libraryManager.findSideEffects(searchResults, keyword);
+            }
+            libraryManager.printSearchResults(searchResults);
+        } catch (NullPointerException e) {
+            Ui.showSearchKeywordNotFoundMessage();
+        } catch (IllegalArgumentException e) {
+            Ui.showLibraryIsCorruptedMessage();
         }
     }
 }

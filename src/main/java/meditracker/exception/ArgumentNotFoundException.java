@@ -7,4 +7,7 @@ public class ArgumentNotFoundException extends Exception {
     public ArgumentNotFoundException(String errorContext) {
         super(errorContext);
     }
+
+    public ArgumentNotFoundException() {
+    }
 }
