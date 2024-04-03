@@ -5,5 +5,5 @@ take -l 1 -m
 untake -l 1 -m
 add -n Medication_A -q 60.0 -e 01/07/25 -dM 500.0 -dA 250.0 -r cause_dizziness -rep 1
 list -t all
-more -l 1
+view -l 1
 exit

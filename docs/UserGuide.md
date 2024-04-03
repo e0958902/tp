@@ -7,10 +7,6 @@ https://se-education.org/addressbook-level3/UserGuide.html
 
 ## Introduction
 
-MediTracker is a Command Line Interface (CLI) app to track your medications. 
-It gives you the capability to manage your medications taken on a daily 
-basis such as indicating if you have taken your medication and when it is going to expire
-
 ## Quick Start
 
 {Give steps to get started quickly}
@@ -53,8 +49,8 @@ Format: Name | Quantity | Expiry Date | Remarks
 Your list of medications has been successfully shown!
 ```
 
-### Show more information on a specific medication
-* Syntax: `more -l 1`<br>
+### View more information on a specific medication
+* Syntax: `view -l 1`<br>
   This lists all relevant information regarding the specified medication.
 * Output:
 ```
