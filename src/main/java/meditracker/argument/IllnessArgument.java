@@ -8,7 +8,6 @@ public class IllnessArgument extends Argument {
         super(
                 ArgumentName.ILLNESS,
                 "-i",
-                "What illness is the medicine used for?",
                 "Illness treated by the medicine",
                 isOptional,
                 true

@@ -5,7 +5,6 @@ public class LoadArgument extends Argument {
         super(
                 ArgumentName.LOAD_FILE,
                 "-in",
-                "",
                 "File path (including .json extension) to load from",
                 false,
                 true

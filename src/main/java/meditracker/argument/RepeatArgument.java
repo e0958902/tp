@@ -14,7 +14,6 @@ public class RepeatArgument extends Argument {
         super(
              ArgumentName.REPEAT,
                 "-rep",
-                "How often do you need to take this medication?",
                 "How often to take medication (eg: Supply a number from 1 to 7)",
                 isOptional,
                 false

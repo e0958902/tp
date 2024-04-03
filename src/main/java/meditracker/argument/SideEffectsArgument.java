@@ -8,7 +8,6 @@ public class SideEffectsArgument extends Argument {
         super(
                 ArgumentName.SIDE_EFFECTS,
                 "-s",
-                "What are the side effects of the medication?",
                 "Side effects of the medication",
                 isOptional,
                 true

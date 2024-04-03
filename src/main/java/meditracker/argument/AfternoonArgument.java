@@ -8,7 +8,6 @@ public class AfternoonArgument extends Argument {
         super(
                 ArgumentName.AFTERNOON,
                 "-a",
-                null,
                 "Time of day: Afternoon",
                 isOptional,
                 false

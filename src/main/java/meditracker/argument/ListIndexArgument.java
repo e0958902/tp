@@ -8,7 +8,6 @@ public class ListIndexArgument extends Argument {
         super(
                 ArgumentName.LIST_INDEX,
                 "-l",
-                "What is the index of item in list?",
                 "Index of item in list",
                 isOptional,
                 true

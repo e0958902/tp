@@ -8,7 +8,6 @@ public class ListTypeArgument extends Argument {
         super(
                 ArgumentName.LIST_TYPE,
                 "-t",
-                "Show today/morning/afternoon/evening/all medications?",
                 "Lists medications accordingly",
                 isOptional,
                 true
