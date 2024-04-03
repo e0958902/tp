@@ -13,6 +13,7 @@ import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.InvalidArgumentException;
 import meditracker.exception.InvalidSimulatedTimeException;
+import meditracker.exception.MediTrackerException;
 import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
 import meditracker.time.MediTrackerTime;
@@ -80,7 +81,7 @@ public class MediTracker {
 
             try {
                 command.execute();
-            } catch (InvalidArgumentException e) {
+            } catch (InvalidArgumentException | MediTrackerException e) {
                 System.out.println(e.getMessage());
             }
             isExit = command.isExit();
