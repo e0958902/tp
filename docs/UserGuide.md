@@ -26,8 +26,10 @@ data storage so that you can review your past medication intake.
       - [Access Medicine Database](#access-database)`search`
   - [Help](#help)
   - [General data management](#general-data-management)
-    - [Read from file: load](#read-from-file)
-    - [Write to file: write](#write-to-file)
+    - [Saving to a file:](#saving-to-a-file-save)`save`
+    - [Reading from a file:](#reading-from-a-file-load)`load`
+    - [Editing the file](#editing-the-file)
+    - [Advanced feature: Setting an arbitrary time](#advanced-feature-setting-an-arbitrary-time)
 - [FAQ](#faq)
 - [Glossary](#glossary)
 - [Command Summary](#command-summary)
@@ -133,34 +135,73 @@ Example of usage:
 
 
 
-### Saving to a file
-Saves the JSON file at the specified path.
+### Saving to a file: `save`
+Saves the JSON file to the specified path.
 
-Format: `save [-o outputFile]`
-- If the `-o outputFile` is not specified, it will write to its default save location.
-- As far as possible, refrain from using spaces in the file path, especially with a -h i.e. path/to -h/
-- Ensure that the file does not end with a space or a dot (.)
-- System folders, don't save there. Ensure that the folder you are going to write to has the proper access rights
+Format: `save [-o saveFile]`
 
-### Reading from a file
-- A Prompt will ask for your confirmation as an additional layer of safeguard.
-- Loading will overwrite existing running data, so be sure to save a copy first before deciding to overwrite
-- (The rest are more or less the same as above)
-- Rmb the JSON if you modify and you mess it up, either it will not load, or the program loads with corrupt data.
-- So make sure you know what you are doing and keep a backup before you make any sort of modifications!
+Examples:
+- `save`: Save the file to the default location.
+- `save -o data/testfolder/output.json`: Saves the file
 
-### Advanced Feature: Setting an arbitrary time
-- Still show how to use it (simply)
-- This is intended for the developers only.
-- See Developer Guide for more information.
+The default save location is `data/MediTrackerData.json`.
+As far as possible, refrain from using spaces in the file path, especially with `-h` i.e. `path/to -h/`. 
+This will trigger the help message to be displayed rather than processing the saving.
+
+Also, ensure that the file does not end with a space or a dot (.); the file must end with `.json`.
+
+Ensure that the folder you are going to write to has the proper access rights. Don't write to system folders; it will likely fail.
+
+### Reading from a file: `load`
+Loads the JSON files from the specified path.
+
+Format: `load (-in loadFile)`
+
+Examples:
+- `load -in data/to/inputFile.json`
+
+The default load location is `data/MediTrackerData.json`. This is done automatically when the program starts.
+You should make sure that this file is present in the specified path. Alternatively, you can use the `load` command
+to load the file.
+
+As far as possible, refrain from using spaces in the file path, especially with `-h` i.e. `path/to -h/`.
+This will trigger the help message to be displayed rather than processing the saving.
+
+A prompt will then ask for your confirmation to overwrite existing data as an additional layer of safeguard.
+
+WARNING: Loading will overwrite existing running data, so be sure to save a copy first before deciding to overwrite.
+See the part on [Editing the File](#editing-the-file) for warnings on modifying the saved file.
+
+### Editing the file
+The medication information are saved in a `.json` format while the daily medication information are saved
+in the `.txt` format. Advanced users can modify the text files directly.
+
+WARNING: If the changes to the data file makes either its format or some of the fields contained therein invalid,
+meditracker may:
+1. Discard all the data and start with a fresh state
+2. Tries to read some information, and fill in placeholder values for fields that fail to load
+3. Crash due to bad data.
+
+Therefore, only edit the file if you are confident you can update it correctly.
+
+### Advanced feature: Setting an arbitrary time
+This feature is intended for developers to test out the features. See the developer guide (To be updated) for more detailed explanation on its implementation.
+To make use of this feature, simply add the following flag and argument **when running the program** (not during the program execution itself)
+
+Example: `java -jar meditracker.jar -sim 2024-01-01T13:00:00Z`
+
+The `-sim` flag informs the program that a simulated time is expected. The supplied date and time must be of the format specified above,
+or else the parser will return an error. The supplied time is of the format `YYYY-MM-DDTHH:MM:SSZ`
+
+In the above example, it will set the time for the program to be **1 Jan 2024, 1pm**.
 
 ## FAQ
-
 **Q**: How do I transfer my data to another computer? 
 
-**A**: {your answer here}
-
-- TODO: Add warning about modifying the text files
+**A**: By default, all meditracker-related data will be saved under the `data` folder. 
+This folder resides at the same level as the `meditracker.jar` file.
+To transfer the data, just copy/shift the `data` folder to the new computer, 
+making sure it is at the same level as the `.jar` file.
 
 ## Glossary
 
