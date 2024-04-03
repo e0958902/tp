@@ -29,8 +29,10 @@ if more `Argument`s are needed
 - Added information on how help messages for `ArgumentList` is generated
 
 ### User Guide Contributions
+- Added description on command format
+- Added information on how to use `modify`, `delete`, `take` and `untake`
 
 ### PR Reviews
 #3, #6, #7, #10, #12, #17, #22, #28, #33, 
 #35, #47, #49, #58, #59, #73, #75, #80, #84,
-#101, #108, #109, #112
+#101, #108, #109, #112, #113, #117, #122, #124
