@@ -96,8 +96,8 @@ Output:
 SUCCESS: Medicine has been added
 ```
 ## List Medication: `list`
-When listing the medication list, you can list the medication(s) that you need to take for the day.
-The list can be further separated into the three different times of the day.
+You can list down the medications that you have added, or even print out a list of medications that you will be taking 
+for the day.
 
 ### All medications:
 Displays the whole lists of medications that you have added.
@@ -134,12 +134,22 @@ Displays an overview of the list of medications that you will be taking for the 
 
 Format: `list -t today`
 * If you want to see for only a particular period of the day, simply enter `list -t today` followed by:
-  * `-m`m: Morning (Midnight to 12 Noon)
+  * `-m`: Morning (Midnight to 12 Noon)
   * `-a`: Afternoon (12pm to 6pm)
   * `-e`: Evening (6pm to Midnight)
-  * Eg: `list -t today -m` - will display the list of medications to be taken in the morning
+  * Eg: `list -t today -m` - will display the list of medications to be taken in the morning only
 
-{SS}
+Output:
+```
+____________________________________________________________
+meditracker> list -t today
+Here are the Daily Medications you have to take today: 
+Morning:
+	1. [ ] Medication_A | 2.0
+Afternoon:
+	1. [ ] Medication_A | 1.0
+____________________________________________________________
+```
 
 ## Update
 
@@ -244,21 +254,6 @@ SUCCESS: Medicine has been deleted
 
 ## General Data Management
 
-
-
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
-
-Format: `todo n/TODO_NAME d/DEADLINE`
-
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
-
-Example of usage: 
-
-`todo n/Write the rest of the User Guide d/next week`
-
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
 
 
 
