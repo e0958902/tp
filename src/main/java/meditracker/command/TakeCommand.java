@@ -8,10 +8,13 @@ import meditracker.argument.EveningArgument;
 import meditracker.argument.ListIndexArgument;
 import meditracker.argument.MorningArgument;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.InvalidArgumentException;
+import meditracker.exception.InsufficientQuantityException;
+import meditracker.exception.MedicationNotFoundException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.time.MediTrackerTime;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
@@ -37,11 +40,14 @@ public class TakeCommand extends Command {
      *
      * @param arguments The arguments containing information to be parsed.
      * @throws ArgumentNotFoundException Argument flag specified not found
+     * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
+     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
      */
     public TakeCommand(String arguments)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException, UnknownArgumentFoundException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
@@ -52,7 +58,7 @@ public class TakeCommand extends Command {
      *
      */
     @Override
-    public void execute() throws InvalidArgumentException {
+    public void execute() {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
 
@@ -65,11 +71,24 @@ public class TakeCommand extends Command {
         }
 
         if (period == Period.UNKNOWN) {
-            throw new InvalidArgumentException("Unable to determine time period. " +
+            Ui.showErrorMessage("Unable to determine time period. " +
                     "Please select 1 flag only or try again later.");
+            return;
         }
 
-        DailyMedicationManager.takeDailyMedication(listIndex, period);
-        Ui.showTakeCommandMessage();
+        try {
+            DailyMedicationManager.takeDailyMedication(listIndex, period);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showErrorMessage("Invalid index specified");
+            return;
+        } catch (InsufficientQuantityException e) {
+            Ui.showErrorMessage(e);
+            return;
+        } catch (MedicationNotFoundException e) {
+            Ui.showWarningMessage("Possible corruption of data. " +
+                    "Unable to increase Medication quantity as object not found");
+            return;
+        }
+        Ui.showSuccessMessage("Medicine has been taken");
     }
 }

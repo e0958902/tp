@@ -2,10 +2,12 @@ package meditracker.command;
 
 import meditracker.argument.ArgumentHelper;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MediTrackerException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.time.MediTrackerTime;
@@ -59,11 +61,14 @@ public class AddCommand extends Command {
      *
      * @param arguments The arguments containing medication information to be parsed.
      * @throws ArgumentNotFoundException if a required argument is not found.
+     * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException Duplicate argument found
      * @throws HelpInvokedException When help argument is used
+     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
      */
     public AddCommand(String arguments)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException, UnknownArgumentFoundException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
@@ -71,24 +76,25 @@ public class AddCommand extends Command {
      * Executes the add command.
      * This method creates a new Medication object using the provided information and adds it to the medication list.
      * It also displays a message confirming the addition of the medication.
-     *
-     * @throws NullPointerException   if any of the required objects are null.
-     * @throws NumberFormatException  if there is an error in parsing numeric values.
      */
     @Override
-    public void execute() throws MediTrackerException {
-        Medication medication = createMedication();
+    public void execute() {
+        Medication medication = null;
+        try {
+            medication = createMedication();
+        } catch (MediTrackerException e) {
+            Ui.showErrorMessage(e);
+        }
         MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
         assertionTest();
-        Ui.showAddCommandMessage();
+        Ui.showSuccessMessage("Medicine has been added");
     }
 
     /**
      * Sets the medication attributes based on parsed arguments.
      *
-     * @throws NumberFormatException if there is an error in parsing numeric values.
-     * @throws NullPointerException  if any of the required arguments are null.
+     * @throws MediTrackerException if there is an error encountered.
      */
     private Medication createMedication() throws MediTrackerException {
         String medicationName = parsedArguments.get(ArgumentName.NAME);

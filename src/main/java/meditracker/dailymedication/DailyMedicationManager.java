@@ -1,5 +1,7 @@
 package meditracker.dailymedication;
 
+import meditracker.exception.InsufficientQuantityException;
+import meditracker.exception.MedicationNotFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.storage.FileReaderWriter;
@@ -37,7 +39,7 @@ public class DailyMedicationManager {
      */
     public static void createDailyMedicationManager() {
         for (Medication medication : MedicationManager.getMedications()) {
-            if (shouldAddToDailyList(medication)) {
+            if (doesBelongToDailyList(medication)) {
                 addToSubLists(medication);
             }
         }
@@ -123,6 +125,32 @@ public class DailyMedicationManager {
     }
 
     /**
+     * Removes the DailyMedication object in the corresponding Period list that
+     * matches the specified name.
+     *
+     * @param name Name of the DailyMedications object to get
+     * @param period Time period of day (Morning, afternoon or evening)
+     * @throws MedicationNotFoundException No DailyMedication matching specified name found
+     */
+    public static void removeDailyMedication(String name, Period period)
+            throws MedicationNotFoundException {
+        int listIndex = getDailyMedicationIndex(name, period);
+        switch (period) {
+        case MORNING:
+            morningMedications.remove(listIndex);
+            break;
+        case AFTERNOON:
+            afternoonMedications.remove(listIndex);
+            break;
+        case EVENING:
+            eveningMedications.remove(listIndex);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + period);
+        }
+    }
+
+    /**
      * Gets the DailyMedication object from the morning/afternoon/evening lists
      * Also converts the index to 0-based indexing before being used.
      *
@@ -144,6 +172,42 @@ public class DailyMedicationManager {
         default:
             throw new IllegalStateException("Unexpected value: " + period);
         }
+    }
+
+    /**
+     * Gets the DailyMedication object from the morning/afternoon/evening lists
+     *
+     * @param name Name of the DailyMedications object to get
+     * @param period Time period of day (Morning, afternoon or evening)
+     * @return DailyMedication object that matches the specified name
+     * @throws IndexOutOfBoundsException Out of range index specified
+     * @throws MedicationNotFoundException No DailyMedication matching specified name found
+     */
+    public static DailyMedication getDailyMedication(String name, Period period)
+            throws IndexOutOfBoundsException, MedicationNotFoundException {
+        int listIndex = getDailyMedicationIndex(name, period); // 0-based indexing
+        listIndex++; // Convert to 1-based indexing
+        return getDailyMedication(listIndex, period);
+    }
+
+    /**
+     * Gets the DailyMedication index in the morning/afternoon/evening lists
+     *
+     * @param name Name of the DailyMedications object to get
+     * @param period Time period of day (Morning, afternoon or evening)
+     * @return Index of the DailyMedication object that matches the specified name
+     * @throws MedicationNotFoundException No DailyMedication matching specified name found
+     */
+    public static int getDailyMedicationIndex(String name, Period period)
+            throws MedicationNotFoundException {
+        List<DailyMedication> dailyMedications = getDailyMedications(period);
+        for (int i = 0; i < dailyMedications.size(); i++) {
+            DailyMedication dailyMedication = dailyMedications.get(i);
+            if (dailyMedication.getName().equals(name)) {
+                return i;
+            }
+        }
+        throw new MedicationNotFoundException();
     }
 
     /**
@@ -197,13 +261,21 @@ public class DailyMedicationManager {
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
      * @param period Time period of day (Morning, afternoon or evening)
+     * @throws IndexOutOfBoundsException If listIndex is outside of range of DailyMedication list
+     * @throws InsufficientQuantityException Existing quantity insufficient for operation
+     * @throws MedicationNotFoundException Medication object not found, unable to decrease quantity
      * @see DailyMedication#take()
      */
-    public static void takeDailyMedication(int listIndex, Period period) {
+    public static void takeDailyMedication(int listIndex, Period period)
+            throws IndexOutOfBoundsException, InsufficientQuantityException, MedicationNotFoundException {
         DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, period);
-        dailyMedication.take();
+        if (dailyMedication.isTaken()) {
+            return; // Already taken, do not need to run additional code
+        }
+
         MedicationManager.decreaseMedicationQuantity(dailyMedication.getName(), period);
 
+        dailyMedication.take();
         FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
     }
 
@@ -212,13 +284,20 @@ public class DailyMedicationManager {
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
      * @param period Time period of day (Morning, afternoon or evening)
+     * @throws IndexOutOfBoundsException If listIndex is outside of range of DailyMedication list
+     * @throws MedicationNotFoundException Medication object not found, unable to increase quantity
      * @see DailyMedication#untake()
      */
-    public static void untakeDailyMedication(int listIndex, Period period) {
+    public static void untakeDailyMedication(int listIndex, Period period)
+            throws IndexOutOfBoundsException, MedicationNotFoundException {
         DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, period);
-        dailyMedication.untake();
+        if (!dailyMedication.isTaken()) {
+            return; // Already untaken, do not need to run additional code
+        }
+
         MedicationManager.increaseMedicationQuantity(dailyMedication.getName(), period);
 
+        dailyMedication.untake();
         FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
     }
 
@@ -248,7 +327,7 @@ public class DailyMedicationManager {
      * @param medication list of medications from MedicationManager
      */
     public static void checkForDaily(Medication medication) {
-        if (shouldAddToDailyList(medication)) {
+        if (doesBelongToDailyList(medication)) {
             addToSubLists(medication);
         }
     }
@@ -259,7 +338,7 @@ public class DailyMedicationManager {
      * @param medication list of medications from MedicationManager
      * @return true if medication can be added to today's list
      */
-    private static boolean shouldAddToDailyList(Medication medication) {
+    public static boolean doesBelongToDailyList(Medication medication) {
         int num = medication.getRepeat();
 
         switch (num) {

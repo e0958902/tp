@@ -11,20 +11,22 @@ Welcome to MediTracker, your best companion to track your medicine intake.
 Let's begin tracking!
 
 ____________________________________________________________
-Medicine has been successfully added!
+meditracker> SUCCESS: Medicine has been added
 ____________________________________________________________
-Medicine has been successfully modified!
+meditracker> SUCCESS: Medicine has been modified
 ____________________________________________________________
-Medicine has been successfully deleted
+meditracker> ERROR: Insufficient quantity. Dosage Required -> 500.0, Quantity Available -> 60.0
 ____________________________________________________________
-Medicine has been successfully taken
+meditracker> SUCCESS: Medicine has been untaken
 ____________________________________________________________
-Medicine has been successfully untaken
+meditracker> SUCCESS: Medicine has been deleted
 ____________________________________________________________
-Medicine has been successfully added!
+meditracker> SUCCESS: Medicine has been added
 ____________________________________________________________
-You have 1 medications listed below.
+meditracker> SUCCESS: Medicine has been taken
+____________________________________________________________
+meditracker> You have 1 medications listed below.
 Format: Name | Quantity | Expiry Date | Remarks
-	1. Medication_A | 60.0 | 01/07/25 | cause_dizziness
+	1. Medication_A | 500.0 | 01/07/25 | cause_dizziness
 ____________________________________________________________
-Thank you for using MediTracker. Hope to see you again!
+meditracker> Thank you for using MediTracker. Hope to see you again!

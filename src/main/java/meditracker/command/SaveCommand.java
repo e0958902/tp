@@ -8,9 +8,11 @@ import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.SaveArgument;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.storage.FilePathChecker;
 import meditracker.storage.FileReaderWriter;
 
@@ -23,7 +25,8 @@ public class SaveCommand extends Command {
     private final Map<ArgumentName, String> parsedArguments;
 
     public SaveCommand(String arguments)
-            throws DuplicateArgumentFoundException, HelpInvokedException, ArgumentNotFoundException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException, UnknownArgumentFoundException {
         if (arguments.isEmpty()) {
             parsedArguments = null;
         } else {

@@ -4,10 +4,16 @@ import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.ListIndexArgument;
+import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MedicationNotFoundException;
+import meditracker.exception.UnknownArgumentFoundException;
+import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
+import meditracker.time.Period;
 import meditracker.ui.Ui;
 
 import java.util.Map;
@@ -28,11 +34,14 @@ public class DeleteCommand extends Command {
      *
      * @param arguments The arguments containing medication information to be parsed.
      * @throws ArgumentNotFoundException Argument flag specified not found
+     * @throws ArgumentNoValueException When argument requires value but no value specified
      * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
+     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
      */
     public DeleteCommand(String arguments)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException {
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException, UnknownArgumentFoundException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
@@ -46,11 +55,72 @@ public class DeleteCommand extends Command {
     public void execute() {
         String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
         int listIndex = Integer.parseInt(listIndexString);
+
+        Medication medication;
+        try {
+            medication = MedicationManager.getMedication(listIndex);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showErrorMessage("Invalid index specified");
+            return;
+        }
+
         MedicationManager.removeMedication(listIndex);
-
-        // TODO: remove medication from DailyMedicationManager as well.
-
-        Ui.showDeleteCommandMessage();
+        if (DailyMedicationManager.doesBelongToDailyList(medication)) {
+            deleteDailyMedication(medication);
+        }
+        Ui.showSuccessMessage("Medicine has been deleted");
     }
 
+    /**
+     * Delete all instance of DailyMedication related to the Medication object
+     *
+     * @param medication The Medication object that will result in the deletion of
+     *                   DailyMedication objects
+     */
+    private static void deleteDailyMedication(Medication medication) {
+        String name = medication.getName();
+
+        for (Period period : Period.values()) {
+            switch (period) {
+            case MORNING:
+                if (medication.getDosageMorning() == 0) {
+                    continue;
+                }
+
+                try {
+                    DailyMedicationManager.removeDailyMedication(name, Period.MORNING);
+                } catch (MedicationNotFoundException e) {
+                    Ui.showWarningMessage("Possible corruption of data. " +
+                            "Unable to remove DailyMedication when using `delete`");
+                }
+                break;
+            case AFTERNOON:
+                if (medication.getDosageAfternoon() == 0) {
+                    continue;
+                }
+
+                try {
+                    DailyMedicationManager.removeDailyMedication(name, Period.AFTERNOON);
+                } catch (MedicationNotFoundException e) {
+                    Ui.showWarningMessage("Possible corruption of data. " +
+                            "Unable to remove DailyMedication when using `delete`");
+                }
+                break;
+            case EVENING:
+                if (medication.getDosageEvening() == 0) {
+                    continue;
+                }
+
+                try {
+                    DailyMedicationManager.removeDailyMedication(name, Period.EVENING);
+                } catch (MedicationNotFoundException e) {
+                    Ui.showWarningMessage("Possible corruption of data. " +
+                            "Unable to remove DailyMedication when using `delete`");
+                }
+                break;
+            default:
+                break;
+            }
+        }
+    }
 }

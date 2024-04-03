@@ -1,5 +1,7 @@
 package meditracker.ui;
 
+import meditracker.argument.ArgumentHelper;
+import meditracker.command.CommandName;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.library.SearchResult;
 import meditracker.medication.Medication;
@@ -62,7 +64,8 @@ public class Ui {
      */
     public static void showWelcome() {
         System.out.println("Welcome to MediTracker, your best companion to track your medicine intake.");
-        System.out.println("Let's begin tracking!\n");
+        System.out.println("Let's begin tracking!");
+        System.out.println();
     }
 
     /**
@@ -72,28 +75,28 @@ public class Ui {
         System.out.println("Thank you for using MediTracker. Hope to see you again!");
     }
 
-    public static void showAddCommandMessage() {
-        System.out.println("Medicine has been successfully added!");
+    public static void showSuccessMessage(String message) {
+        System.out.print("SUCCESS: ");
+        System.out.println(message);
     }
 
-    public static void showModifyCommandMessage() {
-        System.out.println("Medicine has been successfully modified!");
+    public static void showErrorMessage(String message) {
+        System.out.print("ERROR: ");
+        System.out.println(message);
     }
 
-    public static void showListCommandMessage() {
-        System.out.println("Your list of medications has been successfully shown!");
+    public static void showErrorMessage(Throwable throwable) {
+        showErrorMessage(throwable.getMessage());
     }
 
-    public static void showDeleteCommandMessage() {
-        System.out.println("Medicine has been successfully deleted");
+    public static void showHelpMessage(CommandName commandName) {
+        String helpMessage = ArgumentHelper.getHelpMessage(commandName);
+        System.out.println(helpMessage);
     }
 
-    public static void showTakeCommandMessage() {
-        System.out.println("Medicine has been successfully taken");
-    }
-
-    public static void showUntakeCommandMessage() {
-        System.out.println("Medicine has been successfully untaken");
+    public static void showWarningMessage(String message) {
+        System.out.print("WARNING: ");
+        System.out.println(message);
     }
 
     /**
@@ -101,9 +104,9 @@ public class Ui {
      * @return The user input command as a String.
      */
     public static String readCommand() {
+        System.out.print("meditracker> ");
         return input.nextLine();
     }
-
 
     /**
      * Prints the medication list

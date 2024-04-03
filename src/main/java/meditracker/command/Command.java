@@ -1,17 +1,12 @@
 package meditracker.command;
 
-import meditracker.exception.InvalidArgumentException;
-import meditracker.exception.MediTrackerException;
-import meditracker.medication.MedicationManager;
-
 public abstract class Command {
-    private MedicationManager medicationManager;
 
     /**
      * Executes the command
      *
      */
-    public abstract void execute() throws InvalidArgumentException, MediTrackerException;
+    public abstract void execute();
 
     /**
      * Returns the boolean to exit the program.

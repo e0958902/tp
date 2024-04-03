@@ -1,23 +1,22 @@
 package meditracker;
 
-import java.util.List;
-
-import meditracker.argument.ArgumentHelper;
 import meditracker.command.Command;
 import meditracker.command.CommandName;
 import meditracker.command.CommandParser;
 import meditracker.dailymedication.DailyMedicationManager;
+import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.CommandNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.InvalidArgumentException;
 import meditracker.exception.InvalidSimulatedTimeException;
-import meditracker.exception.MediTrackerException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
 import meditracker.time.MediTrackerTime;
 import meditracker.ui.Ui;
+
+import java.util.List;
 
 
 /**
@@ -70,20 +69,16 @@ public class MediTracker {
             Command command;
             try {
                 command = commandParser.getCommand();
-            } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | CommandNotFoundException e) {
-                System.out.println(e.getMessage());
+            } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | CommandNotFoundException |
+                     ArgumentNoValueException | UnknownArgumentFoundException e) {
+                Ui.showErrorMessage(e);
                 continue;
             } catch (HelpInvokedException e) {
-                String helpMessage = ArgumentHelper.getHelpMessage(commandName);
-                System.out.println(helpMessage);
+                Ui.showHelpMessage(commandName);
                 continue;
             }
 
-            try {
-                command.execute();
-            } catch (InvalidArgumentException | MediTrackerException e) {
-                System.out.println(e.getMessage());
-            }
+            command.execute();
             isExit = command.isExit();
         }
     }
