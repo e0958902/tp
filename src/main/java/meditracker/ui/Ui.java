@@ -134,8 +134,7 @@ public class Ui {
                         "Morning Dosage: %.1f" + System.lineSeparator() +
                         "Afternoon Dosage: %.1f" + System.lineSeparator() +
                         "Evening Dosage: %.1f" + System.lineSeparator() +
-                        "Repeat: %d" + System.lineSeparator() +
-                        "Day Added: %d" + System.lineSeparator(),
+                        "Repeat: %d" + System.lineSeparator(),
                 medication.getName(),
                 medication.getQuantity(),
                 medication.getExpiryDate(),

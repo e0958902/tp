@@ -17,7 +17,7 @@ data storage so that you can review your past medication intake.
   - [List Medication](#list-medication)
     - [Summary of all medications:](#all-medications)`list -t all`
     - [Summary of medications for the day](#daily-medications)`list -t today`
-    - [Get information of specific medication](#one-medication)`more -l`
+    - [Get information of specific medication](#Get-information-of-specific-medication)`view -l`
   - [Update medication information](#update)
     - [Record taking of medication](#record-taking-of-medication)`take/untake -l`
     - [Modify medication information](#modify-medication-information)`modify -l`
@@ -84,7 +84,7 @@ Your list of medications has been successfully shown!
 ```
 
 
-### View more information on a specific medication:
+### Get information of specific medication:
 Format: `view -l 1`<br>
   This lists all relevant information regarding the specified medication.
 Output:
@@ -97,7 +97,6 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
-Day Added: 91
 ```
 
 ### Daily medications:
