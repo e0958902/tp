@@ -78,7 +78,7 @@ Options:
 
 Examples:
 
-* `add -n Medication_A -q 60 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 1`
+* `add -n Medication_A -q 5000 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 1`
 * `add -n Medication_B -q 1000 -e 30/09/24 -dM 500 -dA 250 -dE 50 -rep 6`
 
 Output:
