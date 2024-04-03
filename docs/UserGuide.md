@@ -56,7 +56,18 @@ data storage so that you can review your past medication intake.
 
 #### NOTES about the command format:
 
-## Add
+## Adding a medication: `add`
+Adds a medication to the medication manager.
+
+Format: `add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM DOSAGE_MORNING -dA DOSAGE_AFTERNOON 
+-dE DOSAGE_EVENING -r REMARKS -rep REPEAT`
+
+> Tip: The dosage and remarks tags are optional.
+
+Examples:
+
+* `add -n Medication_A -q 60 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 1`
+* `add -n Medication_B -q 1000 -e 30/09/24 -dM 500 -dA 250 -dE 50 -rep 6`
 
 ## List Medication: `list`
 When listing the medication list, you can list the medication(s) that you need to take for the day.
