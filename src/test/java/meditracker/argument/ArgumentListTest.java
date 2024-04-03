@@ -25,13 +25,11 @@ public class ArgumentListTest {
                 ArgumentName.LIST_TYPE,
                 "-l",
                 "",
-                "",
                 true,
                 true) {};
         Argument testArgument2 = new Argument(
                 ArgumentName.LIST_INDEX,
                 "-l",
-                "",
                 "",
                 true,
                 true) {};

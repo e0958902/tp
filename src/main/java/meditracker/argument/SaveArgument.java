@@ -6,7 +6,6 @@ public class SaveArgument extends Argument {
         super(
                 ArgumentName.SAVE_FILE,
                 "-o",
-                "",
                 "File path (including .json extension) to save to",
                 true,
                 true

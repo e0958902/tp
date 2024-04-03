@@ -8,7 +8,6 @@ public class NameArgument extends Argument {
         super(
                 ArgumentName.NAME,
                 "-n",
-                "What is the name of the medication?",
                 "Name of medication",
                 isOptional,
                 true
