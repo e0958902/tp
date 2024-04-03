@@ -53,6 +53,8 @@ public class CommandParser {
             return new ModifyCommand(arguments);
         case LIST:
             return new ListCommand(arguments);
+        case VIEW:
+            return new ViewCommand(arguments);
         case DELETE:
             return new DeleteCommand(arguments);
         case SEARCH:

@@ -122,6 +122,32 @@ public class Ui {
     }
 
     /**
+     * Prints a specific medication in the medication list
+     *
+     * @param medication Contains a medication in the medication list
+     */
+    public static void printSpecificMed(Medication medication) {
+        System.out.printf("Name: %s" + System.lineSeparator() +
+                        "Quantity: %.1f" + System.lineSeparator() +
+                        "Expiry Date: %s" + System.lineSeparator() +
+                        "Remarks: %s" + System.lineSeparator() +
+                        "Morning Dosage: %.1f" + System.lineSeparator() +
+                        "Afternoon Dosage: %.1f" + System.lineSeparator() +
+                        "Evening Dosage: %.1f" + System.lineSeparator() +
+                        "Repeat: %d" + System.lineSeparator() +
+                        "Day Added: %d" + System.lineSeparator(),
+                medication.getName(),
+                medication.getQuantity(),
+                medication.getExpiryDate(),
+                medication.getRemarks(),
+                medication.getDosageMorning(),
+                medication.getDosageAfternoon(),
+                medication.getDosageEvening(),
+                medication.getRepeat(),
+                medication.getDayAdded());
+    }
+
+    /**
      * Prints the sub lists of dailyMedications based on the period
      *
      * @param medsList list of medications from MedicationManager

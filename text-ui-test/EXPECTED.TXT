@@ -29,4 +29,14 @@ meditracker> You have 1 medications listed below.
 Format: Name | Quantity | Expiry Date | Remarks
 	1. Medication_A | 500.0 | 01/07/25 | cause_dizziness
 ____________________________________________________________
+meditracker> Name: Medication_A
+Quantity: 500.0
+Expiry Date: 01/07/25
+Remarks: cause_dizziness
+Morning Dosage: 500.0
+Afternoon Dosage: 250.0
+Evening Dosage: 0.0
+Repeat: 1
+Day Added: 94
+____________________________________________________________
 meditracker> Thank you for using MediTracker. Hope to see you again!

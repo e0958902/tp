@@ -58,13 +58,40 @@ data storage so that you can review your past medication intake.
 
 ## Add
 
-## List Medication
+## List Medication: `list`
+When listing the medication list, you can list the medication(s) that you need to take for the day.
+The list can be further separated into the three different times of the day.
+
 ### All medications:
 Displays the whole lists of medications that you have added.
 
 Format: `list -t all`
 
-{SS}
+Output:
+```
+You have 2 medications listed below.
+Format: Name | Quantity | Expiry Date | Remarks
+	1. Medication_A | 60.0 | 01/07/25 | cause_dizziness
+	2. Medication_B | 1000.0 | 01/09/25 | cause_headache
+Your list of medications has been successfully shown!
+```
+
+
+### View more information on a specific medication:
+Format: `view -l 1`<br>
+  This lists all relevant information regarding the specified medication.
+Output:
+```
+Name: Medication_A
+Quantity: 60.0
+Expiry Date: 01/07/25
+Remarks: cause_dizziness
+Morning Dosage: 500.0
+Afternoon Dosage: 250.0
+Evening Dosage: 0.0
+Repeat: 1
+Day Added: 91
+```
 
 ### Daily medications:
 Displays an overview of the list of medications that you will be taking for the day.
@@ -103,7 +130,6 @@ Example of usage:
 `todo n/Write the rest of the User Guide d/next week`
 
 `todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
-
 
 
 

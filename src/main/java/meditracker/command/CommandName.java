@@ -7,6 +7,7 @@ public enum CommandName {
     UNKNOWN("unknown"),
     EXIT("exit"),
     ADD("add"),
+    VIEW("view"),
     MODIFY("modify"),
     LIST("list"),
     DELETE("delete"),

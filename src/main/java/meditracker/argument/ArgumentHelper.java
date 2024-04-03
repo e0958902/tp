@@ -4,6 +4,7 @@ import meditracker.command.AddCommand;
 import meditracker.command.CommandName;
 import meditracker.command.DeleteCommand;
 import meditracker.command.ListCommand;
+import meditracker.command.ViewCommand;
 import meditracker.command.ModifyCommand;
 import meditracker.command.SearchCommand;
 import meditracker.command.TakeCommand;
@@ -34,6 +35,8 @@ public class ArgumentHelper {
             return ModifyCommand.HELP_MESSAGE;
         case LIST:
             return ListCommand.HELP_MESSAGE;
+        case VIEW:
+            return ViewCommand.HELP_MESSAGE;
         case DELETE:
             return DeleteCommand.HELP_MESSAGE;
         case TAKE:
