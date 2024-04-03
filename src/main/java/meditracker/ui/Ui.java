@@ -24,12 +24,6 @@ public class Ui {
     private Ui() {}
 
     /**
-     * Shows the line separator
-     * also ensures compatibility across systems
-     */
-    public static String separator = System.lineSeparator();
-
-    /**
      * Displays the welcome message and introduction name.
      */
     public static void showWelcomeMessage() {
@@ -137,15 +131,15 @@ public class Ui {
      * @param medication Contains a medication in the medication list
      */
     public static void printSpecificMed(Medication medication) {
-        System.out.printf("Name: %s" + separator +
-                        "Quantity: %.1f" + separator +
-                        "Expiry Date: %s" + separator +
-                        "Remarks: %s" + separator +
-                        "Morning Dosage: %.1f" + separator +
-                        "Afternoon Dosage: %.1f" + separator +
-                        "Evening Dosage: %.1f" + separator +
-                        "Repeat: %d" + separator +
-                        "Day Added: %d"+ separator,
+        System.out.printf("Name: %s" + System.lineSeparator() +
+                        "Quantity: %.1f" + System.lineSeparator() +
+                        "Expiry Date: %s" + System.lineSeparator() +
+                        "Remarks: %s" + System.lineSeparator() +
+                        "Morning Dosage: %.1f" + System.lineSeparator() +
+                        "Afternoon Dosage: %.1f" + System.lineSeparator() +
+                        "Evening Dosage: %.1f" + System.lineSeparator() +
+                        "Repeat: %d" + System.lineSeparator() +
+                        "Day Added: %d" + System.lineSeparator(),
                 medication.getName(),
                 medication.getQuantity(),
                 medication.getExpiryDate(),
