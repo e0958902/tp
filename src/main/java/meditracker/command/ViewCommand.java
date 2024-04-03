@@ -34,7 +34,6 @@ public class ViewCommand extends Command {
      * Executes the view command.
      * This method parses the input index and get the medication in the medication list
      * it then prints the medication name with its fields from the medication list
-     *
      */
     @Override
     public void execute() {
