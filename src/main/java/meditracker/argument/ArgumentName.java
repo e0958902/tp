@@ -20,6 +20,9 @@ public enum ArgumentName {
     MORNING("morning"),
     AFTERNOON("afternoon"),
     EVENING("evening"),
+    ILLNESS("illness"),
+    SIDE_EFFECTS("sideEffects"),
+    ALL_FIELDS("allFields"),
     SAVE_FILE("saveFile"),
     LOAD_FILE("loadFile");
 

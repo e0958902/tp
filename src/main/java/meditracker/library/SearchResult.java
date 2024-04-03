@@ -11,14 +11,23 @@ public class SearchResult {
     /**
      * Constructs a SearchResult object with the specified medication details.
      *
-     * @param name        The name of the medication.
-     * @param illness     The illness(es) the medication is used to treat.
+     * @param name The name of the medication.
+     * @param illness The illness(es) the medication is used to treat.
      * @param sideEffects The possible side effects of the medication.
      */
     public SearchResult(String name, String illness, String sideEffects) {
         this.name = name;
         this.illness = illness;
         this.sideEffects = sideEffects;
+    }
+
+    /**
+     * Returns a string containing all the details of the medication.
+     *
+     * @return A string in the format "name | illness | sideEffects".
+     */
+    public String getAllMedicationDetails() {
+        return this.name + "|" + this.illness + "|" + this.sideEffects;
     }
 
     /**
@@ -49,9 +58,11 @@ public class SearchResult {
     }
 
     /**
-     * Returns a string representation of the SearchResult object.
+     * Overrides the toString method for the SearchResult class.
      *
-     * @return A string representation of the SearchResult object.
+     * @return A string representation of the SearchResult object,
+     *         including the name of the medication, the illness it treats,
+     *         and its possible side effects.
      */
     @Override
     public String toString() {
