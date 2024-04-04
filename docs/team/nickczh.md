@@ -13,13 +13,17 @@
 - Issue #74: More flags for Add command and Exception Handling
 
 ### Developer Guide Contributions
-- Add command
+- Add command specifications
 ### User Guide Contributions
 - Add command
   - Description
   - Command Format
   - Example
   - Output
+
+### Team-based tasks
+- Request permission for use of JSON-Java package in cs2113 forum
+[(Issue #16)](https://github.com/nus-cs2113-AY2324S2/forum/issues/16)
 
 ### PR Reviews
 #42, #61, #62, #64, #70, #73, #75, #127, #131, #132
