@@ -14,6 +14,7 @@
 
 ### Developer Guide Contributions
 - Add command specifications
+- Update Add Command with sequence diagrams (Issue #138)
 ### User Guide Contributions
 - Add command
   - Description
