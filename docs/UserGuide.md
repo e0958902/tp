@@ -255,10 +255,12 @@ To search for a medication in the library, you can type 'search', followed by th
 You have to include at least one of the following flags: `-n`, `-i`, `-s`, `-a` to specify the field you want to 
 search for.
 
-```
 Usage:
+```
     search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword) [-h]
+```
 Options:
+```
     -n name                 Name of medication
     -i illness              Illness that the medication is used for
     -s sideEffects          Side effects of the medication
@@ -274,7 +276,7 @@ Examples:
 Output:
 ```
 Here are the search results:
-1. Medication_A; Treats: Headache; Side Effects: Dizziness
+1. Medication_A; Treats: Headache; May cause: Dizziness
 2. Medication_B; Treats: Fever; Side Effects: Dizziness
 ```
 ## Help
