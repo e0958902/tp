@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+// @@author kyuichyi
 /**
  * Represents a command to search for medications from the local medication library based on a keyword.
  */
@@ -86,3 +87,4 @@ public class SearchCommand extends Command{
         }
     }
 }
+// @@author
