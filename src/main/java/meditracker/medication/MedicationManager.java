@@ -154,7 +154,6 @@ public class MedicationManager {
         Ui.printSpecificMed(medication);
     }
 
-    //@@author annoy-o-mus
     /**
      * Converts a String to a double.
      * Introduced to help populate the Medication object from the save file.
