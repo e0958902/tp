@@ -250,7 +250,7 @@ SUCCESS: Medicine has been deleted
 
 ## Search
 
-To search for a medication, you can type 'search', followed by the field you want to search for and the keyword 
+To search for a medication in the library, you can type 'search', followed by the field you want to search for and the keyword 
 `keyword`.
 You have to include at least one of the following flags: `-n`, `-i`, `-s`, `-a` to specify the field you want to 
 search for.
@@ -260,8 +260,8 @@ Usage:
     search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword) [-h]
 Options:
     -n name                 Name of medication
-    -i illness              Illness that medication is used for
-    -s sideEffects          Side effects of medication
+    -i illness              Illness that the medication is used for
+    -s sideEffects          Side effects of the medication
     -a allFields            Search all fields
     -h                      Prints this help message
 ```
@@ -269,7 +269,7 @@ Examples:
 - `search -n Medication_A`: Search for medication with the name `Medication_A`
 - `search -i Headache`: Search for medication that treats `Headache`
 - `search -s Dizziness`: Search for medication with side effect `Dizziness`
-- `search -a keyword`: Search for `keyword` in all fields (name, illness, side effect)
+- `search -a keyword`: Search for `keyword` in all fields in the library (name, illness, side effect)
 
 Output:
 ```
