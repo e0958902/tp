@@ -23,9 +23,18 @@ The add medication command extends from the Command parent class and implements 
 - assertionTest(MedicationManager, DailyMedicationManager) - Asserts that medicine has been added to both medication managers.
 - parseStringToValues(Arguments) - Parses string input for medicine quantity and dosage into double type.
 
-Given below is an example usage scenario and how the add command behaves at each step.
-- Step 1. To be added.
-- Step 2. To be added.
+Given below is an example usage scenario, along with the sequence diagram and how the add command behaves at each step:
+
+![AddCommand.png](images/AddCommand.png)
+- Step 1. User initiates the process.
+- Step 2. `AddCommand` constructs an instance using the constructor `AddCommand(String arguments)` which includes 
+parsing the arguments.
+- Step 3. `ArgumentList` parses the provided arguments.
+- Step 4. `AddCommand` calls `execute()` to add the medication.
+- Step 5. Inside `execute()`, AddCommand calls `createMedication()` to construct a `Medication` object.
+- Step 6. Adds the newly created `Medication` object to `MedicationManager`.
+- Step 7. Checks and updates daily medication records in `DailyMedicationManager`.
+- Step 8. `Ui` displays success or error messages to the user.
 
 ---
 
