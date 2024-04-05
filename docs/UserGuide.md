@@ -257,11 +257,11 @@ search for.
 
 ```
 Usage:
-    search ([-n name] [-i illness] [-s sideEffect] [-a allFields] keyword) [-h]
+    search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword) [-h]
 Options:
     -n name                 Name of medication
     -i illness              Illness that medication is used for
-    -s sideEffect           Side effects of medication
+    -s sideEffects          Side effects of medication
     -a allFields            Search all fields
     -h                      Prints this help message
 ```
