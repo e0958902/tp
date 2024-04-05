@@ -1,7 +1,7 @@
 @startuml
 actor User
-participant "<<class>>\n AddCommand" as AddCommand
-participant "<<class>>\n ArgumentList" as ArgumentList
+participant ":AddCommand" as AddCommand
+participant ":ArgumentList" as ArgumentList
 participant "<<class>>\n MedicationManager" as MedicationManager
 participant "<<class>>\n DailyMedicationManager" as DailyMedicationManager
 participant "<<class>>\n Ui" as Ui
@@ -34,4 +34,5 @@ activate Ui
 Ui --> AddCommand: return
 deactivate Ui
 deactivate AddCommand
+return User
 @enduml

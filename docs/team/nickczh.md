@@ -27,7 +27,7 @@
 [(Issue #16)](https://github.com/nus-cs2113-AY2324S2/forum/issues/16)
 
 ### PR Reviews
-#42, #61, #62, #64, #70, #73, #75, #127, #131, #132
+#42, #61, #62, #64, #70, #73, #75, #127, #131, #132, #142
 
 ### Miscellaneous
 #### Refactor:
