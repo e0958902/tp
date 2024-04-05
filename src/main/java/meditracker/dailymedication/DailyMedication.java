@@ -1,5 +1,6 @@
 package meditracker.dailymedication;
 
+// @@author T0nyLin
 /**
  * Stores name and the status of daily medication (taken or not)
  */
@@ -43,3 +44,4 @@ public class DailyMedication {
         return String.format("%s %s", takenIcon, name);
     }
 }
+// @@author
