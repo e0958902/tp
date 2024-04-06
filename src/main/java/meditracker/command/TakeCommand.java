@@ -15,7 +15,6 @@ import meditracker.exception.HelpInvokedException;
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.UnknownArgumentFoundException;
-import meditracker.time.MediTrackerTime;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
