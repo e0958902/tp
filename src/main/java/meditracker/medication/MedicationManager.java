@@ -103,6 +103,27 @@ public class MedicationManager {
         return medicationsFound;
     }
 
+    /**
+     * Gets the Medication object from the medications list.
+     * Uses the Medication name to retrieve medications from the list.
+     *
+     * @param name Name of the medication to find and retrieve
+     * @throws MedicationNotFoundException No Medication matching specified name found
+     */
+    public static void showMedicationsByName(String name) throws MedicationNotFoundException {
+        int medicationsFound = 0;
+        for (Medication medication : medications) {
+            if (medication.getName().contains(name)) {
+                medicationsFound++;
+                Ui.printSpecificMed(medication);
+                System.out.println();
+            }
+        }
+        if (medicationsFound == 0) {
+            throw new MedicationNotFoundException();
+        }
+    }
+
     public static List<Medication> getMedications() {
         return medications;
     }
