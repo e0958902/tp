@@ -2,6 +2,7 @@ package meditracker.time;
 
 import java.time.LocalTime;
 
+// @@author T0nyLin
 /**
  * Period enum to represent different time Periods and their corresponding TimeRange
  */
@@ -69,3 +70,4 @@ public enum Period {
         return UNKNOWN;
     }
 }
+// @@author
