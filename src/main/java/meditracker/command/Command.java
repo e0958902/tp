@@ -1,6 +1,8 @@
 package meditracker.command;
 
 import meditracker.argument.ArgumentName;
+import meditracker.time.MediTrackerTime;
+import meditracker.time.Period;
 
 import java.util.Map;
 
@@ -34,5 +36,22 @@ public abstract class Command {
         } catch (NumberFormatException e) {
             return 0;
         }
+    }
+
+    /**
+     * Gets the period of day based on what period flag was set
+     *
+     * @param parsedArguments A map of argument name as key and the corresponding value
+     * @return The period determined from the flag set
+     */
+    public static Period getPeriod(Map<ArgumentName, String> parsedArguments) {
+        boolean isMorning = parsedArguments.get(ArgumentName.MORNING) != null;
+        boolean isAfternoon = parsedArguments.get(ArgumentName.AFTERNOON) != null;
+        boolean isEvening = parsedArguments.get(ArgumentName.EVENING) != null;
+        Period period = Period.getPeriod(isMorning, isAfternoon, isEvening);
+        if (period == Period.NONE) {
+            period = Period.getPeriod(MediTrackerTime.getCurrentTime());
+        }
+        return period;
     }
 }

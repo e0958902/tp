@@ -57,14 +57,7 @@ public class UntakeCommand extends Command {
      */
     @Override
     public void execute() {
-        boolean isMorning = parsedArguments.get(ArgumentName.MORNING) != null;
-        boolean isAfternoon = parsedArguments.get(ArgumentName.AFTERNOON) != null;
-        boolean isEvening = parsedArguments.get(ArgumentName.EVENING) != null;
-        Period period = Period.getPeriod(isMorning, isAfternoon, isEvening);
-        if (period == Period.NONE) {
-            period = Period.getPeriod(MediTrackerTime.getCurrentTime());
-        }
-
+        Period period = Command.getPeriod(parsedArguments);
         if (period == Period.UNKNOWN) {
             Ui.showErrorMessage("Unable to determine time period. " +
                     "Please select 1 flag only or try again later.");
