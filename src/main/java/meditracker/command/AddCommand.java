@@ -27,6 +27,7 @@ import meditracker.argument.RemarksArgument;
 import java.time.LocalDate;
 import java.util.Map;
 
+// @@author nickczh
 /**
  * The AddCommand class represents a command to add a new medication.
  * It extends the Command class.
@@ -162,3 +163,4 @@ public class AddCommand extends Command {
     }
 
 }
+// @@author
