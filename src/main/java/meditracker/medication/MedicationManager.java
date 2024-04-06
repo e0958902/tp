@@ -124,6 +124,29 @@ public class MedicationManager {
         }
     }
 
+    /**
+     * Gets the Medication object from the medications list.
+     * Uses the Medication remarks to retrieve from the list.
+     *
+     * @param expiry of the medication to find and retrieve
+     */
+    public static int showMedicationsByExpiry(String expiry) {
+        /* Work in Progress..
+        Implementing comparator/collections to show
+        medication in sorted expiry date */
+
+        int medicationsFound = 0;
+        for (Medication medication : medications) {
+            if (medication.getExpiryDate().equals(expiry)) {
+                medicationsFound++;
+                Ui.printSpecificMed(medication);
+                System.out.println();
+            }
+        }
+
+        return medicationsFound;
+    }
+
     public static List<Medication> getMedications() {
         return medications;
     }
