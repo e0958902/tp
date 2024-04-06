@@ -85,40 +85,26 @@ public class DeleteCommand extends Command {
                 if (medication.getDosageMorning() == 0) {
                     continue;
                 }
-
-                try {
-                    DailyMedicationManager.removeDailyMedication(name, Period.MORNING);
-                } catch (MedicationNotFoundException e) {
-                    Ui.showWarningMessage("Possible corruption of data. " +
-                            "Unable to remove DailyMedication when using `delete`");
-                }
                 break;
             case AFTERNOON:
                 if (medication.getDosageAfternoon() == 0) {
                     continue;
-                }
-
-                try {
-                    DailyMedicationManager.removeDailyMedication(name, Period.AFTERNOON);
-                } catch (MedicationNotFoundException e) {
-                    Ui.showWarningMessage("Possible corruption of data. " +
-                            "Unable to remove DailyMedication when using `delete`");
                 }
                 break;
             case EVENING:
                 if (medication.getDosageEvening() == 0) {
                     continue;
                 }
-
-                try {
-                    DailyMedicationManager.removeDailyMedication(name, Period.EVENING);
-                } catch (MedicationNotFoundException e) {
-                    Ui.showWarningMessage("Possible corruption of data. " +
-                            "Unable to remove DailyMedication when using `delete`");
-                }
                 break;
             default:
-                break;
+                continue;
+            }
+
+            try {
+                DailyMedicationManager.removeDailyMedication(name, period);
+            } catch (MedicationNotFoundException e) {
+                Ui.showWarningMessage("Possible corruption of data. " +
+                        "Unable to remove DailyMedication when using `delete`");
             }
         }
     }
