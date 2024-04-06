@@ -147,6 +147,24 @@ public class MedicationManager {
         return medicationsFound;
     }
 
+    /**
+     * Gets the Medication object from the medications list.
+     * Uses the Medication remarks to retrieve medications from the list.
+     *
+     * @param remarks the remarks associated with the medication
+     */
+    public static int showMedicationsByRemarks(String remarks) {
+        int medicationsFound = 0;
+        for (Medication medication : medications) {
+            if (medication.getRemarks().contains(remarks)) {
+                medicationsFound++;
+                Ui.printSpecificMed(medication);
+                System.out.println();
+            }
+        }
+        return medicationsFound;
+    }
+    
     public static List<Medication> getMedications() {
         return medications;
     }
