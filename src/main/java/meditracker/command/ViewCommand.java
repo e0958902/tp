@@ -25,8 +25,13 @@ import java.util.Map;
  */
 public class ViewCommand extends Command {
     public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
-            new ListIndexArgument(false)
+            new ListIndexArgument(true),
+            new NameArgument(true),
+            new QuantityArgument(true),
+            new ExpirationDateArgument(true),
+            new RemarksArgument(true)
     );
+
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.VIEW, ARGUMENT_LIST);
     private final Map<ArgumentName, String> parsedArguments;
 
