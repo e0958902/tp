@@ -57,9 +57,6 @@ public class UntakeCommand extends Command {
      */
     @Override
     public void execute() {
-        String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
-        int listIndex = Integer.parseInt(listIndexString);
-
         boolean isMorning = parsedArguments.get(ArgumentName.MORNING) != null;
         boolean isAfternoon = parsedArguments.get(ArgumentName.AFTERNOON) != null;
         boolean isEvening = parsedArguments.get(ArgumentName.EVENING) != null;
@@ -74,6 +71,7 @@ public class UntakeCommand extends Command {
             return;
         }
 
+        int listIndex = Command.getListIndex(parsedArguments);
         try {
             DailyMedicationManager.untakeDailyMedication(listIndex, period);
         } catch (IndexOutOfBoundsException e) {
@@ -84,6 +82,7 @@ public class UntakeCommand extends Command {
                     "Unable to increase Medication quantity as object not found");
             return;
         }
+
         Ui.showSuccessMessage("Medicine has been untaken");
     }
 }

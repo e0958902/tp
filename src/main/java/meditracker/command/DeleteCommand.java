@@ -53,8 +53,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute() {
-        String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
-        int listIndex = Integer.parseInt(listIndexString);
+        int listIndex = Command.getListIndex(parsedArguments);
 
         Medication medication;
         try {
