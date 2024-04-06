@@ -85,6 +85,24 @@ public class MedicationManager {
         throw new MedicationNotFoundException();
     }
 
+    /**
+     * Gets the Medication object from the medications list.
+     * Uses the Medication name to retrieve from the list.
+     *
+     * @param quantity quantity of the medication to retrieve in double
+     */
+    public static int showMedicationsByQuantity(Double quantity) {
+        int medicationsFound = 0;
+        for (Medication medication : medications) {
+            if (medication.getQuantity().equals(quantity)) {
+                medicationsFound++;
+                Ui.printSpecificMed(medication);
+                System.out.println();
+            }
+        }
+        return medicationsFound;
+    }
+
     public static List<Medication> getMedications() {
         return medications;
     }
