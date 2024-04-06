@@ -37,5 +37,6 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
+SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> Thank you for using MediTracker. Hope to see you again!
