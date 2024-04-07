@@ -217,10 +217,7 @@ public class MedicationManager {
      */
     public static void printAllMedications() {
         assert medications != null;
-        System.out.println("You have " + MedicationManager.getTotalMedications()
-                + " medications listed below.");
-        System.out.println("Format: Name | Quantity | Expiry Date | Remarks");
-        Ui.printMedsList(medications);
+        Ui.printMedicationList(medications);
     }
 
     /**

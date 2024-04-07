@@ -5,6 +5,7 @@ import meditracker.command.CommandName;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.library.SearchResult;
 import meditracker.medication.Medication;
+import meditracker.medication.MedicationManager;
 
 import java.util.List;
 import java.util.Scanner;
@@ -118,6 +119,34 @@ public class Ui {
         for (T medication : medications) {
             int numbering = medications.indexOf(medication) + 1;
             System.out.println("\t" + numbering + ". " + medication);
+        }
+    }
+
+    /**
+     * Prints all the medications in the medication list.
+     *
+     * @param medications Contains the list of medications.
+     */
+    public static void printMedicationList(List<Medication> medications) {
+        int totalMedications = MedicationManager.getTotalMedications();
+        if (totalMedications > 0) {
+            String headerFormat = "   %-30s %-10s %-10s %-30s%n";
+            String name = "Name";
+            String quantity = "Quantity";
+            String expiryDate = "Expiry";
+            String remarks = "Remarks";
+            System.out.println("You have " + totalMedications + " medications listed below.");
+            System.out.printf(headerFormat, name, quantity, expiryDate, remarks);
+
+            for (Medication medication : medications) {
+                int numbering = medications.indexOf(medication) + 1;
+                String bodyFormat = "%-30.30s %-10.1f %-10s %-30s %n";
+                System.out.printf(numbering + ". " + bodyFormat,
+                        medication.getName(),
+                        medication.getQuantity(),
+                        medication.getExpiryDate(),
+                        medication.getRemarks());
+            }
         }
     }
 

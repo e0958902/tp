@@ -26,8 +26,8 @@ ____________________________________________________________
 meditracker> SUCCESS: Medicine has been taken
 ____________________________________________________________
 meditracker> You have 1 medications listed below.
-Format: Name | Quantity | Expiry Date | Remarks
-	1. Medication_A | 500.0 | 01/07/25 | cause_dizziness
+   Name                           Quantity   Expiry     Remarks                       
+1. Medication_A                   500.0      01/07/25   cause_dizziness                
 ____________________________________________________________
 meditracker> Name: Medication_A
 Quantity: 500.0
