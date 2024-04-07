@@ -99,6 +99,11 @@ public class Ui {
         System.out.println(message);
     }
 
+    public static void showInfoMessage(String message) {
+        System.out.print("INFO: ");
+        System.out.println(message);
+    }
+
     /**
      * Reads user input command.
      * @return The user input command as a String.

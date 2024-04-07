@@ -250,6 +250,12 @@ public class MedicationManager {
         double dosage = getMedicationDosage(medication, period);
         double oldQuantity = medication.getQuantity();
         double newQuantity = oldQuantity + dosage;
+
+        String message = String.format("Medication quantity increased: %.1f -> %.1f",
+                oldQuantity,
+                newQuantity);
+        Ui.showInfoMessage(message);
+
         medication.setQuantity(newQuantity);
         FileReaderWriter.saveMediTrackerData(null);
     }
@@ -272,6 +278,11 @@ public class MedicationManager {
         if (newQuantity < 0) {
             throw new InsufficientQuantityException(dosage, oldQuantity);
         }
+
+        String message = String.format("Medication quantity decreased: %.1f -> %.1f",
+                oldQuantity,
+                newQuantity);
+        Ui.showInfoMessage(message);
 
         medication.setQuantity(newQuantity);
         FileReaderWriter.saveMediTrackerData(null);
