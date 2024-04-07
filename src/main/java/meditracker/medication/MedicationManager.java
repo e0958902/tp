@@ -251,6 +251,7 @@ public class MedicationManager {
         double oldQuantity = medication.getQuantity();
         double newQuantity = oldQuantity + dosage;
         medication.setQuantity(newQuantity);
+        FileReaderWriter.saveMediTrackerData(null);
     }
 
     /**
@@ -273,5 +274,6 @@ public class MedicationManager {
         }
 
         medication.setQuantity(newQuantity);
+        FileReaderWriter.saveMediTrackerData(null);
     }
 }
