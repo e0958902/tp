@@ -60,7 +60,7 @@ public class TakeCommand extends Command {
         Period period = Command.getPeriod(parsedArguments);
         if (period == Period.UNKNOWN) {
             Ui.showErrorMessage("Unable to determine time period. " +
-                    "Please select 1 flag only or try again later.");
+                    "Please select only 1 of following flag: -m/-a/-e");
             return;
         }
 
@@ -74,8 +74,8 @@ public class TakeCommand extends Command {
             Ui.showErrorMessage(e);
             return;
         } catch (MedicationNotFoundException e) {
-            Ui.showWarningMessage("Possible corruption of data. " +
-                    "Unable to increase Medication quantity as object not found");
+            Ui.showWarningMessage("Possible data corruption: " +
+                    "Unable to decrease quantity as Medication not found");
             return;
         }
 
