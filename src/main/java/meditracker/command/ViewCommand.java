@@ -64,8 +64,8 @@ public class ViewCommand extends Command {
             executeFlag();
 
         } catch (IndexOutOfBoundsException e) {
-            String errorContext = String.format("Invalid medication index specified. %s. " +
-                            "Medicine can not be found", e.getMessage());
+            String errorContext = "Invalid medication index specified. " +
+                            "Medicine can not be found";
             Ui.showErrorMessage(errorContext);
             return;
         } catch (NullPointerException e) {
