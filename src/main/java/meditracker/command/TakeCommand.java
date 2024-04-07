@@ -74,8 +74,7 @@ public class TakeCommand extends Command {
             Ui.showErrorMessage(e);
             return;
         } catch (MedicationNotFoundException e) {
-            Ui.showWarningMessage("Possible data corruption: " +
-                    "Unable to decrease quantity as Medication not found");
+            Ui.showWarningMessage("Possible data corruption: Medication not found");
             return;
         }
 

@@ -70,8 +70,7 @@ public class UntakeCommand extends Command {
             Ui.showErrorMessage("Invalid index specified");
             return;
         } catch (MedicationNotFoundException e) {
-            Ui.showWarningMessage("Possible data corruption: " +
-                    "Unable to increase quantity as Medication not found");
+            Ui.showWarningMessage("Possible data corruption: Medication not found");
             return;
         }
 
