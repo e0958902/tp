@@ -15,7 +15,6 @@ import meditracker.exception.HelpInvokedException;
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.UnknownArgumentFoundException;
-import meditracker.time.MediTrackerTime;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
@@ -55,27 +54,17 @@ public class TakeCommand extends Command {
      * Executes the take command.
      * This method marks an existing Medication object using the provided list index.
      * It also displays a message confirming the modification of the daily medication status.
-     *
      */
     @Override
     public void execute() {
-        String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
-        int listIndex = Integer.parseInt(listIndexString);
-
-        boolean isMorning = parsedArguments.get(ArgumentName.MORNING) != null;
-        boolean isAfternoon = parsedArguments.get(ArgumentName.AFTERNOON) != null;
-        boolean isEvening = parsedArguments.get(ArgumentName.EVENING) != null;
-        Period period = Period.getPeriod(isMorning, isAfternoon, isEvening);
-        if (period == Period.NONE) {
-            period = Period.getPeriod(MediTrackerTime.getCurrentTime());
-        }
-
+        Period period = Command.getPeriod(parsedArguments);
         if (period == Period.UNKNOWN) {
             Ui.showErrorMessage("Unable to determine time period. " +
-                    "Please select 1 flag only or try again later.");
+                    "Please select only 1 of following flag: -m/-a/-e");
             return;
         }
 
+        int listIndex = Command.getListIndex(parsedArguments);
         try {
             DailyMedicationManager.takeDailyMedication(listIndex, period);
         } catch (IndexOutOfBoundsException e) {
@@ -85,10 +74,10 @@ public class TakeCommand extends Command {
             Ui.showErrorMessage(e);
             return;
         } catch (MedicationNotFoundException e) {
-            Ui.showWarningMessage("Possible corruption of data. " +
-                    "Unable to increase Medication quantity as object not found");
+            Ui.showWarningMessage("Possible data corruption: Medication not found");
             return;
         }
+
         Ui.showSuccessMessage("Medicine has been taken");
     }
 }
