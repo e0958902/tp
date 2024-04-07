@@ -147,6 +147,7 @@ public class Ui {
                         medication.getExpiryDate(),
                         medication.getRemarks());
             }
+            System.out.println("Your list of medications has been successfully shown!");
         }
     }
 
