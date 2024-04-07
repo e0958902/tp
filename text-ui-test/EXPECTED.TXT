@@ -28,6 +28,7 @@ ____________________________________________________________
 meditracker> You have 1 medications listed below.
    Name                           Quantity   Expiry     Remarks                       
 1. Medication_A                   500.0      01/07/25   cause_dizziness                
+Your list of medications has been successfully shown!
 ____________________________________________________________
 meditracker> Name: Medication_A
 Quantity: 500.0
@@ -38,5 +39,9 @@ Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
 SUCCESS: Medication details has been retrieved
+____________________________________________________________
+meditracker> SUCCESS: Medicine has been added
+____________________________________________________________
+meditracker> SUCCESS: Medicine has been added
 ____________________________________________________________
 meditracker> Thank you for using MediTracker. Hope to see you again!

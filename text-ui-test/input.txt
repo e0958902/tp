@@ -7,4 +7,6 @@ add -n Medication_A -q 1000 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 
 take -l 1 -m
 list -t all
 view -l 1
+add -n Dexamethasone -q 20 -e 31/01/25 -r aggression, weight gain, nausea -rep 1
+add -n Dextromethorphan -q 30 -e 31/02/26 -r restlessness, nausea -rep 1
 exit
