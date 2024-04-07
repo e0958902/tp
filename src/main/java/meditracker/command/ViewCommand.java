@@ -58,32 +58,31 @@ public class ViewCommand extends Command {
      */
     @Override
     public void execute() {
-        //System.out.println("parsedArguments: " + parsedArguments);
-        //view -l 1 -n 123 -q 20 -e 01/07/25 -r cause_dizziness
         try {
             executeFlag();
+            Ui.showSuccessMessage("Medication details has been retrieved");
 
         } catch (IndexOutOfBoundsException e) {
-            String errorContext = "Invalid medication index specified. " +
-                            "Medicine can not be found";
-            Ui.showErrorMessage(errorContext);
-            return;
-        } catch (NullPointerException e) {
-            String errorContext = String.format("You have to input an index number. %s. " +
-                             "Medicine can not be found", e.getMessage());
-            Ui.showErrorMessage(errorContext);
-            return;
-        } catch (NumberFormatException e) {
-            String errorContext = String.format("Unable to interpret the index correctly. %s. " +
+            String errorContext = String.format("Invalid medication index specified. %s. " +
                             "Medicine can not be found", e.getMessage());
             Ui.showErrorMessage(errorContext);
-            return;
-        } catch (MedicationNotFoundException e) {
-            String errorContext = String.format("Medicine can not be found. %s. ", e.getMessage());
+
+        } catch (NullPointerException e) {
+            String errorContext = String.format("You have to input a number. %s. " +
+                             "Medicine can not be found", e.getMessage());
             Ui.showErrorMessage(errorContext);
-            return;
+
+        } catch (NumberFormatException e) {
+            String errorContext = String.format("Please enter a number. %s. " +
+                            "Medicine can not be found", e.getMessage());
+            Ui.showErrorMessage(errorContext);
+
+        } catch (MedicationNotFoundException e) {
+            String errorContext = String.format("Medicine can not be found. %s. ",
+                    e.getMessage());
+            Ui.showErrorMessage(errorContext);
+
         }
-        Ui.showSuccessMessage("Medication details has been retrieved");
     }
 
     private void executeFlag() throws MedicationNotFoundException {
@@ -98,25 +97,15 @@ public class ViewCommand extends Command {
 
         } else if (parsedArguments.containsKey(ArgumentName.QUANTITY)) {
             Double medicationQuantity = Double.parseDouble(parsedArguments.get(ArgumentName.QUANTITY));
-            int medicationsFound = MedicationManager.showMedicationsByQuantity(medicationQuantity);
-
-            if (medicationsFound == 0) {
-                throw new MedicationNotFoundException();
-            }
+            MedicationManager.showMedicationsByQuantity(medicationQuantity);
 
         } else if (parsedArguments.containsKey(ArgumentName.EXPIRATION_DATE)) {
             String medicationExpiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
-            int medicationsFound = MedicationManager.showMedicationsByExpiry(medicationExpiryDate);
-
-            if (medicationsFound == 0) {
-                throw new MedicationNotFoundException();
-            }
+            MedicationManager.showMedicationsByExpiry(medicationExpiryDate);
 
         } else if (parsedArguments.containsKey(ArgumentName.REMARKS)) {
             String medicationRemarks = parsedArguments.get(ArgumentName.REMARKS);
             MedicationManager.showMedicationsByRemarks(medicationRemarks);
         }
-
     }
-
 }
