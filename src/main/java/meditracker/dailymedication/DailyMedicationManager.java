@@ -2,6 +2,7 @@ package meditracker.dailymedication;
 
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MedicationNotFoundException;
+import meditracker.exception.MedicationUnchangedException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.storage.FileReaderWriter;
@@ -264,13 +265,16 @@ public class DailyMedicationManager {
      * @throws IndexOutOfBoundsException If listIndex is outside of range of DailyMedication list
      * @throws InsufficientQuantityException Existing quantity insufficient for operation
      * @throws MedicationNotFoundException Medication object not found, unable to decrease quantity
+     * @throws MedicationUnchangedException Medication object no state change, already taken
      * @see DailyMedication#take()
      */
     public static void takeDailyMedication(int listIndex, Period period)
-            throws IndexOutOfBoundsException, InsufficientQuantityException, MedicationNotFoundException {
+            throws IndexOutOfBoundsException, InsufficientQuantityException, MedicationNotFoundException,
+            MedicationUnchangedException {
         DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, period);
         if (dailyMedication.isTaken()) {
-            return; // Already taken, do not need to run additional code
+            // Already taken, do not need to run additional code
+            throw new MedicationUnchangedException();
         }
 
         MedicationManager.decreaseMedicationQuantity(dailyMedication.getName(), period);
@@ -286,13 +290,15 @@ public class DailyMedicationManager {
      * @param period Time period of day (Morning, afternoon or evening)
      * @throws IndexOutOfBoundsException If listIndex is outside of range of DailyMedication list
      * @throws MedicationNotFoundException Medication object not found, unable to increase quantity
+     * @throws MedicationUnchangedException Medication object no state change, already untaken
      * @see DailyMedication#untake()
      */
     public static void untakeDailyMedication(int listIndex, Period period)
-            throws IndexOutOfBoundsException, MedicationNotFoundException {
+            throws IndexOutOfBoundsException, MedicationNotFoundException, MedicationUnchangedException {
         DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(listIndex, period);
         if (!dailyMedication.isTaken()) {
-            return; // Already untaken, do not need to run additional code
+            // Already untaken, do not need to run additional code
+            throw new MedicationUnchangedException();
         }
 
         MedicationManager.increaseMedicationQuantity(dailyMedication.getName(), period);
