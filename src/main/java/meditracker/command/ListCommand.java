@@ -60,6 +60,7 @@ public class ListCommand extends Command {
         boolean isEvening = parsedArguments.get(ArgumentName.EVENING) != null;
         Period period = Period.getPeriod(isMorning, isAfternoon, isEvening);
 
+        // checks if user added extra flags or words after "list -t all"
         if (listTypeString.equals("all") && parsedArguments.size() > 1) {
             Ui.showErrorMessage(String.format("List type -> \"%s\" not compatible with " +
                     "\"list -t all\" command.", period));
@@ -71,6 +72,7 @@ public class ListCommand extends Command {
             case "today":
                 switch (period) {
                 case MORNING:
+                    // checks if user added extra flags or words after -m
                     if (parsedArguments.get(ArgumentName.MORNING).isBlank()) {
                         List<DailyMedication> morningMedications
                                 = DailyMedicationManager.getDailyMedications(Period.MORNING);
@@ -82,6 +84,7 @@ public class ListCommand extends Command {
                     }
                     break;
                 case AFTERNOON:
+                    // checks if user added extra flags or words after -a
                     if(parsedArguments.get(ArgumentName.AFTERNOON).isBlank()) {
                         List<DailyMedication> afternoonMedications
                                 = DailyMedicationManager.getDailyMedications(Period.AFTERNOON);
@@ -93,6 +96,7 @@ public class ListCommand extends Command {
                     }
                     break;
                 case EVENING:
+                    // checks if user added extra flags or words after -e
                     if (parsedArguments.get(ArgumentName.EVENING).isBlank()) {
                         List<DailyMedication> eveningMedications
                                 = DailyMedicationManager.getDailyMedications(Period.EVENING);
