@@ -36,7 +36,7 @@ public class ViewCommand extends Command {
     private final Map<ArgumentName, String> parsedArguments;
 
     /**
-     * Constructs a FindCommand object with the specified arguments.
+     * Constructs a ViewCommand object with the specified arguments.
      *
      * @param arguments The arguments containing information to be parsed.
      * @throws ArgumentNotFoundException Argument flag specified not found
