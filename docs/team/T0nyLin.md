@@ -8,7 +8,7 @@ The following contains my contribution summary and pull request reviews.
 - Issue #34: Query `DailyMedication` list
 - Issue #50: Parse each row read from file int `DailyMedicationManager`
 - Issue #52: Bridging `DailyMedicationManager` and `MedicationManager`
-- Issue #69: Store `DailyMedication` list into testfile
+- Issue #69: Store `DailyMedication` list into textfile
 - Issue #79: Create private Ui constructor
 - Issue #81: Modify `DailyMedicationManager` to static
 - Issue #105: Fix bug to separate dailyMedication Object for items in each sub list
