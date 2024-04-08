@@ -1,0 +1,38 @@
+@startuml
+actor User
+participant ":AddCommand" as AddCommand
+participant ":ArgumentList" as ArgumentList
+participant "<<class>>\n MedicationManager" as MedicationManager
+participant "<<class>>\n DailyMedicationManager" as DailyMedicationManager
+participant "<<class>>\n Ui" as Ui
+
+User -> AddCommand: new AddCommand(arguments)
+activate AddCommand
+AddCommand -> ArgumentList: parse(arguments)
+activate ArgumentList
+ArgumentList --> AddCommand: return parsedArguments
+deactivate ArgumentList
+
+AddCommand -> AddCommand: execute()
+activate AddCommand #FFBBBB
+
+AddCommand -> AddCommand: createMedication()
+activate AddCommand #FFCCCC
+AddCommand -> MedicationManager: addMedication(medication)
+activate MedicationManager
+MedicationManager --> AddCommand: return
+deactivate MedicationManager
+
+AddCommand -> DailyMedicationManager: checkForDaily(medication)
+activate DailyMedicationManager
+DailyMedicationManager --> AddCommand: return
+deactivate DailyMedicationManager
+deactivate AddCommand
+
+AddCommand -> Ui: showSuccessMessage("Medicine has been added")
+activate Ui
+Ui --> AddCommand: return
+deactivate Ui
+deactivate AddCommand
+return User
+@enduml

@@ -7,6 +7,7 @@ import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.UnknownArgumentFoundException;
 
+// @@author nickczh
 /**
  * The Parser class parses user input commands into Command objects.
  */
@@ -78,3 +79,4 @@ public class CommandParser {
         return commandName;
     }
 }
+// @@author

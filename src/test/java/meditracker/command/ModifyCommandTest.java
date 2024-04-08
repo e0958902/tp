@@ -10,10 +10,13 @@ import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
+import meditracker.ui.Ui;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +25,7 @@ public class ModifyCommandTest {
 
     @BeforeEach
     @AfterEach
-    public void resetManagers() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    void resetManagers() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         DailyMedicationManagerTest.resetDailyMedicationManager();
         MedicationManagerTest.resetMedicationManager();
     }
@@ -45,7 +48,7 @@ public class ModifyCommandTest {
         DailyMedicationManager.checkForDaily(medication);
 
         String newName = "Medication_B";
-        String inputString = "modify -l 1 -n " + newName;
+        String inputString = "-l 1 -n " + newName;
         ModifyCommand command = new ModifyCommand(inputString);
         command.execute();
 
@@ -71,11 +74,42 @@ public class ModifyCommandTest {
         DailyMedicationManager.checkForDaily(medication);
 
         String newName = "Medication_B";
-        String inputString = String.format("modify -n %s -l 1", newName);
+        String inputString = String.format("-n %s -l 1", newName);
         ModifyCommand command = new ModifyCommand(inputString);
         command.execute();
 
         Medication updatedMedication = MedicationManager.getMedication(1);
         assertEquals(updatedMedication.getName(), newName);
+    }
+
+    @Test
+    void execute_erroneousListIndex_errorMessagePrinted()
+            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
+            HelpInvokedException, UnknownArgumentFoundException {
+        //Solution below adapted by https://stackoverflow.com/questions/58665761
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(output)); // set up capture stream
+
+        Ui.showErrorMessage("Invalid index specified");
+        String expectedOutput = output.toString();
+        output.reset();
+
+        new ModifyCommand("-l '").execute();
+        String actualOutput = output.toString();
+        output.reset();
+        assertEquals(expectedOutput, actualOutput);
+
+        new ModifyCommand("-l string").execute();
+        actualOutput = output.toString();
+        output.reset();
+        assertEquals(expectedOutput, actualOutput);
+
+        new ModifyCommand("-l 4 [-h]").execute();
+        actualOutput = output.toString();
+        output.reset();
+        assertEquals(expectedOutput, actualOutput);
+
+        System.setOut(originalOut); // restore stream
     }
 }

@@ -69,10 +69,8 @@ public class ModifyCommand extends Command {
      */
     @Override
     public void execute() {
-        String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
-        int listIndex = Integer.parseInt(listIndexString);
-
         Medication medication;
+        int listIndex = Command.getListIndex(parsedArguments);
         try {
             medication = MedicationManager.getMedication(listIndex);
         } catch (IndexOutOfBoundsException e) {
@@ -162,29 +160,26 @@ public class ModifyCommand extends Command {
     private static void updateDailyMedicationName(Medication medication, String oldName, String newName)
             throws MedicationNotFoundException {
         for (Period period : Period.values()) {
-            DailyMedication dailyMedication;
             switch (period) {
             case MORNING:
                 if (medication.getDosageMorning() == 0) {
                     continue;
                 }
-                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, Period.MORNING);
                 break;
             case AFTERNOON:
                 if (medication.getDosageAfternoon() == 0) {
                     continue;
                 }
-                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, Period.AFTERNOON);
                 break;
             case EVENING:
                 if (medication.getDosageEvening() == 0) {
                     continue;
                 }
-                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, Period.EVENING);
                 break;
             default:
                 continue;
             }
+            DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(oldName, period);
             dailyMedication.setName(newName);
         }
     }

@@ -1,5 +1,6 @@
 package meditracker.medication;
 
+// @@author nickczh
 /**
  * The Medication class represents a medication.
  * It stores information about the medication such as name, quantity, dosage, expiry date, intake frequency, remarks,
@@ -177,3 +178,4 @@ public class Medication {
         return newMedication;
     }
 }
+// @@author
