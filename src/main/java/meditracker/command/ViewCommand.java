@@ -59,8 +59,7 @@ public class ViewCommand extends Command {
     @Override
     public void execute() {
         try {
-            Boolean hasMultipleFlags = Command.hasMultipleFlags(parsedArguments, ARGUMENT_LIST);
-            if (hasMultipleFlags) {
+            if (parsedArguments.size() > 1) {
                 Ui.showErrorMessage("You can only have one flag!");
             } else {
                 executeFlag();
