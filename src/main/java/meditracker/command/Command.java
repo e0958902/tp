@@ -1,5 +1,7 @@
 package meditracker.command;
 
+import meditracker.argument.Argument;
+import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.time.MediTrackerTime;
 import meditracker.time.Period;
@@ -54,4 +56,25 @@ public abstract class Command {
         }
         return period;
     }
+
+    // @@author wenenhoe
+    /**
+     * Checks for multiple flags
+     *
+     * @param parsedArguments A map of argument name as key and the corresponding value
+     * @param argumentList ArgumentList that contains all the arguments needed for a Command
+     * @return True if there are multiple flags, else false
+     */
+    public static boolean hasMultipleFlags(Map<ArgumentName, String> parsedArguments, ArgumentList argumentList) {
+        int count = 0;
+        for (Argument argument : argumentList.getArguments()) {
+            ArgumentName argumentName = argument.getName();
+            boolean hasArgument = parsedArguments.containsKey(argumentName);
+            if (hasArgument) {
+                count++;
+            }
+        }
+        return count > 1;
+    }
+    // @@author
 }
