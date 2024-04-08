@@ -160,12 +160,16 @@ public class Ui {
             String name = med.getName();
             Double intakeDose;
             int index = getIndex(medsList, name);
-            if (period.equals("Morning:")) {
-                intakeDose = medsList.get(index).getDosageMorning();
-            } else if (period.equals("Afternoon:")) {
-                intakeDose = medsList.get(index).getDosageAfternoon();
-            } else {
-                intakeDose = medsList.get(index).getDosageEvening();
+            try {
+                if (period.equals("Morning:")) {
+                    intakeDose = medsList.get(index).getDosageMorning();
+                } else if (period.equals("Afternoon:")) {
+                    intakeDose = medsList.get(index).getDosageAfternoon();
+                } else {
+                    intakeDose = medsList.get(index).getDosageEvening();
+                }
+            } catch (IndexOutOfBoundsException e) {
+                return;
             }
             numbering++;
             System.out.println("\t" + numbering + ". " + med + " | " + intakeDose);
