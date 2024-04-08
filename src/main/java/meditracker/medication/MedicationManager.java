@@ -85,6 +85,100 @@ public class MedicationManager {
         throw new MedicationNotFoundException();
     }
 
+    /**
+     * Gets the Medication object from the medications list.
+     * Uses the Medication quantity to retrieve medications from the list.
+     * Shows all medications that is equal to or less than specified quantity,
+     *
+     * @param quantity Quantity of the medication to retrieve in double
+     * @throws MedicationNotFoundException No Medication matching specified name found
+     */
+    public static void showMedicationsByQuantity(Double quantity) throws MedicationNotFoundException {
+        int medicationsFound = 0;
+
+        for (Medication medication : medications) {
+            Double medicationListQuantity = medication.getQuantity();
+            if (Double.compare(medicationListQuantity, quantity) <= 0) {
+                medicationsFound++;
+                Ui.printSpecificMed(medication);
+            }
+        }
+        if (medicationsFound == 0) {
+            throw new MedicationNotFoundException();
+        }
+    }
+
+    /**
+     * Gets the Medication object from the medications list.
+     * Uses the Medication name to retrieve medications from the list.
+     * Shows all medications that contains the name.
+     *
+     * @param name Name of the medication to find and retrieve
+     * @throws MedicationNotFoundException No Medication matching specified name found
+     */
+    public static void showMedicationsByName(String name) throws MedicationNotFoundException {
+        int medicationsFound = 0;
+        String nametoSearch = name.toLowerCase();
+        for (Medication medication : medications) {
+            String medicationName = medication.getName().toLowerCase();
+            if (medicationName.contains(nametoSearch)) {
+                medicationsFound++;
+                Ui.printSpecificMed(medication);
+            }
+        }
+        if (medicationsFound == 0) {
+            throw new MedicationNotFoundException();
+        }
+    }
+
+    /**
+     * Gets the Medication object from the medications list.
+     * Uses the Medication expiry to retrieve medications from the list.
+     * Shows all medications that will expire by the year that the user has input.
+     *
+     * @param expiry Expiry of the medication to find and retrieve
+     * @throws MedicationNotFoundException No Medication matching specified name found
+     */
+    public static void showMedicationsByExpiry(String expiry) throws MedicationNotFoundException {
+        int medicationsFound = 0;
+
+        for (Medication medication : medications) {
+            String[] dateArr = medication.getExpiryDate().split("/", 3);
+            int medicationYear = Integer.parseInt(dateArr[2]);
+            int userYear = Integer.parseInt(expiry);
+
+            if (medicationYear <= userYear) {
+                medicationsFound++;
+                Ui.printSpecificMed(medication);
+            }
+        }
+        if (medicationsFound == 0) {
+            throw new MedicationNotFoundException();
+        }
+    }
+
+    /**
+     * Gets the Medication object from the medications list.
+     * Uses the Medication remarks to retrieve medications from the list.
+     *
+     * @param remarks Remarks of the medication to find and retrieve
+     * @throws MedicationNotFoundException No Medication matching specified name found
+     */
+    public static void showMedicationsByRemarks(String remarks) throws MedicationNotFoundException {
+        int medicationsFound = 0;
+        String remarkstoSearch = remarks.toLowerCase();
+        for (Medication medication : medications) {
+            String medicationRemarks = medication.getRemarks().toLowerCase();
+            if (medicationRemarks.contains(remarkstoSearch)) {
+                medicationsFound++;
+                Ui.printSpecificMed(medication);
+            }
+        }
+        if (medicationsFound == 0) {
+            throw new MedicationNotFoundException();
+        }
+    }
+
     public static List<Medication> getMedications() {
         return medications;
     }
@@ -137,18 +231,19 @@ public class MedicationManager {
      */
     public static void printAllMedications() {
         assert medications != null;
-        System.out.println("You have " + MedicationManager.getTotalMedications()
-                + " medications listed below.");
-        System.out.println("Format: Name | Quantity | Expiry Date | Remarks");
-        Ui.printMedsList(medications);
+        Ui.printMedicationList(medications);
     }
 
     /**
-     * Prints the specific medication specific according to the medication list index
+     * Prints the specific medication specific according to the medication list index.
      * 
      * @param listIndex The index of the medication in the Medication list
+     * @throws IndexOutOfBoundsException Out of range index specified
+     * @throws NullPointerException Trying to access non-existent object
+     * @throws NumberFormatException When a string is keyed in for the index
      */
-    public static void printSpecificMedication(int listIndex) {
+    public static void printSpecificMedication(int listIndex)
+            throws IndexOutOfBoundsException, NullPointerException, NumberFormatException  {
         assert medications != null;
         Medication medication = MedicationManager.getMedication(listIndex);
         Ui.printSpecificMed(medication);
