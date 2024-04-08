@@ -110,7 +110,7 @@ public class AddCommand extends Command {
 
         int repeat;
         try {
-            repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
+            repeat = getRepeat();
             parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
                     medicationDosageAfternoonArg, medicationDosageEveningArg);
             LocalDate currentDate = MediTrackerTime.getCurrentDate();
@@ -124,6 +124,15 @@ public class AddCommand extends Command {
         } catch (NullPointerException e) {
             throw new MediTrackerException("Medication not found");
         }
+    }
+
+    private int getRepeat() throws MediTrackerException {
+        int repeat;
+        repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
+        if (repeat < 1 || repeat > 7) {
+            throw new MediTrackerException("Provide a \"-rep\" number from 1 to 7");
+        }
+        return repeat;
     }
 
     /**
