@@ -156,6 +156,8 @@ public class Ui {
     public static void printMedsLists(List<Medication> medsList,
                                       List<DailyMedication> dailyMedications, String period) {
         int numbering = 0;
+        assert medsList != null;
+        assert dailyMedications != null;
         for (DailyMedication med: dailyMedications) {
             String name = med.getName();
             Double intakeDose;

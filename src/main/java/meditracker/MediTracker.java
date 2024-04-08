@@ -99,8 +99,7 @@ public class MediTracker {
         
         FileReaderWriter.loadMediTrackerData();
         List<String> dailyMedicationList = FileReaderWriter.loadDailyMedicationData();
-        assert dailyMedicationList != null;
-        if (dailyMedicationList.isEmpty()) {
+        if (dailyMedicationList == null) {
             new MediTracker().run();
         } else {
             new MediTracker(dailyMedicationList).run();
