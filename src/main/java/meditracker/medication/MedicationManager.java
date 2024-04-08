@@ -98,8 +98,7 @@ public class MedicationManager {
 
         for (Medication medication : medications) {
             Double medicationListQuantity = medication.getQuantity();
-            if (Double.compare(medicationListQuantity, quantity) < 0
-                    || Double.compare(medicationListQuantity, quantity) == 0) {
+            if (Double.compare(medicationListQuantity, quantity) <= 0) {
                 medicationsFound++;
                 Ui.printSpecificMed(medication);
             }
