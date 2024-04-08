@@ -51,7 +51,6 @@ public class ListCommand extends Command {
     /**
      * Executes the list command and performs its specific task, -t.
      * Uses a switch to do list all and list today
-     *
      */
     @Override
     public void execute() {

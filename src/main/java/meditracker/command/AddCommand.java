@@ -126,6 +126,12 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Checks if repeat is within range of 1 to 7
+     *
+     * @return Returns the repeat in Integer
+     * @throws MediTrackerException when the value is not within the specified range
+     */
     private int getRepeat() throws MediTrackerException {
         int repeat;
         repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
