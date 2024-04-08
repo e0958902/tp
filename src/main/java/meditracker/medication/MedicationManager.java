@@ -166,8 +166,10 @@ public class MedicationManager {
      */
     public static void showMedicationsByRemarks(String remarks) throws MedicationNotFoundException {
         int medicationsFound = 0;
+        String remarkstoSearch = remarks.toLowerCase();
         for (Medication medication : medications) {
-            if (medication.getRemarks().toLowerCase().contains(remarks)) {
+            String medicationRemarks = medication.getRemarks().toLowerCase();
+            if (medicationRemarks.contains(remarkstoSearch)) {
                 medicationsFound++;
                 Ui.printSpecificMed(medication);
             }
