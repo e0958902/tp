@@ -144,7 +144,14 @@ ____________________________________________________________
 [Back to top](#User-Guide)
 
 ## Viewing medications: `view`
-You can view further information about the medications you have added .
+You can view detailed information about the medications you have added.
+
+> Tip: You are only allowed to use one flag and argument.
+> 
+This output will be shown if you used more than one flag and argument.
+```
+ERROR: Duplicate "-r" argument found
+```
 
 ### View Medication by index:
 You can view all medication information by its index.
@@ -263,7 +270,7 @@ Format: `view -r MEDICINE_REMARKS`
 Example: `view -r dizziness`
 
 > Tip: Only the first flag and argument will be used to
-show all medications that contains the specified remarks.
+> show all medications that contains the specified remarks.
 
 Output:
 ```
