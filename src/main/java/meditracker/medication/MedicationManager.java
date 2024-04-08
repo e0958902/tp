@@ -176,7 +176,6 @@ public class MedicationManager {
         }
     }
 
-
     /**
      * Populates the MedicationManager from the save file.
      * If there are corrupt data, it may be substituted with placeholder values.
