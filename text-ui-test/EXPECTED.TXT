@@ -44,4 +44,64 @@ meditracker> SUCCESS: Medicine has been added
 ____________________________________________________________
 meditracker> SUCCESS: Medicine has been added
 ____________________________________________________________
+meditracker> ERROR: No value found for argument "-l"
+____________________________________________________________
+meditracker> Name: Dexamethasone
+Quantity: 20.0
+Expiry Date: 31/01/25
+Remarks: aggression, weight gain, nausea
+Morning Dosage: 0.0
+Afternoon Dosage: 0.0
+Evening Dosage: 0.0
+Repeat: 1
+SUCCESS: Medication details has been retrieved
+____________________________________________________________
+meditracker> Name: Dexamethasone
+Quantity: 20.0
+Expiry Date: 31/01/25
+Remarks: aggression, weight gain, nausea
+Morning Dosage: 0.0
+Afternoon Dosage: 0.0
+Evening Dosage: 0.0
+Repeat: 1
+Name: Dextromethorphan
+Quantity: 30.0
+Expiry Date: 31/02/26
+Remarks: restlessness, nausea
+Morning Dosage: 0.0
+Afternoon Dosage: 0.0
+Evening Dosage: 0.0
+Repeat: 1
+SUCCESS: Medication details has been retrieved
+____________________________________________________________
+meditracker> Name: Medication_A
+Quantity: 500.0
+Expiry Date: 01/07/25
+Remarks: cause_dizziness
+Morning Dosage: 500.0
+Afternoon Dosage: 250.0
+Evening Dosage: 0.0
+Repeat: 1
+Name: Dexamethasone
+Quantity: 20.0
+Expiry Date: 31/01/25
+Remarks: aggression, weight gain, nausea
+Morning Dosage: 0.0
+Afternoon Dosage: 0.0
+Evening Dosage: 0.0
+Repeat: 1
+SUCCESS: Medication details has been retrieved
+____________________________________________________________
+meditracker> Name: Medication_A
+Quantity: 500.0
+Expiry Date: 01/07/25
+Remarks: cause_dizziness
+Morning Dosage: 500.0
+Afternoon Dosage: 250.0
+Evening Dosage: 0.0
+Repeat: 1
+SUCCESS: Medication details has been retrieved
+____________________________________________________________
+meditracker> ERROR: You can only have one flag!
+____________________________________________________________
 meditracker> Thank you for using MediTracker. Hope to see you again!
