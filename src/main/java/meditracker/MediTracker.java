@@ -29,7 +29,6 @@ public class MediTracker {
      * dailyMedicationManager.
      */
     public MediTracker() {
-        FileReaderWriter.loadMediTrackerData();
         DailyMedicationManager.createDailyMedicationManager();
     }
 
@@ -39,7 +38,6 @@ public class MediTracker {
      * @param dailyMedicationList Daily medication
      */
     public MediTracker(List<String> dailyMedicationList) {
-        FileReaderWriter.loadMediTrackerData();
         DailyMedicationManager.importDailyMedicationManager(dailyMedicationList);
     }
 
@@ -98,7 +96,8 @@ public class MediTracker {
             return;
         }
         MediLogger.initialiseLogger();
-
+        
+        FileReaderWriter.loadMediTrackerData();
         List<String> dailyMedicationList = FileReaderWriter.loadDailyMedicationData();
         assert dailyMedicationList != null;
         if (dailyMedicationList.isEmpty()) {
