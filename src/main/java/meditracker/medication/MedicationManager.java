@@ -118,8 +118,10 @@ public class MedicationManager {
      */
     public static void showMedicationsByName(String name) throws MedicationNotFoundException {
         int medicationsFound = 0;
+        String nametoSearch = name.toLowerCase();
         for (Medication medication : medications) {
-            if (medication.getName().toLowerCase().contains(name)) {
+            String medicationName = medication.getName().toLowerCase();
+            if (medicationName.contains(nametoSearch)) {
                 medicationsFound++;
                 Ui.printSpecificMed(medication);
             }
