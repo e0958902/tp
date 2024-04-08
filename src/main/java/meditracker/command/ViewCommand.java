@@ -85,6 +85,11 @@ public class ViewCommand extends Command {
         }
     }
 
+    /**
+     * Executes the first flag in the user input.
+     *
+     * @throws MedicationNotFoundException When no medication can be found
+     */
     private void executeFlag() throws MedicationNotFoundException {
         if (parsedArguments.containsKey(ArgumentName.LIST_INDEX)) {
             String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
