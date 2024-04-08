@@ -59,8 +59,13 @@ public class ViewCommand extends Command {
     @Override
     public void execute() {
         try {
-            executeFlag();
-            Ui.showSuccessMessage("Medication details has been retrieved");
+            Boolean hasMultipleFlags = Command.hasMultipleFlags(parsedArguments, ARGUMENT_LIST);
+            if (hasMultipleFlags) {
+                Ui.showErrorMessage("You can only have one flag!");
+            } else {
+                executeFlag();
+                Ui.showSuccessMessage("Medication details has been retrieved");
+            }
 
         } catch (IndexOutOfBoundsException e) {
             String errorContext = String.format("Invalid medication index specified. %s. " +
@@ -92,8 +97,7 @@ public class ViewCommand extends Command {
      */
     private void executeFlag() throws MedicationNotFoundException {
         if (parsedArguments.containsKey(ArgumentName.LIST_INDEX)) {
-            String listIndexString = parsedArguments.get(ArgumentName.LIST_INDEX);
-            int listIndex = Integer.parseInt(listIndexString);
+            int listIndex = Command.getListIndex(parsedArguments);
             MedicationManager.printSpecificMedication(listIndex);
 
         } else if (parsedArguments.containsKey(ArgumentName.NAME)) {
