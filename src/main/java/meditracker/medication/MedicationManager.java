@@ -87,10 +87,10 @@ public class MedicationManager {
 
     /**
      * Gets the Medication object from the medications list.
-     * Uses the Medication name to retrieve from the list.
+     * Uses the Medication quantity to retrieve medications from the list.
      * Shows all medications that is equal to or less than specified quantity,
      *
-     * @param quantity quantity of the medication to retrieve in double
+     * @param quantity Quantity of the medication to retrieve in double
      * @throws MedicationNotFoundException No Medication matching specified name found
      */
     public static void showMedicationsByQuantity(Double quantity) throws MedicationNotFoundException {
@@ -132,10 +132,10 @@ public class MedicationManager {
 
     /**
      * Gets the Medication object from the medications list.
-     * Uses the Medication remarks to retrieve from the list.
-     * Shows all medications that will expire by user input year.
+     * Uses the Medication expiry to retrieve medications from the list.
+     * Shows all medications that will expire by the year that the user has input.
      *
-     * @param expiry of the medication to find and retrieve
+     * @param expiry Expiry of the medication to find and retrieve
      * @throws MedicationNotFoundException No Medication matching specified name found
      */
     public static void showMedicationsByExpiry(String expiry) throws MedicationNotFoundException {
@@ -160,7 +160,7 @@ public class MedicationManager {
      * Gets the Medication object from the medications list.
      * Uses the Medication remarks to retrieve medications from the list.
      *
-     * @param remarks the remarks associated with the medication
+     * @param remarks Remarks of the medication to find and retrieve
      * @throws MedicationNotFoundException No Medication matching specified name found
      */
     public static void showMedicationsByRemarks(String remarks) throws MedicationNotFoundException {
