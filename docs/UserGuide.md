@@ -174,6 +174,7 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ```
 
@@ -199,6 +200,7 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 50.0
 Repeat: 6
+
 SUCCESS: Medication details has been retrieved
 ```
 
@@ -224,6 +226,7 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 50.0
 Repeat: 6
+
 SUCCESS: Medication details has been retrieved
 ```
 
@@ -258,6 +261,7 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 50.0
 Repeat: 6
+
 SUCCESS: Medication details has been retrieved
 ```
 
@@ -283,6 +287,7 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ```
 
