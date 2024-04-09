@@ -14,10 +14,15 @@ data storage so that you can review your past medication intake.
 * [Quick Start](#quick-start)
 * [Features](#features)
   - [Add Medication](#adding-a-medication-add)`add`
-  - [List Medication](#list-medication)
+  - [List Medication](#listing-medications-list)
     - [Summary of all medications:](#all-medications)`list -t all`
     - [Summary of medications for the day](#daily-medications)`list -t today`
-    - [Get information of specific medication](#Get-information-of-specific-medication)`view -l`
+  - [View Medication](#view-medication-view)
+    - [View Medication by index:](#View-Medication-by-index)`view -l`
+    - [View Medication by name:](#View-Medication-by-name)`view -n`
+    - [View Medication by quantity:](#View-Medication-by-quantity)`view -q`
+    - [View Medication by expiry:](#View-Medication-by-expiry)`view -e`
+    - [View Medication by remarks:](#View-Medication-by-remarks)`view -r`
   - [Update medication information](#update)
     - [Record taking of medication](#record-taking-of-medication)`take/untake -l`
     - [Modify medication information](#modify-medication-information)`modify -l`
@@ -96,7 +101,7 @@ Output:
 ```
 SUCCESS: Medicine has been added
 ```
-## List Medication: `list`
+## Listing medications: `list`
 You can list down the medications that you have added, or even print out a list of medications that you will be taking 
 for the day.
 
@@ -108,27 +113,12 @@ Format: `list -t all`
 Output:
 ```
 You have 2 medications listed below.
-Format: Name | Quantity | Expiry Date | Remarks
-	1. Medication_A | 60.0 | 01/07/25 | cause_dizziness
-	2. Medication_B | 1000.0 | 01/09/25 | cause_headache
+   Name                           Quantity   Expiry     Remarks                       
+1. Medication_A                   5000.0     01/07/25   cause_dizziness  
+2. Medication_B                   1000.0     30/09/24
 Your list of medications has been successfully shown!
 ```
-
-
-### Get information of specific medication:
-Format: `view -l 1`<br>
-  This lists all relevant information regarding the specified medication.
-Output:
-```
-Name: Medication_A
-Quantity: 60.0
-Expiry Date: 01/07/25
-Remarks: cause_dizziness
-Morning Dosage: 500.0
-Afternoon Dosage: 250.0
-Evening Dosage: 0.0
-Repeat: 1
-```
+[Back to top](#User-Guide)
 
 ### Daily medications:
 Displays an overview of the list of medications that you will be taking for the day.
@@ -151,6 +141,152 @@ Afternoon:
 	1. [ ] Medication_A | 1.0
 ____________________________________________________________
 ```
+
+[Back to top](#User-Guide)
+
+## Viewing medications: `view`
+You can view detailed information about the medications you have added.
+
+> Tip: You are only allowed to use one flag and argument.
+> 
+This output will be shown if you used more than one flag and argument.
+```
+ERROR: Duplicate "-r" argument found
+```
+
+### View Medication by index:
+You can view all medication information by its index.
+
+Format: `view -l MEDICATION_INDEX`
+
+Example: `view -l 1`
+
+> Tip: Only the first flag and argument will be used to 
+> show a medication by the specified index.
+
+Output:
+```
+Name: Medication_A
+Quantity: 5000.0
+Expiry Date: 01/07/25
+Remarks: cause_dizziness
+Morning Dosage: 500.0
+Afternoon Dosage: 250.0
+Evening Dosage: 0.0
+Repeat: 1
+SUCCESS: Medication details has been retrieved
+```
+
+[Back to top](#User-Guide)
+
+### View Medication by name:
+You can view all medication information by its name.
+
+Format: `view -n MEDICATION_NAME`
+
+Example: `view -n medication_b`
+
+> Tip: Only the first flag and argument will be used to 
+> show medications by the specified name.
+
+Output:
+```
+Name: Medication_B
+Quantity: 1000.0
+Expiry Date: 30/09/24
+Remarks: 
+Morning Dosage: 500.0
+Afternoon Dosage: 250.0
+Evening Dosage: 50.0
+Repeat: 6
+SUCCESS: Medication details has been retrieved
+```
+
+[Back to top](#User-Guide)
+
+### View Medication by quantity:
+You can view all medication information by its quantity.
+
+Format: `view -q MEDICATION_QUANTITY`
+
+Example: `view -q 1000`
+
+> Tip: Only the first flag and argument will be used to 
+> show all medications that is less than or equal to the specified quantity.
+
+Output:
+```
+Name: Medication_B
+Quantity: 1000.0
+Expiry Date: 30/09/24
+Remarks: null
+Morning Dosage: 500.0
+Afternoon Dosage: 250.0
+Evening Dosage: 50.0
+Repeat: 6
+SUCCESS: Medication details has been retrieved
+```
+
+[Back to top](#User-Guide)
+
+### View Medication by expiry:
+You can view all medication information by its expiry year.
+
+Format: `view -e MEDICINE_EXPIRY_IN_YY`
+
+Example: `view -e 25`
+
+> Tip: Only the first flag and argument will be used to 
+> show all medications that is expiring by that specified year.
+
+Output:
+```
+Name: Medication_A
+Quantity: 5000.0
+Expiry Date: 01/07/25
+Remarks: cause_dizziness
+Morning Dosage: 500.0
+Afternoon Dosage: 250.0
+Evening Dosage: 0.0
+Repeat: 1
+
+Name: Medication_B
+Quantity: 1000.0
+Expiry Date: 30/09/24
+Remarks: null
+Morning Dosage: 500.0
+Afternoon Dosage: 250.0
+Evening Dosage: 50.0
+Repeat: 6
+SUCCESS: Medication details has been retrieved
+```
+
+[Back to top](#User-Guide)
+
+### View Medication by remarks:
+You can view all medication information by its remarks.
+
+Format: `view -r MEDICINE_REMARKS`
+
+Example: `view -r dizziness`
+
+> Tip: Only the first flag and argument will be used to
+> show all medications that contains the specified remarks.
+
+Output:
+```
+Name: Medication_A
+Quantity: 5000.0
+Expiry Date: 01/07/25
+Remarks: cause_dizziness
+Morning Dosage: 500.0
+Afternoon Dosage: 250.0
+Evening Dosage: 0.0
+Repeat: 1
+SUCCESS: Medication details has been retrieved
+```
+
+[Back to top](#User-Guide)
 
 ## Update
 
