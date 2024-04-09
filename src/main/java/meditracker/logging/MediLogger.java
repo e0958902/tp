@@ -19,7 +19,6 @@ public class MediLogger {
     public static Logger getMediLogger() {
         if (mediLogger == null) {
             initialiseLogger();
-            mediLogger.warning("Logger initialised from unintended function");
         }
         assert mediLogger != null;
         return mediLogger;
@@ -30,12 +29,7 @@ public class MediLogger {
      * The logger will send all the logging messages to the console.
      * Currently, no support to write to a dedicated log file.
      */
-    public static void initialiseLogger() {
-        if (mediLogger != null) {
-            mediLogger.warning("Logger " + MEDILOGGER_NAME + " has been initialised already");
-            return;
-        }
-
+     private static void initialiseLogger() {
         mediLogger = Logger.getLogger(MEDILOGGER_NAME);
         mediLogger.info("Logger initialised");
     }
