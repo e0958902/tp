@@ -160,22 +160,29 @@ public class Ui {
         assert dailyMedications != null;
         for (DailyMedication med: dailyMedications) {
             String name = med.getName();
-            Double intakeDose;
+            Double intakeDose = 0.0;
             int index = getIndex(medsList, name);
+            Medication medication;
             try {
-                if (period.equals("Morning:")) {
-                    intakeDose = medsList.get(index).getDosageMorning();
-                } else if (period.equals("Afternoon:")) {
-                    intakeDose = medsList.get(index).getDosageAfternoon();
-                } else {
-                    intakeDose = medsList.get(index).getDosageEvening();
-                }
+                medication = medsList.get(index);
             } catch (IndexOutOfBoundsException e) {
                 return;
+            }
+            switch (period) {
+            case "Morning:":
+                intakeDose = medication.getDosageMorning();
+                break;
+            case "Afternoon:":
+                intakeDose = medication.getDosageAfternoon();
+                break;
+            case "Evening:":
+                intakeDose = medication.getDosageEvening();
+                break;
             }
             numbering++;
             System.out.println("\t" + numbering + ". " + med + " | " + intakeDose);
         }
+        
     }
 
     /**
