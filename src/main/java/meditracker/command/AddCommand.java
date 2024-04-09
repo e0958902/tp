@@ -77,8 +77,9 @@ public class AddCommand extends Command {
 
     /**
      * Executes the add command.
-     * This method creates a new Medication object using the provided information and adds it to the medication list.
-     * It also displays a message confirming the addition of the medication.
+     * This method creates a new Medication object and adds it to the MedicationManager.
+     * It performs an assertion test which tests that the medication has been added and
+     * displays a message confirming the addition of the medication.
      */
     @Override
     public void execute() {
@@ -96,15 +97,21 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Sets the medication attributes based on parsed arguments.
+     * Creates a new Medication object based on parsed arguments.
+     * This method reads and validates medication-related information from the parsed arguments,
+     * such as name, expiry date, quantity, dosage for different times of the day, and remarks.
+     * It sanitizes the input, converts necessary string arguments to their respective types,
+     * and then instantiates a Medication object with these details.
      *
-     * @throws MediTrackerException if there is an error encountered.
+     * @return A new Medication object populated with the provided arguments.
+     * @throws MediTrackerException if any of the input values are invalid, such as non-alphabetic medication names,
+     *                              incorrect number formats, or if required arguments are missing.
      */
     private Medication createMedication() throws MediTrackerException {
+        // Extract medication details from parsed arguments
         String medicationName = parsedArguments.get(ArgumentName.NAME);
         String expiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
         String remarksArg = parsedArguments.get(ArgumentName.REMARKS);
-
         String medicationQuantityArg = parsedArguments.get(ArgumentName.QUANTITY);
         String medicationDosageMorningArg = parsedArguments.get(ArgumentName.DOSAGE_MORNING);
         String medicationDosageAfternoonArg = parsedArguments.get(ArgumentName.DOSAGE_AFTERNOON);
@@ -112,11 +119,16 @@ public class AddCommand extends Command {
         String repeatArg = parsedArguments.get(ArgumentName.REPEAT);
 
         try {
+            // Validate and parse input
+            sanitiseInput(medicationName);
             parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
                     medicationDosageAfternoonArg, medicationDosageEveningArg, repeatArg, remarksArg);
+
+            // Get the current date and the day of the year
             LocalDate currentDate = MediTrackerTime.getCurrentDate();
             int dayAdded = currentDate.getDayOfYear();
 
+            // Create and return a new Medication object
             return new Medication(medicationName, medicationQuantity,
                     medicationDosageMorning, medicationDosageAfternoon, medicationDosageEvening,
                     expiryDate, remarks, repeat, dayAdded);
@@ -131,10 +143,12 @@ public class AddCommand extends Command {
     /**
      * Parses string values to its corresponding value for medication attributes.
      *
-     * @param medicationQuantity      The quantity of the medication.
+     * @param medicationQuantity The quantity of the medication.
      * @param medicationDosageMorning The morning dosage of the medication.
      * @param medicationDosageAfternoon The afternoon dosage of the medication.
      * @param medicationDosageEvening The evening dosage of the medication.
+     * @param repeat The frequency in which the medication has to be taken.
+     * @param remarks The additional remarks regarding the medication.
      * @throws NumberFormatException if there is an error in parsing numeric values.
      * @throws NullPointerException  if any of the required arguments are null.
      */
@@ -158,6 +172,23 @@ public class AddCommand extends Command {
         }
         if (remarks != null) {
             this.remarks = remarks;
+        }
+    }
+
+    /**
+     * Sanitizes the input for medication name by checking if it contains only alphabetic characters.
+     *
+     * @param medicationName The name of the medication to be sanitized.
+     * @throws MediTrackerException if the medication name contains non-alphabetic characters.
+     */
+    private void sanitiseInput(String medicationName) throws MediTrackerException {
+
+        // Check if the medication name contains only alphabetic characters
+        boolean isAlphabetic = medicationName.matches("^[a-zA-Z]+$");
+
+        // If the name contains non-alphabetic characters, throw an exception
+        if (!isAlphabetic) {
+            throw new MediTrackerException("Please enter a proper medication name.");
         }
     }
 
