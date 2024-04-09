@@ -174,6 +174,7 @@ public class Ui {
                 medication.getDosageEvening(),
                 medication.getRepeat(),
                 medication.getDayAdded());
+        System.out.println();
     }
 
     /**
