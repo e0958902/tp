@@ -56,6 +56,8 @@ public class AddCommand extends Command {
     private double medicationDosageMorning = 0.0;
     private double medicationDosageAfternoon = 0.0;
     private double medicationDosageEvening = 0.0;
+    private int repeat;
+    private String remarks = "Nil";
 
     /**
      * Constructs an AddCommand object with the specified arguments.
@@ -101,24 +103,24 @@ public class AddCommand extends Command {
     private Medication createMedication() throws MediTrackerException {
         String medicationName = parsedArguments.get(ArgumentName.NAME);
         String expiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
-        String remarks = parsedArguments.get(ArgumentName.REMARKS);
+        String remarksArg = parsedArguments.get(ArgumentName.REMARKS);
 
         String medicationQuantityArg = parsedArguments.get(ArgumentName.QUANTITY);
         String medicationDosageMorningArg = parsedArguments.get(ArgumentName.DOSAGE_MORNING);
         String medicationDosageAfternoonArg = parsedArguments.get(ArgumentName.DOSAGE_AFTERNOON);
         String medicationDosageEveningArg = parsedArguments.get(ArgumentName.DOSAGE_EVENING);
+        String repeatArg = parsedArguments.get(ArgumentName.REPEAT);
 
-        int repeat;
         try {
-            repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
             parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
-                    medicationDosageAfternoonArg, medicationDosageEveningArg);
+                    medicationDosageAfternoonArg, medicationDosageEveningArg, repeatArg, remarksArg);
             LocalDate currentDate = MediTrackerTime.getCurrentDate();
             int dayAdded = currentDate.getDayOfYear();
 
             return new Medication(medicationName, medicationQuantity,
                     medicationDosageMorning, medicationDosageAfternoon, medicationDosageEvening,
                     expiryDate, remarks, repeat, dayAdded);
+
         } catch (NumberFormatException e) {
             throw new MediTrackerException("Incorrect Number format given");
         } catch (NullPointerException e) {
@@ -127,7 +129,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Parses string values to double for medication attributes.
+     * Parses string values to its corresponding value for medication attributes.
      *
      * @param medicationQuantity      The quantity of the medication.
      * @param medicationDosageMorning The morning dosage of the medication.
@@ -138,10 +140,12 @@ public class AddCommand extends Command {
      */
     private void parseStringToValues(String medicationQuantity,
                                      String medicationDosageMorning,
-                                     String medicationDosageAfternoon, String medicationDosageEvening)
+                                     String medicationDosageAfternoon, String medicationDosageEvening, String repeat,
+                                     String remarks)
             throws NumberFormatException, NullPointerException {
 
         this.medicationQuantity = Double.parseDouble(medicationQuantity);
+        this.repeat = Integer.parseInt(repeat);
 
         if (medicationDosageMorning != null) {
             this.medicationDosageMorning = Double.parseDouble(medicationDosageMorning);
@@ -151,6 +155,9 @@ public class AddCommand extends Command {
         }
         if (medicationDosageEvening != null) {
             this.medicationDosageEvening = Double.parseDouble(medicationDosageEvening);
+        }
+        if (remarks != null) {
+            this.remarks = remarks;
         }
     }
 

@@ -8,7 +8,6 @@ package meditracker.medication;
  */
 public class Medication {
 
-    // Medication attributes are intentionally declared String. To be modified later.
     private String name;
     private Double quantity;
     private Double dosageMorning;
