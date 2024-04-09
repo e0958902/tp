@@ -4,6 +4,8 @@ take -l 1 -m
 untake -l 1 -m
 delete -l 1
 add -n Medication_A -q 1000 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 1
+untake -l 1 -m
+take -l 1 -m
 take -l 1 -m
 list -t all
 view -l 1
