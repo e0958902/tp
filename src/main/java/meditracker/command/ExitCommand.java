@@ -11,7 +11,6 @@ public class ExitCommand extends Command {
     /**
      * Executes the exit command.
      * This method displays the exit message using the provided user interface.
-     *
      */
     @Override
     public void execute() {

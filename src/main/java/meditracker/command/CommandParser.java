@@ -48,6 +48,8 @@ public class CommandParser {
         switch (commandName) {
         case EXIT:
             return new ExitCommand();
+        case HELP:
+            return new HelpCommand();
         case ADD:
             return new AddCommand(arguments);
         case MODIFY:

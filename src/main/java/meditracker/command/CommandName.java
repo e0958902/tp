@@ -4,28 +4,31 @@ package meditracker.command;
  * The CommandName enum represents the names of commands supported by the application.
  */
 public enum CommandName {
-    UNKNOWN("unknown"),
-    EXIT("exit"),
-    ADD("add"),
-    VIEW("view"),
-    MODIFY("modify"),
-    LIST("list"),
-    DELETE("delete"),
-    SEARCH("search"),
-    TAKE("take"),
-    UNTAKE("untake"),
-    SAVE("save"),
-    LOAD("load");
+    UNKNOWN("unknown", ""),
+    EXIT("exit", "Exits MediTracker."),
+    HELP("help", "Lists all available commands and their description."),
+    ADD("add", "Adds a medication to the medication manager."),
+    VIEW("view", "Get information of a specific medication."),
+    MODIFY("modify", "Modify medication information."),
+    LIST("list", "Summary of medications for the day."),
+    DELETE("delete", "Delete medication information."),
+    SEARCH("search", "Access medicine database."),
+    TAKE("take", "Record taking of medication."),
+    UNTAKE("untake", "Record untaking of medication."),
+    SAVE("save", "Saves the JSON file to the specified path."),
+    LOAD("load", "Loads the JSON file from the specified path.");
 
     public final String value;
+    public final String description;
 
     /**
      * Constructs a CommandName enum with the specified string value.
      *
      * @param value The string value associated with the command name.
      */
-    CommandName(String value) {
+    CommandName(String value, String description) {
         this.value = value;
+        this.description = description;
     }
 
     /**
