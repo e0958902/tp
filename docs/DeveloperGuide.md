@@ -43,15 +43,38 @@ The list medication command extends from Command parent class and contains the f
 - execute(MedicationManager medicationManager) - Executes the list command and performs its specific task, -t.
 ```Where the task can be either 'list -t all' to list all medications or 'list -t today' to list medications for the day, which is divided into three categories -> Morning, Afternoon and Evening. ```
 
-The 'list -t' command requires the following:
-1. 'all' - to run printAllMedications() from the MedicationManager.
-2. 'today' - to run printMedications() from the DailyMedicationManager.
-3. 'today -m' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+**The 'list -t' command requires the following:**
+- 'all' - to run printAllMedications() from the MedicationManager.
+
+**The following commands print medications to be taken in a day:**
+
+1. 'today' - to run printMedications() from the DailyMedicationManager.
+2. 'today -m' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
    from the DailyMedicationManager
-4. 'today -a' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+3. 'today -a' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
    from the DailyMedicationManager
-5. 'today -e' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+4. 'today -e' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
    from the DailyMedicationManager
+
+* On first run, the programs reads into the MedicationManager and determines if a medication is to be added to today's list, based on the repeat value.
+* The repeat value ranges from `1 to 7` (number of days in a week)
+* This verifies if the user is taking that medication every day / every 2 days / every 3 days etc.
+* Then, based on the dosage flags (from `add` command),
+  * -dA [quantity] - will add the medication into the morningMedication list
+  * -dM [quantity] - will add the medication into the afternoonMedication list
+  * -dE [quantity] - will add the medication into the eveningMedication list
+* Additional checks in `ListCommand.execute()` prevent user from entering unnecessary flags or words **after** 
+`list -t all` and `list -t today (-m/-a/-e)`.
+
+### Utilising the Period and TimeRange
+* A day is divided into three `Periods`: Morning, afternoon and evening
+* `TimeRange` determines the time when a medication is to be taken
+  * Morning: from `Midnight` to `Noon`
+  * Afternoon: from `Noon` to `6pm`
+  * Evening: from `6pm` to `Midnight`
+* `timeRange.isWithinTimeRange` detects if the current time of the day falls into one of the 3 periods, 
+then automatically checks off the relevant medication in the DailyMedication list, without user specifying 
+`(-m/-a/-e)` **after** `take -l [index]`.
 
 ### Search Medication Command
 The search medication command extends from Command parent class and contains the following methods:

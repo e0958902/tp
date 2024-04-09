@@ -25,8 +25,8 @@ public enum Period {
     /**
      * Constructs Period with a start and end LocalTime
      *
-     * @param start
-     * @param end
+     * @param start time of the period
+     * @param end time of the period
      */
     Period(LocalTime start, LocalTime end) {
         timeRange = new TimeRange(start, end);
