@@ -38,6 +38,7 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> SUCCESS: Medicine has been added
@@ -54,6 +55,7 @@ Morning Dosage: 0.0
 Afternoon Dosage: 0.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> Name: Dexamethasone
@@ -64,6 +66,7 @@ Morning Dosage: 0.0
 Afternoon Dosage: 0.0
 Evening Dosage: 0.0
 Repeat: 1
+
 Name: Dextromethorphan
 Quantity: 30.0
 Expiry Date: 31/02/26
@@ -72,6 +75,7 @@ Morning Dosage: 0.0
 Afternoon Dosage: 0.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> Name: Medication_A
@@ -82,6 +86,7 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
+
 Name: Dexamethasone
 Quantity: 20.0
 Expiry Date: 31/01/25
@@ -90,6 +95,7 @@ Morning Dosage: 0.0
 Afternoon Dosage: 0.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> Name: Medication_A
@@ -100,6 +106,7 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> ERROR: You can only have one flag!
