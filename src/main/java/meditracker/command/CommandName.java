@@ -25,6 +25,7 @@ public enum CommandName {
      * Constructs a CommandName enum with the specified string value.
      *
      * @param value The string value associated with the command name.
+     * @param description The string description associated with the command.
      */
     CommandName(String value, String description) {
         this.value = value;
@@ -35,7 +36,7 @@ public enum CommandName {
      * Returns the CommandName enum based on the provided string label.
      *
      * @param label The string label representing a command name.
-     * @return The CommandName enum corresponding to the label, or null if not found.
+     * @return The CommandName enum corresponding to the label, or UNKNOWN if not found.
      */
     // @@author Baeldung
     // Reused from https://www.baeldung.com/java-enum-values
