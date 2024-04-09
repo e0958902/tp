@@ -74,6 +74,7 @@ public class ListCommand extends Command {
                         "\"list -t all\" command.", period));
                 return;
             }
+            MedicationManager.printAllMedications();
             break;
         case "today":
             switch (period) {

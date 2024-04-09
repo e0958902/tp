@@ -178,6 +178,8 @@ public class Ui {
             case "Evening:":
                 intakeDose = medication.getDosageEvening();
                 break;
+            default:
+                showErrorMessage("Medication not found.");
             }
             numbering++;
             System.out.println("\t" + numbering + ". " + med + " | " + intakeDose);
