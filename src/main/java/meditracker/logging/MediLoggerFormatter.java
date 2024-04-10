@@ -5,7 +5,7 @@ import java.util.logging.LogRecord;
 
 
 //@@author annoy-o-mus-reused
-// Reused from https://stackoverflow.com/a/53211725
+//Reused from https://stackoverflow.com/a/53211725
 // with minor modifications
 /**
  * A class to format the MediLogger.
