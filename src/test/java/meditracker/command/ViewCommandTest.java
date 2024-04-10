@@ -5,7 +5,6 @@ import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
@@ -64,7 +63,7 @@ public class ViewCommandTest {
     @Test
     void execute_viewCommandByName_expectMedicationShownByName()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MedicationNotFoundException {
+            HelpInvokedException, UnknownArgumentFoundException {
         String medicationName = "Medication_N";
         Medication medication = new Medication(
                 medicationName,
@@ -107,7 +106,7 @@ public class ViewCommandTest {
     @Test
     void execute_viewCommandByQuantity_expectMedicationShownByQuantity()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MedicationNotFoundException {
+            HelpInvokedException, UnknownArgumentFoundException {
         String medicationName = "Medication_Q";
         Double medicationQuantity = 1231.5;
         Medication medication = new Medication(
@@ -149,9 +148,9 @@ public class ViewCommandTest {
     }
 
     @Test
-    void execute_viewCommandByQuantity_expectMedicationShownByExpiry()
+    void execute_viewCommandByExpiry_expectMedicationShownByExpiry()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MedicationNotFoundException {
+            HelpInvokedException, UnknownArgumentFoundException {
         String medicationName = "Medication_E";
         Double medicationQuantity = 30.0;
         String medicationExpiryYear = "24";
@@ -198,7 +197,7 @@ public class ViewCommandTest {
     @Test
     void execute_viewCommandByRemarks_expectMedicationShownByRemarks()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MedicationNotFoundException {
+            HelpInvokedException, UnknownArgumentFoundException {
         String medicationNameOne = "Dexamethasone";
         String medicationRemarksOne = "aggression, weight gain, nausea";
         Medication medicationOne = new Medication(
@@ -258,7 +257,7 @@ public class ViewCommandTest {
     @Test
     void execute_viewCommandWithMultipleFlags_expectErrorMessage()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MedicationNotFoundException {
+            HelpInvokedException, UnknownArgumentFoundException {
         String medicationName = "Medication_F";
         Double medicationQuantity = 30.0;
         Medication medication = new Medication(
