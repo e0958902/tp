@@ -60,6 +60,7 @@ public class ViewCommandTest {
         assertEquals(expectedMedication.getName(), medicationName);
     }
 
+    // Solution below adapted by https://stackoverflow.com/questions/32241057/
     @Test
     void execute_viewCommandByName_expectMedicationShownByName()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
@@ -80,7 +81,6 @@ public class ViewCommandTest {
         assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
                 "than 0 after adding in" + medicationName;
 
-        // Solution below adapted from https://stackoverflow.com/questions/32241057/
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -98,7 +98,7 @@ public class ViewCommandTest {
         // Reset back to System.out
         System.setOut(oldOut);
 
-        /// Output contains the content from the stream
+        // Output contains the content from the stream
         String output = content.toString();
 
         assertTrue(output.contains("Name: " + medicationName));
@@ -124,8 +124,6 @@ public class ViewCommandTest {
 
         assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
                 "than 0 after adding in" + medicationName;
-
-        // Solution below adapted from https://stackoverflow.com/questions/32241057/
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -172,8 +170,6 @@ public class ViewCommandTest {
 
         assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
                 "than 0 after adding in" + medicationName;
-
-        // Solution below adapted from https://stackoverflow.com/questions/32241057/
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -232,8 +228,6 @@ public class ViewCommandTest {
 
         assert MedicationManager.getTotalMedications() > 1 : "Total medications in medication must be greater " +
                 "than 0 after adding in" + medicationNameOne + "and" + medicationNameTwo ;
-
-        // Solution below adapted from https://stackoverflow.com/questions/32241057/
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -281,8 +275,6 @@ public class ViewCommandTest {
 
         assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
                 "than 0 after adding in" + medicationName;
-
-        // Solution below adapted from https://stackoverflow.com/questions/32241057/
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -300,7 +292,7 @@ public class ViewCommandTest {
         // Reset back to System.out
         System.setOut(oldOut);
 
-        /// Output contains the content from the stream
+        // Output contains the content from the stream
         String output = content.toString();
 
         assertTrue(output.contains("ERROR: Medicine can not be found."));
