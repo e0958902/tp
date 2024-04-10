@@ -95,7 +95,7 @@ public class MediTracker {
             System.out.println(e.getMessage());
             return;
         }
-        MediLogger.initialiseLogger();
+        MediLogger.initialiseMediLogger();
         
         FileReaderWriter.loadMediTrackerData();
         List<String> dailyMedicationList = FileReaderWriter.loadDailyMedicationData();

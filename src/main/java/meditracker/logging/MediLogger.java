@@ -1,5 +1,8 @@
 package meditracker.logging;
 
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Formatter;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -18,8 +21,7 @@ public class MediLogger {
      */
     public static Logger getMediLogger() {
         if (mediLogger == null) {
-            initialiseLogger();
-            mediLogger.warning("Logger initialised from unintended function");
+            initialiseMediLogger();
         }
         assert mediLogger != null;
         return mediLogger;
@@ -30,13 +32,31 @@ public class MediLogger {
      * The logger will send all the logging messages to the console.
      * Currently, no support to write to a dedicated log file.
      */
-    public static void initialiseLogger() {
-        if (mediLogger != null) {
-            mediLogger.warning("Logger " + MEDILOGGER_NAME + " has been initialised already");
-            return;
+    public static void initialiseMediLogger() {
+        if (mediLogger == null) {
+            mediLogger = Logger.getLogger(MEDILOGGER_NAME);
+            configureMediLogger();
+            mediLogger.info("MediLogger initialised");
         }
+        assert mediLogger != null;
+    }
 
-        mediLogger = Logger.getLogger(MEDILOGGER_NAME);
-        mediLogger.info("Logger initialised");
+    /**
+     * Configures the default MediLogger to print in a certain way.
+     */
+    private static void configureMediLogger() {
+        //@@author annoy-o-mus-reused
+        // Reused from https://stackoverflow.com/a/53211725
+        // with minor modifications
+        mediLogger.setUseParentHandlers(false);
+
+        ConsoleHandler handler = new ConsoleHandler();
+        Formatter formatter = new MediLoggerFormatter();
+
+        handler.setFormatter(formatter);
+        mediLogger.addHandler(handler);
+
+        mediLogger.setLevel(Level.INFO);
+        //@@author
     }
 }
