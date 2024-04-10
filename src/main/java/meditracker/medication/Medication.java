@@ -150,11 +150,11 @@ public class Medication {
     public boolean hasDosage(Period period) {
         switch (period) {
         case MORNING:
-            return getDosageMorning() != 0;
+            return getDosageMorning() > 0.0;
         case AFTERNOON:
-            return getDosageAfternoon() != 0;
+            return getDosageAfternoon() > 0.0;
         case EVENING:
-            return getDosageEvening() != 0;
+            return getDosageEvening() > 0.0;
         default:
             return false;
         }
