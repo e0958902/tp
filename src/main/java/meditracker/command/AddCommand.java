@@ -87,6 +87,13 @@ public class AddCommand extends Command {
             Ui.showErrorMessage(e);
             return;
         }
+
+        if (medication.hasNoDosages()) {
+            Ui.showErrorMessage("Medication has no dosages. " +
+                    "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
+            return;
+        }
+
         MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
         assertionTest();
