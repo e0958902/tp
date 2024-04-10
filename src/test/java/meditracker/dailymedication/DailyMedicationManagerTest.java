@@ -7,6 +7,7 @@ import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MedicationNotFoundException;
+import meditracker.exception.MedicationUnchangedException;
 import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
@@ -91,7 +92,7 @@ public class DailyMedicationManagerTest {
 
     @Test
     public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken()
-            throws InsufficientQuantityException, MedicationNotFoundException {
+            throws InsufficientQuantityException, MedicationNotFoundException, MedicationUnchangedException {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;
@@ -148,7 +149,7 @@ public class DailyMedicationManagerTest {
 
     @Test
     public void untakeDailyMedication_genericDailyMedication_dailyMedicationNotTaken()
-            throws MedicationNotFoundException {
+            throws MedicationNotFoundException, MedicationUnchangedException {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;

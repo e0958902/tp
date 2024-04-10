@@ -16,7 +16,7 @@ public class RepeatArgument extends Argument {
                 "-rep",
                 "How often to take medication (eg: Supply a number from 1 to 7)",
                 isOptional,
-                false
+                true
         );
     }
 }

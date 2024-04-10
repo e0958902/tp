@@ -98,6 +98,30 @@ class ArgumentParser {
     // @@author
 
     /**
+     * Checks if argument is expecting a value and whether a value is specified
+     *
+     * @param argument Argument to verify its value is expected or not
+     * @param argValue User-provided input
+     * @throws ArgumentNoValueException When argument requires value but no value specified
+     * @throws UnknownArgumentFoundException When unknown argument value found in user input
+     */
+    private static void checkArgumentValue(Argument argument, String argValue)
+            throws ArgumentNoValueException, UnknownArgumentFoundException {
+        boolean hasValue = argument.hasValue();
+        boolean hasArgValue = !argValue.isEmpty();
+
+        if (hasValue && !hasArgValue) {
+            String errorContext = String.format("No value found for argument \"%s\"", argument.getFlag());
+            throw new ArgumentNoValueException(errorContext);
+        } else if (!hasValue && hasArgValue) {
+            String errorContext = String.format("Unexpected value found (\"%s\") for argument \"%s\"",
+                    argValue,
+                    argument.getFlag());
+            throw new UnknownArgumentFoundException(errorContext);
+        } // else (!hasValue && !hasArgValue) + (hasValue && hasArgValue)
+    }
+
+    /**
      * Obtains argument value using start and end index of the raw input list
      *
      * @param rawInputSplit List of raw input split by spaces
@@ -165,12 +189,12 @@ class ArgumentParser {
      * @param indexes A sorted map of arguments and their corresponding indexes
      * @param rawInputSplit List of raw input split by spaces
      * @throws ArgumentNoValueException When argument requires value but no value specified
+     * @throws UnknownArgumentFoundException When unknown argument value found in user input
      */
     private void getArgumentValues(SortedMap<Integer, Argument> indexes, List<String> rawInputSplit)
-            throws ArgumentNoValueException {
+            throws ArgumentNoValueException, UnknownArgumentFoundException {
         Argument argument = indexes.get(indexes.firstKey());
         ArgumentName argKey = argument.getName();
-        boolean hasValue = argument.hasValue();
         int startIndex = indexes.firstKey() + 1; // position after argument flag
         int endIndex;
 
@@ -183,24 +207,17 @@ class ArgumentParser {
 
             endIndex = index.getKey();
             String argValue = ArgumentParser.getArgumentValue(rawInputSplit, startIndex, endIndex);
-            if (hasValue && argValue.isEmpty()) {
-                String errorContext = String.format("No value found for argument \"%s\"", argument.getFlag());
-                throw new ArgumentNoValueException(errorContext);
-            }
+            checkArgumentValue(argument, argValue);
             parsedArguments.put(argKey, argValue);
 
             argument = index.getValue();
             argKey = argument.getName();
-            hasValue = argument.hasValue();
             startIndex = endIndex + 1; // position after argument flag
         }
 
         endIndex = rawInputSplit.size();
         String argValue = ArgumentParser.getArgumentValue(rawInputSplit, startIndex, endIndex);
-        if (hasValue && argValue.isEmpty()) {
-            String errorContext = String.format("No value found for argument \"%s\"", argument.getFlag());
-            throw new ArgumentNoValueException(errorContext);
-        }
+        checkArgumentValue(argument, argValue);
         parsedArguments.put(argKey, argValue);
     }
     // @@author

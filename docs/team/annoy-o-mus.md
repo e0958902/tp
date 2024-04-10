@@ -29,4 +29,5 @@
   - Restricted direct master branch merging
   - Disabled rebase and squash merging (thanks @wenenhoe)
 - Brought in the JSON package (https://github.com/stleary/JSON-java) (#26)
+- Brought in DG Comments from the main repo PR (#211)
 
