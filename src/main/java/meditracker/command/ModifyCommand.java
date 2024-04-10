@@ -160,25 +160,10 @@ public class ModifyCommand extends Command {
     private static void updateDailyMedicationName(Medication medication, String oldName, String newName)
             throws MedicationNotFoundException {
         for (Period period : Period.values()) {
-            switch (period) {
-            case MORNING:
-                if (medication.getDosageMorning() == 0) {
-                    continue;
-                }
-                break;
-            case AFTERNOON:
-                if (medication.getDosageAfternoon() == 0) {
-                    continue;
-                }
-                break;
-            case EVENING:
-                if (medication.getDosageEvening() == 0) {
-                    continue;
-                }
-                break;
-            default:
+            if (!medication.hasDosage(period)) {
                 continue;
             }
+
             DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(oldName, period);
             dailyMedication.setName(newName);
         }
