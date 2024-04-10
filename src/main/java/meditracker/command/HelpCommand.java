@@ -11,7 +11,7 @@ import meditracker.ui.Ui;
 public class HelpCommand extends Command {
 
     /**
-     * Executes the help command by displaying a list of available commands and descriptions.
+     * Executes the help command to display a list of available commands and descriptions.
      * It prints a header message followed by each command's name and description.
      */
     @Override
