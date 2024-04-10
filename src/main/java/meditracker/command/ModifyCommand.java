@@ -117,7 +117,8 @@ public class ModifyCommand extends Command {
                 medication.setExpiryDate(argumentValue);
                 break;
             case REPEAT:
-                medication.setRepeat(Integer.parseInt(argumentValue));
+                int repeat = Command.getRepeat(parsedArguments);
+                medication.setRepeat(repeat);
                 break;
             case LIST_INDEX:
                 continue;
