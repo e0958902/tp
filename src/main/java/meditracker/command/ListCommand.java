@@ -1,13 +1,13 @@
 package meditracker.command;
 
-import meditracker.argument.AfternoonArgument;
-import meditracker.argument.ArgumentHelper;
-import meditracker.argument.EveningArgument;
-import meditracker.argument.MorningArgument;
-import meditracker.dailymedication.DailyMedication;
-import meditracker.argument.ArgumentList;
-import meditracker.argument.ArgumentName;
 import meditracker.argument.ListTypeArgument;
+import meditracker.argument.MorningArgument;
+import meditracker.argument.AfternoonArgument;
+import meditracker.argument.EveningArgument;
+import meditracker.argument.ArgumentList;
+import meditracker.argument.ArgumentHelper;
+import meditracker.argument.ArgumentName;
+import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.UnknownArgumentFoundException;
@@ -57,7 +57,6 @@ public class ListCommand extends Command {
     /**
      * Executes the list command and performs its specific task, -t.
      * Uses a switch to do list all and list today
-     *
      */
     @Override
     public void execute() {
@@ -66,34 +65,63 @@ public class ListCommand extends Command {
         boolean isAfternoon = parsedArguments.get(ArgumentName.AFTERNOON) != null;
         boolean isEvening = parsedArguments.get(ArgumentName.EVENING) != null;
         Period period = Period.getPeriod(isMorning, isAfternoon, isEvening);
-        
+
+        // checks if user added extra flags or words after "list -t all"
         switch (listTypeString) {
         case "all":
+            if (parsedArguments.size() > 1) {
+                Ui.showErrorMessage(String.format("List type -> \"%s\" not compatible with " +
+                        "\"list -t all\" command.", period));
+                return;
+            }
             MedicationManager.printAllMedications();
             break;
         case "today":
             switch (period) {
             case MORNING:
-                List<DailyMedication> morningMedications = DailyMedicationManager.getDailyMedications(Period.MORNING);
-                DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
-                        morningMedications, "Morning:");
+                // checks if user added extra flags or words after -m
+                if (parsedArguments.get(ArgumentName.MORNING).isBlank()) {
+                    List<DailyMedication> morningMedications
+                            = DailyMedicationManager.getDailyMedications(Period.MORNING);
+                    DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
+                            morningMedications, "Morning:");
+                } else {
+                    Ui.showErrorMessage(String.format("Unknown list type -> \"%s\"",
+                            parsedArguments.get(ArgumentName.MORNING)));
+                }
                 break;
             case AFTERNOON:
-                List<DailyMedication> afternoonMedications
-                        = DailyMedicationManager.getDailyMedications(Period.AFTERNOON);
-                DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
-                        afternoonMedications, "Afternoon:");
+                // checks if user added extra flags or words after -a
+                if(parsedArguments.get(ArgumentName.AFTERNOON).isBlank()) {
+                    List<DailyMedication> afternoonMedications
+                            = DailyMedicationManager.getDailyMedications(Period.AFTERNOON);
+                    DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
+                            afternoonMedications, "Afternoon:");
+                } else {
+                    Ui.showErrorMessage(String.format("Unknown list type -> \"%s\"",
+                            parsedArguments.get(ArgumentName.AFTERNOON)));
+                }
                 break;
             case EVENING:
-                List<DailyMedication> eveningMedications = DailyMedicationManager.getDailyMedications(Period.EVENING);
-                DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
-                        eveningMedications, "Evening:");
+                // checks if user added extra flags or words after -e
+                if (parsedArguments.get(ArgumentName.EVENING).isBlank()) {
+                    List<DailyMedication> eveningMedications
+                            = DailyMedicationManager.getDailyMedications(Period.EVENING);
+                    DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
+                            eveningMedications, "Evening:");
+                } else {
+                    Ui.showErrorMessage(String.format("Unknown list type -> \"%s\"",
+                            parsedArguments.get(ArgumentName.EVENING)));
+                }
                 break;
             case NONE:
                 DailyMedicationManager.printTodayMedications(MedicationManager.getMedications());
                 break;
+            case UNKNOWN:
+                Ui.showErrorMessage(String.format("Unknown list type -> \"%s\"", period));
+                break;
             default:
-                throw new IllegalStateException("Unexpected value: " + listTypeString);
+                Ui.showErrorMessage(String.format("Unknown list type -> \"%s\"", listTypeString));
             }
             break;
         default:

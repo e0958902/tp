@@ -10,12 +10,15 @@ Ideas and structure for the User Guide: https://se-education.org/addressbook-lev
 
 Additional Packages used: JSON
 
+<!-- Add a TOC -->
+
 ## Setting up and getting started
 
 
 ## Design & implementation
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+<!-- Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable. -->
 
+<!-- Comment: Perhaps add sequence diagram or class diagram here to show the interactions and relationships since this seems to involve quite a lot of classes? -->
 ### Add Medication Command
 The add medication command extends from the Command parent class and implements the following operations:
 - execute(MedicationManager, DailyMedicationManager, Ui) - Adds the medication object into the respective medication managers.
@@ -37,21 +40,45 @@ parsing the arguments.
 - Step 8. `Ui` displays success or error messages to the user.
 
 ---
-
+<!-- Comment: Use backticks (`) to encapsulate code rather than using a single quote (') to make it more readable. -->
 ### List Medication Command
 The list medication command extends from Command parent class and contains the following methods:
 - execute(MedicationManager medicationManager) - Executes the list command and performs its specific task, -t.
 ```Where the task can be either 'list -t all' to list all medications or 'list -t today' to list medications for the day, which is divided into three categories -> Morning, Afternoon and Evening. ```
+<!-- Comment: Consider only highlighting the code part rather than the whole sentence. -->
+<!-- Comment: Perhaps specify that the following parameters need to follow the "list -t" command instead of preceding it or some other order? -->
+**The 'list -t' command requires the following:**
+- 'all' - to run printAllMedications() from the MedicationManager.
 
-The 'list -t' command requires the following:
-1. 'all' - to run printAllMedications() from the MedicationManager.
-2. 'today' - to run printMedications() from the DailyMedicationManager.
-3. 'today -m' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+**The following commands print medications to be taken in a day:**
+<!--Comment: Perhaps clarify what is the difference between inputting "today -m", "today -a" and "today -e"? -->
+1. 'today' - to run printMedications() from the DailyMedicationManager.
+2. 'today -m' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
    from the DailyMedicationManager
-4. 'today -a' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+3. 'today -a' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
    from the DailyMedicationManager
-5. 'today -e' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+4. 'today -e' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
    from the DailyMedicationManager
+
+* On first run, the programs reads into the MedicationManager and determines if a medication is to be added to today's list, based on the repeat value.
+* The repeat value ranges from `1 to 7` (number of days in a week)
+* This verifies if the user is taking that medication every day / every 2 days / every 3 days etc.
+* Then, based on the dosage flags (from `add` command),
+  * -dA [quantity] - will add the medication into the morningMedication list
+  * -dM [quantity] - will add the medication into the afternoonMedication list
+  * -dE [quantity] - will add the medication into the eveningMedication list
+* Additional checks in `ListCommand.execute()` prevent user from entering unnecessary flags or words **after** 
+`list -t all` and `list -t today (-m/-a/-e)`.
+
+### Utilising the Period and TimeRange
+* A day is divided into three `Periods`: Morning, afternoon and evening
+* `TimeRange` determines the time when a medication is to be taken
+  * Morning: from `Midnight` to `Noon`
+  * Afternoon: from `Noon` to `6pm`
+  * Evening: from `6pm` to `Midnight`
+* `timeRange.isWithinTimeRange` detects if the current time of the day falls into one of the 3 periods, 
+then automatically checks off the relevant medication in the DailyMedication list, without user specifying 
+`(-m/-a/-e)` **after** `take -l [index]`.
 
 ### Search Medication Command
 The search medication command extends from Command parent class and contains the following methods:
@@ -61,6 +88,7 @@ what illnesses they treat and their side effects, and prints the results to the 
 The 'search' command requires the following:
 1. To be added.
 
+<!--Comment: Consider using a class diagram to illustrate this to provide visual feedback.-->
 ### Utilising the argument parser
 The `ArgumentParser` requires the following to work:
 1. `ArgumentList` object
@@ -72,6 +100,7 @@ tests have been added to ensure that certain attributes of the `Argument` classe
 one another. `HelpArgument` is automatically added when an `ArgumentList` object is instantiated.
 Calling `ArgumentList.parse` with empty `String` or invoking with the argument `-h` will trigger the
 help message to be printed on the console.
+<!--Comment: Consider explaining how "trigger" works -->
 
 An `Argument` object consists of the following:
 1. `name`: Name of the argument, uses enum type `ArgumentName` as this value is used by `ArgumentParser` as well
@@ -114,7 +143,7 @@ Overview of the `meditracker.argument` core classes:
 
 
 ### Simulated Time
-Talk about the advaned feature. Offset based on the system time so that the user or developer does not have to worry about calculating the time and can just type in the time.
+Talk about the advanced feature. Offset based on the system time so that the user or developer does not have to worry about calculating the time and can just type in the time.
 
 ## Product scope
 ### Target user profile
@@ -123,22 +152,21 @@ People who are taking medications on a daily basis.
 
 ### Value proposition
 
-MediTracker ensures that you would now forget your overall schedule on what time and day to take your medication.
+MediTracker ensures that you would not forget your overall schedule on what time and day to take your medication.
 Ensuring that you would not forget your next dose of medication.
 
 ## User Stories
 
-|Version| As a ...          | I want to ...                                                | So that I can ...                                                                                                                                      |
-|--------|-------------------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-|v1.0| user              | enter my medications with its relevant information in one go | add my medication entry efficiently and refer to them when I forget my medication information                                                          |
-|v1.0| user              | indicate the medications that I have taken                   | know when is my next dose and how well I am following doctors orders, and show how well I am taking my medications at the appropriate times of the day |
-|v1.0| user              | know what medications i have to take throughout the day      | mark them as takenor not, thus not miss or forget to take what I have to take for the day                                                              |
-|v1.0| user              | edit the details in my medication list                       | ensure that its medication information is up-to-date with my medifications                                                                             |
-|v1.0| user              | delete medications medication list                           | remove medications that I do not need will not be there anymore                                                                                        |
-|v1.0| user              | search medications from existing medicine library            | search medications locally to have a quick preview of them and their purpose without the web                                                           |
-|v1.0| multipurpose user | Store data locally                                           | Use the application and see the data even when offline between sessions                                                                                |
-|v1.0| user              | know the list of medications I have added                    | have a quick overview of the medication list and check the quantity and expiry date of each medication                                                 |
-|v2.0| user              | find a to-do item by name                                    | locate a to-do without having to go through the entire list                                                                                            |
+|Version| As a ... | I want to ...                                                | So that I can ...                                                                                                                                      |
+|--------|-------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|v1.0| user  | enter my medications with its relevant information in one go | add my medication entry efficiently and refer to them when I forget my medication information                                                          |
+|v1.0| user  | indicate the medications that I have taken                   | know when is my next dose and how well I am following doctors orders, and show how well I am taking my medications at the appropriate times of the day |
+|v1.0| user  | know what medications i have to take throughout the day      | mark them as takenor not, thus not miss or forget to take what I have to take for the day                                                              |
+|v1.0| user  | edit the details in my medication list                       | ensure that its medication information is up-to-date with my medifications                                                                             |
+|v1.0| user  | delete medications medication list                           | remove medications that I do not need will not be there anymore                                                                                        |
+|v1.0| user  | search medications from existing medicine library            | search medications locally to have a quick preview of them and their purpose without the web                                                           |
+|v1.0| user  | Store data locally                                           | Use the application and see the data even when offline between sessions                                                                                |
+|v1.0| user  | know the list of medications I have added                    | have a quick overview of the medication list and check the quantity and expiry date of each medication                                                 |
 
 ## Non-Functional Requirements
 {Give non-functional requirements}

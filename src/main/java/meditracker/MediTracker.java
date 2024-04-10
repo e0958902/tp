@@ -50,7 +50,6 @@ public class MediTracker {
         //@@author nickczh-reused
         //Reused from https://github.com/nickczh/ip
         //with minor modifications
-        FileReaderWriter.loadMediTrackerData();
         Ui.showWelcomeMessage();
         boolean isExit = false;
         while (!isExit) {
@@ -96,8 +95,9 @@ public class MediTracker {
             System.out.println(e.getMessage());
             return;
         }
-        MediLogger.initialiseLogger();
-
+        MediLogger.initialiseMediLogger();
+        
+        FileReaderWriter.loadMediTrackerData();
         List<String> dailyMedicationList = FileReaderWriter.loadDailyMedicationData();
         if (dailyMedicationList == null) {
             new MediTracker().run();

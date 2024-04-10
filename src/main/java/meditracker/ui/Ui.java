@@ -100,6 +100,11 @@ public class Ui {
         System.out.println(message);
     }
 
+    public static void showInfoMessage(String message) {
+        System.out.print("INFO: ");
+        System.out.println(message);
+    }
+
     /**
      * Reads user input command.
      * @return The user input command as a String.
@@ -186,20 +191,35 @@ public class Ui {
     public static void printMedsLists(List<Medication> medsList,
                                       List<DailyMedication> dailyMedications, String period) {
         int numbering = 0;
+        assert medsList != null;
+        assert dailyMedications != null;
         for (DailyMedication med: dailyMedications) {
             String name = med.getName();
-            Double intakeDose;
+            Double intakeDose = 0.0;
             int index = getIndex(medsList, name);
-            if (period.equals("Morning:")) {
-                intakeDose = medsList.get(index).getDosageMorning();
-            } else if (period.equals("Afternoon:")) {
-                intakeDose = medsList.get(index).getDosageAfternoon();
-            } else {
-                intakeDose = medsList.get(index).getDosageEvening();
+            Medication medication;
+            try {
+                medication = medsList.get(index);
+            } catch (IndexOutOfBoundsException e) {
+                return;
+            }
+            switch (period) {
+            case "Morning:":
+                intakeDose = medication.getDosageMorning();
+                break;
+            case "Afternoon:":
+                intakeDose = medication.getDosageAfternoon();
+                break;
+            case "Evening:":
+                intakeDose = medication.getDosageEvening();
+                break;
+            default:
+                showErrorMessage("Medication not found.");
             }
             numbering++;
             System.out.println("\t" + numbering + ". " + med + " | " + intakeDose);
         }
+        
     }
 
     /**

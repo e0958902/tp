@@ -35,6 +35,7 @@ data storage so that you can review your past medication intake.
     - [Reading from a file:](#reading-from-a-file-load)`load`
     - [Editing the file](#editing-the-file)
     - [Advanced feature: Setting an arbitrary time](#advanced-feature-setting-an-arbitrary-time)
+  - [Exit](#exit)
 - [FAQ](#faq)
 - [Glossary](#glossary)
 - [Command Summary](#command-summary)
@@ -45,7 +46,7 @@ data storage so that you can review your past medication intake.
 1. Ensure that you have Java 11 or above installed. 
    - If you using Windows:
      - Press the `Windows Key` on your keyboard and enter `Command Prompt` or `cmd` and press enter.
-     - When the application opens, enter `java -version`.
+     - When the program opens, enter `java -version`.
    - If you are using MacOS/Linux:
      - Open the `Terminal`, then enter `java -version`.
    - If Java 11 is installed, you should get an output similar to below:
@@ -55,7 +56,7 @@ data storage so that you can review your past medication intake.
 4. Save the file in an empty folder in `Desktop`, then this will be your home folder for `MediTracker`.
 5. Double-click on meditracker.jar to start the app.
    - Alternatively, you may also use the Command Prompt/Terminal. 
-   - Navigate to the home folder where you have saved the application in, and enter `java -jar meditracker.jar` to 
+   - Navigate to the home folder where you have saved the program in, and enter `java -jar meditracker.jar` to 
    start the app.
 
 
@@ -510,6 +511,17 @@ The `-sim` flag informs the program that a simulated time is expected. The suppl
 or else the parser will return an error. The supplied time is of the format `YYYY-MM-DDTHH:MM:SSZ`
 
 In the above example, it will set the time for the program to be **1 Jan 2024, 1pm**.
+
+## Exit: `exit`
+A goodbye message is printed on the screen, and the program exits after.
+
+Format: `exit`
+
+Usage:
+```
+exit
+Thank you for using MediTracker. Hope to see you again!
+```
 
 ## FAQ
 **Q**: How do I transfer my data to another computer? 

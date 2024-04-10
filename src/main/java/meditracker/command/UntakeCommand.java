@@ -13,6 +13,7 @@ import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MedicationNotFoundException;
+import meditracker.exception.MedicationUnchangedException;
 import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
@@ -71,6 +72,9 @@ public class UntakeCommand extends Command {
             return;
         } catch (MedicationNotFoundException e) {
             Ui.showWarningMessage("Possible data corruption: Medication not found");
+            return;
+        } catch (MedicationUnchangedException e) {
+            Ui.showSuccessMessage("Medication already untaken, no changes were made");
             return;
         }
 
