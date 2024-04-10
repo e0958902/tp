@@ -102,11 +102,11 @@ Output:
 SUCCESS: Medicine has been added
 ```
 ## Listing medications: `list`
-You can list down the medications that you have added, or even print out a list of medications that you will be taking 
-for the day.
+You can show the medications that you have added to the medication list, 
+and show the medications that you will be taking for the day.
 
 ### All medications:
-Displays the whole lists of medications that you have added.
+Displays the whole lists of medications that you have added to the medication list.
 
 Format: `list -t all`
 
@@ -145,17 +145,20 @@ ____________________________________________________________
 [Back to top](#User-Guide)
 
 ## Viewing medications: `view`
-You can view detailed information about the medications you have added.
+You can view detailed information about the medications you have added in the medication list.
 
-> Tip: You are only allowed to use one flag and argument.
-> 
+> Recommendation: Perform `list -t all` first to display the lists of medications 
+> in medication list and use its fields for the features below.
+
 This output will be shown if you used more than one flag and argument.
 ```
-ERROR: Duplicate "-r" argument found
+ERROR: You can only have one flag!
 ```
-
+> Tip: You are only allowed to use one flag and argument.
+> 
 ### View Medication by index:
-You can view all medication information by its index.
+By using the index shown in the medication list[`list -t all`](All-medications), 
+you can see all the fields of that medication index.
 
 Format: `view -l MEDICATION_INDEX`
 
