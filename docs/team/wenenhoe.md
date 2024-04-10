@@ -34,6 +34,7 @@
 - Issue #194: Fix `NumberFormatException` for `delete` command (Related to issues #204)
 - Issue #156: Fix `NumberFormatException` for `take` command (Related to issues #195)
 - Issue #178: Fix `take` and `untake` commands show unchanged if quantity unchanged
+- Issue #203: Fix `modify` not updating daily list when dosages are modified
 
 ### Developer Guide Contributions
 - Information related to how `ArgumentParser` works
@@ -49,7 +50,7 @@ if more `Argument`s are needed
 #3, #6, #7, #10, #12, #17, #22, #28, #33, 
 #35, #47, #49, #58, #59, #73, #75, #80, #84,
 #101, #108, #109, #112, #113, #117, #122, #124,
-#132, #136, #141, #206, #208
+#132, #136, #141, #206, #208, #210
 
 ### Team-based tasks
 - Manage product development and resolve feature conflicts
