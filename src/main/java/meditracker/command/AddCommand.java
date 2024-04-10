@@ -40,12 +40,12 @@ public class AddCommand extends Command {
     public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
             new NameArgument(false),
             new QuantityArgument(false),
+            new ExpirationDateArgument(false),
+            new RepeatArgument(false),
             new DosageMorningArgument(true),
             new DosageAfternoonArgument(true),
             new DosageEveningArgument(true),
-            new ExpirationDateArgument(false),
-            new RemarksArgument(true),
-            new RepeatArgument(false)
+            new RemarksArgument(true)
     );
 
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.ADD, ARGUMENT_LIST);
@@ -107,7 +107,7 @@ public class AddCommand extends Command {
      * @throws MediTrackerException if any of the input values are invalid, such as non-alphabetic medication names,
      *                              incorrect number formats, or if required arguments are missing.
      */
-    private Medication createMedication() throws MediTrackerException {
+    Medication createMedication() throws MediTrackerException {
         // Extract medication details from parsed arguments
         String medicationName = parsedArguments.get(ArgumentName.NAME);
         String expiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
@@ -152,10 +152,10 @@ public class AddCommand extends Command {
      * @throws NumberFormatException if there is an error in parsing numeric values.
      * @throws NullPointerException  if any of the required arguments are null.
      */
-    private void parseStringToValues(String medicationQuantity,
-                                     String medicationDosageMorning,
-                                     String medicationDosageAfternoon, String medicationDosageEvening, String repeat,
-                                     String remarks)
+    void parseStringToValues(String medicationQuantity,
+                             String medicationDosageMorning,
+                             String medicationDosageAfternoon, String medicationDosageEvening, String repeat,
+                             String remarks)
             throws NumberFormatException, NullPointerException {
 
         this.medicationQuantity = Double.parseDouble(medicationQuantity);
@@ -181,10 +181,10 @@ public class AddCommand extends Command {
      * @param medicationName The name of the medication to be sanitized.
      * @throws MediTrackerException if the medication name contains non-alphabetic characters.
      */
-    private void sanitiseInput(String medicationName) throws MediTrackerException {
+    void sanitiseInput(String medicationName) throws MediTrackerException {
 
         // Check if the medication name contains only alphabetic characters
-        boolean isAlphabetic = medicationName.matches("^[a-zA-Z]+$");
+        boolean isAlphabetic = medicationName.matches("^[a-zA-Z ]+$");
 
         // If the name contains non-alphabetic characters, throw an exception
         if (!isAlphabetic) {
