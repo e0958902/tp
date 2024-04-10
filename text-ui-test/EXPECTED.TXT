@@ -32,10 +32,10 @@ meditracker> SUCCESS: Medication already taken, no changes were made
 ____________________________________________________________
 meditracker> You have 1 medications listed below.
    Name                           Quantity   Expiry     Remarks                       
-1. Medication_A                   500.0      01/07/25   cause_dizziness                
+1. Medication A                   500.0      01/07/25   cause_dizziness
 Your list of medications has been successfully shown!
 ____________________________________________________________
-meditracker> Name: Medication_A
+meditracker> Name: Medication A
 Quantity: 500.0
 Expiry Date: 01/07/25
 Remarks: cause_dizziness
@@ -79,7 +79,7 @@ Evening Dosage: 0.0
 Repeat: 1
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
-meditracker> Name: Medication_A
+meditracker> Name: Medication A
 Quantity: 500.0
 Expiry Date: 01/07/25
 Remarks: cause_dizziness
@@ -97,7 +97,7 @@ Evening Dosage: 0.0
 Repeat: 1
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
-meditracker> Name: Medication_A
+meditracker> Name: Medication A
 Quantity: 500.0
 Expiry Date: 01/07/25
 Remarks: cause_dizziness
