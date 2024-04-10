@@ -1,6 +1,9 @@
 package meditracker.medication;
 
 // @@author nickczh
+
+import java.util.Objects;
+
 /**
  * The Medication class represents a medication.
  * It stores information about the medication such as name, quantity, dosage, expiry date, intake frequency, remarks,
@@ -175,6 +178,33 @@ public class Medication {
         newMedication.setDayAdded(medication.getDayAdded());
 
         return newMedication;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        // self check
+        if (this == o) {
+            return true;
+        }
+        // null check
+        if (o == null) {
+            return false;
+        }
+        // type check and cast
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        Medication medication = (Medication) o;
+        // field comparison
+        return Objects.equals(getName(), medication.getName())
+                && Objects.equals(getQuantity(), medication.getQuantity())
+                && Objects.equals(getDosageMorning(), medication.getDosageMorning())
+                && Objects.equals(getDosageAfternoon(), medication.getDosageAfternoon())
+                && Objects.equals(getDosageEvening(), medication.getDosageEvening())
+                && Objects.equals(getExpiryDate(), medication.getExpiryDate())
+                && Objects.equals(getRemarks(), medication.getRemarks())
+                && Objects.equals(getRepeat(), medication.getRepeat())
+                && Objects.equals(getDayAdded(), medication.getDayAdded());
     }
 }
 // @@author
