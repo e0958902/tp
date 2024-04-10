@@ -17,13 +17,18 @@ meditracker> SUCCESS: Medicine has been modified
 ____________________________________________________________
 meditracker> ERROR: Insufficient quantity. Dosage Required -> 500.0, Quantity Available -> 60.0
 ____________________________________________________________
-meditracker> SUCCESS: Medicine has been untaken
+meditracker> SUCCESS: Medication already untaken, no changes were made
 ____________________________________________________________
 meditracker> SUCCESS: Medicine has been deleted
 ____________________________________________________________
 meditracker> SUCCESS: Medicine has been added
 ____________________________________________________________
-meditracker> SUCCESS: Medicine has been taken
+meditracker> SUCCESS: Medication already untaken, no changes were made
+____________________________________________________________
+meditracker> INFO: Medication quantity decreased: 1000.0 -> 500.0
+SUCCESS: Medicine has been taken
+____________________________________________________________
+meditracker> SUCCESS: Medication already taken, no changes were made
 ____________________________________________________________
 meditracker> You have 1 medications listed below.
    Name                           Quantity   Expiry     Remarks                       

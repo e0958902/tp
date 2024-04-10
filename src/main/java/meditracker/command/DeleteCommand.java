@@ -80,23 +80,7 @@ public class DeleteCommand extends Command {
         String name = medication.getName();
 
         for (Period period : Period.values()) {
-            switch (period) {
-            case MORNING:
-                if (medication.getDosageMorning() == 0) {
-                    continue;
-                }
-                break;
-            case AFTERNOON:
-                if (medication.getDosageAfternoon() == 0) {
-                    continue;
-                }
-                break;
-            case EVENING:
-                if (medication.getDosageEvening() == 0) {
-                    continue;
-                }
-                break;
-            default:
+            if (!medication.hasDosage(period)) {
                 continue;
             }
 

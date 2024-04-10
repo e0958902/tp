@@ -1,5 +1,7 @@
 package meditracker.medication;
 
+import meditracker.time.Period;
+
 // @@author nickczh
 /**
  * The Medication class represents a medication.
@@ -137,6 +139,25 @@ public class Medication {
     @Override
     public String toString() {
         return getName() + " | " + getQuantity() +  " | " + getExpiryDate() + " | " + getRemarks();
+    }
+
+    /**
+     * Checks if Medication has dosage at given Period
+     *
+     * @param period Period to check for dosage
+     * @return True if medication has dosage at Period, else false
+     */
+    public boolean hasDosage(Period period) {
+        switch (period) {
+        case MORNING:
+            return getDosageMorning() > 0.0;
+        case AFTERNOON:
+            return getDosageAfternoon() > 0.0;
+        case EVENING:
+            return getDosageEvening() > 0.0;
+        default:
+            return false;
+        }
     }
 
     /**
