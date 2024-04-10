@@ -84,8 +84,7 @@ public class ModifyCommand extends Command {
             updateMedication(medication);
         } catch (NumberFormatException e) {
             medication.revertMedication(medicationCopy);
-            String errorContext = String.format("Unable to format correctly. %s.",
-                    e.getMessage());
+            String errorContext = String.format("Unable to format correctly. %s.", e.getMessage());
             Ui.showErrorMessage(errorContext);
             Ui.showWarningMessage("Changes have been rolled back. Medicine not modified.");
             return;
