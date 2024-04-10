@@ -123,20 +123,7 @@ public class ModifyCommand extends Command {
             case LIST_INDEX:
                 continue;
             case NAME:
-                String oldName = medication.getName();
-                medication.setName(argumentValue);
-
-                if (!DailyMedicationManager.doesBelongToDailyList(medication)) {
-                    continue;
-                }
-
-                try {
-                    updateDailyMedicationName(medication, oldName, argumentValue);
-                } catch (MedicationNotFoundException e) {
-                    Ui.showWarningMessage("Possible corruption of data. " +
-                            "Unable to update DailyMedication when using `modify`");
-                    return;
-                }
+                updateMedicationName(medication, argumentValue);
                 break;
             case QUANTITY:
                 medication.setQuantity(Double.parseDouble(argumentValue));
@@ -151,21 +138,33 @@ public class ModifyCommand extends Command {
     }
 
     /**
-     * Updates all instances of DailyMedication name to new name
+     * Updates Medication and all instances of DailyMedication name to new name
      *
      * @param medication Medication object being updated
-     * @param oldName Existing old name of Medication object to search for
      * @param newName New name to replace with
-     * @throws MedicationNotFoundException No DailyMedication matching specified name found
      */
-    private static void updateDailyMedicationName(Medication medication, String oldName, String newName)
-            throws MedicationNotFoundException {
+    private static void updateMedicationName(Medication medication, String newName) {
+        String oldName = medication.getName();
+        medication.setName(newName);
+
+        if (!DailyMedicationManager.doesBelongToDailyList(medication)) {
+            return;
+        }
+
         for (Period period : Period.values()) {
             if (!medication.hasDosage(period)) {
                 continue;
             }
 
-            DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(oldName, period);
+            DailyMedication dailyMedication;
+            try {
+                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, period);
+            } catch (MedicationNotFoundException e) {
+                String message = String.format("Possible data corruption: Medication missing from %s list", period);
+                Ui.showWarningMessage(message);
+                continue;
+            }
+
             dailyMedication.setName(newName);
         }
     }
