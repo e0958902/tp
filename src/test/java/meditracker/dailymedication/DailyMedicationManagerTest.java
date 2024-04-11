@@ -1,7 +1,15 @@
 package meditracker.dailymedication;
 
 import meditracker.command.AddCommand;
-import meditracker.exception.*;
+import meditracker.exception.ArgumentNoValueException;
+import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.HelpInvokedException;
+import meditracker.exception.InsufficientQuantityException;
+import meditracker.exception.MediTrackerException;
+import meditracker.exception.MedicationNotFoundException;
+import meditracker.exception.MedicationUnchangedException;
+import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
@@ -85,7 +93,8 @@ public class DailyMedicationManagerTest {
 
     @Test
     public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken()
-            throws InsufficientQuantityException, MedicationNotFoundException, MedicationUnchangedException, MediTrackerException {
+            throws InsufficientQuantityException, MedicationNotFoundException, MedicationUnchangedException,
+            MediTrackerException {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;

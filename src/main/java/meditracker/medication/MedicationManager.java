@@ -50,6 +50,7 @@ public class MedicationManager {
      * Adds a Medication to the list of Medication
      *
      * @param medication Medication to be added to the list
+     * @throws MediTrackerException When a duplicate medication is found
      */
     public static void addMedication(Medication medication) throws MediTrackerException{
         checkForDuplicateMedication(medication.getName().toLowerCase());
@@ -57,6 +58,14 @@ public class MedicationManager {
         FileReaderWriter.saveMediTrackerData(null);
     }
 
+    /**
+     * Gets the Medication object from the medications list.
+     * Uses the Medication name to retrieve medications from the list.
+     *
+     * @param name Name of the medication to retrieve
+     * @return Corresponding Medication object with the matched name
+     * @throws MedicationNotFoundException No Medication matching the specified name found
+     */
     private static void checkForDuplicateMedication(String name) throws MediTrackerException {
         for (Medication medication : medications) {
             if (medication.getName().toLowerCase().equals(name)) {
