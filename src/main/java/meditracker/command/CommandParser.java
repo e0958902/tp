@@ -26,6 +26,9 @@ public class CommandParser {
             throw new CommandNotFoundException();
         }
 
+        // Removes all trailing and leading whitespaces
+        fullCommand = fullCommand.strip();
+
         String[] commands = fullCommand.split(" ", 2);
         arguments = (commands.length == 2) ? commands[1] : "";
         commandName = CommandName.valueOfLabel(commands[0]);
@@ -48,6 +51,8 @@ public class CommandParser {
         switch (commandName) {
         case EXIT:
             return new ExitCommand();
+        case HELP:
+            return new HelpCommand();
         case ADD:
             return new AddCommand(arguments);
         case MODIFY:

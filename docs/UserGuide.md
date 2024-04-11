@@ -92,10 +92,12 @@ Options:
 
 > Tip: The dosage and remarks tags are optional.
 
+> Note: Remarks will default to Nil if it is not specified.
+
 Examples:
 
-* `add -n Medication_A -q 5000 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 1`
-* `add -n Medication_B -q 1000 -e 30/09/24 -dM 500 -dA 250 -dE 50 -rep 6`
+* `add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 1`
+* `add -n Medication B -q 1000 -e 30/09/24 -dM 500 -dA 250 -dE 50 -rep 6`
 
 Output:
 ```
@@ -114,8 +116,8 @@ Output:
 ```
 You have 2 medications listed below.
    Name                           Quantity   Expiry     Remarks                       
-1. Medication_A                   5000.0     01/07/25   cause_dizziness  
-2. Medication_B                   1000.0     30/09/24
+1. Medication A                   5000.0     01/07/25   cause_dizziness  
+2. Medication B                   1000.0     30/09/24
 Your list of medications has been successfully shown!
 ```
 
@@ -166,7 +168,7 @@ Example: `view -l 1`
 
 Output:
 ```
-Name: Medication_A
+Name: Medication A
 Quantity: 5000.0
 Expiry Date: 01/07/25
 Remarks: cause_dizziness
@@ -191,7 +193,7 @@ Example: `view -n medication_b`
 
 Output:
 ```
-Name: Medication_B
+Name: Medication B
 Quantity: 1000.0
 Expiry Date: 30/09/24
 Remarks: 
@@ -216,7 +218,7 @@ Example: `view -q 1000`
 
 Output:
 ```
-Name: Medication_B
+Name: Medication B
 Quantity: 1000.0
 Expiry Date: 30/09/24
 Remarks: null
@@ -241,7 +243,7 @@ Example: `view -e 25`
 
 Output:
 ```
-Name: Medication_A
+Name: Medication A
 Quantity: 5000.0
 Expiry Date: 01/07/25
 Remarks: cause_dizziness
@@ -250,7 +252,7 @@ Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
 
-Name: Medication_B
+Name: Medication B
 Quantity: 1000.0
 Expiry Date: 30/09/24
 Remarks: null
@@ -275,7 +277,7 @@ Example: `view -r dizziness`
 
 Output:
 ```
-Name: Medication_A
+Name: Medication A
 Quantity: 5000.0
 Expiry Date: 01/07/25
 Remarks: cause_dizziness
@@ -404,7 +406,7 @@ Options:
     -h                      Prints this help message
 ```
 Examples:
-- `search -n Medication_A`: Search for medication with the name `Medication_A`
+- `search -n Medication A`: Search for medication with the name `Medication A`
 - `search -i Headache`: Search for medication that treats `Headache`
 - `search -s Dizziness`: Search for medication with side effect `Dizziness`
 - `search -a keyword`: Search for `keyword` in all fields in the library (name, illness, side effect)
@@ -412,11 +414,40 @@ Examples:
 Output:
 ```
 Here are the search results:
-1. Medication_A; Treats: Headache; May cause: Dizziness
-2. Medication_B; Treats: Fever; Side Effects: Dizziness
+1. Medication A; Treats: Headache; May cause: Dizziness
+2. Medication B; Treats: Fever; Side Effects: Dizziness
 ```
 ## Help
 
+If in any situation you are stuck while using MediTracker, please do not worry. The help command is specifically 
+designed to guide users to use the MediTracker. All you need to do is to type in `help`.
+
+Usage:
+```
+  help
+```
+
+Output:
+```
+____________________________________________________________
+Here are the commands you can use with MediTracker:
+
+exit: Exits MediTracker.
+help: Lists all available commands and their description.
+add: Adds a medication to the medication manager.
+view: Get information of a specific medication.
+modify: Modify medication information.
+list: Summary of medications for the day.
+delete: Delete medication information.
+search: Access medicine database.
+take: Record taking of medication.
+untake: Record untaking of medication.
+save: Saves the JSON file to the specified path.
+load: Loads the JSON file from the specified path.
+
+For more details about each command, simply type in the command name.
+____________________________________________________________
+```
 ## General Data Management
 
 

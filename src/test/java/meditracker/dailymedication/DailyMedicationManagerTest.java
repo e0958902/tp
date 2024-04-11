@@ -51,7 +51,7 @@ public class DailyMedicationManagerTest {
     public void addDailyMedication_genericDailyMedication_dailyMedicationAdded()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException {
-        String inputString = "add -n Medication_A -q 60.0 -e 01/07/25 -dM 500.0 -dA 250.0 "
+        String inputString = "add -n Medication A -q 60.0 -e 01/07/25 -dM 500.0 -dA 250.0 "
                 + "-dE 300.0 -r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         command.execute();
@@ -60,13 +60,13 @@ public class DailyMedicationManagerTest {
         List<DailyMedication> afternoonMedications = new ArrayList<>();
         List<DailyMedication> eveningMedications = new ArrayList<>();
 
-        DailyMedication morningMeds = new DailyMedication("Medication_A");
+        DailyMedication morningMeds = new DailyMedication("Medication A");
         morningMedications.add(morningMeds);
 
-        DailyMedication afternoonMeds = new DailyMedication("Medication_A");
+        DailyMedication afternoonMeds = new DailyMedication("Medication A");
         afternoonMedications.add(afternoonMeds);
 
-        DailyMedication eveningMeds = new DailyMedication("Medication_A");
+        DailyMedication eveningMeds = new DailyMedication("Medication A");
         eveningMedications.add(eveningMeds);
 
 

@@ -32,16 +32,16 @@ meditracker> SUCCESS: Medication already taken, no changes were made
 ____________________________________________________________
 meditracker> You have 1 medications listed below.
    Name                           Quantity   Expiry     Remarks                       
-1. Medication_A                   500.0      01/07/25   cause_dizziness                
+1. Medication A                   500.0      01/07/25   cause_dizziness                
 Your list of medications has been successfully shown!
 ____________________________________________________________
-meditracker> Name: Medication_A
+meditracker> Name: Medication A
 Quantity: 500.0
 Expiry Date: 01/07/25
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
-Evening Dosage: 0.0
+Evening Dosage: 100.0
 Repeat: 1
 
 SUCCESS: Medication details has been retrieved
@@ -57,8 +57,8 @@ Quantity: 20.0
 Expiry Date: 31/01/25
 Remarks: aggression, weight gain, nausea
 Morning Dosage: 1.0
-Afternoon Dosage: 0.0
-Evening Dosage: 0.0
+Afternoon Dosage: 1.0
+Evening Dosage: 1.0
 Repeat: 1
 
 SUCCESS: Medication details has been retrieved
@@ -68,28 +68,28 @@ Quantity: 20.0
 Expiry Date: 31/01/25
 Remarks: aggression, weight gain, nausea
 Morning Dosage: 1.0
-Afternoon Dosage: 0.0
-Evening Dosage: 0.0
+Afternoon Dosage: 1.0
+Evening Dosage: 1.0
 Repeat: 1
 
 Name: Dextromethorphan
 Quantity: 30.0
 Expiry Date: 31/02/26
 Remarks: restlessness, nausea
-Morning Dosage: 0.0
-Afternoon Dosage: 0.0
+Morning Dosage: 1.0
+Afternoon Dosage: 1.0
 Evening Dosage: 1.0
 Repeat: 1
 
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
-meditracker> Name: Medication_A
+meditracker> Name: Medication A
 Quantity: 500.0
 Expiry Date: 01/07/25
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
-Evening Dosage: 0.0
+Evening Dosage: 100.0
 Repeat: 1
 
 Name: Dexamethasone
@@ -97,19 +97,19 @@ Quantity: 20.0
 Expiry Date: 31/01/25
 Remarks: aggression, weight gain, nausea
 Morning Dosage: 1.0
-Afternoon Dosage: 0.0
-Evening Dosage: 0.0
+Afternoon Dosage: 1.0
+Evening Dosage: 1.0
 Repeat: 1
 
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
-meditracker> Name: Medication_A
+meditracker> Name: Medication A
 Quantity: 500.0
 Expiry Date: 01/07/25
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
-Evening Dosage: 0.0
+Evening Dosage: 100.0
 Repeat: 1
 
 SUCCESS: Medication details has been retrieved
