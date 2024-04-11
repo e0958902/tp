@@ -34,7 +34,8 @@ public class HelpCommand extends Command {
             if (commandName.equals(CommandName.UNKNOWN)) {
                 continue;
             }
-            System.out.println(commandName.value + ": " + commandName.description);
+            String helpMessage = String.format("\t%-10s%s", commandName.value, commandName.description);
+            System.out.println(helpMessage);
         }
     }
 }
