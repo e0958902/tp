@@ -26,6 +26,9 @@ public class CommandParser {
             throw new CommandNotFoundException();
         }
 
+        // Removes all trailing and leading whitespaces
+        fullCommand = fullCommand.strip();
+
         String[] commands = fullCommand.split(" ", 2);
         arguments = (commands.length == 2) ? commands[1] : "";
         commandName = CommandName.valueOfLabel(commands[0]);
