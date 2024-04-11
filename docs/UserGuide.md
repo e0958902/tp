@@ -118,7 +118,6 @@ You have 2 medications listed below.
 2. Medication_B                   1000.0     30/09/24
 Your list of medications has been successfully shown!
 ```
-[Back to top](#User-Guide)
 
 ### Daily medications:
 Displays an overview of the list of medications that you will be taking for the day.
@@ -142,12 +141,11 @@ Afternoon:
 ____________________________________________________________
 ```
 
-[Back to top](#User-Guide)
 
 ## Viewing medications: `view`
 You can view detailed information about the medications you have added in the medication list.
 
-> Recommendation: Perform `list -t all` first to display the lists of medications 
+> Recommendation: Perform [`list -t all`](#All-medications) first to display the lists of medications 
 > in medication list and use its fields for the features below.
 
 This output will be shown if you used more than one flag and argument.
@@ -157,7 +155,7 @@ ERROR: You can only have one flag!
 > Tip: You are only allowed to use one flag and argument.
 > 
 ### View Medication by index:
-By using the index shown in the medication list[`list -t all`](All-medications), 
+By using the index shown in the medication list[`list -t all`](#All-medications), 
 you can see all the fields of that medication index.
 
 Format: `view -l MEDICATION_INDEX`
@@ -181,7 +179,6 @@ Repeat: 1
 SUCCESS: Medication details has been retrieved
 ```
 
-[Back to top](#User-Guide)
 
 ### View Medication by name:
 You can view all medication information by its name.
@@ -207,7 +204,6 @@ Repeat: 6
 SUCCESS: Medication details has been retrieved
 ```
 
-[Back to top](#User-Guide)
 
 ### View Medication by quantity:
 You can view all medication information by its quantity.
@@ -233,7 +229,6 @@ Repeat: 6
 SUCCESS: Medication details has been retrieved
 ```
 
-[Back to top](#User-Guide)
 
 ### View Medication by expiry:
 You can view all medication information by its expiry year.
@@ -268,7 +263,6 @@ Repeat: 6
 SUCCESS: Medication details has been retrieved
 ```
 
-[Back to top](#User-Guide)
 
 ### View Medication by remarks:
 You can view all medication information by its remarks.
@@ -293,8 +287,6 @@ Repeat: 1
 
 SUCCESS: Medication details has been retrieved
 ```
-
-[Back to top](#User-Guide)
 
 ## Update
 
