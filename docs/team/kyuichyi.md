@@ -1,6 +1,19 @@
 # Kaitlyn Chong - Project Portfolio Page
 
-## Overview
+### Code related Contributions
+- Issue #38: Query Medication Library
+- Issue #63: Include medicationLibrary.txt in packaged .jar
+- Issue #107: Add flags to `search` command
 
+### Developer Guide Contributions
+- Information to how to use `search` command
+- Added some user stories
 
-### Summary of Contributions
+### User Guide Contributions
+- 
+
+### PR Reviews
+
+### Team-based tasks
+- Submitted first draft of UG to Canvas
+
