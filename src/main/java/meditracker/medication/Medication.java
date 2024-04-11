@@ -191,6 +191,13 @@ public class Medication {
         setDayAdded(medication.getDayAdded());
     }
 
+    public static LocalDate parseDate(String date) {
+        DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder()
+                .append(DateTimeFormatter.ofPattern("[MM/dd/yyyy]" + "[dd/MM/yyyy]" + "[yyyy/MM/dd]"));
+        DateTimeFormatter dateTimeFormatter = dateTimeFormatterBuilder.toFormatter();
+        return LocalDate.parse(date, dateTimeFormatter);
+    }
+
     /**
      * Makes a deep copy of the specified Medication object
      *
