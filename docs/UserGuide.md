@@ -102,11 +102,11 @@ Output:
 SUCCESS: Medicine has been added
 ```
 ## Listing medications: `list`
-You can list down the medications that you have added, or even print out a list of medications that you will be taking 
-for the day.
+You can show the medications that you have added to the medication list, 
+and show the medications that you will be taking for the day.
 
 ### All medications:
-Displays the whole lists of medications that you have added.
+Displays the whole lists of medications that you have added to the medication list.
 
 Format: `list -t all`
 
@@ -118,7 +118,6 @@ You have 2 medications listed below.
 2. Medication_B                   1000.0     30/09/24
 Your list of medications has been successfully shown!
 ```
-[Back to top](#User-Guide)
 
 ### Daily medications:
 Displays an overview of the list of medications that you will be taking for the day.
@@ -133,7 +132,6 @@ Format: `list -t today`
 Output:
 ```
 ____________________________________________________________
-meditracker> list -t today
 Here are the Daily Medications you have to take today: 
 Morning:
 	1. [ ] Medication_A | 2.0
@@ -142,20 +140,22 @@ Afternoon:
 ____________________________________________________________
 ```
 
-[Back to top](#User-Guide)
 
 ## Viewing medications: `view`
-You can view detailed information about the medications you have added.
+You can view detailed information about the medications you have added in the medication list.
 
-> Tip: You are only allowed to use one flag and argument.
-> 
+> Recommendation: Perform [`list -t all`](#All-medications) first to display the lists of medications 
+> in medication list and use its fields for the features below.
+
 This output will be shown if you used more than one flag and argument.
 ```
-ERROR: Duplicate "-r" argument found
+ERROR: You can only have one flag!
 ```
-
+> Tip: You are only allowed to use one flag and argument.
+> 
 ### View Medication by index:
-You can view all medication information by its index.
+By using the index shown in the medication list[`list -t all`](#All-medications), 
+you can see all the fields of that medication index.
 
 Format: `view -l MEDICATION_INDEX`
 
@@ -174,10 +174,10 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ```
 
-[Back to top](#User-Guide)
 
 ### View Medication by name:
 You can view all medication information by its name.
@@ -199,10 +199,10 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 50.0
 Repeat: 6
+
 SUCCESS: Medication details has been retrieved
 ```
 
-[Back to top](#User-Guide)
 
 ### View Medication by quantity:
 You can view all medication information by its quantity.
@@ -224,10 +224,10 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 50.0
 Repeat: 6
+
 SUCCESS: Medication details has been retrieved
 ```
 
-[Back to top](#User-Guide)
 
 ### View Medication by expiry:
 You can view all medication information by its expiry year.
@@ -258,10 +258,10 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 50.0
 Repeat: 6
+
 SUCCESS: Medication details has been retrieved
 ```
 
-[Back to top](#User-Guide)
 
 ### View Medication by remarks:
 You can view all medication information by its remarks.
@@ -283,10 +283,9 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ```
-
-[Back to top](#User-Guide)
 
 ## Update
 
