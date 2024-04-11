@@ -59,10 +59,10 @@ public class MedicationManager {
     }
 
     /**
-     * Gets the Medication object from the medications list.
-     * Uses the Medication name to retrieve medications from the list.
+     * Checks for duplicate medication in the list of medications.
      *
      * @param name Name of the medication to retrieve
+     * @throws MediTrackerException When a duplicate medication is found
      */
     private static void checkForDuplicateMedication(String name) throws MediTrackerException {
         for (Medication medication : medications) {
