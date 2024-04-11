@@ -40,10 +40,10 @@ public class AddCommand extends Command {
     public static final ArgumentList ARGUMENT_LIST = new ArgumentList(
             new NameArgument(false),
             new QuantityArgument(false),
+            new ExpirationDateArgument(false),
             new DosageMorningArgument(false),
             new DosageAfternoonArgument(false),
             new DosageEveningArgument(false),
-            new ExpirationDateArgument(false),
             new RepeatArgument(false),
             new RemarksArgument(true)
     );
