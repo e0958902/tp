@@ -43,6 +43,7 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> SUCCESS: Medicine has been added
@@ -55,28 +56,31 @@ meditracker> Name: Dexamethasone
 Quantity: 20.0
 Expiry Date: 31/01/25
 Remarks: aggression, weight gain, nausea
-Morning Dosage: 0.0
+Morning Dosage: 1.0
 Afternoon Dosage: 0.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> Name: Dexamethasone
 Quantity: 20.0
 Expiry Date: 31/01/25
 Remarks: aggression, weight gain, nausea
-Morning Dosage: 0.0
+Morning Dosage: 1.0
 Afternoon Dosage: 0.0
 Evening Dosage: 0.0
 Repeat: 1
+
 Name: Dextromethorphan
 Quantity: 30.0
 Expiry Date: 31/02/26
 Remarks: restlessness, nausea
 Morning Dosage: 0.0
 Afternoon Dosage: 0.0
-Evening Dosage: 0.0
+Evening Dosage: 1.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> Name: Medication_A
@@ -87,14 +91,16 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
+
 Name: Dexamethasone
 Quantity: 20.0
 Expiry Date: 31/01/25
 Remarks: aggression, weight gain, nausea
-Morning Dosage: 0.0
+Morning Dosage: 1.0
 Afternoon Dosage: 0.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> Name: Medication_A
@@ -105,6 +111,7 @@ Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 0.0
 Repeat: 1
+
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> ERROR: You can only have one flag!

@@ -161,6 +161,18 @@ public class Medication {
     }
 
     /**
+     * Checks if medication has any dosages
+     *
+     * @return True if medication has no dosages for morning, afternoon and evening, else false
+     */
+    public boolean hasNoDosages() {
+        boolean hasNoDosageMorning = !hasDosage(Period.MORNING);
+        boolean hasNoDosageAfternoon = !hasDosage(Period.AFTERNOON);
+        boolean hasNoDosageEvening = !hasDosage(Period.EVENING);
+        return hasNoDosageMorning && hasNoDosageAfternoon && hasNoDosageEvening;
+    }
+
+    /**
      * Replaces Medication info with the specified Medication object info
      *
      * @param medication Medication object values to replace with
