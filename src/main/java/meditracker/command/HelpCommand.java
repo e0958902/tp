@@ -16,12 +16,11 @@ public class HelpCommand extends Command {
      */
     @Override
     public void execute() {
-        System.out.print(System.lineSeparator());
+        System.out.println();
         Ui.showLine();
-        System.out.println("Here are the commands you can use with MediTracker:" +
-                System.lineSeparator());
+        System.out.println("Here are the commands you can use with MediTracker:" + System.lineSeparator());
         getCommandNamesAndDescription();
-        System.out.print(System.lineSeparator());
+        System.out.println();
         System.out.println("For more details about each command, simply type in the command name.");
     }
 
