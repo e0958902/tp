@@ -135,18 +135,18 @@ public class Ui {
     public static void printMedicationList(List<Medication> medications) {
         int totalMedications = MedicationManager.getTotalMedications();
         if (totalMedications > 0) {
-            String headerFormat = "   %-30s %-10s %-10s %-30s%n";
+            String headerFormat = "   %-30s %-10s %-10s %-30s";
             String name = "Name";
             String quantity = "Quantity";
             String expiryDate = "Expiry";
             String remarks = "Remarks";
             System.out.println("You have " + totalMedications + " medications listed below.");
-            System.out.printf(headerFormat, name, quantity, expiryDate, remarks);
+            System.out.printf(headerFormat + System.lineSeparator(), name, quantity, expiryDate, remarks);
 
             for (Medication medication : medications) {
                 int numbering = medications.indexOf(medication) + 1;
-                String bodyFormat = "%-30.30s %-10.1f %-10s %-30s %n";
-                System.out.printf(numbering + ". " + bodyFormat,
+                String bodyFormat = "%-30.30s %-10.1f %-10s %-30s ";
+                System.out.printf(numbering + ". " + bodyFormat + System.lineSeparator(),
                         medication.getName(),
                         medication.getQuantity(),
                         medication.getExpiryDate(),
