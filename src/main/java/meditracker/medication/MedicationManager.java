@@ -63,8 +63,6 @@ public class MedicationManager {
      * Uses the Medication name to retrieve medications from the list.
      *
      * @param name Name of the medication to retrieve
-     * @return Corresponding Medication object with the matched name
-     * @throws MedicationNotFoundException No Medication matching the specified name found
      */
     private static void checkForDuplicateMedication(String name) throws MediTrackerException {
         for (Medication medication : medications) {
@@ -137,10 +135,10 @@ public class MedicationManager {
      */
     public static void showMedicationsByName(String name) throws MedicationNotFoundException {
         int medicationsFound = 0;
-        String nametoSearch = name.toLowerCase();
+        String nameToSearch = name.toLowerCase();
         for (Medication medication : medications) {
             String medicationName = medication.getName().toLowerCase();
-            if (medicationName.contains(nametoSearch)) {
+            if (medicationName.contains(nameToSearch)) {
                 medicationsFound++;
                 Ui.printSpecificMed(medication);
             }
@@ -185,10 +183,10 @@ public class MedicationManager {
      */
     public static void showMedicationsByRemarks(String remarks) throws MedicationNotFoundException {
         int medicationsFound = 0;
-        String remarkstoSearch = remarks.toLowerCase();
+        String remarksToSearch = remarks.toLowerCase();
         for (Medication medication : medications) {
             String medicationRemarks = medication.getRemarks().toLowerCase();
-            if (medicationRemarks.contains(remarkstoSearch)) {
+            if (medicationRemarks.contains(remarksToSearch)) {
                 medicationsFound++;
                 Ui.printSpecificMed(medication);
             }
