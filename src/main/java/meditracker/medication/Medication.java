@@ -4,9 +4,6 @@ import meditracker.time.Period;
 
 // @@author nickczh
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.Objects;
 
 /**
@@ -192,13 +189,6 @@ public class Medication {
         setRemarks(medication.getRemarks());
         setRepeat(medication.getRepeat());
         setDayAdded(medication.getDayAdded());
-    }
-
-    public static LocalDate parseDate(String date) {
-        DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder()
-                .append(DateTimeFormatter.ofPattern("[MM/dd/yyyy]" + "[dd/MM/yyyy]" + "[yyyy/MM/dd]"));
-        DateTimeFormatter dateTimeFormatter = dateTimeFormatterBuilder.toFormatter();
-        return LocalDate.parse(date, dateTimeFormatter);
     }
 
     /**
