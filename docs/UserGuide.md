@@ -96,8 +96,8 @@ Options:
 
 Examples:
 
-* `add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 1`
-* `add -n Medication B -q 1000 -e 30/09/24 -dM 500 -dA 250 -dE 50 -rep 6`
+* `meditracker> add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 1`
+* `meditracker> add -n Medication B -q 1000 -e 30/09/24 -dM 500 -dA 250 -dE 50 -rep 6`
 
 Output:
 ```
@@ -107,10 +107,21 @@ SUCCESS: Medicine has been added
 You can show the medications that you have added to the medication list, 
 and show the medications that you will be taking for the day.
 
+```
+Usage:
+	list (-t listType) [-m] [-a] [-e] [-h]
+Options:
+	-t listType     Lists medications accordingly
+	-m              Time of day: Morning
+	-a              Time of day: Afternoon
+	-e              Time of day: Evening
+	-h              Prints this help message
+```
+
 ### All medications:
 Displays the whole lists of medications that you have added to the medication list.
 
-Format: `list -t all`
+Example: `list -t all`
 
 Output:
 ```
@@ -124,24 +135,22 @@ Your list of medications has been successfully shown!
 ### Daily medications:
 Displays an overview of the list of medications that you will be taking for the day.
 
-Format: `list -t today`
-* If you want to see for only a particular period of the day, simply enter `list -t today` followed by:
+Example: `list -t today`
+* If you want to specify a particular period of the day, simply enter `list -t today` followed by:
   * `-m`: Morning (Midnight to 12 Noon)
   * `-a`: Afternoon (12pm to 6pm)
   * `-e`: Evening (6pm to Midnight)
-  * Eg: `list -t today -m` - will display the list of medications to be taken in the morning only
+  * Example: `list -t today -m` - will display the list of medications to be taken in the morning only
 
 Output:
 ```
-____________________________________________________________
 Here are the Daily Medications you have to take today: 
 Morning:
 	1. [ ] Medication_A | 2.0
 Afternoon:
 	1. [ ] Medication_A | 1.0
-____________________________________________________________
 ```
-
+> If you want to mark the medication you have taken, you can refer to the [Take command](#take-a-medication) here.
 
 ## Viewing medications: `view`
 You can view detailed information about the medications you have added in the medication list.
@@ -154,14 +163,26 @@ This output will be shown if you used more than one flag and argument.
 ERROR: You can only have one flag!
 ```
 > Tip: You are only allowed to use one flag and argument.
-> 
+
+```
+Usage:
+	view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] [-r remarks] [-h]
+Options:
+	-l listIndex          Index of item in list
+	-n name               Name of medication
+	-q quantity           Quantity of medication
+	-e expirationDate     Expiration date of medication
+	-r remarks            Additional remarks on medication
+	-h                    Prints this help message
+```
+
 ### View Medication by index:
 By using the index shown in the medication list[`list -t all`](#All-medications), 
 you can see all the fields of that medication index.
 
 Format: `view -l MEDICATION_INDEX`
 
-Example: `view -l 1`
+Example: `meditracker> view -l 1`
 
 > Tip: Only the first flag and argument will be used to 
 > show a medication by the specified index.
@@ -186,7 +207,7 @@ You can view all medication information by its name.
 
 Format: `view -n MEDICATION_NAME`
 
-Example: `view -n medication_b`
+Example: `meditracker> view -n medication_b`
 
 > Tip: Only the first flag and argument will be used to 
 > show medications by the specified name.
@@ -211,7 +232,7 @@ You can view all medication information by its quantity.
 
 Format: `view -q MEDICATION_QUANTITY`
 
-Example: `view -q 1000`
+Example: `meditracker> view -q 1000`
 
 > Tip: Only the first flag and argument will be used to 
 > show all medications that is less than or equal to the specified quantity.
@@ -236,7 +257,7 @@ You can view all medication information by its expiry year.
 
 Format: `view -e MEDICINE_EXPIRY_IN_YY`
 
-Example: `view -e 25`
+Example: `meditracker> view -e 25`
 
 > Tip: Only the first flag and argument will be used to 
 > show all medications that is expiring by that specified year.
@@ -270,7 +291,7 @@ You can view all medication information by its remarks.
 
 Format: `view -r MEDICINE_REMARKS`
 
-Example: `view -r dizziness`
+Example: `meditracker> view -r dizziness`
 
 > Tip: Only the first flag and argument will be used to
 > show all medications that contains the specified remarks.
@@ -294,8 +315,11 @@ SUCCESS: Medication details has been retrieved
 ### Modify Medication Information
 
 If you require modification to the medication information, you can type `modify`, followed by the list index 
-`-l listIndex` printed in the summary list of medications to modify it. For each of the fields that you would
-like to modify, you can specify the corresponding flag and the new value to make changes.
+`-l listIndex`. You can obtain the list index from the Medication List by entering [`list -t all`](#all-medications).
+
+> Note: This command allows multiple flags to be specified in one line.
+(For each of the fields that you would like to modify, you can specify the corresponding flag and the new value to make
+changes.)
 
 ```
 Usage: 
@@ -314,6 +338,10 @@ Options:
 	-rep                    How often to take medication (eg: Supply a number from 1 to 7)
 	-h                      Prints this help message
 ```
+Examples:
+
+* `meditracker> modify -l 1 -n MedB`
+* `meditracker> modify -l 1 -q 40 -dA 2`
 
 Output:
 ```
@@ -324,10 +352,12 @@ SUCCESS: Medicine has been modified
 
 #### Take a medication
 
-When you have taken your medication, you can type `take`, followed by the list index `-l listIndex` 
-printed in the summary list of daily medications to mark it as taken. This command is time aware and 
-will mark the index of the medication based on what time of day it is. Optionally, you can specify 
-`-m`, `-a`, `-e` to override the time aware feature.
+When you have taken your medication, you can type `take`, followed by the list index `-l listIndex` to mark it as taken.
+You can obtain the list index by entering [`list -t today`](#daily-medications) and refer to the index for the 
+medication you have taken. This command is time aware and will mark the index you specified based on what time of day 
+it is. 
+
+> Optionally, you can specify `-m`, `-a`, `-e` to override the time aware feature.
 
 ```
 Usage:
@@ -340,17 +370,25 @@ Options:
 	-h               Prints this help message
 ```
 
+Examples:
+
+* `meditracker> take -l 1`
+* `meditracker> take -l 1 -m`
+
 Output:
 ```
+INFO: Medication quantity decreased: 40.0 -> 38.0
 SUCCESS: Medicine has been taken
 ```
 
 #### Untake a medication
 
-If you have accidentally entered the wrong command and wish to untake the medication, you can type `untake`, 
-followed by the list index `-l listIndex` printed in the summary list of daily medications. This command is 
-time aware and will mark the index of the medication based on what time of day it is. Optionally, you can 
-specify `-m`, `-a`, `-e` to override the time aware feature.
+If you have accidentally entered the wrong command and wish to un-take the medication, you can type `untake`, 
+followed by the list index `-l listIndex`. Similarly, you can obtain the list index by entering 
+[`list -t today`](#daily-medications) and refer to the index for the medication you wish to un-mark. This command is 
+time aware and will mark the index of the medication based on what time of day it is. 
+
+> Optionally, you can specify `-m`, `-a`, `-e` to override the time aware feature.
 
 ```
 Usage:
@@ -363,15 +401,21 @@ Options:
 	-h               Prints this help message
 ```
 
+Examples: 
+
+* `meditracker> untake -l 1`
+* `meditracker> untake -l 1 -m`
+
 Output:
 ```
+INFO: Medication quantity decreased: 38.0 -> 40.0
 SUCCESS: Medicine has been untaken
 ```
 
 ## Delete a medication
 
-To delete a provided medication, you can type `delete`, followed by the list index `-l listIndex`
-printed in the summary list of medications to remove it.
+To delete a medication, you can type `delete`, followed by the list index `-l listIndex`. You can obtain the list index 
+by entering [`list -t all`](#all-medications) to refer to the list of all medications.
 
 ```
 Usage:
@@ -380,6 +424,8 @@ Options:
 	-l listIndex     Index of item in list
 	-h               Prints this help message
 ```
+
+Example: `meditracker> delete -l 2`
 
 Output:
 ```
@@ -518,9 +564,10 @@ A goodbye message is printed on the screen, and the program exits after.
 
 Format: `exit`
 
-Usage:
+Example: `meditracker> exit`
+
+Output:
 ```
-exit
 Thank you for using MediTracker. Hope to see you again!
 ```
 

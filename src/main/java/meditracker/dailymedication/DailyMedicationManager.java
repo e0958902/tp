@@ -65,7 +65,6 @@ public class DailyMedicationManager {
      * Separates each row by the separator and add into the DailyMedicationManager
      *
      * @param line each line read from the textfile
-     * @return dailyMedication object to add into the DailyMedicationManager
      */
     private static void parseImportedLine(String line) {
         String[] fields = line.split("\\|");
