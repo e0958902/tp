@@ -136,7 +136,7 @@ class AddCommandTest {
         // actual test
         try {
             command.parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
-                    medicationDosageAfternoonArg, medicationDosageEveningArg, repeatArg, remarksArg);
+                    medicationDosageAfternoonArg, medicationDosageEveningArg, remarksArg);
             fail();
         } catch (NumberFormatException e) {
             assertEquals("For input string: \"%$^\"", e.getMessage());

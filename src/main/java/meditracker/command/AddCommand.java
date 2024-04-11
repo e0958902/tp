@@ -116,14 +116,13 @@ public class AddCommand extends Command {
         String medicationDosageMorningArg = parsedArguments.get(ArgumentName.DOSAGE_MORNING);
         String medicationDosageAfternoonArg = parsedArguments.get(ArgumentName.DOSAGE_AFTERNOON);
         String medicationDosageEveningArg = parsedArguments.get(ArgumentName.DOSAGE_EVENING);
-        String repeatArg = parsedArguments.get(ArgumentName.REPEAT);
 
         try {
             // Validate and parse input
             sanitiseInput(medicationName);
             repeat = getRepeat();
             parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
-                    medicationDosageAfternoonArg, medicationDosageEveningArg, repeatArg, remarksArg);
+                    medicationDosageAfternoonArg, medicationDosageEveningArg, remarksArg);
 
             // Get the current date and the day of the year
             LocalDate currentDate = MediTrackerTime.getCurrentDate();
@@ -163,19 +162,17 @@ public class AddCommand extends Command {
      * @param medicationDosageMorning The morning dosage of the medication.
      * @param medicationDosageAfternoon The afternoon dosage of the medication.
      * @param medicationDosageEvening The evening dosage of the medication.
-     * @param repeat The frequency in which the medication has to be taken.
      * @param remarks The additional remarks regarding the medication.
      * @throws NumberFormatException if there is an error in parsing numeric values.
      * @throws NullPointerException  if any of the required arguments are null.
      */
     void parseStringToValues(String medicationQuantity,
                              String medicationDosageMorning,
-                             String medicationDosageAfternoon, String medicationDosageEvening, String repeat,
+                             String medicationDosageAfternoon, String medicationDosageEvening,
                              String remarks)
             throws NumberFormatException, NullPointerException {
 
         this.medicationQuantity = Double.parseDouble(medicationQuantity);
-        this.repeat = Integer.parseInt(repeat);
 
         if (medicationDosageMorning != null) {
             this.medicationDosageMorning = Double.parseDouble(medicationDosageMorning);
@@ -192,7 +189,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Sanitizes the input for medication name by checking if it contains only alphabetic characters.
+     * Sanitizes the input for medication name by checking if it contains only alphabetic characters and spaces.
      *
      * @param medicationName The name of the medication to be sanitized.
      * @throws MediTrackerException if the medication name contains non-alphabetic characters.
