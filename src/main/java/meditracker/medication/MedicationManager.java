@@ -2,6 +2,7 @@ package meditracker.medication;
 
 import meditracker.argument.ArgumentName;
 import meditracker.exception.InsufficientQuantityException;
+import meditracker.exception.MediTrackerException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
@@ -50,9 +51,18 @@ public class MedicationManager {
      *
      * @param medication Medication to be added to the list
      */
-    public static void addMedication(Medication medication) {
+    public static void addMedication(Medication medication) throws MediTrackerException{
+        checkForDuplicateMedication(medication.getName().toLowerCase());
         medications.add(medication);
         FileReaderWriter.saveMediTrackerData(null);
+    }
+
+    private static void checkForDuplicateMedication(String name) throws MediTrackerException {
+        for (Medication medication : medications) {
+            if (medication.getName().toLowerCase().equals(name)) {
+                throw new MediTrackerException("Medication already exists in the list!");
+            }
+        }
     }
 
     /**
@@ -326,7 +336,11 @@ public class MedicationManager {
                     logger.warning("Unhandled ArgumentName Enum Type " + keyEnum.value);
                 }
             }
-            addMedication(medication);
+            try {
+                addMedication(medication);
+            } catch (MediTrackerException e) {
+                Ui.showErrorMessage(e);
+            }
         }
     }
 

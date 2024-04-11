@@ -1,11 +1,7 @@
 package meditracker.command;
 
 import meditracker.dailymedication.DailyMedicationManagerTest;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
-import meditracker.exception.HelpInvokedException;
-import meditracker.exception.UnknownArgumentFoundException;
+import meditracker.exception.*;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
@@ -28,7 +24,7 @@ class ListCommandTest {
     }
 
     @Test
-    void execute_listCommand_expect() {
+    void execute_listCommand_expect() throws MediTrackerException {
         String medicationName = "Medication_B";
 
         Medication medication = new Medication(
@@ -56,7 +52,7 @@ class ListCommandTest {
     @Test
     void execute_listAllMedications_expectToShowAllMedicationsInMedicationList()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         String medicationNameOne = "Dexamethasone";
         Double medicationQuantityOne = 20.0;
         String medicationExpiryOne = "31/01/25";

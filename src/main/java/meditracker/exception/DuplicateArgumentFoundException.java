@@ -7,4 +7,7 @@ public class DuplicateArgumentFoundException extends Exception {
     public DuplicateArgumentFoundException(String errorContext) {
         super(errorContext);
     }
+
+    public DuplicateArgumentFoundException() {
+    }
 }

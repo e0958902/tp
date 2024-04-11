@@ -1,14 +1,7 @@
 package meditracker.dailymedication;
 
 import meditracker.command.AddCommand;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
-import meditracker.exception.HelpInvokedException;
-import meditracker.exception.InsufficientQuantityException;
-import meditracker.exception.MedicationNotFoundException;
-import meditracker.exception.MedicationUnchangedException;
-import meditracker.exception.UnknownArgumentFoundException;
+import meditracker.exception.*;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
@@ -92,7 +85,7 @@ public class DailyMedicationManagerTest {
 
     @Test
     public void takeDailyMedication_genericDailyMedication_dailyMedicationTaken()
-            throws InsufficientQuantityException, MedicationNotFoundException, MedicationUnchangedException {
+            throws InsufficientQuantityException, MedicationNotFoundException, MedicationUnchangedException, MediTrackerException {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;
@@ -121,7 +114,7 @@ public class DailyMedicationManagerTest {
     }
 
     @Test
-    public void takeDailyMedication_lowQuantityMedication_insufficientQuantity() {
+    public void takeDailyMedication_lowQuantityMedication_insufficientQuantity() throws MediTrackerException {
         String medicationName = "TestMedication";
         double oldQuantity = 5;
         double dosage = 10;
@@ -149,7 +142,7 @@ public class DailyMedicationManagerTest {
 
     @Test
     public void untakeDailyMedication_genericDailyMedication_dailyMedicationNotTaken()
-            throws MedicationNotFoundException, MedicationUnchangedException {
+            throws MedicationNotFoundException, MedicationUnchangedException, MediTrackerException {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;

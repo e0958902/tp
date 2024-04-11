@@ -97,7 +97,12 @@ public class AddCommand extends Command {
             return;
         }
 
-        MedicationManager.addMedication(medication);
+        try {
+            MedicationManager.addMedication(medication);
+        } catch (MediTrackerException e) {
+            Ui.showErrorMessage(e);
+            return;
+        }
         DailyMedicationManager.checkForDaily(medication);
         assertionTest();
         Ui.showSuccessMessage("Medicine has been added");

@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import meditracker.MediTrackerConfig;
+import meditracker.exception.MediTrackerException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +27,7 @@ public class JsonExporterTest {
      * potentially errornous (i.e. empty field where they are not supposed to be).
      */
     @BeforeAll
-    public static void initiateMedicationManager() {
+    public static void initiateMedicationManager() throws MediTrackerException {
         Medication med1 = new Medication(
                 "Test Valid Medication 1",
                 69.0,
