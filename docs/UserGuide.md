@@ -86,11 +86,13 @@ Options:
 -dM dosageMorning       Morning dosage of medication
 -dA dosageAfternoon     Afternoon dosage of medication
 -dE dosageEvening       Evening dosage of medication
--r remarks              Additional remarks on medication (Nil if empty)
+-r remarks              Additional remarks on medication
 -rep                    How often to take medication (eg: Supply a number from 1 to 7)
 ```
 
 > Tip: The dosage and remarks tags are optional.
+
+> Note: Remarks will default to Nil if it is not specified.
 
 Examples:
 
