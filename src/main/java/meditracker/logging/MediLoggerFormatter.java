@@ -56,7 +56,7 @@ public class MediLoggerFormatter extends Formatter {
         }
 
         builder.append(ANSI_RESET);
-        builder.append("\n");
+        builder.append(System.lineSeparator());
         return builder.toString();
     }
 }

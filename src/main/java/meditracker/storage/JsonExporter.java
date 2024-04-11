@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import meditracker.logging.MediLogger;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import meditracker.argument.ArgumentName;
@@ -28,17 +29,22 @@ class JsonExporter {
      */
     private static JSONObject convertMedicationInfoToJsonObject(Medication medInfo) {
         JSONObject medObject = new JSONObject();
+        try {
+            medObject.put(ArgumentName.NAME.value, medInfo.getName());
+            medObject.put(ArgumentName.EXPIRATION_DATE.value, medInfo.getExpiryDate());
+            medObject.put(ArgumentName.REMARKS.value, medInfo.getRemarks());
 
-        medObject.put(ArgumentName.NAME.value, medInfo.getName());
-        medObject.put(ArgumentName.QUANTITY.value, medInfo.getQuantity());
-        medObject.put(ArgumentName.DOSAGE_MORNING.value, medInfo.getDosageMorning());
-        medObject.put(ArgumentName.DOSAGE_AFTERNOON.value, medInfo.getDosageAfternoon());
-        medObject.put(ArgumentName.DOSAGE_EVENING.value, medInfo.getDosageEvening());
-        medObject.put(ArgumentName.EXPIRATION_DATE.value, medInfo.getExpiryDate());
-        medObject.put(ArgumentName.REMARKS.value, medInfo.getRemarks());
-        medObject.put(ArgumentName.REPEAT.value, medInfo.getRepeat());
-        medObject.put(ArgumentName.DAY_ADDED.value, medInfo.getDayAdded());
-
+            medObject.put(ArgumentName.QUANTITY.value, medInfo.getQuantity());
+            medObject.put(ArgumentName.DOSAGE_MORNING.value, medInfo.getDosageMorning());
+            medObject.put(ArgumentName.DOSAGE_AFTERNOON.value, medInfo.getDosageAfternoon());
+            medObject.put(ArgumentName.DOSAGE_EVENING.value, medInfo.getDosageEvening());
+            medObject.put(ArgumentName.REPEAT.value, medInfo.getRepeat());
+            medObject.put(ArgumentName.DAY_ADDED.value, medInfo.getDayAdded());
+        } catch (JSONException e) {
+            logger.severe(e.getMessage());
+            logger.severe("Entry not saved to JSON file.");
+            return null;
+        }
         return medObject;
     }
 
