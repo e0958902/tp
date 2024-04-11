@@ -387,9 +387,11 @@ SUCCESS: Medicine has been deleted
 ```
 
 ## Search
+MediTracker has a built-in medication library that you can search for common medications. This library contains 
+information on the medication name, the illness that the medication is used for, and the side effects of the medication.
 
-To search for a medication in the library, you can type 'search', followed by the field you want to search for and the keyword 
-`keyword`.
+To search for a medication in the library, you can type 'search', followed by the field you want to search for and the 
+keyword `keyword`.
 You have to include at least one of the following flags: `-n`, `-i`, `-s`, `-a` to specify the field you want to 
 search for.
 
@@ -402,7 +404,7 @@ Options:
     -n name                 Name of medication
     -i illness              Illness that the medication is used for
     -s sideEffects          Side effects of the medication
-    -a allFields            Search all fields
+    -a allFields            Search all fields (name, illness, side effects)
     -h                      Prints this help message
 ```
 Examples:
