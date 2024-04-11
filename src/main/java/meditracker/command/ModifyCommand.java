@@ -18,6 +18,7 @@ import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MediTrackerException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
@@ -83,9 +84,14 @@ public class ModifyCommand extends Command {
             updateMedication(medication);
         } catch (NumberFormatException e) {
             medication.revertMedication(medicationCopy);
-            String errorContext = String.format("Unable to format correctly. %s. Medicine has not been modified.",
-                    e.getMessage());
+            String errorContext = String.format("Unable to format correctly. %s.", e.getMessage());
             Ui.showErrorMessage(errorContext);
+            Ui.showWarningMessage("Changes have been rolled back. Medicine not modified.");
+            return;
+        } catch (MediTrackerException e) {
+            medication.revertMedication(medicationCopy);
+            Ui.showErrorMessage(e);
+            Ui.showWarningMessage("Changes have been rolled back. Medicine not modified.");
             return;
         }
 
@@ -98,7 +104,7 @@ public class ModifyCommand extends Command {
      * @param medication Medication object to update
      * @throws NumberFormatException When Double.parseDouble or Integer.parseInt fails
      */
-    private void updateMedication(Medication medication) throws NumberFormatException {
+    private void updateMedication(Medication medication) throws NumberFormatException, MediTrackerException {
         for (Map.Entry<ArgumentName, String> argument: parsedArguments.entrySet()) {
             ArgumentName argumentName = argument.getKey();
             String argumentValue = argument.getValue();
@@ -117,25 +123,13 @@ public class ModifyCommand extends Command {
                 medication.setExpiryDate(argumentValue);
                 break;
             case REPEAT:
-                medication.setRepeat(Integer.parseInt(argumentValue));
+                int repeat = Command.getRepeat(parsedArguments);
+                medication.setRepeat(repeat);
                 break;
             case LIST_INDEX:
                 continue;
             case NAME:
-                String oldName = medication.getName();
-                medication.setName(argumentValue);
-
-                if (!DailyMedicationManager.doesBelongToDailyList(medication)) {
-                    continue;
-                }
-
-                try {
-                    updateDailyMedicationName(medication, oldName, argumentValue);
-                } catch (MedicationNotFoundException e) {
-                    Ui.showWarningMessage("Possible corruption of data. " +
-                            "Unable to update DailyMedication when using `modify`");
-                    return;
-                }
+                updateMedicationName(medication, argumentValue);
                 break;
             case QUANTITY:
                 medication.setQuantity(Double.parseDouble(argumentValue));
@@ -147,25 +141,72 @@ public class ModifyCommand extends Command {
                 throw new IllegalStateException("Unexpected value: " + argumentName);
             }
         }
+        checkDosageOrRepeatModified(medication);
     }
 
     /**
-     * Updates all instances of DailyMedication name to new name
+     * Updates Medication and all instances of DailyMedication name to new name
      *
      * @param medication Medication object being updated
-     * @param oldName Existing old name of Medication object to search for
      * @param newName New name to replace with
-     * @throws MedicationNotFoundException No DailyMedication matching specified name found
      */
-    private static void updateDailyMedicationName(Medication medication, String oldName, String newName)
-            throws MedicationNotFoundException {
+    private static void updateMedicationName(Medication medication, String newName) {
+        String oldName = medication.getName();
+        medication.setName(newName);
+
+        if (!DailyMedicationManager.doesBelongToDailyList(medication)) {
+            return;
+        }
+
         for (Period period : Period.values()) {
             if (!medication.hasDosage(period)) {
                 continue;
             }
 
-            DailyMedication dailyMedication = DailyMedicationManager.getDailyMedication(oldName, period);
+            DailyMedication dailyMedication;
+            try {
+                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, period);
+            } catch (MedicationNotFoundException e) {
+                String message = String.format("Possible data corruption: Medication missing from %s list", period);
+                Ui.showWarningMessage(message);
+                continue;
+            }
+
             dailyMedication.setName(newName);
+        }
+    }
+
+    /**
+     * Checks whether dosage and/or repeat was modified and also if all dosages are 0
+     *
+     * @param medication Medication object being checked
+     * @throws MediTrackerException Thrown if all dosages are 0
+     */
+    private void checkDosageOrRepeatModified(Medication medication) throws MediTrackerException {
+        boolean hasNoDosages = medication.hasNoDosages();
+        if (hasNoDosages) {
+            throw new MediTrackerException("Medication modification results in all empty dosages. " +
+                    "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
+        }
+
+        boolean doesBelongToDailyList = DailyMedicationManager.doesBelongToDailyList(medication);
+        if (!doesBelongToDailyList) {
+            // Warning message below does not apply for today as medication not part of today's list
+            return;
+        }
+
+        boolean hasDosageMorning = parsedArguments.containsKey(ArgumentName.DOSAGE_MORNING);
+        boolean hasDosageAfternoon = parsedArguments.containsKey(ArgumentName.DOSAGE_AFTERNOON);
+        boolean hasDosageEvening = parsedArguments.containsKey(ArgumentName.DOSAGE_EVENING);
+        boolean hasRepeat = parsedArguments.containsKey(ArgumentName.REPEAT);
+        if (hasDosageMorning || hasDosageAfternoon || hasDosageEvening || hasRepeat) {
+            String message =
+                    "New dosage and/or repeat frequency will be applied tomorrow/next time you require " +
+                    System.lineSeparator() +
+                    "to take the medication (whichever occurs later). No changes will be made to today's list of " +
+                    System.lineSeparator() +
+                    "medication to take.";
+            Ui.showWarningMessage(message);
         }
     }
 }

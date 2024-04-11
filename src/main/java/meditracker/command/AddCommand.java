@@ -90,6 +90,13 @@ public class AddCommand extends Command {
             Ui.showErrorMessage(e);
             return;
         }
+
+        if (medication.hasNoDosages()) {
+            Ui.showErrorMessage("Medication has no dosages. " +
+                    "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
+            return;
+        }
+
         MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
         assertionTest();
@@ -120,7 +127,7 @@ public class AddCommand extends Command {
         try {
             // Validate and parse input
             sanitiseInput(medicationName);
-            repeat = getRepeat();
+            repeat = Command.getRepeat(parsedArguments);
             parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
                     medicationDosageAfternoonArg, medicationDosageEveningArg, remarksArg);
 
@@ -138,21 +145,6 @@ public class AddCommand extends Command {
         } catch (NullPointerException e) {
             throw new MediTrackerException("Medication not found");
         }
-    }
-
-    /**
-     * Checks if repeat is within range of 1 to 7
-     *
-     * @return Returns the repeat in Integer
-     * @throws MediTrackerException when the value is not within the specified range
-     */
-    private int getRepeat() throws MediTrackerException {
-        int repeat;
-        repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
-        if (repeat < 1 || repeat > 7) {
-            throw new MediTrackerException("Provide a \"-rep\" number from 1 to 7");
-        }
-        return repeat;
     }
 
     /**

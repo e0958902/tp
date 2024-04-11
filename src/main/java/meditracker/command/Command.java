@@ -1,6 +1,7 @@
 package meditracker.command;
 
 import meditracker.argument.ArgumentName;
+import meditracker.exception.MediTrackerException;
 import meditracker.time.MediTrackerTime;
 import meditracker.time.Period;
 
@@ -54,4 +55,22 @@ public abstract class Command {
         }
         return period;
     }
+
+    // @@author T0nyLin
+    /**
+     * Checks if repeat is within range of 1 to 7
+     *
+     * @param parsedArguments A map of argument name as key and the corresponding value
+     * @return Returns the repeat in Integer
+     * @throws MediTrackerException when the value is not within the specified range
+     */
+    public static int getRepeat(Map<ArgumentName, String> parsedArguments) throws MediTrackerException {
+        int repeat;
+        repeat = Integer.parseInt(parsedArguments.get(ArgumentName.REPEAT));
+        if (repeat < 1 || repeat > 7) {
+            throw new MediTrackerException("Provide a \"-rep\" number from 1 to 7");
+        }
+        return repeat;
+    }
+    // @@author
 }
