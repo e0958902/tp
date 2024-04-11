@@ -132,7 +132,6 @@ Format: `list -t today`
 Output:
 ```
 ____________________________________________________________
-meditracker> list -t today
 Here are the Daily Medications you have to take today: 
 Morning:
 	1. [ ] Medication_A | 2.0
