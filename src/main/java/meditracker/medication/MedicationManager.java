@@ -267,28 +267,6 @@ public class MedicationManager {
     }
 
     /**
-     * Converts a String to a double.
-     * Introduced to help populate the Medication object from the save file.
-     *
-     * @param doubleString The String object to be converted to a double type.
-     * @return The value of type double. Placeholder value of -1.0 if an exception is thrown.
-     */
-    private static double convertStringToDouble(String doubleString) {
-        double placeholderValue = -1.0;
-
-        try {
-            return Double.parseDouble(doubleString);
-        } catch (NumberFormatException e) {
-            logger.warning("Possibly corrupt data. Unable to parse String '" + doubleString
-                    + "' into double. Using placeholder value -1.0");
-            return placeholderValue;
-        } catch (NullPointerException e) {
-            logger.warning("Null Pointer passed for conversion to double. Using placeholder value -1.0");
-            return placeholderValue;
-        }
-    }
-
-    /**
      * Populates the MedicationManager from the save file.
      * If there are corrupt data, it may be substituted with placeholder values.
      *

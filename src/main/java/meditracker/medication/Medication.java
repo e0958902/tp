@@ -239,5 +239,42 @@ public class Medication {
                 && Objects.equals(getRepeat(), medication.getRepeat())
                 && Objects.equals(getDayAdded(), medication.getDayAdded());
     }
+
+    // @@author annoy-o-mus
+
+    /**
+     * Converts a String to a double.
+     *
+     * @param doubleString The String object to be converted to a double type.
+     * @return The value of type double.
+     * @throws MediTrackerException If unable to parse string to double.
+     */
+    private static double convertStringToDouble(String doubleString) throws MediTrackerException {
+        try {
+            return Double.parseDouble(doubleString);
+        } catch (NumberFormatException e) {
+            throw new MediTrackerException("Unable to parse String '" + doubleString + "' into double.");
+        } catch (NullPointerException e) {
+            throw new MediTrackerException("Null Pointer passed for conversion to double.");
+        }
+    }
+
+    // @@author
+
+    /**
+     * Converts a String to a integer.
+     *
+     * @param integerString The String object to be converted to an integer type.
+     * @return The value of type integer.
+     * @throws MediTrackerException If unable to parse string to integer.
+     */
+    private static int convertStringToInteger(String integerString) throws MediTrackerException {
+        try {
+            return Integer.parseInt(integerString);
+        } catch (NumberFormatException e) {
+            throw new MediTrackerException("Unable to parse String '" + integerString + "' into integer.");
+        } catch (NullPointerException e) {
+            throw new MediTrackerException("Null Pointer passed for conversion to integer.");
+        }
+    }
 }
-// @@author
