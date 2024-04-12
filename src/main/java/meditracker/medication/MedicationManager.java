@@ -56,6 +56,11 @@ public class MedicationManager {
         FileReaderWriter.saveMediTrackerData(null);
     }
 
+    protected static void addMedicationWithoutChecks(Medication medication) {
+        medications.add(medication);
+        FileReaderWriter.saveMediTrackerData(null);
+    }
+
     /**
      * Checks for duplicate medication in the list of medications.
      *
