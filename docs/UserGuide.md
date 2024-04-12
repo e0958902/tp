@@ -27,8 +27,7 @@ data storage so that you can review your past medication intake.
     - [Record taking of medication](#record-taking-of-medication)`take/untake -l`
     - [Modify medication information](#modify-medication-information)`modify -l`
   - [Delete medication information](#delete-a-medication)`delete -l`
-  - [Search](#search)
-      - [Access Medicine Database](#access-database)`search`
+  - [Search Medicine Library](#search)`search`
   - [Help](#help)
   - [General data management](#general-data-management)
     - [Saving to a file:](#saving-to-a-file-save)`save`
@@ -391,13 +390,13 @@ MediTracker has a built-in medication library that you can search for common med
 information on the medication name, the illness that the medication is used for, and the side effects of the medication.
 
 To search for a medication in the library, you can type 'search', followed by the field you want to search for and the 
-keyword `keyword`.
+keyword.
 You have to include at least one of the following flags: `-n`, `-i`, `-s`, `-a` to specify the field you want to 
 search for.
 
 Usage:
 ```
-    search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword) [-h]
+    search ([-n name] [-i illness] [-s sideEffects] [-a keyword]) [-h]
 ```
 Options:
 ```
@@ -497,7 +496,7 @@ The medication information are saved in a `.json` format while the daily medicat
 in the `.txt` format. Advanced users can modify the text files directly.
 
 WARNING: If the changes to the data file makes either its format or some of the fields contained therein invalid,
-meditracker may:
+MediTracker may:
 1. Discard all the data and start with a fresh state
 2. Tries to read some information, and fill in placeholder values for fields that fail to load
 3. Crash due to bad data.
@@ -529,7 +528,7 @@ Thank you for using MediTracker. Hope to see you again!
 ## FAQ
 **Q**: How do I transfer my data to another computer? 
 
-**A**: By default, all meditracker-related data will be saved under the `data` folder. 
+**A**: By default, all MediTracker-related data will be saved under the `data` folder. 
 This folder resides at the same level as the `meditracker.jar` file.
 To transfer the data, just copy/shift the `data` folder to the new computer, 
 making sure it is at the same level as the `.jar` file.
