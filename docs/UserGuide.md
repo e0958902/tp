@@ -115,9 +115,9 @@ Format: `list -t all`
 Output:
 ```
 You have 2 medications listed below.
-   Name                           Quantity   Expiry     Remarks                       
-1. Medication A                   5000.0     2025-07-01 cause_dizziness  
-2. Medication B                   1000.0     2024-09-30 Nil
+   Name                           Quantity   Expiry       Remarks                       
+1. Medication A                   5000.0     2025-07-01   cause_dizziness  
+2. Medication B                   1000.0     2024-09-30   Nil
 Your list of medications has been successfully shown!
 ```
 
