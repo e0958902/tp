@@ -189,7 +189,7 @@ public class MedicationManager {
         int medicationsFound = 0;
 
         for (Medication medication : medications) {
-            String[] dateArr = medication.getExpiryDate().split("-", 3);
+            String[] dateArr = medication.getExpiryDate().split("-", 1);
             int medicationYear = Integer.parseInt(dateArr[0]);
             int userYear = Integer.parseInt(expiry);
 
