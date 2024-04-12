@@ -540,13 +540,17 @@ See the part on [Editing the File](#editing-the-file) for warnings on modifying 
 The medication information are saved in a `.json` format while the daily medication information are saved
 in the `.txt` format. Advanced users can modify the text files directly.
 
-WARNING: If the changes to the data file makes either its format or some of the fields contained therein invalid,
-meditracker may:
-1. Discard all the data and start with a fresh state
-2. Tries to read some information, and fill in placeholder values for fields that fail to load
-3. Crash due to bad data.
+> **WARNING 1**: If the changes to the data file makes either its format or some of the fields contained therein invalid,
+MediTracker may:
+> 1. Discard all the data and start with a fresh state
+> 2. Tries to read some information, and fill in placeholder values for fields that fail to load
+> 3. Crash due to bad data.
 
 Therefore, only edit the file if you are confident you can update it correctly.
+
+> **WARNING 2**: If you edit valid data directly inside the `.json` file, you have to **delete the text file 
+> <TODAY_DATE>.txt** in `data/dailymed/`. Otherwise, the next time MediTracker runs, it will continue to read the old 
+> data saved in the `<TODAY_DATE>.txt`.
 
 ### Advanced feature: Setting an arbitrary time
 This feature is intended for developers to test out the features. See the developer guide (To be updated) for more detailed explanation on its implementation.
