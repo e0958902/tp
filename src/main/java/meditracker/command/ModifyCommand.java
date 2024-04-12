@@ -141,6 +141,7 @@ public class ModifyCommand extends Command {
                 throw new IllegalStateException("Unexpected value: " + argumentName);
             }
         }
+        medication.checkValidity();
         checkDosageOrRepeatModified(medication);
     }
 
@@ -180,15 +181,8 @@ public class ModifyCommand extends Command {
      * Checks whether dosage and/or repeat was modified and also if all dosages are 0
      *
      * @param medication Medication object being checked
-     * @throws MediTrackerException Thrown if all dosages are 0
      */
-    private void checkDosageOrRepeatModified(Medication medication) throws MediTrackerException {
-        boolean hasNoDosages = medication.hasNoDosages();
-        if (hasNoDosages) {
-            throw new MediTrackerException("Medication modification results in all empty dosages. " +
-                    "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
-        }
-
+    private void checkDosageOrRepeatModified(Medication medication) {
         boolean doesBelongToDailyList = DailyMedicationManager.doesBelongToDailyList(medication);
         if (!doesBelongToDailyList) {
             // Warning message below does not apply for today as medication not part of today's list

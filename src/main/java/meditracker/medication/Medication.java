@@ -25,25 +25,14 @@ public class Medication {
     private int dayAdded;
 
     /**
-     * Constructs a new Medication object with default placeholder values.
-     * Used by MedicationManager to populate medication data from the save file.
+     * Constructs a new Medication object with null values.
      */
     public Medication() {
-        final double placeholderValue = -1.0;
-
-        setName("");
-        setQuantity(placeholderValue);
-        setDosageMorning(placeholderValue);
-        setDosageAfternoon(placeholderValue);
-        setDosageEvening(placeholderValue);
-        setExpiryDate("");
-        setRemarks("");
-        setRepeat((int) placeholderValue);
-        setDayAdded((int) placeholderValue);
     }
 
     /**
      * Constructs a Medication object with the specified information.
+     *
      * @param name The name of the medication.
      * @param quantity The quantity of the medication.
      * @param dosageMorning The morning dosage of the medication.
@@ -66,6 +55,31 @@ public class Medication {
         this.repeat = repeat;
         this.dayAdded = dayAdded;
     }
+
+    // @@author
+
+    public void checkValidity() throws MediTrackerException {
+        boolean isUninitialised =
+                name == null ||
+                quantity == null ||
+                dosageMorning == null ||
+                dosageAfternoon == null ||
+                dosageEvening == null ||
+                expiryDate == null ||
+                remarks == null ||
+                repeat == 0 ||
+                dayAdded == 0;
+        if (isUninitialised) {
+            throw new MediTrackerException("Medication has uninitialised values. Discarding Medication.");
+        }
+
+        if (hasNoDosages()) {
+            throw new MediTrackerException("Medication has no dosages. " +
+                    "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
+        }
+    }
+
+    // @@author nickczh
 
     public String getName() {
         return name;

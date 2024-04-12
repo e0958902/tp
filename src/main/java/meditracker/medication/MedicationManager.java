@@ -54,6 +54,7 @@ public class MedicationManager {
      */
     public static void addMedication(Medication medication) throws MediTrackerException {
         checkForDuplicateMedication(medication.getName().toLowerCase());
+        medication.checkValidity();
         medications.add(medication);
         FileReaderWriter.saveMediTrackerData(null);
     }
