@@ -90,14 +90,14 @@ Options:
 -rep                    How often to take medication (eg: Supply a number from 1 to 7)
 ```
 
-> Tip: The dosage and remarks tags are optional.
+> Tip: The remarks tag is optional. The expiration date must be in yyyy-MM-dd format.
 
 > Note: Remarks will default to Nil if it is not specified.
 
 Examples:
 
-* `add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 1`
-* `add -n Medication B -q 1000 -e 30/09/24 -dM 500 -dA 250 -dE 50 -rep 6`
+* `add -n Medication A -q 5000 -e 2025-07-01 -dM 500 -dA 250 -dE 0 -r cause_dizziness -rep 1`
+* `add -n Medication B -q 1000 -e 2024-09-30 -dM 500 -dA 250 -dE 50 -rep 6`
 
 Output:
 ```
