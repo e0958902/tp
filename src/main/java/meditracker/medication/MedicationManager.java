@@ -52,7 +52,7 @@ public class MedicationManager {
      * @param medication Medication to be added to the list
      * @throws MediTrackerException When a duplicate medication is found
      */
-    public static void addMedication(Medication medication) throws MediTrackerException{
+    public static void addMedication(Medication medication) throws MediTrackerException {
         checkForDuplicateMedication(medication.getName().toLowerCase());
         medications.add(medication);
         FileReaderWriter.saveMediTrackerData(null);
