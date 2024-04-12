@@ -1,20 +1,20 @@
-add -n Medication A -q 60 -e 01/07/25 -dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1
+add -n Medication A -q 60 -e 2025-07-01 -dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1
 modify -l 1 -n Medication A
 take -l 1 -m
 untake -l 1 -m
 delete -l 1
-add -n Medication A -q 1000 -e 01/07/25 -dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1
+add -n Medication A -q 1000 -e 2025-07-31 -dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1
 untake -l 1 -m
 take -l 1 -m
 take -l 1 -m
 list -t all
 view -l 1
-add -n Dexamethasone -q 20 -e 31/01/25 -dM 1 -dA 1 -dE 1 -r aggression, weight gain, nausea -rep 1
-add -n Dextromethorphan -q 30 -e 31/02/26 -dM 1 -dA 1 -dE 1 -r restlessness, nausea -rep 1
+add -n Dexamethasone -q 20 -e 2025-01-31 -dM 1 -dA 1 -dE 1 -r aggression, weight gain, nausea -rep 1
+add -n Dextromethorphan -q 30 -e 2026-03-30 -dM 1 -dA 1 -dE 1 -r restlessness, nausea -rep 1
 view -l
 view -n dexameTHASONE
 view -q 30
-view -e 25
+view -e 2025
 view -r DIZZINESS
 view -n dexameTHASONE -l 3
 exit
