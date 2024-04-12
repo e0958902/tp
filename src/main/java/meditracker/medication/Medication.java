@@ -265,14 +265,20 @@ public class Medication {
      * @param medication Medication object values to replace with
      */
     public void revertMedication(Medication medication) {
-        setName(medication.getName());
+        try {
+            setName(medication.getName());
+            setRepeat(medication.getRepeat());
+        } catch (MediTrackerException e) {
+            // critical error as this should not happen
+            throw new RuntimeException(e);
+        }
+
         setQuantity(medication.getQuantity());
         setDosageMorning(medication.getDosageMorning());
         setDosageAfternoon(medication.getDosageAfternoon());
         setDosageEvening(medication.getDosageEvening());
         setExpiryDate(medication.getExpiryDate());
         setRemarks(medication.getRemarks());
-        setRepeat(medication.getRepeat());
         setDayAdded(medication.getDayAdded());
     }
 
@@ -285,14 +291,20 @@ public class Medication {
     public static Medication deepCopy(Medication medication) {
         Medication newMedication = new Medication();
 
-        newMedication.setName(medication.getName());
+        try {
+            newMedication.setName(medication.getName());
+            newMedication.setRepeat(medication.getRepeat());
+        } catch (MediTrackerException e) {
+            // critical error as this should not happen
+            throw new RuntimeException(e);
+        }
+
         newMedication.setQuantity(medication.getQuantity());
         newMedication.setDosageMorning(medication.getDosageMorning());
         newMedication.setDosageAfternoon(medication.getDosageAfternoon());
         newMedication.setDosageEvening(medication.getDosageEvening());
         newMedication.setExpiryDate(medication.getExpiryDate());
         newMedication.setRemarks(medication.getRemarks());
-        newMedication.setRepeat(medication.getRepeat());
         newMedication.setDayAdded(medication.getDayAdded());
 
         return newMedication;
