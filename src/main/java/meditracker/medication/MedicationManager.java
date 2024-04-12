@@ -6,9 +6,13 @@ import meditracker.exception.MediTrackerException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
+import meditracker.time.MediTrackerTime;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,8 +56,9 @@ public class MedicationManager {
      * @param medication Medication to be added to the list
      * @throws MediTrackerException When a duplicate medication is found
      */
-    public static void addMedication(Medication medication) throws MediTrackerException {
+    public static void addMedication(Medication medication) throws MediTrackerException, DateTimeParseException {
         checkForDuplicateMedication(medication.getName().toLowerCase());
+        checkforValidExpiryDate(medication.getExpiryDate());
         medications.add(medication);
         FileReaderWriter.saveMediTrackerData(null);
     }
@@ -69,6 +74,30 @@ public class MedicationManager {
             if (medication.getName().toLowerCase().equals(name)) {
                 throw new MediTrackerException("Medication already exists in the list!");
             }
+        }
+    }
+
+    /**
+     * Checks if the user has input a valid expiry date format.
+     * Also checks that the expiry date entered is not expired.
+     *
+     * @param expiryDate Expiry Date in yyyy-MM-dd format
+     * @throws DateTimeParseException When the date entered is in the wrong format
+     * @throws MediTrackerException When the date entered is already expired
+     */
+    public static void checkforValidExpiryDate(String expiryDate)
+            throws DateTimeParseException, MediTrackerException {
+        try {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parsedExpiryDate = LocalDate.parse(expiryDate, dateTimeFormatter);
+            LocalDate currentDate = MediTrackerTime.getCurrentDate();
+
+            if (parsedExpiryDate.isBefore(currentDate)) {
+                throw new MediTrackerException("You are not allowed to enter expired medications!");
+            }
+
+        } catch (DateTimeParseException e) {
+            throw new MediTrackerException("Please enter a valid expiry date in yyyy-MM-dd!");
         }
     }
 
