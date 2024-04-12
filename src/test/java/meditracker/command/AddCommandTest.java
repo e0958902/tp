@@ -40,7 +40,7 @@ class AddCommandTest {
             HelpInvokedException, UnknownArgumentFoundException {
 
         // setup lines
-        String inputString = "add -n Medication A -q 5000 -e 01/07/25 " +
+        String inputString = "add -n Medication A -q 5000 -e 2025-07-01 " +
                 "-dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         command.execute();
@@ -54,7 +54,7 @@ class AddCommandTest {
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException {
         // setup lines
-        String inputString = "add -n Medication_A -q 60 -e 01/07/25 -dM 500.0 -dA 250.0 -dE 100.0"
+        String inputString = "add -n Medication_A -q 60 -e 2025-07-01 -dM 500.0 -dA 250.0 -dE 100.0"
                 + "-r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         command.execute();
@@ -68,7 +68,7 @@ class AddCommandTest {
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException {
         // setup lines
-        String inputString = "add -n \" \" -q 60 -e 01/07/25 -dM 500.0 -dA 250.0 -dE 100.0"
+        String inputString = "add -n \" \" -q 60 -e 2025-07-01 -dM 500.0 -dA 250.0 -dE 100.0"
                 + "-r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         command.execute();
@@ -82,7 +82,7 @@ class AddCommandTest {
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         // setup lines
-        String inputString = "add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -dE 100 " +
+        String inputString = "add -n Medication A -q 5000 -e 2025-07-01 -dM 500 -dA 250 -dE 100 " +
                 "-r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         // Get the current date and the day of the year
@@ -94,7 +94,7 @@ class AddCommandTest {
                 500.0,
                 250.0,
                 100.0,
-                "01/07/25",
+                "2025-07-01",
                 "cause_dizziness",
                 1, dayAdded);
 
@@ -107,7 +107,7 @@ class AddCommandTest {
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException {
         // setup lines
-        String inputString = "add -n Medication A -q %%% -e 01/07/25 -dM 500 -dA 250 -dE 100 " +
+        String inputString = "add -n Medication A -q %%% -e 2025-07-01 -dM 500 -dA 250 -dE 100 " +
                 "-r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
 
@@ -127,7 +127,8 @@ class AddCommandTest {
             ArgumentNotFoundException, UnknownArgumentFoundException {
 
         // setup lines
-        String inputString = "add -n Medication A -q 500 -e 01/07/25 -dM %$^ -dA 250 -dE 100 -r cause_dizziness -rep 1";
+        String inputString = "add -n Medication A -q 500 -e 2025-07-01 -dM %$^ " +
+                "-dA 250 -dE 100 -r cause_dizziness -rep 1";
         String remarksArg = "cause_dizziness";
         String medicationQuantityArg = "500";
         String medicationDosageMorningArg = "%$^";
@@ -151,7 +152,7 @@ class AddCommandTest {
             throws MediTrackerException, DuplicateArgumentFoundException, HelpInvokedException,
             ArgumentNoValueException, ArgumentNotFoundException, UnknownArgumentFoundException {
         // setup lines
-        String inputString = "add -n Medication A -q 500 -e 01/07/25 -dM %$^ -dA 250 -dE 100 " +
+        String inputString = "add -n Medication A -q 500 -e 2025-07-01 -dM %$^ -dA 250 -dE 100 " +
                 "-r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         try {

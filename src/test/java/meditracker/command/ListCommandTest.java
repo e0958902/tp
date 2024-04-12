@@ -38,7 +38,7 @@ class ListCommandTest {
                 null,
                 null,
                 null,
-                "01/08/25",
+                "2025-08-01",
                 "for_flu_or_allergy",
                 1,
                 87
@@ -60,7 +60,7 @@ class ListCommandTest {
             HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         String medicationNameOne = "Dexamethasone";
         Double medicationQuantityOne = 20.0;
-        String medicationExpiryOne = "31/01/25";
+        String medicationExpiryOne = "2025-01-31";
         String medicationRemarksOne = "aggression, weight gain, nausea";
         Medication medicationOne = new Medication(
                 medicationNameOne,
@@ -74,7 +74,7 @@ class ListCommandTest {
                 94);
         String medicationNameTwo = "Dextromethorphan";
         Double medicationQuantityTwo = 30.0;
-        String medicationExpiryTwo = "31/02/26";
+        String medicationExpiryTwo = "2026-02-31";
         String medicationRemarksTwo = "restlessness, nausea";
         Medication medicationTwo = new Medication(
                 medicationNameTwo,

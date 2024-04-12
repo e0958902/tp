@@ -52,7 +52,7 @@ public class DailyMedicationManagerTest {
     public void addDailyMedication_genericDailyMedication_dailyMedicationAdded()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException {
-        String inputString = "add -n Medication A -q 60.0 -e 01/07/25 -dM 500.0 -dA 250.0 "
+        String inputString = "add -n Medication A -q 60.0 -e 2025-07-01 -dM 500.0 -dA 250.0 "
                 + "-dE 300.0 -r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         command.execute();
@@ -104,7 +104,7 @@ public class DailyMedicationManagerTest {
                 dosage,
                 null,
                 null,
-                "01/07/25",
+                "2025-07-01",
                 "cause_dizziness",
                 1,
                 87);
@@ -133,7 +133,7 @@ public class DailyMedicationManagerTest {
                 dosage,
                 null,
                 null,
-                "01/07/25",
+                "2025-07-01",
                 "cause_dizziness",
                 1,
                 87);
@@ -161,7 +161,7 @@ public class DailyMedicationManagerTest {
                 dosage,
                 null,
                 null,
-                "01/07/25",
+                "2025-07-01",
                 "cause_dizziness",
                 1,
                 87);

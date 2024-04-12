@@ -34,7 +34,7 @@ public class JsonExporterTest {
                 null,
                 null,
                 null,
-                "23/11/24",
+                "2024-11-23",
                 "No Remarks",
                 1,
                 87
@@ -46,7 +46,7 @@ public class JsonExporterTest {
                 null,
                 null,
                 null,
-                "01/01/25",
+                "2025-01-01",
                 "",
                 1,
                 87
@@ -58,7 +58,7 @@ public class JsonExporterTest {
                 0.0,
                 0.0,
                 0.0,
-                "",
+                "2025-01-01",
                 "null",
                 1,
                 87

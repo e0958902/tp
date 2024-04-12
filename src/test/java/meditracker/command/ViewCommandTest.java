@@ -41,7 +41,7 @@ public class ViewCommandTest {
                 15.0,
                 0.0,
                 15.0,
-                "01/08/24",
+                "2024-08-01",
                 "drowsiness",
                 1,
                 90);
@@ -72,7 +72,7 @@ public class ViewCommandTest {
                 15.0,
                 0.0,
                 15.0,
-                "01/08/24",
+                "2024-08-01",
                 "drowsiness",
                 1,
                 91);
@@ -116,7 +116,7 @@ public class ViewCommandTest {
                 10.0,
                 10.0,
                 10.0,
-                "01/12/27",
+                "2027-12-01",
                 "depression",
                 1,
                 92);
@@ -154,8 +154,8 @@ public class ViewCommandTest {
             HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         String medicationName = "Medication_E";
         Double medicationQuantity = 30.0;
-        String medicationExpiryYear = "24";
-        String medicationExpiry = "20/11/" + medicationExpiryYear;
+        String medicationExpiryYear = "2024";
+        String medicationExpiry = medicationExpiryYear + "-11-20";
         Medication medication = new Medication(
                 medicationName,
                 medicationQuantity,
@@ -207,7 +207,7 @@ public class ViewCommandTest {
                 10.0,
                 10.0,
                 10.0,
-                "31/01/25",
+                "2025-01-31",
                 medicationRemarksOne,
                 1,
                 94);
@@ -219,7 +219,7 @@ public class ViewCommandTest {
                 10.0,
                 10.0,
                 10.0,
-                "31/02/26",
+                "2025-02-31",
                 medicationRemarksTwo,
                 1,
                 95);
@@ -267,7 +267,7 @@ public class ViewCommandTest {
                 25.0,
                 25.0,
                 0.0,
-                "01/08/24",
+                "2024-08-01",
                 "blurry_vision",
                 1,
                 96);

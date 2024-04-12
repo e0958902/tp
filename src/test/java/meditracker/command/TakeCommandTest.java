@@ -44,7 +44,7 @@ public class TakeCommandTest {
                 10.0,
                 0.0,
                 0.0,
-                "01/07/25",
+                "2025-07-01",
                 "cause_dizziness",
                 1,
                 87);
