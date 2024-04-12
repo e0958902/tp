@@ -114,8 +114,8 @@ class ListCommandTest {
         String title = "You have " + MedicationManager.getTotalMedications() + " medications listed below."
                 + System.lineSeparator();
 
-        String headerFormat = "   %-30s %-10s %-10s %-30s%n";
-        String bodyFormat = "%-30.30s %-10.1f %-10s %-30s %n";
+        String headerFormat = "   %-30s %-10s %-12s %-30s%n";
+        String bodyFormat = "%-30.30s %-10.1f %-12s %-30s %n";
 
         String name = "Name";
         String quantity = "Quantity";

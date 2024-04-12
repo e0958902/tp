@@ -31,8 +31,8 @@ ____________________________________________________________
 meditracker> SUCCESS: Medication already taken, no changes were made
 ____________________________________________________________
 meditracker> You have 1 medications listed below.
-   Name                           Quantity   Expiry     Remarks
-1. Medication A                   500.0      2025-07-31 cause_dizziness
+   Name                           Quantity   Expiry       Remarks                       
+1. Medication A                   500.0      2025-07-31   cause_dizziness                
 Your list of medications has been successfully shown!
 ____________________________________________________________
 meditracker> Name: Medication A
