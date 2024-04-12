@@ -4,7 +4,6 @@ import meditracker.argument.ArgumentName;
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MediTrackerException;
 import meditracker.exception.MedicationNotFoundException;
-import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
@@ -12,14 +11,12 @@ import meditracker.ui.Ui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * The MedicationManager class represents a list of medications.
  * It contains an ArrayList of Medication objects.
  */
 public class MedicationManager {
-    private static Logger logger = MediLogger.getMediLogger();
     /** The list of medications stored in an ArrayList. */
     private static List<Medication> medications = new ArrayList<>();
 
@@ -284,42 +281,10 @@ public class MedicationManager {
                 }
                 String value = medInfo.get(key);
 
-                switch (keyEnum) {
-                case NAME:
-                    medication.setName(value);
-                    break;
-                case QUANTITY:
-                    double qty = convertStringToDouble(value);
-                    medication.setQuantity(qty);
-                    break;
-                case DOSAGE_MORNING:
-                    double doseMorning = convertStringToDouble(value);
-                    medication.setDosageMorning(doseMorning);
-                    break;
-                case DOSAGE_AFTERNOON:
-                    double doseAfternoon = convertStringToDouble(value);
-                    medication.setDosageAfternoon(doseAfternoon);
-                    break;
-                case DOSAGE_EVENING:
-                    double doseEvening = convertStringToDouble(value);
-                    medication.setDosageEvening(doseEvening);
-                    break;
-                case EXPIRATION_DATE:
-                    medication.setExpiryDate(value);
-                    break;
-                case REMARKS:
-                    medication.setRemarks(value);
-                    break;
-                case REPEAT:
-                    int repeatValue = (int) convertStringToDouble(value);
-                    medication.setRepeat(repeatValue);
-                    break;
-                case DAY_ADDED:
-                    int dayValue = (int) convertStringToDouble(value);
-                    medication.setDayAdded(dayValue);
-                    break;
-                default:
-                    logger.warning("Unhandled ArgumentName Enum Type " + keyEnum.value);
+                try {
+                    medication.setMedicationValue(keyEnum, value);
+                } catch (MediTrackerException e) {
+                    Ui.showErrorMessage(e);
                 }
             }
             try {

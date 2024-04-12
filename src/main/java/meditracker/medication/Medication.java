@@ -1,12 +1,12 @@
 package meditracker.medication;
 
+import meditracker.argument.ArgumentName;
 import meditracker.exception.MediTrackerException;
 import meditracker.time.Period;
 
-// @@author nickczh
-
 import java.util.Objects;
 
+// @@author nickczh
 /**
  * The Medication class represents a medication.
  * It stores information about the medication such as name, quantity, dosage, expiry date, intake frequency, remarks,
@@ -176,6 +176,52 @@ public class Medication {
     protected void setDayAdded(int dayAdded) {
         this.dayAdded = dayAdded;
     }
+
+    // @@author
+
+    // @@author annoy-o-mus
+
+    public void setMedicationValue(ArgumentName argumentName, String argumentValue) throws MediTrackerException {
+        switch (argumentName) {
+        case NAME:
+            setName(argumentValue);
+            break;
+        case QUANTITY:
+            double quantity = convertStringToDouble(argumentValue);
+            setQuantity(quantity);
+            break;
+        case DOSAGE_MORNING:
+            double dosageMorning = convertStringToDouble(argumentValue);
+            setDosageMorning(dosageMorning);
+            break;
+        case DOSAGE_AFTERNOON:
+            double dosageAfternoon = convertStringToDouble(argumentValue);
+            setDosageAfternoon(dosageAfternoon);
+            break;
+        case DOSAGE_EVENING:
+            double dosageEvening = convertStringToDouble(argumentValue);
+            setDosageEvening(dosageEvening);
+            break;
+        case EXPIRATION_DATE:
+            setExpiryDate(argumentValue);
+            break;
+        case REMARKS:
+            setRemarks(argumentValue);
+            break;
+        case REPEAT:
+            int repeat = convertStringToInteger(argumentValue);
+            setRepeat(repeat);
+            break;
+        case DAY_ADDED:
+            int dayAdded = convertStringToInteger(argumentValue);
+            setDayAdded(dayAdded);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + argumentName);
+        }
+    }
+
+    // @@author
 
     @Override
     public String toString() {
