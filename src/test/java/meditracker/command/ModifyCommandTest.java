@@ -6,6 +6,7 @@ import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MediTrackerException;
 import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
@@ -33,7 +34,7 @@ public class ModifyCommandTest {
     @Test
     void execute_inOrderArgument_expectMedicationModified()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
@@ -59,7 +60,7 @@ public class ModifyCommandTest {
     @Test
     void execute_outOfOrderArgument_expectMedicationModified()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
