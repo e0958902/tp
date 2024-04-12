@@ -52,13 +52,6 @@ public class AddCommand extends Command {
 
     private final Map<ArgumentName, String> parsedArguments;
 
-    private double medicationQuantity;
-    private double medicationDosageMorning = 0.0;
-    private double medicationDosageAfternoon = 0.0;
-    private double medicationDosageEvening = 0.0;
-    private int repeat;
-    private String remarks = "Nil";
-
     /**
      * Constructs an AddCommand object with the specified arguments.
      *
@@ -91,12 +84,6 @@ public class AddCommand extends Command {
             return;
         }
 
-        if (medication.hasNoDosages()) {
-            Ui.showErrorMessage("Medication has no dosages. " +
-                    "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
-            return;
-        }
-
         try {
             MedicationManager.addMedication(medication);
         } catch (MediTrackerException e) {
@@ -120,71 +107,19 @@ public class AddCommand extends Command {
      *                              incorrect number formats, or if required arguments are missing.
      */
     Medication createMedication() throws MediTrackerException {
-        // Extract medication details from parsed arguments
-        String medicationName = parsedArguments.get(ArgumentName.NAME);
-        String expiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
-        String remarksArg = parsedArguments.get(ArgumentName.REMARKS);
-        String medicationQuantityArg = parsedArguments.get(ArgumentName.QUANTITY);
-        String medicationDosageMorningArg = parsedArguments.get(ArgumentName.DOSAGE_MORNING);
-        String medicationDosageAfternoonArg = parsedArguments.get(ArgumentName.DOSAGE_AFTERNOON);
-        String medicationDosageEveningArg = parsedArguments.get(ArgumentName.DOSAGE_EVENING);
+        Medication medication = new Medication();
 
-        try {
-            // Validate and parse input
-            sanitiseInput(medicationName);
-            repeat = Command.getRepeat(parsedArguments);
-            parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
-                    medicationDosageAfternoonArg, medicationDosageEveningArg, remarksArg);
-
-            // Get the current date and the day of the year
-            LocalDate currentDate = MediTrackerTime.getCurrentDate();
-            int dayAdded = currentDate.getDayOfYear();
-
-            // Create and return a new Medication object
-            return new Medication(medicationName, medicationQuantity,
-                    medicationDosageMorning, medicationDosageAfternoon, medicationDosageEvening,
-                    expiryDate, remarks, repeat, dayAdded);
-
-        } catch (NumberFormatException e) {
-            throw new MediTrackerException("Incorrect Number format given");
-        } catch (NullPointerException e) {
-            throw new MediTrackerException("Medication not found");
-        }
-    }
-
-    /**
-     * Parses string values to its corresponding value for medication attributes.
-     *
-     * @param medicationQuantity The quantity of the medication.
-     * @param medicationDosageMorning The morning dosage of the medication.
-     * @param medicationDosageAfternoon The afternoon dosage of the medication.
-     * @param medicationDosageEvening The evening dosage of the medication.
-     * @param remarks The additional remarks regarding the medication.
-     * @throws NumberFormatException if there is an error in parsing numeric values.
-     * @throws NullPointerException  if any of the required arguments are null.
-     */
-    void parseStringToValues(String medicationQuantity,
-                             String medicationDosageMorning,
-                             String medicationDosageAfternoon, String medicationDosageEvening,
-                             String remarks)
-            throws NumberFormatException, NullPointerException {
-
-        this.medicationQuantity = Double.parseDouble(medicationQuantity);
-
-        if (medicationDosageMorning != null) {
-            this.medicationDosageMorning = Double.parseDouble(medicationDosageMorning);
-        }
-        if (medicationDosageAfternoon != null) {
-            this.medicationDosageAfternoon = Double.parseDouble(medicationDosageAfternoon);
-        }
-        if (medicationDosageEvening != null) {
-            this.medicationDosageEvening = Double.parseDouble(medicationDosageEvening);
-        }
-        if (remarks != null) {
-            this.remarks = remarks;
+        for (Map.Entry<ArgumentName, String> keyValuePair : parsedArguments.entrySet()) {
+            ArgumentName argumentName = keyValuePair.getKey();
+            String argumentValue = keyValuePair.getValue();
+            medication.setMedicationValue(argumentName, argumentValue);
         }
 
+        LocalDate currentDate = MediTrackerTime.getCurrentDate();
+        int dayAdded = currentDate.getDayOfYear();
+        medication.setMedicationValue(ArgumentName.DAY_ADDED, String.valueOf(dayAdded));
 
+        return medication;
     }
 
     /**

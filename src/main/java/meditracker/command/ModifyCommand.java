@@ -12,18 +12,15 @@ import meditracker.argument.NameArgument;
 import meditracker.argument.QuantityArgument;
 import meditracker.argument.RemarksArgument;
 import meditracker.argument.RepeatArgument;
-import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MediTrackerException;
-import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
-import meditracker.time.Period;
 import meditracker.ui.Ui;
 
 import java.util.Map;
@@ -102,79 +99,19 @@ public class ModifyCommand extends Command {
      * Updates Medication info
      *
      * @param medication Medication object to update
-     * @throws NumberFormatException When Double.parseDouble or Integer.parseInt fails
      */
-    private void updateMedication(Medication medication) throws NumberFormatException, MediTrackerException {
+    private void updateMedication(Medication medication) throws MediTrackerException {
         for (Map.Entry<ArgumentName, String> argument: parsedArguments.entrySet()) {
             ArgumentName argumentName = argument.getKey();
             String argumentValue = argument.getValue();
+            medication.setMedicationValue(argumentName, argumentValue);
 
-            switch (argumentName) {
-            case DOSAGE_MORNING:
-                medication.setDosageMorning(Double.parseDouble(argumentValue));
-                break;
-            case DOSAGE_AFTERNOON:
-                medication.setDosageAfternoon(Double.parseDouble(argumentValue));
-                break;
-            case DOSAGE_EVENING:
-                medication.setDosageEvening(Double.parseDouble(argumentValue));
-                break;
-            case EXPIRATION_DATE:
-                medication.setExpiryDate(argumentValue);
-                break;
-            case REPEAT:
-                int repeat = Command.getRepeat(parsedArguments);
-                medication.setRepeat(repeat);
-                break;
-            case LIST_INDEX:
-                continue;
-            case NAME:
-                updateMedicationName(medication, argumentValue);
-                break;
-            case QUANTITY:
-                medication.setQuantity(Double.parseDouble(argumentValue));
-                break;
-            case REMARKS:
-                medication.setRemarks(argumentValue);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + argumentName);
+            if (argumentName == ArgumentName.NAME) {
+                DailyMedicationManager.updateDailyMedicationName(medication, argumentValue);
             }
         }
         medication.checkValidity();
         checkDosageOrRepeatModified(medication);
-    }
-
-    /**
-     * Updates Medication and all instances of DailyMedication name to new name
-     *
-     * @param medication Medication object being updated
-     * @param newName New name to replace with
-     */
-    private static void updateMedicationName(Medication medication, String newName) {
-        String oldName = medication.getName();
-        medication.setName(newName);
-
-        if (!DailyMedicationManager.doesBelongToDailyList(medication)) {
-            return;
-        }
-
-        for (Period period : Period.values()) {
-            if (!medication.hasDosage(period)) {
-                continue;
-            }
-
-            DailyMedication dailyMedication;
-            try {
-                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, period);
-            } catch (MedicationNotFoundException e) {
-                String message = String.format("Possible data corruption: Medication missing from %s list", period);
-                Ui.showWarningMessage(message);
-                continue;
-            }
-
-            dailyMedication.setName(newName);
-        }
     }
 
     /**
