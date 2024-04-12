@@ -50,8 +50,8 @@ public class MedicationManager {
      * @throws MediTrackerException When a duplicate medication is found
      */
     public static void addMedication(Medication medication) throws MediTrackerException {
-        checkForDuplicateMedication(medication.getName().toLowerCase());
         medication.checkValidity();
+        checkForDuplicateMedication(medication.getName());
         medications.add(medication);
         FileReaderWriter.saveMediTrackerData(null);
     }
@@ -63,6 +63,7 @@ public class MedicationManager {
      * @throws MediTrackerException When a duplicate medication is found
      */
     private static void checkForDuplicateMedication(String name) throws MediTrackerException {
+        name = name.toLowerCase();
         for (Medication medication : medications) {
             if (medication.getName().toLowerCase().equals(name)) {
                 throw new MediTrackerException("Medication already exists in the list!");
