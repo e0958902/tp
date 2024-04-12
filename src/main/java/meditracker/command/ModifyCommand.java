@@ -21,6 +21,7 @@ import meditracker.exception.MediTrackerException;
 import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
+import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
 
 import java.util.Map;
@@ -76,23 +77,32 @@ public class ModifyCommand extends Command {
             return;
         }
 
+        parsedArguments.remove(ArgumentName.LIST_INDEX);
+        if (parsedArguments.isEmpty()) {
+            Ui.showSuccessMessage("No changes specified. Medicine not modified.");
+            return;
+        }
+
         Medication medicationCopy = Medication.deepCopy(medication);
         try {
             updateMedication(medication);
-        } catch (NumberFormatException e) {
-            medication.revertMedication(medicationCopy);
-            String errorContext = String.format("Unable to format correctly. %s.", e.getMessage());
-            Ui.showErrorMessage(errorContext);
-            Ui.showWarningMessage("Changes have been rolled back. Medicine not modified.");
-            return;
         } catch (MediTrackerException e) {
-            medication.revertMedication(medicationCopy);
+            rollbackChanges(medication, medicationCopy);
             Ui.showErrorMessage(e);
             Ui.showWarningMessage("Changes have been rolled back. Medicine not modified.");
             return;
         }
 
+        FileReaderWriter.saveMediTrackerData(null);
         Ui.showSuccessMessage("Medicine has been modified");
+    }
+
+    private void rollbackChanges(Medication medication, Medication medicationCopy) {
+        if (parsedArguments.containsKey(ArgumentName.NAME)) {
+            String oldName = medicationCopy.getName();
+            DailyMedicationManager.updateDailyMedicationName(medication, oldName);
+        }
+        medication.revertMedication(medicationCopy);
     }
 
     /**
