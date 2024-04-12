@@ -14,8 +14,4 @@ public class MediTrackerException extends Exception {
     public MediTrackerException(String errorContext) {
         super(errorContext);
     }
-
-    public MediTrackerException() {
-
-    }
 }
