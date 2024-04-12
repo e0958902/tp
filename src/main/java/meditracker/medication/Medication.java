@@ -1,5 +1,6 @@
 package meditracker.medication;
 
+import meditracker.exception.MediTrackerException;
 import meditracker.time.Period;
 
 // @@author nickczh
@@ -70,7 +71,20 @@ public class Medication {
         return name;
     }
 
-    public void setName(String name) {
+    /**
+     * Sets the name if it contains alphabetic characters and spaces only
+     *
+     * @param name Name of the medication
+     * @throws MediTrackerException If medication name contains non-alphabetic characters
+     */
+    protected void setName(String name) throws MediTrackerException {
+        // Check if the medication name contains only alphabetic characters
+        boolean isAlphabetic = name.matches("^[a-zA-Z ]+$");
+
+        // If the name contains non-alphabetic characters, throw an exception
+        if (!isAlphabetic) {
+            throw new MediTrackerException("Please enter a proper medication name.");
+        }
         this.name = name;
     }
 
@@ -78,7 +92,7 @@ public class Medication {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    protected void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 
@@ -86,7 +100,7 @@ public class Medication {
         return dosageMorning;
     }
 
-    public void setDosageMorning(Double dosageMorning) {
+    protected void setDosageMorning(Double dosageMorning) {
         this.dosageMorning = dosageMorning;
     }
 
@@ -94,7 +108,7 @@ public class Medication {
         return dosageAfternoon;
     }
 
-    public void setDosageAfternoon(Double dosageAfternoon) {
+    protected void setDosageAfternoon(Double dosageAfternoon) {
         this.dosageAfternoon = dosageAfternoon;
     }
 
@@ -102,9 +116,11 @@ public class Medication {
         return dosageEvening;
     }
 
-    public void setDosageEvening(Double dosageEvening) {
+    protected void setDosageEvening(Double dosageEvening) {
         this.dosageEvening = dosageEvening;
     }
+
+    // @@author
 
     public String getExpiryDate() {
         return expiryDate;
@@ -114,19 +130,28 @@ public class Medication {
         this.expiryDate = expiryDate;
     }
 
+    // @@author nickczh
+
     public String getRemarks() {
         return remarks;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    protected void setRemarks(String remarks) {
+        this.remarks = Objects.requireNonNullElse(remarks, "Nil");
     }
+
+    // @@author
+
+    // @@author T0nyLin
 
     public int getRepeat() {
         return repeat;
     }
 
-    public void setRepeat(int repeat) {
+    protected void setRepeat(int repeat) throws MediTrackerException {
+        if (repeat < 1 || repeat > 7) {
+            throw new MediTrackerException("Provide a \"-rep\" number from 1 to 7");
+        }
         this.repeat = repeat;
     }
 
@@ -134,7 +159,7 @@ public class Medication {
         return dayAdded;
     }
 
-    public void setDayAdded(int dayAdded) {
+    protected void setDayAdded(int dayAdded) {
         this.dayAdded = dayAdded;
     }
 

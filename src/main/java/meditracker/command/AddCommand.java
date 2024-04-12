@@ -183,23 +183,8 @@ public class AddCommand extends Command {
         if (remarks != null) {
             this.remarks = remarks;
         }
-    }
 
-    /**
-     * Sanitizes the input for medication name by checking if it contains only alphabetic characters and spaces.
-     *
-     * @param medicationName The name of the medication to be sanitized.
-     * @throws MediTrackerException if the medication name contains non-alphabetic characters.
-     */
-    void sanitiseInput(String medicationName) throws MediTrackerException {
 
-        // Check if the medication name contains only alphabetic characters
-        boolean isAlphabetic = medicationName.matches("^[a-zA-Z ]+$");
-
-        // If the name contains non-alphabetic characters, throw an exception
-        if (!isAlphabetic) {
-            throw new MediTrackerException("Please enter a proper medication name.");
-        }
     }
 
     /**
