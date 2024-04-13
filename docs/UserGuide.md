@@ -21,12 +21,12 @@ data storage so that you can review your past medication intake.
   - [List Medication](#listing-medications-list)
     - [Summary of all medications:](#all-medications)`list -t all`
     - [Summary of medications for the day](#daily-medications)`list -t today`
-  - [View Medication](#view-medication-view)
-    - [View Medication by index:](#View-Medication-by-index)`view -l`
-    - [View Medication by name:](#View-Medication-by-name)`view -n`
-    - [View Medication by quantity:](#View-Medication-by-quantity)`view -q`
-    - [View Medication by expiry:](#View-Medication-by-expiry)`view -e`
-    - [View Medication by remarks:](#View-Medication-by-remarks)`view -r`
+  - [View Medication](#viewing-medications-view)
+    - [View Medication by index:](#view-medication-by-index)`view -l`
+    - [View Medication by name:](#view-medication-by-name)`view -n`
+    - [View Medication by quantity:](#view-medication-by-quantity)`view -q`
+    - [View Medication by expiry:](#view-medication-by-expiry)`view -e`
+    - [View Medication by remarks:](#view-medication-by-remarks)`view -r`
   - [Update medication information](#update)
     - [Record taking of medication](#record-taking-of-medication)`take/untake -l`
     - [Modify medication information](#modify-medication-information)`modify -l`
@@ -205,8 +205,8 @@ Afternoon:
 ```
 
 <div class="info-box">
-
 :information_source: <strong>Info: </strong>
+
 If you want to mark the medication you have taken, you can refer to the [Take command](#take-a-medication) here.
 
 </div>
@@ -634,6 +634,7 @@ in the `.txt` format. Advanced users can modify the text files directly.
 
 <div class="danger-box">
 :bangbang: <strong>Danger: </strong>
+
 If the changes to the data file makes either its format or some of the fields contained therein invalid,
 MediTracker may:
 
@@ -650,9 +651,9 @@ MediTracker may:
 <div class="warning-box">
 :warning: <strong>Warning: </strong>
 
-If you edit valid data directly inside the `.json` file, you have to **delete the text file <TODAY_DATE>.txt in 
-data/dailymed/**. Otherwise, the next time MediTracker runs, it will continue to read the old data saved in the 
-<TODAY_DATE>.txt.
+If you edit valid data directly inside the `.json` file, you have to **delete the text file [TODAY_DATE].txt in 
+data/dailymed/**. Otherwise, the next time MediTracker runs, it will continue to read the old data saved in the
+[TODAY_DATE].txt.
 
 </div>
 
