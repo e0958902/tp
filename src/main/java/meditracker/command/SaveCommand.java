@@ -52,7 +52,7 @@ public class SaveCommand extends Command {
      * Includes the Medication data (in JSON) and DailyMedication data (in txt).
      */
     private void saveToDefaultLocation() {
-        boolean isSaveSuccessful = FileReaderWriter.saveMediTrackerData(null);
+        boolean isSaveSuccessful = FileReaderWriter.saveMedicationData(null);
         if (!isSaveSuccessful) {
             System.out.println("An error occurred while saving Medication data. Data is not saved.");
             return;
@@ -82,7 +82,7 @@ public class SaveCommand extends Command {
      * @param jsonSaveFilePath The location of the JSON file to save to.
      */
     private void saveToSpecifiedLocation(Path jsonSaveFilePath) {
-        boolean isSaveSuccessful = FileReaderWriter.saveMediTrackerData(jsonSaveFilePath);
+        boolean isSaveSuccessful = FileReaderWriter.saveMedicationData(jsonSaveFilePath);
         if (!isSaveSuccessful) {
             System.out.println("An error occurred while saving Medication Data. Data is not saved.");
             return;

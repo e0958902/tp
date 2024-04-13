@@ -55,7 +55,7 @@ public class MedicationManager {
     public static void addMedication(Medication medication) throws MediTrackerException {
         checkForDuplicateMedication(medication.getName().toLowerCase());
         medications.add(medication);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 
     /**
@@ -210,7 +210,7 @@ public class MedicationManager {
     public static void removeMedication(int listIndex) throws IndexOutOfBoundsException {
         listIndex--; // Decremented to 0-base indexing
         medications.remove(listIndex);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 
     /**
@@ -371,7 +371,7 @@ public class MedicationManager {
         Ui.showInfoMessage(message);
 
         medication.setQuantity(newQuantity);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 
     /**
@@ -399,6 +399,6 @@ public class MedicationManager {
         Ui.showInfoMessage(message);
 
         medication.setQuantity(newQuantity);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 }
