@@ -1,7 +1,11 @@
 package meditracker.medication;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
+import meditracker.time.MediTrackerTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,7 +26,7 @@ public class Medication {
     private Double dosageMorning;
     private Double dosageAfternoon;
     private Double dosageEvening;
-    private String expiryDate;
+    private LocalDate expiryDate;
     private String remarks;
     private int repeat;
     private int dayAdded;
@@ -47,7 +51,7 @@ public class Medication {
      */
     public Medication(String name, Double quantity,
                       Double dosageMorning, Double dosageAfternoon, Double dosageEvening,
-                      String expiryDate, String remarks, int repeat, int dayAdded) {
+                      LocalDate expiryDate, String remarks, int repeat, int dayAdded) {
         this.name = name;
         this.quantity = quantity;
         this.dosageMorning = dosageMorning;
@@ -153,11 +157,11 @@ public class Medication {
 
     // @@author
 
-    public String getExpiryDate() {
+    public LocalDate getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(String expiryDate) {
+    public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
     }
 
@@ -248,7 +252,8 @@ public class Medication {
             setDosageEvening(dosageEvening);
             break;
         case EXPIRATION_DATE:
-            setExpiryDate(argumentValue);
+            LocalDate expiryDate = checkforValidExpiryDate(argumentValue);
+            setExpiryDate(expiryDate);
             break;
         case REMARKS:
             setRemarks(argumentValue);
@@ -431,5 +436,28 @@ public class Medication {
         }
 
         return value;
+    }
+
+    /**
+     * Checks if the user has input a valid expiry date format.
+     * Also checks that the expiry date entered is not expired.
+     *
+     * @param expiryDate Expiry Date in yyyy-MM-dd format
+     * @throws DateTimeParseException When the date entered is in the wrong format
+     * @throws MediTrackerException When the date entered is already expired
+     */
+    public static LocalDate checkforValidExpiryDate(String expiryDate) throws MediTrackerException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate;
+        LocalDate currentDate = MediTrackerTime.getCurrentDate();
+        try {
+            parsedExpiryDate = LocalDate.parse(expiryDate, dateTimeFormatter);
+            if (parsedExpiryDate.isBefore(currentDate)) {
+                throw new MediTrackerException("You are not allowed to enter expired medications!");
+            }
+        } catch (DateTimeParseException e) {
+            throw new MediTrackerException("Please enter a valid expiry date in yyyy-MM-dd!");
+        }
+        return parsedExpiryDate;
     }
 }
