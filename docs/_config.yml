@@ -1,0 +1,21 @@
+# Ideas on how to implement this file taken from the following:
+# Process: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll
+
+# @@author annoy-o-mus-reused
+# reused from: https://github.com/se-edu/addressbook-level3/blob/master/docs/_config.yml
+# with minor modifications
+title: "MediTracker"
+theme: minima
+
+header_pages:
+  - UserGuide.md
+  - DeveloperGuide.md
+  - AboutUs.md
+
+markdown: kramdown
+
+repository: "AY2324S2-CS2113T-T09-1/tp"
+github_icon: "images/github-icon.png"
+
+plugins:
+  - jemoji

@@ -40,6 +40,7 @@ public enum ArgumentName {
      * @see meditracker.command.CommandName for a similar implementation (adapted from there)
      */
     public static ArgumentName getEnumOfArgumentValue(String valueToCompare) {
+        // Original implementation: https://www.baeldung.com/java-enum-values
         for (ArgumentName argName : values()) {
             if (argName.value.equals(valueToCompare)) {
                 return argName;

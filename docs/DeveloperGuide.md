@@ -1,15 +1,16 @@
 # Developer Guide
 
 ## Acknowledgements
+Ideas and structure for our Developer Guide: 
+- [AddressBook 3](https://se-education.org/addressbook-level3/DeveloperGuide.html)
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+Ideas and structure for the User Guide: 
+- [AddressBook 3](https://se-education.org/addressbook-level3/UserGuide.html)
 
-Ideas and structure for the Developer Guide: https://se-education.org/addressbook-level3/DeveloperGuide.html
+Additional Packages used: 
+- [JSON](https://github.com/stleary/JSON-java)
 
-Ideas and structure for the User Guide: https://se-education.org/addressbook-level3/UserGuide.html
-
-Additional Packages used: JSON
-
+# Overview
 <!-- Add a TOC -->
 
 ## Setting up and getting started

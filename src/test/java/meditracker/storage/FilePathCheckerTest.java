@@ -13,7 +13,7 @@ public class FilePathCheckerTest {
     public void isValidJsonFullPath_validFullPaths_returnedTrue() {
         boolean result;
 
-        // https://www.baeldung.com/java-detect-os
+        // OS check adapted from: https://www.baeldung.com/java-detect-os
         if (System.getProperty("os.name").startsWith("Windows")) {
             Path validRootDirectory = Path.of("C:/noFolderExists/noFileExists.jsON");
             result = FilePathChecker.isValidFullPath(validRootDirectory);
@@ -61,6 +61,7 @@ public class FilePathCheckerTest {
     public void isValidJsonFullPath_invalidFolders_returnedFalse() {
         boolean result;
 
+        // OS check adapted from: https://www.baeldung.com/java-detect-os
         if (System.getProperty("os.name").startsWith("Windows")) {
             Path invalidRootDirectory = Path.of("M:/noFolderExists/noFileExists.json");
             result = FilePathChecker.isValidFullPath(invalidRootDirectory);
