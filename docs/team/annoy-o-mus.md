@@ -30,5 +30,5 @@
   - Disabled rebase and squash merging (thanks @wenenhoe)
 - Brought in the JSON package (https://github.com/stleary/JSON-java) (#26)
 - Brought in DG Comments from the main repo PR (#211)
-- Created the Jykell configuration and introduced admonition template (#76)
+- Created the Jekyll configuration and introduced admonition template (#76)
 
