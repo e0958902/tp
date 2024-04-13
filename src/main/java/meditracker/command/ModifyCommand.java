@@ -87,14 +87,15 @@ public class ModifyCommand extends Command {
         try {
             updateMedication(medication);
         } catch (MediTrackerException e) {
+            Ui.showErrorMessage(e);
+            Ui.showWarningMessage("Rolling back changes...");
             try {
                 rollbackChanges(medication, medicationCopy);
             } catch (MediTrackerException ex) {
                 Ui.showErrorMessage(ex);
                 return;
             }
-            Ui.showErrorMessage(e);
-            Ui.showWarningMessage("Changes have been rolled back. Medicine not modified.");
+            Ui.showInfoMessage("Changes have been rolled back. Medicine not modified.");
             return;
         }
 
