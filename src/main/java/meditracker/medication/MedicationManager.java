@@ -4,7 +4,6 @@ import meditracker.argument.ArgumentName;
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MediTrackerException;
 import meditracker.exception.MedicationNotFoundException;
-import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
@@ -12,14 +11,12 @@ import meditracker.ui.Ui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * The MedicationManager class represents a list of medications.
  * It contains an ArrayList of Medication objects.
  */
 public class MedicationManager {
-    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
     /** The list of medications stored in an ArrayList. */
     private static List<Medication> medications = new ArrayList<>();
 
@@ -53,7 +50,13 @@ public class MedicationManager {
      * @throws MediTrackerException When a duplicate medication is found
      */
     public static void addMedication(Medication medication) throws MediTrackerException {
-        checkForDuplicateMedication(medication.getName().toLowerCase());
+        medication.checkValidity();
+        checkForDuplicateMedication(medication.getName());
+        medications.add(medication);
+        FileReaderWriter.saveMediTrackerData(null);
+    }
+
+    protected static void addMedicationWithoutChecks(Medication medication) {
         medications.add(medication);
         FileReaderWriter.saveMediTrackerData(null);
     }
@@ -65,6 +68,7 @@ public class MedicationManager {
      * @throws MediTrackerException When a duplicate medication is found
      */
     private static void checkForDuplicateMedication(String name) throws MediTrackerException {
+        name = name.toLowerCase();
         for (Medication medication : medications) {
             if (medication.getName().toLowerCase().equals(name)) {
                 throw new MediTrackerException("Medication already exists in the list!");
@@ -267,28 +271,6 @@ public class MedicationManager {
     }
 
     /**
-     * Converts a String to a double.
-     * Introduced to help populate the Medication object from the save file.
-     *
-     * @param doubleString The String object to be converted to a double type.
-     * @return The value of type double. Placeholder value of -1.0 if an exception is thrown.
-     */
-    private static double convertStringToDouble(String doubleString) {
-        double placeholderValue = -1.0;
-
-        try {
-            return Double.parseDouble(doubleString);
-        } catch (NumberFormatException e) {
-            MEDILOGGER.warning("Possibly corrupt data. Unable to parse String '" + doubleString
-                    + "' into double. Using placeholder value -1.0");
-            return placeholderValue;
-        } catch (NullPointerException e) {
-            MEDILOGGER.warning("Null Pointer passed for conversion to double. Using placeholder value -1.0");
-            return placeholderValue;
-        }
-    }
-
-    /**
      * Populates the MedicationManager from the save file.
      * If there are corrupt data, it may be substituted with placeholder values.
      *
@@ -305,42 +287,10 @@ public class MedicationManager {
                 }
                 String value = medInfo.get(key);
 
-                switch (keyEnum) {
-                case NAME:
-                    medication.setName(value);
-                    break;
-                case QUANTITY:
-                    double qty = convertStringToDouble(value);
-                    medication.setQuantity(qty);
-                    break;
-                case DOSAGE_MORNING:
-                    double doseMorning = convertStringToDouble(value);
-                    medication.setDosageMorning(doseMorning);
-                    break;
-                case DOSAGE_AFTERNOON:
-                    double doseAfternoon = convertStringToDouble(value);
-                    medication.setDosageAfternoon(doseAfternoon);
-                    break;
-                case DOSAGE_EVENING:
-                    double doseEvening = convertStringToDouble(value);
-                    medication.setDosageEvening(doseEvening);
-                    break;
-                case EXPIRATION_DATE:
-                    medication.setExpiryDate(value);
-                    break;
-                case REMARKS:
-                    medication.setRemarks(value);
-                    break;
-                case REPEAT:
-                    int repeatValue = (int) convertStringToDouble(value);
-                    medication.setRepeat(repeatValue);
-                    break;
-                case DAY_ADDED:
-                    int dayValue = (int) convertStringToDouble(value);
-                    medication.setDayAdded(dayValue);
-                    break;
-                default:
-                    MEDILOGGER.warning("Unhandled ArgumentName Enum Type " + keyEnum.value);
+                try {
+                    medication.setMedicationValue(keyEnum, value);
+                } catch (MediTrackerException e) {
+                    Ui.showErrorMessage(e);
                 }
             }
             try {
