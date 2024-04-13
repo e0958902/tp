@@ -23,7 +23,7 @@ import meditracker.medication.MedicationManager;
  * Passes the data in an intermediate format to the various Managers involved for them to initialise.
  */
 public class JsonImporter {
-    private static Logger logger = MediLogger.getMediLogger();
+    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
      * Converts information from JSONArray into a List of (String, String) mappings.
@@ -52,8 +52,8 @@ public class JsonImporter {
                 }
                 list.add(kvMap);
             } catch (JSONException e) {
-                logger.warning("JSONArray to List<Map<String,String>> Error: " + e.getMessage());
-                logger.warning("Entry skipped.");
+                MEDILOGGER.warning("JSONArray to List<Map<String,String>> Error: " + e.getMessage());
+                MEDILOGGER.warning("Entry skipped.");
                 continue;
             }
         }
@@ -76,17 +76,17 @@ public class JsonImporter {
         try {
             jsonFileData = Files.readAllLines(mediTrackerJsonPath);
         } catch (IOException e) {
-            logger.warning("Unable to read from the JSON save file.");
+            MEDILOGGER.warning("Unable to read from the JSON save file.");
             return null;
         }
 
         if (jsonFileData.isEmpty()) {
-            logger.warning("Empty JSON file.");
+            MEDILOGGER.warning("Empty JSON file.");
             return null;
         }
 
         if (jsonFileData.size() > 1) {
-            logger.warning("Multiple lines detected. JSON file should only contain one line of data. "
+            MEDILOGGER.warning("Multiple lines detected. JSON file should only contain one line of data. "
                     + "Only the first line will be loaded. Ignoring other lines.");
         }
         return jsonFileData.get(0);
@@ -103,7 +103,7 @@ public class JsonImporter {
      */
     public static boolean processMediTrackerJsonFile(Path mediTrackerJsonPath) {
         if (mediTrackerJsonPath == null) {
-            logger.warning("No path specified to read the JSON file.");
+            MEDILOGGER.warning("No path specified to read the JSON file.");
             return false;
         }
 
@@ -119,8 +119,8 @@ public class JsonImporter {
             JSONObject rawJsonData = new JSONObject(jsonStringData);
             medicationList = rawJsonData.getJSONArray("medicationList");
         } catch (JSONException e) {
-            logger.warning("JSON Read Error: " + e.getMessage());
-            logger.warning("JSON Save Data not read and processed.");
+            MEDILOGGER.warning("JSON Read Error: " + e.getMessage());
+            MEDILOGGER.warning("JSON Save Data not read and processed.");
             return false;
         }
 

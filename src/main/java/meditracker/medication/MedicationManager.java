@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * It contains an ArrayList of Medication objects.
  */
 public class MedicationManager {
-    private static Logger logger = MediLogger.getMediLogger();
+    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
     /** The list of medications stored in an ArrayList. */
     private static List<Medication> medications = new ArrayList<>();
 
@@ -279,11 +279,11 @@ public class MedicationManager {
         try {
             return Double.parseDouble(doubleString);
         } catch (NumberFormatException e) {
-            logger.warning("Possibly corrupt data. Unable to parse String '" + doubleString
+            MEDILOGGER.warning("Possibly corrupt data. Unable to parse String '" + doubleString
                     + "' into double. Using placeholder value -1.0");
             return placeholderValue;
         } catch (NullPointerException e) {
-            logger.warning("Null Pointer passed for conversion to double. Using placeholder value -1.0");
+            MEDILOGGER.warning("Null Pointer passed for conversion to double. Using placeholder value -1.0");
             return placeholderValue;
         }
     }
@@ -340,7 +340,7 @@ public class MedicationManager {
                     medication.setDayAdded(dayValue);
                     break;
                 default:
-                    logger.warning("Unhandled ArgumentName Enum Type " + keyEnum.value);
+                    MEDILOGGER.warning("Unhandled ArgumentName Enum Type " + keyEnum.value);
                 }
             }
             try {
