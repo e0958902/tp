@@ -280,7 +280,7 @@ public class DailyMedicationManager {
         MedicationManager.decreaseMedicationQuantity(dailyMedication.getName(), period);
 
         dailyMedication.take();
-        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null, DailyMedicationManager.getDailyMedicationStringData());
     }
 
     /**
@@ -304,7 +304,7 @@ public class DailyMedicationManager {
         MedicationManager.increaseMedicationQuantity(dailyMedication.getName(), period);
 
         dailyMedication.untake();
-        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null, DailyMedicationManager.getDailyMedicationStringData());
     }
 
     /**
@@ -403,6 +403,6 @@ public class DailyMedicationManager {
                 break;
             }
         }
-        FileReaderWriter.saveDailyMedicationData(getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null, getDailyMedicationStringData());
     }
 }

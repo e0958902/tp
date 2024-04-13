@@ -29,7 +29,7 @@ public class FileReaderWriter {
      * @param getFolder Whether to return the Path of folder or the Path of file.
      * @return The Path object of either the file name or the folder name. Null if the chosen field is empty.
      */
-    static Path getFullPathComponent(Path path, boolean getFolder) {
+    public static Path getFullPathComponent(Path path, boolean getFolder) {
         if (path == null) {
             return null;
         }
@@ -134,17 +134,30 @@ public class FileReaderWriter {
     }
 
     /**
-     * Saves the daily medication information to a fixed file data/dailymed/today.txt.
+     * Saves the daily medication information to a text file under a predefined sub-folder.
+     * This sub-folder (relative to JSON file) can be found under `MediTrackerConfig`.
      *
+     * @param suppliedDailyPath The DailyMedication file to save to. If null, the path will be built based on the
+     *     default directory the JSON file resides in `MediTrackerConfig`.
      * @param dailyMedData A list of type String for the daily medication data.
+     * @return `true` if successfully saved, `false` otherwise.
      */
-    public static void saveDailyMedicationData(List<String> dailyMedData) {
-        Path dailyMedFullSavePath = MediTrackerConfig.getDailySaveFilePath();
-        Path dailyMedFolder = getFullPathComponent(dailyMedFullSavePath, true);
-        Path tmpSaveFile = createTempSaveFile(dailyMedFolder);
+    public static boolean saveDailyMedicationData(Path suppliedDailyPath, List<String> dailyMedData) {
+        Path dailyMedSavePath;
+        if (suppliedDailyPath == null) {
+            dailyMedSavePath = MediTrackerConfig.getDailymedFilePath(null);
+        } else {
+            dailyMedSavePath = suppliedDailyPath;
+        }
 
+        if (dailyMedSavePath == null) {
+            return false;
+        }
+
+        Path dailyMedFolder = getFullPathComponent(dailyMedSavePath, true);
+        Path tmpSaveFile = createTempSaveFile(dailyMedFolder);
         if (tmpSaveFile == null) {
-            return;
+            return false;
         }
 
         //@@author annoy-o-mus-reused
@@ -159,17 +172,20 @@ public class FileReaderWriter {
             writeStatus = true;
         } catch (IOException e) {
             MEDILOGGER.severe("Unable to write DailyMedication data to file.");
+            return false;
         }
 
         try {
             if (writeStatus) {
-                Files.move(tmpSaveFile, dailyMedFullSavePath, REPLACE_EXISTING);
+                Files.move(tmpSaveFile, dailyMedSavePath, REPLACE_EXISTING);
             } else {
                 Files.delete(tmpSaveFile);
             }
         } catch (IOException e) {
             MEDILOGGER.severe("IO Exception occurred when trying to update existing save file.");
+            return false;
         }
+        return true;
     }
 
     /**
