@@ -1,7 +1,6 @@
 package meditracker.command;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Map;
 
 import meditracker.MediTrackerConfig;
@@ -9,7 +8,6 @@ import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.SaveArgument;
-import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
@@ -63,8 +61,7 @@ public class SaveCommand extends Command {
             System.out.println("Use the -o flag to save the data to another location.");
         }
 
-        List<String> dailyMedData = DailyMedicationManager.getDailyMedicationStringData();
-        isSaveSuccessful = FileReaderWriter.saveDailyMedicationData(null, dailyMedData);
+        isSaveSuccessful = FileReaderWriter.saveDailyMedicationData(null);
         if (!isSaveSuccessful) {
             System.out.println("An error occurred while saving DailyMedication Data. Data is not saved.");
         } else {
@@ -91,9 +88,8 @@ public class SaveCommand extends Command {
             System.out.println("Data successfully saved to: " + absoluteJsonPath);
         }
 
-        List<String> dailyMedData = DailyMedicationManager.getDailyMedicationStringData();
         Path dailyMedPath = MediTrackerConfig.getDailymedFilePath(jsonSaveFilePath);
-        isSaveSuccessful = FileReaderWriter.saveDailyMedicationData(dailyMedPath, dailyMedData);
+        isSaveSuccessful = FileReaderWriter.saveDailyMedicationData(dailyMedPath);
         if (!isSaveSuccessful) {
             System.out.println("An error occurred while saving DailyMedication Data. Data is not saved.");
         } else {

@@ -1,7 +1,6 @@
 package meditracker.storage;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import static java.nio.file.StandardOpenOption.APPEND;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,7 +13,6 @@ import meditracker.MediTrackerConfig;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.FileReadWriteException;
 import meditracker.logging.MediLogger;
-
 
 //@@author annoy-o-mus
 /**
@@ -39,6 +37,44 @@ public class FileReaderWriter {
             return path.getParent();
         } else {
             return path.getFileName();
+        }
+    }
+
+    /**
+     * Returns the temporary save file which is in the same directory as the final save file.
+     *
+     * @param path The path of the final save file
+     * @return The Path of the temp file. `null` if there are issues creating the file.
+     */
+    private static Path getCreatedTemporarySaveFile(Path path) {
+        Path folder = getFullPathComponent(path, true);
+        return createTempSaveFile(folder);
+    }
+
+    /**
+     * Writes or overwrites the save file with the temp file and deletes the temp file.
+     *
+     * @param saveFile The save file to write to
+     * @param tempFile The temp file to write to the save file
+     * @param isTempFileSaveSuccess Whether the saving to the temp file was a success.
+     * @return `true` if the save file has been successfully written or overwritten, `false` otherwise.
+     */
+    private static boolean processTempFileOverwrite(Path saveFile, Path tempFile, boolean isTempFileSaveSuccess) {
+        if (saveFile == null || tempFile == null) {
+            return false;
+        }
+
+        try {
+            if (isTempFileSaveSuccess) {
+                Files.move(tempFile, saveFile, REPLACE_EXISTING);
+                return true;
+            } else {
+                Files.delete(tempFile);
+                return false;
+            }
+        } catch (IOException e) {
+            MEDILOGGER.severe("IO Exception occurred when trying to update existing save file.");
+            return false;
         }
     }
 
@@ -113,25 +149,13 @@ public class FileReaderWriter {
             fullJsonPath = path;
         }
 
-        Path jsonFolder = getFullPathComponent(fullJsonPath, true);
-        Path tmpSaveFile = createTempSaveFile(jsonFolder);
-
+        Path tmpSaveFile = getCreatedTemporarySaveFile(fullJsonPath);
         if (tmpSaveFile == null) {
             return false;
         }
 
         boolean saveStatus = JsonExporter.saveMedicationDataToJson(tmpSaveFile);
-        try {
-            if (saveStatus) {
-                Files.move(tmpSaveFile, fullJsonPath, REPLACE_EXISTING);
-            } else {
-                Files.delete(tmpSaveFile);
-            }
-        } catch (IOException e) {
-            MEDILOGGER.severe("IO Exception occurred when trying to update existing save file.");
-            return false;
-        }
-        return true;
+        return processTempFileOverwrite(fullJsonPath, tmpSaveFile, saveStatus);
     }
 
     /**
@@ -140,10 +164,9 @@ public class FileReaderWriter {
      *
      * @param suppliedDailyPath The DailyMedication file to save to. If null, the path will be built based on the
      *     default directory the JSON file resides in `MediTrackerConfig`.
-     * @param dailyMedData A list of type String for the daily medication data.
      * @return `true` if successfully saved, `false` otherwise.
      */
-    public static boolean saveDailyMedicationData(Path suppliedDailyPath, List<String> dailyMedData) {
+    public static boolean saveDailyMedicationData(Path suppliedDailyPath) {
         Path dailyMedSavePath;
         if (suppliedDailyPath == null) {
             dailyMedSavePath = MediTrackerConfig.getDailymedFilePath(null);
@@ -155,38 +178,13 @@ public class FileReaderWriter {
             return false;
         }
 
-        Path dailyMedFolder = getFullPathComponent(dailyMedSavePath, true);
-        Path tmpSaveFile = createTempSaveFile(dailyMedFolder);
+        Path tmpSaveFile = getCreatedTemporarySaveFile(dailyMedSavePath);
         if (tmpSaveFile == null) {
             return false;
         }
 
-        //@@author annoy-o-mus-reused
-        // Reused from https://stackoverflow.com/a/6548204
-        // with minor modifications
-        boolean writeStatus = false;
-        try {
-            for (String stringData : dailyMedData) {
-                byte[] dataInBytes = (stringData + System.lineSeparator()).getBytes();
-                Files.write(tmpSaveFile, dataInBytes, APPEND);
-            }
-            writeStatus = true;
-        } catch (IOException e) {
-            MEDILOGGER.severe("Unable to write DailyMedication data to file.");
-            return false;
-        }
-
-        try {
-            if (writeStatus) {
-                Files.move(tmpSaveFile, dailyMedSavePath, REPLACE_EXISTING);
-            } else {
-                Files.delete(tmpSaveFile);
-            }
-        } catch (IOException e) {
-            MEDILOGGER.severe("IO Exception occurred when trying to update existing save file.");
-            return false;
-        }
-        return true;
+        boolean saveStatus = DailyMedicationExporter.writeDailyMedicationToFile(tmpSaveFile);
+        return processTempFileOverwrite(dailyMedSavePath, tmpSaveFile, saveStatus);
     }
 
     /**
