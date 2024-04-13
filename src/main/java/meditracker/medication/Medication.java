@@ -452,7 +452,7 @@ public class Medication {
         LocalDate currentDate = MediTrackerTime.getCurrentDate();
         try {
             parsedExpiryDate = LocalDate.parse(expiryDate, dateTimeFormatter);
-            if (parsedExpiryDate.isBefore(currentDate)) {
+            if (parsedExpiryDate.isBefore(currentDate) || parsedExpiryDate.equals(currentDate)) {
                 throw new MediTrackerException("You are not allowed to enter expired medications!");
             }
         } catch (DateTimeParseException e) {
