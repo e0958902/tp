@@ -5,12 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import meditracker.logging.MediLogger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import meditracker.argument.ArgumentName;
+import meditracker.logging.MediLogger;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 

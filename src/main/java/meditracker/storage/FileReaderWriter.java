@@ -86,7 +86,7 @@ public class FileReaderWriter {
         }
 
         try {
-            return Files.createTempFile(directory,null,null);
+            return Files.createTempFile(directory, null, null);
         } catch (IOException e) {
             MEDILOGGER.severe("IO Error: Unable to create temp save file");
             return null;
@@ -132,7 +132,7 @@ public class FileReaderWriter {
         boolean saveStatus = JsonExporter.saveMedicationDataToJson(tmpSaveFile);
         try {
             if (saveStatus) {
-                Files.move(tmpSaveFile,fullJsonPath, REPLACE_EXISTING);
+                Files.move(tmpSaveFile, fullJsonPath, REPLACE_EXISTING);
             } else {
                 Files.delete(tmpSaveFile);
             }
@@ -153,7 +153,7 @@ public class FileReaderWriter {
         Path dailyMedFolder = getFullPathComponent(dailyMedFullSavePath, true);
         Path tmpSaveFile = createTempSaveFile(dailyMedFolder);
 
-        if (tmpSaveFile == null){
+        if (tmpSaveFile == null) {
             return;
         }
 
@@ -173,7 +173,7 @@ public class FileReaderWriter {
 
         try {
             if (writeStatus) {
-                Files.move(tmpSaveFile,dailyMedFullSavePath, REPLACE_EXISTING);
+                Files.move(tmpSaveFile, dailyMedFullSavePath, REPLACE_EXISTING);
             } else {
                 Files.delete(tmpSaveFile);
             }
