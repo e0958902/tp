@@ -287,7 +287,7 @@ public class DailyMedicationManager {
 
             dailyMedication.setName(newName);
         }
-        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null);
     }
 
     /**

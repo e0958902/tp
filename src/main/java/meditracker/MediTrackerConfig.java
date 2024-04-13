@@ -11,7 +11,7 @@ import meditracker.time.MediTrackerTime;
  */
 public class MediTrackerConfig {
     /* Path to save Medication related information.*/
-    private static final Path DEFAULT_JSON_SAVE_FILE_PATH = Path.of("data/MediTrackerData.json");
+    private static final Path DEFAULT_JSON_SAVE_FILE_PATH = Path.of("data/MedicationData.json");
 
     /* Folder containing daily medication for the different days.*/
     /* Folder name is FIXED and should always be RELATIVE to the JSON save file.*/

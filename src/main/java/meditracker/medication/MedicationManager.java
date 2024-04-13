@@ -53,7 +53,7 @@ public class MedicationManager {
         medication.checkValidity();
         checkForDuplicateMedication(medication.getName());
         medications.add(medication);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 
     protected static void addMedicationWithoutChecks(Medication medication) {
