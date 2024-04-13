@@ -440,18 +440,17 @@ public class Medication {
 
     /**
      * Converts String to LocalDate
-     * Checks if the user has input a invalid expiry date format
-     * and if the date is expired.
+     * Also checks if the user input String is expired or is an invalid date format
      *
-     * @param expiryDate Expiry Date in yyyy-MM-dd format
-     * @throws MediTrackerException When the date entered is already expired
+     * @param expiryDateString The String object to be converted to an LocalDate type in yyyy-MM-dd format
+     * @throws MediTrackerException When the date entered is in wrong format or is already expired
      */
-    public static LocalDate convertStringToLocalDate(String expiryDate) throws MediTrackerException {
+    private static LocalDate convertStringToLocalDate(String expiryDateString) throws MediTrackerException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate parsedExpiryDate;
         LocalDate currentDate = MediTrackerTime.getCurrentDate();
         try {
-            parsedExpiryDate = LocalDate.parse(expiryDate, dateTimeFormatter);
+            parsedExpiryDate = LocalDate.parse(expiryDateString, dateTimeFormatter);
             if (parsedExpiryDate.isBefore(currentDate) || parsedExpiryDate.equals(currentDate)) {
                 throw new MediTrackerException("You are not allowed to enter expired medications!");
             }
