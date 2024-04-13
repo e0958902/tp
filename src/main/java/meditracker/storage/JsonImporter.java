@@ -99,17 +99,17 @@ public class JsonImporter {
      * a warning will be thrown to the user and the program will run as if it is the first time running.
      *
      * @param mediTrackerJsonPath The Path object specifying the path to the MediTracker save data.
-     * @return true if the JSON file has been successfully loaded, false otherwise.
      */
-    public static boolean processMediTrackerJsonFile(Path mediTrackerJsonPath) {
+    public static void processMediTrackerJsonFile(Path mediTrackerJsonPath) {
         if (mediTrackerJsonPath == null) {
             MEDILOGGER.warning("No path specified to read the JSON file.");
-            return false;
+            return;
         }
 
         String jsonStringData = loadRawJsonFileData(mediTrackerJsonPath);
         if (jsonStringData == null) {
-            return false;
+            MEDILOGGER.warning("Empty JSON file.");
+            return;
         }
 
         // Solution on reading and parsing a JSON file adapted from
@@ -121,11 +121,10 @@ public class JsonImporter {
         } catch (JSONException e) {
             MEDILOGGER.warning("JSON Read Error: " + e.getMessage());
             MEDILOGGER.warning("JSON Save Data not read and processed.");
-            return false;
+            return;
         }
 
         List<Map<String, String>> medicationStringMap = convertJsonArrayToStringMap(medicationList);
         MedicationManager.addMedicationFromSaveFile(medicationStringMap);
-        return true;
     }
 }

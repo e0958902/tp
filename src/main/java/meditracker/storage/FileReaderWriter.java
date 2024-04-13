@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import meditracker.MediTrackerConfig;
+import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.FileReadWriteException;
 import meditracker.logging.MediLogger;
 
@@ -189,28 +190,47 @@ public class FileReaderWriter {
     }
 
     /**
-     * Reads the JSON data file to load and populate the MediTracker.
-     * If the file is not found, a warning will be thrown to alert the user, and the program
-     * will run without the saved data (fresh state).
+     * Loads all MediTracker related data.
+     * This includes the JSON data for the Medications and the txt data for DailyMedications.
+     *
+     * @param jsonPath The Path of the json file. If null, will attempt to load from default location.
      */
-    public static void loadMediTrackerData() {
-        Path mediTrackerJsonPath = MediTrackerConfig.getDefaultJsonSaveFilePath();
-        JsonImporter.processMediTrackerJsonFile(mediTrackerJsonPath);
+    public static void loadMediTrackerData(Path jsonPath) {
+        Path jsonFilePath;
+        if (jsonPath == null) {
+            jsonFilePath = MediTrackerConfig.getDefaultJsonSaveFilePath();
+        } else {
+            jsonFilePath = jsonPath;
+        }
+
+        JsonImporter.processMediTrackerJsonFile(jsonFilePath);
+
+        Path dailyMedFilePath = MediTrackerConfig.getDailymedFilePath(jsonFilePath);
+        loadDailyMedicationData(dailyMedFilePath);
     }
 
     /**
-     * Loads the daily medication information from a fixed file data/dailymed/today.txt.
+     * Loads the daily medication information from a text file under a predefined sub-folder.
+     * This sub-folder name (relative to JSON file) can be found under `MediTrackerConfig`.
      *
-     * @return A list of string with the daily medication data. null if the file could not be loaded.
+     * @param dailyMedPath Path of the txt file containing the DailyMedication information.
      */
-    public static List<String> loadDailyMedicationData() {
+    private static void loadDailyMedicationData(Path dailyMedPath) {
+        List<String> dailyMedData;
         try {
-            Path dailyMedTextFile = MediTrackerConfig.getDailySaveFilePath();
-            return Files.readAllLines(dailyMedTextFile);
+            dailyMedData = Files.readAllLines(dailyMedPath);
         } catch (IOException e) {
-            MEDILOGGER.warning("Unable to Read Daily medication data. "
-                    + "Daily medication data starting with clean state.");
-            return null;
+            MEDILOGGER.warning("IOException. Unable to Read Daily medication data.");
+            dailyMedData = null;
+        } catch (NullPointerException e) {
+            MEDILOGGER.warning("Null path supplied. Unable to read daily medication data.");
+            dailyMedData = null;
+        }
+
+        if (dailyMedData == null) {
+            DailyMedicationManager.createDailyMedicationManager();
+        } else {
+            DailyMedicationManager.importDailyMedicationManager(dailyMedData);
         }
     }
 }
