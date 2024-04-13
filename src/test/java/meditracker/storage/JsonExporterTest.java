@@ -15,7 +15,7 @@ import meditracker.MediTrackerConfig;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 
-//@@author annoy-o-mus
+
 /**
  * A class to test the JSON export functionality.
  */
