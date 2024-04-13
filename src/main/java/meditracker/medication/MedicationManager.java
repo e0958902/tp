@@ -2,6 +2,7 @@ package meditracker.medication;
 
 import meditracker.argument.ArgumentName;
 import meditracker.exception.InsufficientQuantityException;
+import meditracker.exception.MediTrackerException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
@@ -49,10 +50,26 @@ public class MedicationManager {
      * Adds a Medication to the list of Medication
      *
      * @param medication Medication to be added to the list
+     * @throws MediTrackerException When a duplicate medication is found
      */
-    public static void addMedication(Medication medication) {
+    public static void addMedication(Medication medication) throws MediTrackerException {
+        checkForDuplicateMedication(medication.getName().toLowerCase());
         medications.add(medication);
         FileReaderWriter.saveMediTrackerData(null);
+    }
+
+    /**
+     * Checks for duplicate medication in the list of medications.
+     *
+     * @param name Name of the medication to retrieve
+     * @throws MediTrackerException When a duplicate medication is found
+     */
+    private static void checkForDuplicateMedication(String name) throws MediTrackerException {
+        for (Medication medication : medications) {
+            if (medication.getName().toLowerCase().equals(name)) {
+                throw new MediTrackerException("Medication already exists in the list!");
+            }
+        }
     }
 
     /**
@@ -118,10 +135,10 @@ public class MedicationManager {
      */
     public static void showMedicationsByName(String name) throws MedicationNotFoundException {
         int medicationsFound = 0;
-        String nametoSearch = name.toLowerCase();
+        String nameToSearch = name.toLowerCase();
         for (Medication medication : medications) {
             String medicationName = medication.getName().toLowerCase();
-            if (medicationName.contains(nametoSearch)) {
+            if (medicationName.contains(nameToSearch)) {
                 medicationsFound++;
                 Ui.printSpecificMed(medication);
             }
@@ -166,10 +183,10 @@ public class MedicationManager {
      */
     public static void showMedicationsByRemarks(String remarks) throws MedicationNotFoundException {
         int medicationsFound = 0;
-        String remarkstoSearch = remarks.toLowerCase();
+        String remarksToSearch = remarks.toLowerCase();
         for (Medication medication : medications) {
             String medicationRemarks = medication.getRemarks().toLowerCase();
-            if (medicationRemarks.contains(remarkstoSearch)) {
+            if (medicationRemarks.contains(remarksToSearch)) {
                 medicationsFound++;
                 Ui.printSpecificMed(medication);
             }
@@ -326,7 +343,11 @@ public class MedicationManager {
                     logger.warning("Unhandled ArgumentName Enum Type " + keyEnum.value);
                 }
             }
-            addMedication(medication);
+            try {
+                addMedication(medication);
+            } catch (MediTrackerException e) {
+                Ui.showErrorMessage(e);
+            }
         }
     }
 

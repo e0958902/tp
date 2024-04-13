@@ -1,3 +1,7 @@
+---
+layout: default
+title: User Guide
+---
 <!-- 
 CREDIT: We try to follow the ideas and structure of the following sample user guide:
 https://se-education.org/addressbook-level3/UserGuide.html
@@ -41,6 +45,48 @@ data storage so that you can review your past medication intake.
 - [Command Summary](#command-summary)
 
 ## How to Use the User Guide
+<!-- @@author annoy-o-mus-reused
+reused from: https://ay2223s1-cs2103t-w16-2.github.io/tp/UserGuide.html#admonition-boxes
+with minor modifications
+-->
+Throughout this guide, you may find coloured boxes containing highlighted pieces of text.
+They are admonitions to help you take note of the content within.
+
+| **Symbol**           | **Representation** | **Meaning**                                                                                  |
+|----------------------|--------------------|----------------------------------------------------------------------------------------------|
+| :notebook:           | Note               | Something you should keep in mind.                                                           
+| :bulb:               | Tip                | Something you might find useful.                                                             |
+| :information_source: | Info               | Something you might find useful for the particular context.                                  |
+| :warning:            | Warning            | Something that you should pay close attention to.                                            |
+| :bangbang:           | Danger             | Something you you must pay attention to. There is a risk of program failure if not followed. |
+
+<!-- @@author -->
+Below are some examples of highlighted pieces of text:
+
+<div class="note-box">
+:notebook: <strong>Note: </strong>
+A note to take note.
+</div>
+
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+A useful tip.
+</div>
+
+<div class="info-box">
+:information_source: <strong>Info: </strong>
+Some informative text.
+</div>
+
+<div class="warning-box">
+:warning: <strong>Warning: </strong>
+Important text.
+</div>
+
+<div class="danger-box">
+:bangbang: <strong>Danger: </strong>
+Extremely important text.
+</div>
 
 ## Quick Start
 1. Ensure that you have Java 11 or above installed. 
