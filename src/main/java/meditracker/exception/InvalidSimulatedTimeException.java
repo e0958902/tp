@@ -4,7 +4,7 @@ package meditracker.exception;
  * An exception class thrown when the input does not fulfil the format of the simulated time.
  */
 public class InvalidSimulatedTimeException extends Exception {
-    private final String specificErrorMessage;
+    private String specificErrorMessage;
 
     public InvalidSimulatedTimeException(String specificErrorMessage) {
         this.specificErrorMessage = specificErrorMessage;

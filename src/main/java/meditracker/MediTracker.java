@@ -1,5 +1,7 @@
 package meditracker;
 
+import java.util.List;
+
 import meditracker.command.Command;
 import meditracker.command.CommandName;
 import meditracker.command.CommandParser;
@@ -15,9 +17,6 @@ import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
 import meditracker.time.MediTrackerTime;
 import meditracker.ui.Ui;
-
-import java.util.List;
-
 
 /**
  * The main class for the MediTracker application.

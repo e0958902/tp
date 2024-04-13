@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import meditracker.MediTrackerConfig;
-import meditracker.exception.MediTrackerException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import meditracker.MediTrackerConfig;
+import meditracker.exception.MediTrackerException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 

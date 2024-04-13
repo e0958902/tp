@@ -11,7 +11,7 @@ public class MediLoggerTest {
 
     @Test
     public void getMediLogger_noInput_loggerReturned() {
-        Logger log = MediLogger.getMediLogger();
-        assertNotNull(log);
+        Logger mediLogger = MediLogger.getMediLogger();
+        assertNotNull(mediLogger);
     }
 }
