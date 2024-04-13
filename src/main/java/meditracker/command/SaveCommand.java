@@ -22,7 +22,7 @@ import meditracker.storage.FileReaderWriter;
 public class SaveCommand extends Command {
     private static final ArgumentList ARGUMENT_LIST = new ArgumentList(new SaveArgument());
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.SAVE, ARGUMENT_LIST);
-    private final Map<ArgumentName, String> parsedArguments;
+    private Map<ArgumentName, String> parsedArguments;
 
     public SaveCommand(String arguments)
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,

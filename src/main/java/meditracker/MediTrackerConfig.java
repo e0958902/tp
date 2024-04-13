@@ -10,17 +10,17 @@ import meditracker.time.MediTrackerTime;
  */
 public class MediTrackerConfig {
     /* Path to save Medication related information.*/
-    private static final Path defaultJsonSaveFilePath = Path.of("data/MediTrackerData.json");
+    private static final Path DEFAULT_JSON_SAVE_FILE_PATH = Path.of("data/MediTrackerData.json");
     /* Folder containing save medication for the different days. Not customisable.*/
-    private static final Path dailySaveFolderPath = Path.of("data/dailymed");
+    private static final Path DAILY_SAVE_FOLDER_PATH = Path.of("data/dailymed");
 
     public static Path getDefaultJsonSaveFilePath() {
-        return defaultJsonSaveFilePath;
+        return DEFAULT_JSON_SAVE_FILE_PATH;
     }
 
     public static Path getDailySaveFilePath() {
         String date = MediTrackerTime.getCurrentDate().toString();
-        String folderPathString = dailySaveFolderPath.toString();
+        String folderPathString = DAILY_SAVE_FOLDER_PATH.toString();
         return Path.of(folderPathString, date + ".txt");
     }
 }

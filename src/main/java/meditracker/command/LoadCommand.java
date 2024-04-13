@@ -20,7 +20,7 @@ import java.util.Map;
 public class LoadCommand extends Command {
     private static final ArgumentList ARGUMENT_LIST = new ArgumentList(new LoadArgument());
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.LOAD, ARGUMENT_LIST);
-    private final Map<ArgumentName, String> parsedArguments;
+    private Map<ArgumentName, String> parsedArguments;
 
     public LoadCommand(String arguments)
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
