@@ -243,7 +243,7 @@ public class Medication {
             setDayAdded(dayAdded);
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + argumentName);
+            throw new MediTrackerException("Unexpected value: " + argumentName);
         }
     }
 
