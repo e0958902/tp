@@ -87,7 +87,12 @@ public class ModifyCommand extends Command {
         try {
             updateMedication(medication);
         } catch (MediTrackerException e) {
-            rollbackChanges(medication, medicationCopy);
+            try {
+                rollbackChanges(medication, medicationCopy);
+            } catch (MediTrackerException ex) {
+                Ui.showErrorMessage(ex);
+                return;
+            }
             Ui.showErrorMessage(e);
             Ui.showWarningMessage("Changes have been rolled back. Medicine not modified.");
             return;
@@ -102,8 +107,9 @@ public class ModifyCommand extends Command {
      *
      * @param medication Medication object in MedicationManager. To be written to.
      * @param medicationCopy Backup copy of original Medication object. To be read from.
+     * @throws MediTrackerException Unable to revert Medication
      */
-    private void rollbackChanges(Medication medication, Medication medicationCopy) {
+    private void rollbackChanges(Medication medication, Medication medicationCopy) throws MediTrackerException {
         if (parsedArguments.containsKey(ArgumentName.NAME)) {
             String oldName = medicationCopy.getName();
             DailyMedicationManager.updateDailyMedicationName(medication, oldName);

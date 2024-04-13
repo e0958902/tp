@@ -94,6 +94,15 @@ public class Medication {
     }
 
     /**
+     * Sets the name of medication without checks
+     *
+     * @param name Name of the medication
+     */
+    protected void setNameUnchecked(String name) {
+        this.name = name;
+    }
+
+    /**
      * Sets the name if it contains alphabetic characters and spaces only
      *
      * @param name Name of the medication
@@ -176,12 +185,22 @@ public class Medication {
     }
 
     /**
+     * Sets the repeat value of Medication object without checks
+     *
+     * @param repeat  Repeat value to be set
+     */
+    protected void setRepeat(int repeat) {
+        this.repeat = repeat;
+    }
+
+    /**
      * Checks if repeat is within range of 1 to 7
      *
-     * @param repeat Repeat value to be checked and set
+     * @param repeatStr Repeat value to be parsed, checked and set
      * @throws MediTrackerException When the value is not within the specified range
      */
-    protected void setRepeat(int repeat) throws MediTrackerException {
+    protected void setRepeat(String repeatStr) throws MediTrackerException {
+        int repeat = convertStringToInteger(repeatStr);
         if (repeat < 1 || repeat > 7) {
             throw new MediTrackerException("Provide a \"-rep\" number from 1 to 7");
         }
@@ -235,8 +254,7 @@ public class Medication {
             setRemarks(argumentValue);
             break;
         case REPEAT:
-            int repeat = convertStringToInteger(argumentValue);
-            setRepeat(repeat);
+            setRepeat(argumentValue);
             break;
         case DAY_ADDED:
             int dayAdded = convertStringToInteger(argumentValue);
@@ -290,13 +308,13 @@ public class Medication {
      *
      * @param medication Medication object values to replace with
      */
-    public void revertMedication(Medication medication) {
+    public void revertMedication(Medication medication) throws MediTrackerException {
         try {
             setName(medication.getName());
-            setRepeat(medication.getRepeat());
         } catch (MediTrackerException e) {
             // critical error as this should not happen
-            throw new RuntimeException(e);
+            throw new MediTrackerException("Critical issue occurred, unable to revert Medication "
+                    + "as name does not comply with format.");
         }
 
         setQuantity(medication.getQuantity());
@@ -305,6 +323,7 @@ public class Medication {
         setDosageEvening(medication.getDosageEvening());
         setExpiryDate(medication.getExpiryDate());
         setRemarks(medication.getRemarks());
+        setRepeat(medication.getRepeat());
         setDayAdded(medication.getDayAdded());
     }
 
@@ -317,20 +336,14 @@ public class Medication {
     public static Medication deepCopy(Medication medication) {
         Medication newMedication = new Medication();
 
-        try {
-            newMedication.setName(medication.getName());
-            newMedication.setRepeat(medication.getRepeat());
-        } catch (MediTrackerException e) {
-            // critical error as this should not happen
-            throw new RuntimeException(e);
-        }
-
+        newMedication.setNameUnchecked(medication.getName());
         newMedication.setQuantity(medication.getQuantity());
         newMedication.setDosageMorning(medication.getDosageMorning());
         newMedication.setDosageAfternoon(medication.getDosageAfternoon());
         newMedication.setDosageEvening(medication.getDosageEvening());
         newMedication.setExpiryDate(medication.getExpiryDate());
         newMedication.setRemarks(medication.getRemarks());
+        newMedication.setRepeat(medication.getRepeat());
         newMedication.setDayAdded(medication.getDayAdded());
 
         return newMedication;
