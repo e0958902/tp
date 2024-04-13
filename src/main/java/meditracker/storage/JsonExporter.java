@@ -16,7 +16,7 @@ import meditracker.medication.MedicationManager;
 
 //@@author annoy-o-mus
 /**
- * A Class that converts Meditracker data to JSON and writes to the target file.
+ * A class that converts Medication data to JSON and writes to the target file.
  */
 class JsonExporter {
     private static final Logger MEDILOGGER = MediLogger.getMediLogger();

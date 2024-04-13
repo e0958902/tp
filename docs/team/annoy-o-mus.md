@@ -11,7 +11,7 @@
 - Issue #27, #55: Read and Write medication-related data to JSON file
 - Issue #48, #121: Read and wrote daily medication related data to txt file
 - Issue #41: Introduce MediTracker Logger for logging
-- Issue #96: Introduce save to and load from custom location
+- Issue #96, #226: Introduce save to and load from custom location
 - Issue #43: Simulated Time
 
 ### Miscellaneous Code Contributions (Styling and Quality related)
@@ -23,7 +23,7 @@ Issue #222
 <!-- To talk about Issue 25 -->
 
 ### PR Reviews
-#2, #5, #40, #44, #51, #66, #82, #87, #93, #111, #209, #215, #218
+#2, #5, #40, #44, #51, #66, #82, #87, #93, #111, #209, #215, #218, #221
 
 ### Team-based tasks
 - Added PR Template (#11, #21).
