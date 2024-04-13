@@ -134,6 +134,7 @@ Options:
 -dE dosageEvening       Evening dosage of medication
 -r remarks              Additional remarks on medication
 -rep                    How often to take medication (eg: Supply a number from 1 to 7)
+-h                      Prints this help message
 ```
 
 
@@ -207,7 +208,8 @@ Afternoon:
 <div class="info-box">
 :information_source: <strong>Info: </strong>
 
-If you want to mark the medication you have taken, you can refer to the <a href="#take-a-medication">Take Command</a> here.
+If you want to mark the medication you have taken, you can refer to the <a href="#take-a-medication"><code>Take 
+Command</code></a> here.
 
 </div>
 
@@ -217,7 +219,7 @@ You can view detailed information about the medications you have added in the me
 <div class="info-box">
 :information_source: <strong>Info: </strong>
 
-Perform <a href="#all-medications">list -t all</a> first to display the lists of medications
+Perform <a href="#all-medications"><code>list -t all</code></a> first to display the lists of medications
 in medication list and use its fields for the features below.
 
 </div>
@@ -594,6 +596,14 @@ ____________________________________________________________
 ### Saving to a file: `save`
 Saves the JSON file to the specified path.
 
+```
+Usage:
+	save [-o saveFile] [-h]
+Options:
+	-o saveFile     File path (including .json extension) to save to
+	-h              Prints this help message
+```
+
 Format: `save [-o saveFile]`
 
 Examples:
@@ -610,6 +620,14 @@ Ensure that the folder you are going to write to has the proper access rights. D
 
 ### Reading from a file: `load`
 Loads the JSON files from the specified path.
+
+```
+Usage:
+	load (-in loadFile) [-h]
+Options:
+	-in loadFile     File path (including .json extension) to load from
+	-h               Prints this help message
+```
 
 Format: `load (-in loadFile)`
 
@@ -630,7 +648,7 @@ See the part on [Editing the File](#editing-the-file) for warnings on modifying 
 
 ### Editing the file
 The medication information are saved in a `.json` format while the daily medication information are saved
-in the `.txt` format. Advanced users can modify the text files directly.
+in the `.txt` format (two independent files). Advanced users can modify the text files directly.
 
 <div class="danger-box">
 :bangbang: <strong>Danger: </strong>
@@ -652,6 +670,14 @@ MediTracker may:
 If you edit valid data directly inside the <code>.json</code> file, you have to <b>delete the text file &lt;TODAY_DATE&gt;.txt in 
 data/dailymed/</b>. Otherwise, the next time MediTracker runs, it will continue to read the old data saved in the
 &lt;TODAY_DATE&gt;.txt.
+</div>
+
+<div class="info-box">
+:information_source: <strong>Info: </strong>
+As mentioned earlier, <code>.json</code> and <code>.txt</code> store All Medications and Daily Medications respectively. Therefore, in the 
+case of data corruption in one of the files, please be minded that `list -t all` might display empty, while 
+`list -t today` might display its contents normally, or vice versa. Or if both files are corrupted, both commands might 
+not display anything at all.
 </div>
 
 ### Advanced feature: Setting an arbitrary time
