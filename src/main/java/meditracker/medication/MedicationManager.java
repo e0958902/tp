@@ -56,7 +56,7 @@ public class MedicationManager {
      * @param medication Medication to be added to the list
      * @throws MediTrackerException When a duplicate medication is found
      */
-    public static void addMedication(Medication medication) throws MediTrackerException, DateTimeParseException {
+    public static void addMedication(Medication medication) throws MediTrackerException {
         checkForDuplicateMedication(medication.getName().toLowerCase());
         checkforValidExpiryDate(medication.getExpiryDate());
         medications.add(medication);
@@ -85,8 +85,7 @@ public class MedicationManager {
      * @throws DateTimeParseException When the date entered is in the wrong format
      * @throws MediTrackerException When the date entered is already expired
      */
-    public static void checkforValidExpiryDate(String expiryDate)
-            throws DateTimeParseException, MediTrackerException {
+    public static void checkforValidExpiryDate(String expiryDate) throws MediTrackerException {
         try {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate parsedExpiryDate = LocalDate.parse(expiryDate, dateTimeFormatter);
