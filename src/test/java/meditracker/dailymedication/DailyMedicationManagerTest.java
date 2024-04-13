@@ -20,6 +20,8 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,13 +100,15 @@ public class DailyMedicationManagerTest {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2025-07-01", dateTimeFormatter);
         Medication medication = new Medication(
                 medicationName,
                 oldQuantity,
                 dosage,
                 0.0,
                 0.0,
-                "2025-07-01",
+                parsedExpiryDate,
                 "cause_dizziness",
                 1,
                 87);
@@ -127,13 +131,15 @@ public class DailyMedicationManagerTest {
         String medicationName = "TestMedication";
         double oldQuantity = 5;
         double dosage = 10;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2025-07-01", dateTimeFormatter);
         Medication medication = new Medication(
                 medicationName,
                 oldQuantity,
                 dosage,
                 0.0,
                 0.0,
-                "2025-07-01",
+                parsedExpiryDate,
                 "cause_dizziness",
                 1,
                 87);
@@ -155,13 +161,15 @@ public class DailyMedicationManagerTest {
         String medicationName = "TestMedication";
         double oldQuantity = 60;
         double dosage = 10;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2025-07-01", dateTimeFormatter);
         Medication medication = new Medication(
                 medicationName,
                 oldQuantity,
                 dosage,
                 0.0,
                 0.0,
-                "2025-07-01",
+                parsedExpiryDate,
                 "cause_dizziness",
                 1,
                 87);

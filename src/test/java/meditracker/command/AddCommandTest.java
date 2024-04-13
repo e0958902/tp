@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -89,12 +90,15 @@ class AddCommandTest {
         LocalDate currentDate = MediTrackerTime.getCurrentDate();
         int dayAdded = currentDate.getDayOfYear();
 
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2025-07-01", dateTimeFormatter);
+
         Medication medication = new Medication("Medication A",
                 5000.0,
                 500.0,
                 250.0,
                 100.0,
-                "2025-07-01",
+                parsedExpiryDate,
                 "cause_dizziness",
                 1, dayAdded);
 

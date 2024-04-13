@@ -17,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,13 +37,15 @@ public class ViewCommandTest {
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         String medicationName = "Medication_I";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2024-08-01", dateTimeFormatter);
         Medication medication = new Medication(
                         medicationName,
                 1000.0,
                 15.0,
                 0.0,
                 15.0,
-                "2024-08-01",
+                parsedExpiryDate,
                 "drowsiness",
                 1,
                 90);
@@ -66,13 +70,15 @@ public class ViewCommandTest {
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         String medicationName = "Medication_N";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2024-08-01", dateTimeFormatter);
         Medication medication = new Medication(
                 medicationName,
                 1000.0,
                 15.0,
                 0.0,
                 15.0,
-                "2024-08-01",
+                parsedExpiryDate,
                 "drowsiness",
                 1,
                 91);
@@ -110,13 +116,15 @@ public class ViewCommandTest {
             HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         String medicationName = "Medication_Q";
         Double medicationQuantity = 1231.5;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2027-12-01", dateTimeFormatter);
         Medication medication = new Medication(
                 medicationName,
                 medicationQuantity,
                 10.0,
                 10.0,
                 10.0,
-                "2027-12-01",
+                parsedExpiryDate,
                 "depression",
                 1,
                 92);
@@ -156,13 +164,17 @@ public class ViewCommandTest {
         Double medicationQuantity = 30.0;
         String medicationExpiryYear = "2024";
         String medicationExpiry = medicationExpiryYear + "-11-20";
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse(medicationExpiry, dateTimeFormatter);
+
         Medication medication = new Medication(
                 medicationName,
                 medicationQuantity,
                 10.0,
                 10.0,
                 10.0,
-                medicationExpiry,
+                parsedExpiryDate,
                 "depression",
                 1,
                 93);
@@ -201,25 +213,28 @@ public class ViewCommandTest {
             HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         String medicationNameOne = "Dexamethasone";
         String medicationRemarksOne = "aggression, weight gain, nausea";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDateOne = LocalDate.parse("2025-01-31", dateTimeFormatter);
         Medication medicationOne = new Medication(
                 medicationNameOne,
                 20.0,
                 10.0,
                 10.0,
                 10.0,
-                "2025-01-31",
+                parsedExpiryDateOne,
                 medicationRemarksOne,
                 1,
                 94);
         String medicationNameTwo = "Dextromethorphan";
         String medicationRemarksTwo = "restlessness, nausea";
+        LocalDate parsedExpiryDateTwo = LocalDate.parse("2025-02-31", dateTimeFormatter);
         Medication medicationTwo = new Medication(
                 medicationNameTwo,
                 30.0,
                 10.0,
                 10.0,
                 10.0,
-                "2025-02-31",
+                parsedExpiryDateTwo,
                 medicationRemarksTwo,
                 1,
                 95);
@@ -261,13 +276,15 @@ public class ViewCommandTest {
             HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         String medicationName = "Medication_F";
         Double medicationQuantity = 30.0;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2024-08-01", dateTimeFormatter);
         Medication medication = new Medication(
                 medicationName,
                 medicationQuantity,
                 25.0,
                 25.0,
                 0.0,
-                "2024-08-01",
+                parsedExpiryDate,
                 "blurry_vision",
                 1,
                 96);
