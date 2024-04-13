@@ -36,7 +36,7 @@ public class ModifyCommandTest {
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         Medication medication = new Medication(
-                "Medication_A",
+                "Medication A",
                 60.0,
                 10.0,
                 10.0,
@@ -48,7 +48,7 @@ public class ModifyCommandTest {
         MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
 
-        String newName = "Medication_B";
+        String newName = "Medication B";
         String inputString = "-l 1 -n " + newName;
         ModifyCommand command = new ModifyCommand(inputString);
         command.execute();
@@ -62,7 +62,7 @@ public class ModifyCommandTest {
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         Medication medication = new Medication(
-                "Medication_A",
+                "Medication A",
                 60.0,
                 10.0,
                 10.0,
@@ -74,7 +74,7 @@ public class ModifyCommandTest {
         MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
 
-        String newName = "Medication_B";
+        String newName = "Medication B";
         String inputString = String.format("-n %s -l 1", newName);
         ModifyCommand command = new ModifyCommand(inputString);
         command.execute();

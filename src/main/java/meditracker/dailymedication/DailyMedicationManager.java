@@ -260,6 +260,37 @@ public class DailyMedicationManager {
     }
 
     /**
+     * Updates Medication and all instances of DailyMedication name to new name
+     *
+     * @param medication Medication object being updated
+     * @param newName New name to replace with
+     */
+    public static void updateDailyMedicationName(Medication medication, String newName) {
+        if (!DailyMedicationManager.doesBelongToDailyList(medication)) {
+            return;
+        }
+
+        for (Period period : Period.values()) {
+            if (!medication.hasDosage(period)) {
+                continue;
+            }
+
+            DailyMedication dailyMedication;
+            try {
+                String oldName = medication.getName();
+                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, period);
+            } catch (MedicationNotFoundException e) {
+                String message = String.format("Possible data corruption: Medication missing from %s list", period);
+                Ui.showWarningMessage(message);
+                continue;
+            }
+
+            dailyMedication.setName(newName);
+        }
+        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
+    }
+
+    /**
      * Fetches the corresponding DailyMedication and set the medication to taken
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
