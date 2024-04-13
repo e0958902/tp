@@ -120,4 +120,6 @@ meditracker> ERROR: You are not allowed to enter expired medications!
 ____________________________________________________________
 meditracker> ERROR: Please enter a valid expiry date in yyyy-MM-dd!
 ____________________________________________________________
+meditracker> ERROR: Medication already exists in the list!
+____________________________________________________________
 meditracker> Thank you for using MediTracker. Hope to see you again!
