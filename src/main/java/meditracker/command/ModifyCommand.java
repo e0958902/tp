@@ -97,6 +97,12 @@ public class ModifyCommand extends Command {
         Ui.showSuccessMessage("Medicine has been modified");
     }
 
+    /**
+     * Rollbacks the changes made to Medication and DailyMedication
+     *
+     * @param medication Medication object in MedicationManager. To be written to.
+     * @param medicationCopy Backup copy of original Medication object. To be read from.
+     */
     private void rollbackChanges(Medication medication, Medication medicationCopy) {
         if (parsedArguments.containsKey(ArgumentName.NAME)) {
             String oldName = medicationCopy.getName();

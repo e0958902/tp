@@ -58,6 +58,11 @@ public class Medication {
 
     // @@author
 
+    /**
+     * Checks the validity of the Medication object
+     *
+     * @throws MediTrackerException If Medication has uninitialised values or has no dosages
+     */
     public void checkValidity() throws MediTrackerException {
         boolean isUninitialised =
                 name == null ||
@@ -150,6 +155,11 @@ public class Medication {
         return remarks;
     }
 
+    /**
+     * Checks and sets the remarks. Defaults to Nil if remarks is null.
+     *
+     * @param remarks Remarks value to checked and set
+     */
     protected void setRemarks(String remarks) {
         this.remarks = Objects.requireNonNullElse(remarks, "Nil");
     }
@@ -162,6 +172,12 @@ public class Medication {
         return repeat;
     }
 
+    /**
+     * Checks if repeat is within range of 1 to 7
+     *
+     * @param repeat Repeat value to be checked and set
+     * @throws MediTrackerException When the value is not within the specified range
+     */
     protected void setRepeat(int repeat) throws MediTrackerException {
         if (repeat < 1 || repeat > 7) {
             throw new MediTrackerException("Provide a \"-rep\" number from 1 to 7");
@@ -181,6 +197,13 @@ public class Medication {
 
     // @@author annoy-o-mus
 
+    /**
+     * Calls the setter method with the parsed data based on the argumentName specified
+     *
+     * @param argumentName ArgumentName that identifies what type of data it is
+     * @param argumentValue Value of the data to be (converted and) set
+     * @throws MediTrackerException If it fails the checks and/or parsing
+     */
     public void setMedicationValue(ArgumentName argumentName, String argumentValue) throws MediTrackerException {
         switch (argumentName) {
         case NAME:
@@ -359,7 +382,7 @@ public class Medication {
     // @@author
 
     /**
-     * Converts a String to a integer.
+     * Converts a String to an integer.
      *
      * @param integerString The String object to be converted to an integer type.
      * @return The value of type integer.
