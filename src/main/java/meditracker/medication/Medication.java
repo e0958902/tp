@@ -3,6 +3,8 @@ package meditracker.medication;
 import meditracker.argument.ArgumentName;
 import meditracker.exception.MediTrackerException;
 import meditracker.time.Period;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -367,16 +369,28 @@ public class Medication {
      *
      * @param doubleString The String object to be converted to a double type.
      * @return The value of type double.
-     * @throws MediTrackerException If unable to parse string to double.
+     * @throws MediTrackerException If unable to parse string to double or not storable in JSON.
      */
     private static double convertStringToDouble(String doubleString) throws MediTrackerException {
+        double value;
         try {
-            return Double.parseDouble(doubleString);
+            value = Double.parseDouble(doubleString);
         } catch (NumberFormatException e) {
             throw new MediTrackerException("Unable to parse String '" + doubleString + "' into double.");
         } catch (NullPointerException e) {
             throw new MediTrackerException("Null Pointer passed for conversion to double.");
         }
+
+        try {
+            JSONObject.testValidity(value);
+        } catch (JSONException e) {
+            String errorContext = String.format(
+                    "Provided value \"%s\" not supported as it is either too large or NaN.",
+                    doubleString);
+            throw new MediTrackerException(errorContext);
+        }
+
+        return value;
     }
 
     // @@author
@@ -386,15 +400,27 @@ public class Medication {
      *
      * @param integerString The String object to be converted to an integer type.
      * @return The value of type integer.
-     * @throws MediTrackerException If unable to parse string to integer.
+     * @throws MediTrackerException If unable to parse string to integer or not storable in JSON.
      */
     private static int convertStringToInteger(String integerString) throws MediTrackerException {
+        int value;
         try {
-            return Integer.parseInt(integerString);
+            value = Integer.parseInt(integerString);
         } catch (NumberFormatException e) {
             throw new MediTrackerException("Unable to parse String '" + integerString + "' into integer.");
         } catch (NullPointerException e) {
             throw new MediTrackerException("Null Pointer passed for conversion to integer.");
         }
+
+        try {
+            JSONObject.testValidity(value);
+        } catch (JSONException e) {
+            String errorContext = String.format(
+                    "Provided value \"%s\" not supported as it is either too large or NaN.",
+                    integerString);
+            throw new MediTrackerException(errorContext);
+        }
+
+        return value;
     }
 }
