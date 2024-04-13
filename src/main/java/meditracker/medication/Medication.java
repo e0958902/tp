@@ -1,12 +1,13 @@
 package meditracker.medication;
 
-import meditracker.argument.ArgumentName;
-import meditracker.exception.MediTrackerException;
-import meditracker.time.Period;
+import java.util.Objects;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Objects;
+import meditracker.argument.ArgumentName;
+import meditracker.exception.MediTrackerException;
+import meditracker.time.Period;
 
 // @@author nickczh
 /**
