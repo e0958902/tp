@@ -189,7 +189,7 @@ public class Medication {
      *
      * @param repeat  Repeat value to be set
      */
-    protected void setRepeat(int repeat) {
+    protected void setRepeatUnchecked(int repeat) {
         this.repeat = repeat;
     }
 
@@ -311,10 +311,10 @@ public class Medication {
     public void revertMedication(Medication medication) throws MediTrackerException {
         try {
             setName(medication.getName());
+            setRepeat(String.valueOf(medication.getRepeat()));
         } catch (MediTrackerException e) {
             // critical error as this should not happen
-            throw new MediTrackerException("Critical issue occurred, unable to revert Medication "
-                    + "as name does not comply with format.");
+            throw new MediTrackerException("Critical issue occurred, unable to revert Medication.");
         }
 
         setQuantity(medication.getQuantity());
@@ -323,7 +323,6 @@ public class Medication {
         setDosageEvening(medication.getDosageEvening());
         setExpiryDate(medication.getExpiryDate());
         setRemarks(medication.getRemarks());
-        setRepeat(medication.getRepeat());
         setDayAdded(medication.getDayAdded());
     }
 
@@ -343,7 +342,7 @@ public class Medication {
         newMedication.setDosageEvening(medication.getDosageEvening());
         newMedication.setExpiryDate(medication.getExpiryDate());
         newMedication.setRemarks(medication.getRemarks());
-        newMedication.setRepeat(medication.getRepeat());
+        newMedication.setRepeatUnchecked(medication.getRepeat());
         newMedication.setDayAdded(medication.getDayAdded());
 
         return newMedication;
