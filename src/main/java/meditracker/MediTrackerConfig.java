@@ -1,30 +1,26 @@
 package meditracker;
 
 import java.nio.file.Path;
-import java.util.logging.Logger;
 
-import meditracker.logging.MediLogger;
 import meditracker.time.MediTrackerTime;
 
 /**
  * A class that holds configuration related properties.
- * This is to allow the user to customise certain user preferences. (To be implemented beyond v2.0)
+ * This is to allow the user to customise certain user preferences. (To be implemented beyond v2.1)
  */
 public class MediTrackerConfig {
-    private static final Logger logger = MediLogger.getMediLogger();
-
     /* Path to save Medication related information.*/
-    private static final Path defaultJsonSaveFilePath = Path.of("data/MediTrackerData.json");
+    private static final Path DEFAULT_JSON_SAVE_FILE_PATH = Path.of("data/MediTrackerData.json");
     /* Folder containing save medication for the different days. Not customisable.*/
-    private static final Path dailySaveFolderPath = Path.of("data/dailymed");
+    private static final Path DAILY_SAVE_FOLDER_PATH = Path.of("data/dailymed");
 
     public static Path getDefaultJsonSaveFilePath() {
-        return defaultJsonSaveFilePath;
+        return DEFAULT_JSON_SAVE_FILE_PATH;
     }
 
     public static Path getDailySaveFilePath() {
         String date = MediTrackerTime.getCurrentDate().toString();
-        String folderPathString = dailySaveFolderPath.toString();
+        String folderPathString = DAILY_SAVE_FOLDER_PATH.toString();
         return Path.of(folderPathString, date + ".txt");
     }
 }
