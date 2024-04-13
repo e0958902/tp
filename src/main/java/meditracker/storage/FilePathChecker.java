@@ -1,12 +1,12 @@
 package meditracker.storage;
 
-import meditracker.logging.MediLogger;
-
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.logging.Logger;
+
+import meditracker.logging.MediLogger;
 
 /**
  * A class that perform checks on the supplied file path.
@@ -17,8 +17,8 @@ public class FilePathChecker {
 
     /**
      * Checks if the Path object contains illegal folder names.
-     * They are generally targeted towards the Windows filesystem, but it also catches misuse of periods, potentially
-     * as a way of path traversal.
+     * They are generally targeted towards the Windows filesystem,
+     * but it also catches misuse of periods, as a way of path traversal.
      *
      * @param path The Path object to check for illegal names (and improper use of periods).
      * @return true if illegal names are found, false otherwise.
@@ -87,7 +87,8 @@ public class FilePathChecker {
         Path root = absolutePath.getRoot();
 
         if (root == null) {
-            assert false;
+            // This block should never be triggered
+            MEDILOGGER.severe("Absolute path does not contain a root.");
             return false;
         }
 
@@ -107,7 +108,7 @@ public class FilePathChecker {
      * @param inputToCheck The String input to check for illegal characters
      * @return true if an illegal character is found, false otherwise.
      */
-    public static boolean containsIllegalCharacters (String inputToCheck) {
+    public static boolean containsIllegalCharacters(String inputToCheck) {
         // Credit: https://stackoverflow.com/a/31976060
         String[] illegalCharacters = {"<", ">", "\"", "'", "|", "?", "*"};
 
@@ -139,7 +140,7 @@ public class FilePathChecker {
             return false;
         }
 
-        Path fileName = FileReaderWriter.getFullPathComponent(path,false);
+        Path fileName = FileReaderWriter.getFullPathComponent(path, false);
         if (fileName == null) {
             MEDILOGGER.warning("There is no valid file name supplied.");
             return false;
