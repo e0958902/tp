@@ -6,7 +6,7 @@ import meditracker.time.MediTrackerTime;
 
 /**
  * A class that holds configuration related properties.
- * This is to allow the user to customise certain user preferences. (To be implemented beyond v2.0)
+ * This is to allow the user to customise certain user preferences. (To be implemented beyond v2.1)
  */
 public class MediTrackerConfig {
     /* Path to save Medication related information.*/

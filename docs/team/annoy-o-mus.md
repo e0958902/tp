@@ -23,7 +23,7 @@ Issue #222
 <!-- To talk about Issue 25 -->
 
 ### PR Reviews
-#2, #5, #40, #44, #51, #66, #82, #87, #93, #111, #209, #215
+#2, #5, #40, #44, #51, #66, #82, #87, #93, #111, #209, #215, #218
 
 ### Team-based tasks
 - Added PR Template (#11, #21).
@@ -32,4 +32,5 @@ Issue #222
   - Disabled rebase and squash merging (thanks @wenenhoe)
 - Brought in the JSON package (https://github.com/stleary/JSON-java) (#26)
 - Brought in DG Comments from the main repo PR (#211)
+- Created the Jekyll configuration and introduced admonition template (#76)
 
