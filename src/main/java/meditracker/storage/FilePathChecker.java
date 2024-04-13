@@ -87,7 +87,8 @@ public class FilePathChecker {
         Path root = absolutePath.getRoot();
 
         if (root == null) {
-            assert false;
+            // This block should never be triggered
+            MEDILOGGER.severe("Absolute path does not contain a root.");
             return false;
         }
 
