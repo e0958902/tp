@@ -58,7 +58,7 @@ public class DailyMedicationManager {
         for (String line : lines) {
             try {
                 parseImportedLine(line);
-            } catch (Exception e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 MEDILOGGER.warning("Unable to import data from text file. " +
                         "Potentially due to corruption of data. --> (Skipping over this medication)");
             }
