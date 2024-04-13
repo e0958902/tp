@@ -19,7 +19,7 @@ import meditracker.medication.MedicationManager;
  * A Class that converts Meditracker data to JSON and writes to the target file.
  */
 class JsonExporter {
-    private static final Logger logger = MediLogger.getMediLogger();
+    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
      * Converts the information inside a Medication object into a JSON Object.
@@ -41,8 +41,8 @@ class JsonExporter {
             medObject.put(ArgumentName.REPEAT.value, medInfo.getRepeat());
             medObject.put(ArgumentName.DAY_ADDED.value, medInfo.getDayAdded());
         } catch (JSONException e) {
-            logger.severe(e.getMessage());
-            logger.severe("Entry not saved to JSON file.");
+            MEDILOGGER.severe(e.getMessage());
+            MEDILOGGER.severe("Entry not saved to JSON file.");
             return null;
         }
         return medObject;
@@ -77,7 +77,7 @@ class JsonExporter {
             Files.write(fileToWrite, root.toString().getBytes());
             return true;
         } catch (IOException e) {
-            logger.severe("Unable to write data to JSON file.");
+            MEDILOGGER.severe("Unable to write data to JSON file.");
             return false;
         }
     }

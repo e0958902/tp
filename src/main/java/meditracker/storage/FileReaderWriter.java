@@ -20,7 +20,7 @@ import meditracker.logging.MediLogger;
  * A static class to handle the reading and writing to the filesystem.
  */
 public class FileReaderWriter {
-    private static final Logger logger = MediLogger.getMediLogger();
+    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
      * Returns either the Path of folder or the Path of file.
@@ -49,7 +49,7 @@ public class FileReaderWriter {
      */
     private static void initialiseDirectory(Path folderName) throws FileReadWriteException {
         if (folderName == null) {
-            logger.info("Directory portion is null. Skipping creation.");
+            MEDILOGGER.info("Directory portion is null. Skipping creation.");
             return;
         }
 
@@ -81,17 +81,17 @@ public class FileReaderWriter {
         try {
             initialiseDirectory(directory);
         } catch (FileReadWriteException e) {
-            logger.severe(e.getMessage());
+            MEDILOGGER.severe(e.getMessage());
             return null;
         }
 
         try {
             return Files.createTempFile(directory,null,null);
         } catch (IOException e) {
-            logger.severe("IO Error: Unable to create temp save file");
+            MEDILOGGER.severe("IO Error: Unable to create temp save file");
             return null;
         } catch (SecurityException e) {
-            logger.severe("Unable to create temp save file. Please make sure that "
+            MEDILOGGER.severe("Unable to create temp save file. Please make sure that "
                     + "the file has the appropriate permissions for MediTracker to write to.");
             return null;
         }
@@ -137,7 +137,7 @@ public class FileReaderWriter {
                 Files.delete(tmpSaveFile);
             }
         } catch (IOException e) {
-            logger.severe("IO Exception occurred when trying to update existing save file.");
+            MEDILOGGER.severe("IO Exception occurred when trying to update existing save file.");
             return false;
         }
         return true;
@@ -168,7 +168,7 @@ public class FileReaderWriter {
             }
             writeStatus = true;
         } catch (IOException e) {
-            logger.severe("Unable to write DailyMedication data to file.");
+            MEDILOGGER.severe("Unable to write DailyMedication data to file.");
         }
 
         try {
@@ -178,7 +178,7 @@ public class FileReaderWriter {
                 Files.delete(tmpSaveFile);
             }
         } catch (IOException e) {
-            logger.severe("IO Exception occurred when trying to update existing save file.");
+            MEDILOGGER.severe("IO Exception occurred when trying to update existing save file.");
         }
     }
 
@@ -192,7 +192,7 @@ public class FileReaderWriter {
             Path dailyMedTextFile = MediTrackerConfig.getDailySaveFilePath();
             return Files.readAllLines(dailyMedTextFile);
         } catch (IOException e) {
-            logger.warning("Unable to Read Daily medication data. "
+            MEDILOGGER.warning("Unable to Read Daily medication data. "
                     + "Daily medication data starting with clean state.");
             return null;
         }

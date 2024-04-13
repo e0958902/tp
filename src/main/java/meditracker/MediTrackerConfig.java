@@ -1,9 +1,7 @@
 package meditracker;
 
 import java.nio.file.Path;
-import java.util.logging.Logger;
 
-import meditracker.logging.MediLogger;
 import meditracker.time.MediTrackerTime;
 
 /**
@@ -11,8 +9,6 @@ import meditracker.time.MediTrackerTime;
  * This is to allow the user to customise certain user preferences. (To be implemented beyond v2.0)
  */
 public class MediTrackerConfig {
-    private static final Logger logger = MediLogger.getMediLogger();
-
     /* Path to save Medication related information.*/
     private static final Path defaultJsonSaveFilePath = Path.of("data/MediTrackerData.json");
     /* Folder containing save medication for the different days. Not customisable.*/
