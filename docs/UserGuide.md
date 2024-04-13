@@ -132,8 +132,8 @@ Options:
 -dM dosageMorning       Morning dosage of medication
 -dA dosageAfternoon     Afternoon dosage of medication
 -dE dosageEvening       Evening dosage of medication
--r remarks              Additional remarks on medication
 -rep                    How often to take medication (eg: Supply a number from 1 to 7)
+-r remarks              Additional remarks on medication
 -h                      Prints this help message
 ```
 
