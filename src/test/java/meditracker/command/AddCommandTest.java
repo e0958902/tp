@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -40,7 +41,7 @@ class AddCommandTest {
             HelpInvokedException, UnknownArgumentFoundException {
 
         // setup lines
-        String inputString = "add -n Medication A -q 5000 -e 01/07/25 " +
+        String inputString = "add -n Medication A -q 5000 -e 2025-07-01 " +
                 "-dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         command.execute();
@@ -54,7 +55,7 @@ class AddCommandTest {
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException {
         // setup lines
-        String inputString = "add -n Medication_A -q 60 -e 01/07/25 -dM 500.0 -dA 250.0 -dE 100.0"
+        String inputString = "add -n Medication_A -q 60 -e 2025-07-01 -dM 500.0 -dA 250.0 -dE 100.0"
                 + "-r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         command.execute();
@@ -68,7 +69,7 @@ class AddCommandTest {
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException {
         // setup lines
-        String inputString = "add -n \" \" -q 60 -e 01/07/25 -dM 500.0 -dA 250.0 -dE 100.0"
+        String inputString = "add -n \" \" -q 60 -e 2025-07-01 -dM 500.0 -dA 250.0 -dE 100.0"
                 + "-r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         command.execute();
@@ -82,19 +83,22 @@ class AddCommandTest {
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
         // setup lines
-        String inputString = "add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -dE 100 " +
+        String inputString = "add -n Medication A -q 5000 -e 2025-07-01 -dM 500 -dA 250 -dE 100 " +
                 "-r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         // Get the current date and the day of the year
         LocalDate currentDate = MediTrackerTime.getCurrentDate();
         int dayAdded = currentDate.getDayOfYear();
 
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2025-07-01", dateTimeFormatter);
+
         Medication medication = new Medication("Medication A",
                 5000.0,
                 500.0,
                 250.0,
                 100.0,
-                "01/07/25",
+                parsedExpiryDate,
                 "cause_dizziness",
                 1, dayAdded);
 
@@ -107,7 +111,7 @@ class AddCommandTest {
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException {
         // setup lines
-        String inputString = "add -n Medication A -q %%% -e 01/07/25 -dM 500 -dA 250 -dE 100 " +
+        String inputString = "add -n Medication A -q %%% -e 2025-07-01 -dM 500 -dA 250 -dE 100 " +
                 "-r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
 

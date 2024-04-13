@@ -136,14 +136,14 @@ Options:
 -rep                    How often to take medication (eg: Supply a number from 1 to 7)
 ```
 
-> Tip: The dosage and remarks tags are optional.
+> Tip: The remarks tag is optional. The expiration date must be in yyyy-MM-dd format.
 
 > Note: Remarks will default to Nil if it is not specified.
 
 Examples:
 
-* `add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 1`
-* `add -n Medication B -q 1000 -e 30/09/24 -dM 500 -dA 250 -dE 50 -rep 6`
+* `add -n Medication A -q 5000 -e 2025-07-01 -dM 500 -dA 250 -dE 0 -r cause_dizziness -rep 1`
+* `add -n Medication B -q 1000 -e 2024-09-30 -dM 500 -dA 250 -dE 50 -rep 6`
 
 Output:
 ```
@@ -161,9 +161,9 @@ Format: `list -t all`
 Output:
 ```
 You have 2 medications listed below.
-   Name                           Quantity   Expiry     Remarks                       
-1. Medication A                   5000.0     01/07/25   cause_dizziness  
-2. Medication B                   1000.0     30/09/24
+   Name                           Quantity   Expiry       Remarks                       
+1. Medication A                   5000.0     2025-07-01   cause_dizziness  
+2. Medication B                   1000.0     2024-09-30   Nil
 Your list of medications has been successfully shown!
 ```
 
@@ -182,9 +182,9 @@ Output:
 ____________________________________________________________
 Here are the Daily Medications you have to take today: 
 Morning:
-	1. [ ] Medication_A | 2.0
+	1. [ ] Medication A | 2.0
 Afternoon:
-	1. [ ] Medication_A | 1.0
+	1. [ ] Medication A | 1.0
 ____________________________________________________________
 ```
 
@@ -216,7 +216,7 @@ Output:
 ```
 Name: Medication A
 Quantity: 5000.0
-Expiry Date: 01/07/25
+Expiry Date: 2025-07-01
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
@@ -232,7 +232,7 @@ You can view all medication information by its name.
 
 Format: `view -n MEDICATION_NAME`
 
-Example: `view -n medication_b`
+Example: `view -n medication b`
 
 > Tip: Only the first flag and argument will be used to 
 > show medications by the specified name.
@@ -241,8 +241,8 @@ Output:
 ```
 Name: Medication B
 Quantity: 1000.0
-Expiry Date: 30/09/24
-Remarks: 
+Expiry Date: 2024-09-30
+Remarks: Nil
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 50.0
@@ -266,8 +266,8 @@ Output:
 ```
 Name: Medication B
 Quantity: 1000.0
-Expiry Date: 30/09/24
-Remarks: null
+Expiry Date: 2024-09-30
+Remarks: Nil
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 50.0
@@ -280,9 +280,9 @@ SUCCESS: Medication details has been retrieved
 ### View Medication by expiry:
 You can view all medication information by its expiry year.
 
-Format: `view -e MEDICINE_EXPIRY_IN_YY`
+Format: `view -e MEDICINE_EXPIRY_IN_YYYY`
 
-Example: `view -e 25`
+Example: `view -e 2025`
 
 > Tip: Only the first flag and argument will be used to 
 > show all medications that is expiring by that specified year.
@@ -291,7 +291,7 @@ Output:
 ```
 Name: Medication A
 Quantity: 5000.0
-Expiry Date: 01/07/25
+Expiry Date: 2025-07-01
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
@@ -300,8 +300,8 @@ Repeat: 1
 
 Name: Medication B
 Quantity: 1000.0
-Expiry Date: 30/09/24
-Remarks: null
+Expiry Date: 2024-09-30
+Remarks: Nil
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 50.0
@@ -325,7 +325,7 @@ Output:
 ```
 Name: Medication A
 Quantity: 5000.0
-Expiry Date: 01/07/25
+Expiry Date: 2025-07-01
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0

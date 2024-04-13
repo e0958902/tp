@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -38,13 +40,15 @@ public class TakeCommandTest {
     void execute_inOrderArgument_expectDailyMedicationTaken()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2025-07-01", dateTimeFormatter);
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
                 10.0,
                 0.0,
                 0.0,
-                "01/07/25",
+                parsedExpiryDate,
                 "cause_dizziness",
                 1,
                 87);
