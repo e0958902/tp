@@ -75,7 +75,7 @@ public class MediTracker {
             return;
         }
         MediLogger.initialiseMediLogger();
-        
+
         FileReaderWriter.loadMediTrackerData(null);
         run();
     }

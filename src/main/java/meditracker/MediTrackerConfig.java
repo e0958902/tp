@@ -38,7 +38,7 @@ public class MediTrackerConfig {
      * @param jsonFilePath The path of the JSON file. If null, it will take the default JSON path.
      * @return Path of the save file (.txt) for the daily medication.
      */
-    public static Path getDailymedFilePath (Path jsonFilePath) {
+    public static Path getDailymedFilePath(Path jsonFilePath) {
         Path jsonFolder;
         if (jsonFilePath == null) {
             jsonFolder = FileReaderWriter.getFullPathComponent(DEFAULT_JSON_SAVE_FILE_PATH, true);
