@@ -22,7 +22,7 @@ import meditracker.medication.MedicationManager;
  * A class to handle the importing of raw json file data and process them.
  * Passes the data in an intermediate format to the various Managers involved for them to initialise.
  */
-public class JsonImporter {
+class JsonImporter {
     private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
