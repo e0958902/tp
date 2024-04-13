@@ -3,10 +3,10 @@ package meditracker.storage;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
+
+import org.junit.jupiter.api.Test;
 
 public class FilePathCheckerTest {
     @Test
@@ -28,7 +28,7 @@ public class FilePathCheckerTest {
         result = FilePathChecker.isValidFullPath(validSubDirectory1);
         assertTrue(result);
 
-        Path validSubdirectory2 = Path.of ("\\prnter\\auxiliary\\null\\json.json");
+        Path validSubdirectory2 = Path.of("\\prnter\\auxiliary\\null\\json.json");
         result = FilePathChecker.isValidFullPath(validSubdirectory2);
         assertTrue(result);
     }
