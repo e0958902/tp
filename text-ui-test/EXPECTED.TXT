@@ -116,4 +116,8 @@ SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> ERROR: You can only have one flag!
 ____________________________________________________________
+meditracker> ERROR: You are not allowed to enter expired medications!
+____________________________________________________________
+meditracker> ERROR: Please enter a valid expiry date in yyyy-MM-dd!
+____________________________________________________________
 meditracker> Thank you for using MediTracker. Hope to see you again!
