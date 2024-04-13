@@ -26,7 +26,7 @@ public class DailyMedicationManager {
     private static final List<DailyMedication> afternoonMedications = new ArrayList<>();
     private static final List<DailyMedication> eveningMedications = new ArrayList<>();
     private static final LocalDate currentDate = MediTrackerTime.getCurrentDate();
-    private static Logger logger = MediLogger.getMediLogger();
+    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
      * Prevents defaulting to the public constructor
@@ -59,7 +59,7 @@ public class DailyMedicationManager {
             try {
                 parseImportedLine(line);
             } catch (Exception e) {
-                logger.warning("Unable to import data from text file. " +
+                MEDILOGGER.warning("Unable to import data from text file. " +
                         "Potentially due to corruption of data. --> (Skipping over this medication)");
             }
         }
@@ -96,7 +96,7 @@ public class DailyMedicationManager {
         } else if (period.equals("E")) {
             addDailyMedication(dailyMedication, Period.EVENING);
         } else {
-            logger.warning("Assigned medication period not recognised. \"" +
+            MEDILOGGER.warning("Assigned medication period not recognised. \"" +
                     dailyMedication.getName() + "\" not imported into today's list.");
         }
     }
