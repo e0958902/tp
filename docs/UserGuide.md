@@ -136,9 +136,15 @@ Options:
 -rep                    How often to take medication (eg: Supply a number from 1 to 7)
 ```
 
-> Tip: The dosage and remarks tags are optional.
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+The dosage and remarks tags are optional.
+</div>
 
-> Note: Remarks will default to Nil if it is not specified.
+<div class="note-box">
+:notebook: <strong>Note: </strong>
+Remarks will default to Nil if it is not specified.
+</div>
 
 Examples:
 
@@ -167,7 +173,7 @@ Options:
 ### All medications:
 Displays the whole lists of medications that you have added to the medication list.
 
-Example: `list -t all`
+Example: `meditracker> list -t all`
 
 Output:
 ```
@@ -181,12 +187,12 @@ Your list of medications has been successfully shown!
 ### Daily medications:
 Displays an overview of the list of medications that you will be taking for the day.
 
-Example: `list -t today`
+Example: `meditracker> list -t today`
 * If you want to specify a particular period of the day, simply enter `list -t today` followed by:
   * `-m`: Morning (Midnight to 12 Noon)
   * `-a`: Afternoon (12pm to 6pm)
   * `-e`: Evening (6pm to Midnight)
-  * Example: `list -t today -m` - will display the list of medications to be taken in the morning only
+  * Example: `meditracker> list -t today -m` - will display the list of medications to be taken in the morning only
 
 Output:
 ```
@@ -196,19 +202,29 @@ Morning:
 Afternoon:
 	1. [ ] Medication_A | 1.0
 ```
-> If you want to mark the medication you have taken, you can refer to the [Take command](#take-a-medication) here.
+
+<div class="info-box">
+:information_source: <strong>Info: </strong>
+If you want to mark the medication you have taken, you can refer to the [Take command](#take-a-medication) here.
+</div>
 
 ## Viewing medications: `view`
 You can view detailed information about the medications you have added in the medication list.
 
-> Recommendation: Perform [`list -t all`](#All-medications) first to display the lists of medications 
-> in medication list and use its fields for the features below.
+<div class="info-box">
+:information_source: <strong>Info: </strong>
+Perform [`list -t all`](#All-medications) first to display the lists of medications 
+in medication list and use its fields for the features below.
+</div>
 
 This output will be shown if you used more than one flag and argument.
 ```
 ERROR: You can only have one flag!
 ```
-> Tip: You are only allowed to use one flag and argument.
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+You are only allowed to use one flag and argument.
+</div>
 
 ```
 Usage:
@@ -230,8 +246,11 @@ Format: `view -l MEDICATION_INDEX`
 
 Example: `meditracker> view -l 1`
 
-> Tip: Only the first flag and argument will be used to 
-> show a medication by the specified index.
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+Only the first flag and argument will be used to 
+show a medication by the specified index.
+</div>
 
 Output:
 ```
@@ -255,8 +274,11 @@ Format: `view -n MEDICATION_NAME`
 
 Example: `meditracker> view -n medication_b`
 
-> Tip: Only the first flag and argument will be used to 
-> show medications by the specified name.
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+Only the first flag and argument will be used to 
+show a medication by the specified name.
+</div>
 
 Output:
 ```
@@ -280,8 +302,11 @@ Format: `view -q MEDICATION_QUANTITY`
 
 Example: `meditracker> view -q 1000`
 
-> Tip: Only the first flag and argument will be used to 
-> show all medications that is less than or equal to the specified quantity.
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+Only the first flag and argument will be used to 
+show all medications that is less than or equal to the specified quantity.
+</div>
 
 Output:
 ```
@@ -305,8 +330,11 @@ Format: `view -e MEDICINE_EXPIRY_IN_YY`
 
 Example: `meditracker> view -e 25`
 
-> Tip: Only the first flag and argument will be used to 
-> show all medications that is expiring by that specified year.
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+Only the first flag and argument will be used to 
+show all medications that is expiring by that specified year.
+</div>
 
 Output:
 ```
@@ -339,8 +367,11 @@ Format: `view -r MEDICINE_REMARKS`
 
 Example: `meditracker> view -r dizziness`
 
-> Tip: Only the first flag and argument will be used to
-> show all medications that contains the specified remarks.
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+Only the first flag and argument will be used to
+show all medications that contains the specified remarks.
+</div>
 
 Output:
 ```
@@ -363,9 +394,13 @@ SUCCESS: Medication details has been retrieved
 If you require modification to the medication information, you can type `modify`, followed by the list index 
 `-l listIndex`. You can obtain the list index from the Medication List by entering [`list -t all`](#all-medications).
 
-> Note: This command allows multiple flags to be specified in one line.
+
+<div class="note-box">
+:notebook: <strong>Note: </strong>
+This command allows multiple flags to be specified in one line.
 (For each of the fields that you would like to modify, you can specify the corresponding flag and the new value to make
 changes.)
+</div>
 
 ```
 Usage: 
@@ -403,7 +438,10 @@ You can obtain the list index by entering [`list -t today`](#daily-medications) 
 medication you have taken. This command is time aware and will mark the index you specified based on what time of day 
 it is. 
 
-> Optionally, you can specify `-m`, `-a`, `-e` to override the time aware feature.
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+Optionally, you can specify `-m`, `-a`, `-e` to override the time aware feature.
+</div>
 
 ```
 Usage:
@@ -434,7 +472,10 @@ followed by the list index `-l listIndex`. Similarly, you can obtain the list in
 [`list -t today`](#daily-medications) and refer to the index for the medication you wish to un-mark. This command is 
 time aware and will mark the index of the medication based on what time of day it is. 
 
-> Optionally, you can specify `-m`, `-a`, `-e` to override the time aware feature.
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+Optionally, you can specify `-m`, `-a`, `-e` to override the time aware feature.
+</div>
 
 ```
 Usage:
@@ -516,7 +557,7 @@ designed to guide users to use the MediTracker. All you need to do is to type in
 
 Usage:
 ```
-  help
+meditracker> help
 ```
 
 Output:
@@ -586,17 +627,28 @@ See the part on [Editing the File](#editing-the-file) for warnings on modifying 
 The medication information are saved in a `.json` format while the daily medication information are saved
 in the `.txt` format. Advanced users can modify the text files directly.
 
-> **WARNING 1**: If the changes to the data file makes either its format or some of the fields contained therein invalid,
+
+
+<div class="danger-box">
+:bangbang: <strong>Danger: </strong>
+If the changes to the data file makes either its format or some of the fields contained therein invalid,
 MediTracker may:
-> 1. Discard all the data and start with a fresh state
-> 2. Tries to read some information, and fill in placeholder values for fields that fail to load
-> 3. Crash due to bad data.
 
-Therefore, only edit the file if you are confident you can update it correctly.
+1. Discard all the data and start with a fresh state
 
-> **WARNING 2**: If you edit valid data directly inside the `.json` file, you have to **delete the text file 
-> <TODAY_DATE>.txt** in `data/dailymed/`. Otherwise, the next time MediTracker runs, it will continue to read the old 
-> data saved in the `<TODAY_DATE>.txt`.
+2. Tries to read some information, and fill in placeholder values for fields that fail to load.
+
+3. Crash due to bad data.
+</div>
+
+> Therefore, only edit the file if you are confident you can update it correctly.
+
+<div class="warning-box">
+:warning: <strong>Warning: </strong>
+If you edit valid data directly inside the `.json` file, you have to <b>delete the text file [TODAY_DATE].txt in 
+data/dailymed/</b>. Otherwise, the next time MediTracker runs, it will continue to read the old data saved in the 
+[TODAY_DATE].txt.
+</div>
 
 ### Advanced feature: Setting an arbitrary time
 This feature is intended for developers to test out the features. See the developer guide (To be updated) for more detailed explanation on its implementation.
