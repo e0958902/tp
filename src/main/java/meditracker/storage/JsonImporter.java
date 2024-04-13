@@ -98,15 +98,15 @@ class JsonImporter {
      * If the JSON file could not be found or if the structure is corrupted and could not be read,
      * a warning will be thrown to the user and the program will run as if it is the first time running.
      *
-     * @param mediTrackerJsonPath The Path object specifying the path to the MediTracker save data.
+     * @param medicationJsonPath The Path object specifying the path to the MediTracker save data.
      */
-    public static void processMediTrackerJsonFile(Path mediTrackerJsonPath) {
-        if (mediTrackerJsonPath == null) {
+    public static void processMedicationJsonFile(Path medicationJsonPath) {
+        if (medicationJsonPath == null) {
             MEDILOGGER.warning("No path specified to read the JSON file.");
             return;
         }
 
-        String jsonStringData = loadRawJsonFileData(mediTrackerJsonPath);
+        String jsonStringData = loadRawJsonFileData(medicationJsonPath);
         if (jsonStringData == null) {
             MEDILOGGER.warning("Empty JSON file.");
             return;

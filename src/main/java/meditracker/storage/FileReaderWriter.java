@@ -201,7 +201,7 @@ public class FileReaderWriter {
             jsonFilePath = jsonPath;
         }
 
-        JsonImporter.processMediTrackerJsonFile(jsonFilePath);
+        JsonImporter.processMedicationJsonFile(jsonFilePath);
 
         Path dailyMedFilePath = MediTrackerConfig.getDailymedFilePath(jsonFilePath);
         loadDailyMedicationData(dailyMedFilePath);
