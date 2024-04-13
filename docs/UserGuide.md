@@ -150,7 +150,7 @@ Remarks will default to Nil if it is not specified.
 
 Examples:
 
-* `meditracker> add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -r cause_dizziness -rep 1`
+* `meditracker> add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1`
 * `meditracker> add -n Medication B -q 1000 -e 30/09/24 -dM 500 -dA 250 -dE 50 -rep 6`
 
 Output:
@@ -194,15 +194,17 @@ Example: `meditracker> list -t today`
   * `-m`: Morning (Midnight to 12 Noon)
   * `-a`: Afternoon (12pm to 6pm)
   * `-e`: Evening (6pm to Midnight)
-  * Example: `meditracker> list -t today -m` - will display the list of medications to be taken in the morning only
+  * Example: `meditracker> list -t today -m` will display the list of medications to be taken in the morning only
 
 Output:
 ```
 Here are the Daily Medications you have to take today: 
 Morning:
-	1. [ ] Medication_A | 2.0
+	1. [ ] Medication A | 500.0
 Afternoon:
-	1. [ ] Medication_A | 1.0
+	1. [ ] Medication A | 250.0
+Evening:
+	1. [ ] Medication A | 100.0
 ```
 
 <div class="info-box">
@@ -233,10 +235,12 @@ ERROR: You can only have one flag!
 You are only allowed to use one flag and argument.
 </div>
 
-```
 Usage:
-	view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] [-r remarks] [-h]
+
+`view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] [-r remarks] [-h]`
+
 Options:
+```
 	-l listIndex          Index of item in list
 	-n name               Name of medication
 	-q quantity           Quantity of medication
@@ -267,7 +271,7 @@ Expiry Date: 01/07/25
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
-Evening Dosage: 0.0
+Evening Dosage: 100.0
 Repeat: 1
 
 SUCCESS: Medication details has been retrieved
@@ -279,7 +283,7 @@ You can view all medication information by its name.
 
 Format: `view -n MEDICATION_NAME`
 
-Example: `meditracker> view -n medication_b`
+Example: `meditracker> view -n Medication B`
 
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
@@ -292,7 +296,7 @@ Output:
 Name: Medication B
 Quantity: 1000.0
 Expiry Date: 30/09/24
-Remarks: 
+Remarks: Nil
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 50.0
@@ -320,7 +324,7 @@ Output:
 Name: Medication B
 Quantity: 1000.0
 Expiry Date: 30/09/24
-Remarks: null
+Remarks: Nil
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 50.0
@@ -351,13 +355,13 @@ Expiry Date: 01/07/25
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
-Evening Dosage: 0.0
+Evening Dosage: 100.0
 Repeat: 1
 
 Name: Medication B
 Quantity: 1000.0
 Expiry Date: 30/09/24
-Remarks: null
+Remarks: Nil
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
 Evening Dosage: 50.0
@@ -388,7 +392,7 @@ Expiry Date: 01/07/25
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
-Evening Dosage: 0.0
+Evening Dosage: 100.0
 Repeat: 1
 
 SUCCESS: Medication details has been retrieved
@@ -409,12 +413,14 @@ This command allows multiple flags to be specified in one line.
 changes.)
 </div>
 
-```
-Usage: 
-    modify (-l listIndex) [-n name] [-q quantity] [-dM dosageMorning] [-dA dosageAfternoon] [-dE dosageEvening] 
-[-e expirationDate] [-r remarks] [-rep] [-h]
+Usage:
+
+`modify (-l listIndex) [-n name] [-q quantity] [-dM dosageMorning] [-dA dosageAfternoon] [-dE dosageEvening]
+[-e expirationDate] [-r remarks] [-rep] [-h]`
 
 Options:
+
+```
 	-l listIndex            Index of item in list
 	-n name                 Name of medication
 	-q quantity             Quantity of medication
@@ -423,7 +429,8 @@ Options:
 	-dE dosageEvening       Evening dosage of medication
 	-e expirationDate       Expiration date of medication
 	-r remarks              Additional remarks on medication
-	-rep                    How often to take medication (eg: Supply a number from 1 to 7)
+	-rep                    How often to take medication 
+	                          (eg: Supply a number from 1 to 7)
 	-h                      Prints this help message
 ```
 Examples:
@@ -502,7 +509,7 @@ Examples:
 
 Output:
 ```
-INFO: Medication quantity decreased: 38.0 -> 40.0
+INFO: Medication quantity increased: 38.0 -> 40.0
 SUCCESS: Medicine has been untaken
 ```
 
