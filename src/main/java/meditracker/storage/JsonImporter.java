@@ -100,7 +100,7 @@ class JsonImporter {
      *
      * @param medicationJsonPath The Path object specifying the path to the MediTracker save data.
      */
-     static void processMedicationJsonFile(Path medicationJsonPath) {
+    static void processMedicationJsonFile(Path medicationJsonPath) {
         if (medicationJsonPath == null) {
             MEDILOGGER.warning("No path specified to read the JSON file.");
             return;
