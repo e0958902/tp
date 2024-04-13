@@ -98,16 +98,6 @@ public class FileReaderWriter {
     }
 
     /**
-     * Reads the JSON data file to load and populate the MediTracker.
-     * If the file is not found, a warning will be thrown to alert the user, and the program
-     * will run without the saved data (fresh state).
-     */
-    public static void loadMediTrackerData() {
-        Path mediTrackerJsonPath = MediTrackerConfig.getDefaultJsonSaveFilePath();
-        JsonImporter.processMediTrackerJsonFile(mediTrackerJsonPath);
-    }
-
-    /**
      * Saves the medication information in MediTracker.
      *
      * @param path The Path object (relative or absolute) to save the information to. If null, the path will be the
@@ -180,6 +170,16 @@ public class FileReaderWriter {
         } catch (IOException e) {
             MEDILOGGER.severe("IO Exception occurred when trying to update existing save file.");
         }
+    }
+
+    /**
+     * Reads the JSON data file to load and populate the MediTracker.
+     * If the file is not found, a warning will be thrown to alert the user, and the program
+     * will run without the saved data (fresh state).
+     */
+    public static void loadMediTrackerData() {
+        Path mediTrackerJsonPath = MediTrackerConfig.getDefaultJsonSaveFilePath();
+        JsonImporter.processMediTrackerJsonFile(mediTrackerJsonPath);
     }
 
     /**
