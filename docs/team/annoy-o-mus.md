@@ -14,6 +14,8 @@
 - Issue #96: Introduce save to and load from custom location
 - Issue #43: Simulated Time
 
+### Miscellaneous Code Contributions (Styling and Quality related)
+Issue #222
 
 ### Developer Guide Contributions
 
