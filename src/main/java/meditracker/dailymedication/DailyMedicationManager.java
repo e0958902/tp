@@ -39,6 +39,7 @@ public class DailyMedicationManager {
      * @see DailyMedication
      */
     public static void createDailyMedicationManager() {
+        clearDailyMedication(); // For the case of overwriting the txt save file
         for (Medication medication : MedicationManager.getMedications()) {
             if (doesBelongToDailyList(medication)) {
                 addToSubLists(medication);
@@ -52,6 +53,7 @@ public class DailyMedicationManager {
      * @param lines lines of String read from each row in the textfile
      */
     public static void importDailyMedicationManager(List<String> lines) {
+        clearDailyMedication(); // For the case of overwriting with the txt save file
         try {
             for (String line : lines) {
                 parseImportedLine(line);
@@ -285,7 +287,7 @@ public class DailyMedicationManager {
 
             dailyMedication.setName(newName);
         }
-        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null);
     }
 
     /**
@@ -311,7 +313,7 @@ public class DailyMedicationManager {
         MedicationManager.decreaseMedicationQuantity(dailyMedication.getName(), period);
 
         dailyMedication.take();
-        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null);
     }
 
     /**
@@ -335,7 +337,7 @@ public class DailyMedicationManager {
         MedicationManager.increaseMedicationQuantity(dailyMedication.getName(), period);
 
         dailyMedication.untake();
-        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null);
     }
 
     /**
@@ -434,6 +436,6 @@ public class DailyMedicationManager {
                 break;
             }
         }
-        FileReaderWriter.saveDailyMedicationData(getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null);
     }
 }
