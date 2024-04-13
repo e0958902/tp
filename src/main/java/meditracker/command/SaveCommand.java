@@ -17,13 +17,24 @@ import meditracker.storage.FilePathChecker;
 import meditracker.storage.FileReaderWriter;
 
 /**
- * The Save Command.
+ * A class that handles the `save` command and its relevant arguments.
  */
 public class SaveCommand extends Command {
     private static final ArgumentList ARGUMENT_LIST = new ArgumentList(new SaveArgument());
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.SAVE, ARGUMENT_LIST);
     private Map<ArgumentName, String> parsedArguments;
 
+    /**
+     * Parses the arguments associated with the `save` command.
+     * If empty, the parsed arguments will receive `null`.
+     *
+     * @param arguments Associated arguments, if any.
+     * @throws ArgumentNotFoundException If compulsory arguments are not found.
+     * @throws ArgumentNoValueException If any argument with a compulsory value is not found.
+     * @throws DuplicateArgumentFoundException If there are duplicate arguments.
+     * @throws HelpInvokedException If the help message is invoked.
+     * @throws UnknownArgumentFoundException If an argument not supported by the command is found.
+     */
     public SaveCommand(String arguments)
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
             HelpInvokedException, UnknownArgumentFoundException {
@@ -37,7 +48,7 @@ public class SaveCommand extends Command {
     /**
      * Saves MediTracker information as JSON at its default save location specified in MediTrackerConfig.
      */
-    private void saveJsonToDefaultLocation(){
+    private void saveJsonToDefaultLocation() {
         boolean isSaveSuccessful = FileReaderWriter.saveMediTrackerData(null);
         if (!isSaveSuccessful) {
             System.out.println("An error occurred while saving. Data is not saved.");
@@ -73,7 +84,7 @@ public class SaveCommand extends Command {
             saveJsonToDefaultLocation();
             return;
         }
-        assert (parsedArguments!= null);
+        assert (parsedArguments != null);
 
         String saveFileLocation = parsedArguments.get(ArgumentName.SAVE_FILE);
         Path pathOfSaveFile = FilePathChecker.validateUserPathArgument(saveFileLocation);

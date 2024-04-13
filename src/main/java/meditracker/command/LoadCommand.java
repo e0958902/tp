@@ -1,5 +1,9 @@
 package meditracker.command;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Map;
+
 import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
@@ -13,10 +17,9 @@ import meditracker.storage.FilePathChecker;
 import meditracker.storage.JsonImporter;
 import meditracker.ui.Ui;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Map;
-
+/**
+ * A class that handles the `load` command and its relevant arguments.
+ */
 public class LoadCommand extends Command {
     private static final ArgumentList ARGUMENT_LIST = new ArgumentList(new LoadArgument());
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.LOAD, ARGUMENT_LIST);
