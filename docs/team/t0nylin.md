@@ -17,6 +17,12 @@ The following contains my contribution summary and pull request reviews.
 - Issue #172: Fix extra flags in list today command 
 - Issue #176: Fix "list -t all command" to properly exclude subsequent flags usage
 - Issue #199: Add 'exit' command in User Guide
+- Issue #164: Handle data corruption during imports from files
+- Issue #174: Specifying the correct list index to refer when using take command
+- Issue #177: Specifying the correct list index to refer when using untake command
+- Issue #183: Specifying the correct list index to refer when using delete command
+- Issue #198: Specifying the correct list index to refer when using take command
+- Issue #201: Stating the usage of -h in list command
 
 
 ### Developer Guide Contributions
