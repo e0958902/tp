@@ -207,7 +207,7 @@ Afternoon:
 <div class="info-box">
 :information_source: <strong>Info: </strong>
 
-If you want to mark the medication you have taken, you can refer to the [Take command](#take-a-medication) here.
+If you want to mark the medication you have taken, you can refer to the <a href="#take-a-medication">Take Command</a> here.
 
 </div>
 
@@ -217,7 +217,7 @@ You can view detailed information about the medications you have added in the me
 <div class="info-box">
 :information_source: <strong>Info: </strong>
 
-Perform [`list -t all`](#All-medications) first to display the lists of medications 
+Perform <a href="#all-medications">list -t all</a> first to display the lists of medications
 in medication list and use its fields for the features below.
 
 </div>
@@ -445,7 +445,7 @@ it is.
 
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
-Optionally, you can specify `-m`, `-a`, `-e` to override the time aware feature.
+Optionally, you can specify <code>-m</code>, <code>-a</code>, <code>-e</code> to override the time aware feature.
 </div>
 
 ```
@@ -479,7 +479,7 @@ time aware and will mark the index of the medication based on what time of day i
 
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
-Optionally, you can specify `-m`, `-a`, `-e` to override the time aware feature.
+Optionally, you can specify <code>-m</code>, <code>-a</code>, <code>-e</code> to override the time aware feature.
 </div>
 
 ```
@@ -634,15 +634,14 @@ in the `.txt` format. Advanced users can modify the text files directly.
 
 <div class="danger-box">
 :bangbang: <strong>Danger: </strong>
-
 If the changes to the data file makes either its format or some of the fields contained therein invalid,
 MediTracker may:
 
-1. Discard all the data and start with a fresh state
-
-2. Tries to read some information, and fill in placeholder values for fields that fail to load.
-
-3. Crash due to bad data.
+<ol>
+  <li>Discard all the data and start with a fresh state</li>
+  <li>Tries to read some information, and fill in placeholder values for fields that fail to load.</li>
+  <li>Crash due to bad data.</li>
+</ol>
 
 </div>
 
@@ -650,11 +649,9 @@ MediTracker may:
 
 <div class="warning-box">
 :warning: <strong>Warning: </strong>
-
-If you edit valid data directly inside the `.json` file, you have to **delete the text file [TODAY_DATE].txt in 
-data/dailymed/**. Otherwise, the next time MediTracker runs, it will continue to read the old data saved in the
-[TODAY_DATE].txt.
-
+If you edit valid data directly inside the <code>.json</code> file, you have to <b>delete the text file &lt;TODAY_DATE&gt;.txt in 
+data/dailymed/</b>. Otherwise, the next time MediTracker runs, it will continue to read the old data saved in the
+&lt;TODAY_DATE&gt;.txt.
 </div>
 
 ### Advanced feature: Setting an arbitrary time
