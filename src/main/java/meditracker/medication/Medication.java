@@ -363,8 +363,6 @@ public class Medication {
                 && Objects.equals(getDayAdded(), medication.getDayAdded());
     }
 
-    // @@author annoy-o-mus
-
     /**
      * Converts a String to a double.
      *
@@ -393,8 +391,6 @@ public class Medication {
 
         return value;
     }
-
-    // @@author
 
     /**
      * Converts a String to an integer.
