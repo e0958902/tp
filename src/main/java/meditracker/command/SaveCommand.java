@@ -53,7 +53,6 @@ public class SaveCommand extends Command {
         boolean isSaveSuccessful = FileReaderWriter.saveMedicationData(null);
         if (!isSaveSuccessful) {
             System.out.println("An error occurred while saving Medication data. Data is not saved.");
-            return;
         } else {
             Path defaultJsonPath = MediTrackerConfig.getDefaultJsonSaveFilePath();
             Path absoluteJsonPath = defaultJsonPath.toAbsolutePath();
@@ -82,7 +81,6 @@ public class SaveCommand extends Command {
         boolean isSaveSuccessful = FileReaderWriter.saveMedicationData(jsonSaveFilePath);
         if (!isSaveSuccessful) {
             System.out.println("An error occurred while saving Medication Data. Data is not saved.");
-            return;
         } else {
             Path absoluteJsonPath = jsonSaveFilePath.toAbsolutePath();
             System.out.println("Data successfully saved to: " + absoluteJsonPath);
