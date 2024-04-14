@@ -107,6 +107,8 @@ or above installed.
    - If you using Windows:
      - Press the `Windows Key` on your keyboard and enter `Command Prompt` or `cmd` and press enter.
      - When the program opens, enter `java -version`.
+   - If Java 11 is installed, you should get an output similar to below:<br>
+     ![img.png](images/Java11_Windows.png)<br>
    - If you are using macOS/Linux:
      - Open the `Terminal`, then enter `java -version`.
    - If Java 11 is installed, you should get an output similar to below:<br>
