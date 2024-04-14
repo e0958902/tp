@@ -1,6 +1,6 @@
 ---
 layout: default
-title: MediTracker User Guide
+title: User Guide
 ---
 <!-- 
 CREDIT: We try to follow the ideas and structure of the following sample user guide:
