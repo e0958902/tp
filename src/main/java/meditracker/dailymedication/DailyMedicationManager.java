@@ -3,6 +3,7 @@ package meditracker.dailymedication;
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.MedicationUnchangedException;
+import meditracker.logging.MediLogger;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.storage.FileReaderWriter;
@@ -13,6 +14,7 @@ import meditracker.ui.Ui;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Manages a list of DailyMedication and CRUD-operations (Create, Read, Update, Delete)
@@ -24,6 +26,7 @@ public class DailyMedicationManager {
     private static final List<DailyMedication> afternoonMedications = new ArrayList<>();
     private static final List<DailyMedication> eveningMedications = new ArrayList<>();
     private static final LocalDate currentDate = MediTrackerTime.getCurrentDate();
+    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
      * Prevents defaulting to the public constructor
@@ -39,7 +42,6 @@ public class DailyMedicationManager {
      * @see DailyMedication
      */
     public static void createDailyMedicationManager() {
-        clearDailyMedication(); // For the case of overwriting the txt save file
         for (Medication medication : MedicationManager.getMedications()) {
             if (doesBelongToDailyList(medication)) {
                 addToSubLists(medication);
@@ -53,13 +55,13 @@ public class DailyMedicationManager {
      * @param lines lines of String read from each row in the textfile
      */
     public static void importDailyMedicationManager(List<String> lines) {
-        clearDailyMedication(); // For the case of overwriting with the txt save file
-        try {
-            for (String line : lines) {
+        for (String line : lines) {
+            try {
                 parseImportedLine(line);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                MEDILOGGER.warning("Unable to import data from text file. " +
+                        "Potentially due to corruption of data. --> (Skipping over this medication)");
             }
-        } catch (Exception e) {
-            System.out.println("Error" + e.getMessage());
         }
     }
 
@@ -67,18 +69,17 @@ public class DailyMedicationManager {
      * Separates each row by the separator and add into the DailyMedicationManager
      *
      * @param line each line read from the textfile
-     * @return dailyMedication object to add into the DailyMedicationManager
      */
     private static void parseImportedLine(String line) {
         String[] fields = line.split("\\|");
-        boolean isTaken = Boolean.parseBoolean(fields[1].trim());
+        boolean isTaken = Boolean.parseBoolean(fields[1].toLowerCase().trim());
         DailyMedication dailyMedication = new DailyMedication(fields[2].trim());
         if (isTaken) {
             dailyMedication.take();
         } else {
             dailyMedication.untake();
         }
-        addImportToSubLists(fields[0], dailyMedication);
+        addImportToSubLists(fields[0].toUpperCase().trim(), dailyMedication);
     }
 
     /**
@@ -92,8 +93,11 @@ public class DailyMedicationManager {
             addDailyMedication(dailyMedication, Period.MORNING);
         } else if (period.equals("A")) {
             addDailyMedication(dailyMedication, Period.AFTERNOON);
-        } else {
+        } else if (period.equals("E")) {
             addDailyMedication(dailyMedication, Period.EVENING);
+        } else {
+            MEDILOGGER.warning("Assigned medication period not recognised. \"" +
+                    dailyMedication.getName() + "\" not imported into today's list.");
         }
     }
 
