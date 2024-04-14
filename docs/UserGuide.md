@@ -174,6 +174,11 @@ Output:
 ```
 SUCCESS: Medicine has been added
 ```
+
+<br>
+
+<div style="page-break-after: always;"></div>
+
 ## Listing medications: `list`
 You can show the medications that you have added to the medication list, 
 and show the medications that you will be taking for the day.
@@ -203,6 +208,10 @@ You have 2 medications listed below.
 Your list of medications has been successfully shown!
 ```
 
+<br>
+
+<div style="page-break-after: always;"></div>
+
 ### Daily medications:
 Displays an overview of the list of medications that you will be taking for the day.
 
@@ -231,6 +240,10 @@ If you want to mark the medication you have taken, you can refer to the <a href=
 Command</code></a> here.
 
 </div>
+
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ## Viewing medications: `view`
 You can view detailed information about the medications you have added in the medication list.
