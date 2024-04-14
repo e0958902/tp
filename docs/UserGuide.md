@@ -480,50 +480,6 @@ SUCCESS: Medication details has been retrieved
 
 ## [Update](#table-of-contents)
 
-### [Modify Medication Information](#table-of-contents)
-If you require modification to the medication information, you can type `modify`, followed by the list index 
-`-l listIndex`. You can obtain the list index from the Medication List by entering [`list -t all`](#all-medications).
-
-
-<div class="note-box">
-:notebook: <strong>Note: </strong>
-This command allows multiple flags to be specified in one line.
-(For each of the fields that you would like to modify, you can specify the corresponding flag and the new value to make
-changes.)
-</div>
-
-```
-Usage:
-	modify (-l listIndex) [-n name] [-q quantity] [-dM dosageMorning] 
-	[-dA dosageAfternoon] [-dE dosageEvening] [-e expirationDate] 
-	[-r remarks] [-rep] [-h]
-Options:
-	-l listIndex            Index of item in list
-	-n name                 Name of medication
-	-q quantity             Quantity of medication
-	-dM dosageMorning       Morning dosage of medication
-	-dA dosageAfternoon     Afternoon dosage of medication
-	-dE dosageEvening       Evening dosage of medication
-	-e expirationDate       Expiration date of medication
-	-r remarks              Additional remarks on medication
-	-rep                    How often to take medication 
-	                          (eg: Supply a number from 1 to 7)
-	-h                      Prints this help message
-```
-Examples:
-
-* `meditracker> modify -l 1 -n MedB`
-* `meditracker> modify -l 1 -q 40 -dA 2`
-
-Output:
-```
-SUCCESS: Medicine has been modified
-```
-
-<br>
-
-<div style="page-break-after: always;"></div>
-
 ### [Record taking of medication](#table-of-contents)
 
 #### [Take a medication](#table-of-contents)
@@ -594,6 +550,57 @@ Output:
 ```
 INFO: Medication quantity increased: 38.0 -> 40.0
 SUCCESS: Medicine has been untaken
+```
+
+<br>
+
+<div style="page-break-after: always;"></div>
+
+### [Modify Medication Information](#table-of-contents)
+If you require modification to the medication information, you can type `modify`, followed by the list index
+`-l listIndex`. You can obtain the list index from the Medication List by entering [`list -t all`](#all-medications).
+
+
+<div class="note-box">
+:notebook: <strong>Note: </strong>
+This command allows multiple flags to be specified in one line.
+(For each of the fields that you would like to modify, you can specify the corresponding flag and the new value to make
+changes.)
+</div>
+
+<div class="warning-box">
+:warning: <strong>Warning: </strong>
+New dosage and/or repeat frequency will be applied tomorrow/next time you require 
+to take the medication (whichever occurs later). No changes will be made to today's list of 
+medication to take.
+</div>
+
+```
+Usage:
+	modify (-l listIndex) [-n name] [-q quantity] [-e expirationDate] 
+	[-dM dosageMorning] [-dA dosageAfternoon] [-dE dosageEvening] 
+	[-rep repeat] [-r remarks] [-h]
+Options:
+	-l listIndex            Index of item in list
+	-n name                 Name of medication
+	-q quantity             Quantity of medication
+	-e expirationDate       Expiration date of medication
+	-dM dosageMorning       Morning dosage of medication
+	-dA dosageAfternoon     Afternoon dosage of medication
+	-dE dosageEvening       Evening dosage of medication
+	-rep repeat             How often to take medication
+	                            (eg: Supply a number from 1 to 7)
+	-r remarks              Additional remarks on medication
+	-h                      Prints this help message
+```
+Examples:
+
+* `meditracker> modify -l 1 -n MedB`
+* `meditracker> modify -l 1 -q 40 -dA 2`
+
+Output:
+```
+SUCCESS: Medicine has been modified
 ```
 
 <br>
