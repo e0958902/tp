@@ -270,7 +270,7 @@ Morning:
 <div class="info-box">
 :information_source: <strong>Info: </strong>
 
-If you want to mark the medication you have taken, you can refer to the <a href="#take-a-medication"><code>Take 
+If you want to mark the medication you have taken, you can refer to the <a href="#take-medication-take--l"><code>Take 
 Command</code></a> here.
 
 </div>
