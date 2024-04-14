@@ -6,6 +6,7 @@ import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
 import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MediTrackerException;
 import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
@@ -18,6 +19,8 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -33,21 +36,23 @@ public class ModifyCommandTest {
     @Test
     void execute_inOrderArgument_expectMedicationModified()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2025-07-01", dateTimeFormatter);
         Medication medication = new Medication(
-                "Medication_A",
+                "Medication A",
                 60.0,
                 10.0,
                 10.0,
                 10.0,
-                "01/07/25",
+                parsedExpiryDate,
                 "cause_dizziness",
                 1,
                 87);
         MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
 
-        String newName = "Medication_B";
+        String newName = "Medication B";
         String inputString = "-l 1 -n " + newName;
         ModifyCommand command = new ModifyCommand(inputString);
         command.execute();
@@ -59,21 +64,23 @@ public class ModifyCommandTest {
     @Test
     void execute_outOfOrderArgument_expectMedicationModified()
             throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2025-07-01", dateTimeFormatter);
         Medication medication = new Medication(
-                "Medication_A",
+                "Medication A",
                 60.0,
                 10.0,
                 10.0,
                 10.0,
-                "01/07/25",
+                parsedExpiryDate,
                 "cause_dizziness",
                 1,
                 87);
         MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
 
-        String newName = "Medication_B";
+        String newName = "Medication B";
         String inputString = String.format("-n %s -l 1", newName);
         ModifyCommand command = new ModifyCommand(inputString);
         command.execute();

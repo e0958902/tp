@@ -141,7 +141,7 @@ public class Ui {
     public static void printMedicationList(List<Medication> medications) {
         int totalMedications = MedicationManager.getTotalMedications();
         if (totalMedications > 0) {
-            String headerFormat = "   %-30s %-10s %-10s %-30s";
+            String headerFormat = "   %-30s %-10s %-12s %-30s";
             String name = "Name";
             String quantity = "Quantity";
             String expiryDate = "Expiry";
@@ -151,7 +151,7 @@ public class Ui {
 
             for (Medication medication : medications) {
                 int numbering = medications.indexOf(medication) + 1;
-                String bodyFormat = "%-30.30s %-10.1f %-10s %-30s ";
+                String bodyFormat = "%-30.30s %-10.1f %-12s %-30s ";
                 System.out.printf(numbering + ". " + bodyFormat + System.lineSeparator(),
                         medication.getName(),
                         medication.getQuantity(),

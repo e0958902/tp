@@ -17,14 +17,27 @@ The following contains my contribution summary and pull request reviews.
 - Issue #172: Fix extra flags in list today command 
 - Issue #176: Fix "list -t all command" to properly exclude subsequent flags usage
 - Issue #199: Add 'exit' command in User Guide
+- Issue #164: Handle data corruption during imports from files
+- Issue #174: Specifying the correct list index to refer when using take command
+- Issue #177: Specifying the correct list index to refer when using untake command
+- Issue #183: Specifying the correct list index to refer when using delete command
+- Issue #198: Specifying the correct list index to refer when using take command
+- Issue #201: Stating the usage of -h in list command
 
 
 ### Developer Guide Contributions
 - Added some user stories into the table
-- Added command guide for list -t today -m/-a/-e will print
+- Added command guide for  how list -t today -m/-a/-e will print
+  - Explained how the time ranges affects the addition of each medication into their sub lists
 
 ### User Guide Contributions
 - Summary of list for the Daily Medication
+- Added breakdown of sub lists within the Daily Medication list
+- Helped to construct clearer instructions in UG, especially issues found from PE-D
 
 ### PR Reviews
-#4, #5, #8, #10, #54, #56, #57, #68, #75, #78, #85, #88, #133, #135, #144, #207
+#4, #5, #8, #10, #54, #56, #57, #68, #75, #78, #85, #88, #133, #135, #144, #207, #213 #223
+
+### Team-based tasks
+- Book room for weekly project meetings
+- Formats and fixes links in UserGuide, affected by HTML rendering for Markdown syntax's

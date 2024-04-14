@@ -2,8 +2,8 @@ package meditracker.medication;
 
 import meditracker.argument.ArgumentName;
 import meditracker.exception.InsufficientQuantityException;
+import meditracker.exception.MediTrackerException;
 import meditracker.exception.MedicationNotFoundException;
-import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
@@ -11,14 +11,12 @@ import meditracker.ui.Ui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * The MedicationManager class represents a list of medications.
  * It contains an ArrayList of Medication objects.
  */
 public class MedicationManager {
-    private static Logger logger = MediLogger.getMediLogger();
     /** The list of medications stored in an ArrayList. */
     private static List<Medication> medications = new ArrayList<>();
 
@@ -49,10 +47,33 @@ public class MedicationManager {
      * Adds a Medication to the list of Medication
      *
      * @param medication Medication to be added to the list
+     * @throws MediTrackerException When a duplicate medication is found
      */
-    public static void addMedication(Medication medication) {
+    public static void addMedication(Medication medication) throws MediTrackerException {
+        medication.checkValidity();
+        checkForDuplicateMedication(medication.getName());
         medications.add(medication);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
+    }
+
+    protected static void addMedicationWithoutChecks(Medication medication) {
+        medications.add(medication);
+        FileReaderWriter.saveMedicationData(null);
+    }
+
+    /**
+     * Checks for duplicate medication in the list of medications.
+     *
+     * @param name Name of the medication to retrieve
+     * @throws MediTrackerException When a duplicate medication is found
+     */
+    private static void checkForDuplicateMedication(String name) throws MediTrackerException {
+        name = name.toLowerCase();
+        for (Medication medication : medications) {
+            if (medication.getName().toLowerCase().equals(name)) {
+                throw new MediTrackerException("Medication already exists in the list!");
+            }
+        }
     }
 
     /**
@@ -118,10 +139,10 @@ public class MedicationManager {
      */
     public static void showMedicationsByName(String name) throws MedicationNotFoundException {
         int medicationsFound = 0;
-        String nametoSearch = name.toLowerCase();
+        String nameToSearch = name.toLowerCase();
         for (Medication medication : medications) {
             String medicationName = medication.getName().toLowerCase();
-            if (medicationName.contains(nametoSearch)) {
+            if (medicationName.contains(nameToSearch)) {
                 medicationsFound++;
                 Ui.printSpecificMed(medication);
             }
@@ -143,8 +164,7 @@ public class MedicationManager {
         int medicationsFound = 0;
 
         for (Medication medication : medications) {
-            String[] dateArr = medication.getExpiryDate().split("/", 3);
-            int medicationYear = Integer.parseInt(dateArr[2]);
+            int medicationYear = medication.getExpiryDate().getYear();
             int userYear = Integer.parseInt(expiry);
 
             if (medicationYear <= userYear) {
@@ -166,10 +186,10 @@ public class MedicationManager {
      */
     public static void showMedicationsByRemarks(String remarks) throws MedicationNotFoundException {
         int medicationsFound = 0;
-        String remarkstoSearch = remarks.toLowerCase();
+        String remarksToSearch = remarks.toLowerCase();
         for (Medication medication : medications) {
             String medicationRemarks = medication.getRemarks().toLowerCase();
-            if (medicationRemarks.contains(remarkstoSearch)) {
+            if (medicationRemarks.contains(remarksToSearch)) {
                 medicationsFound++;
                 Ui.printSpecificMed(medication);
             }
@@ -193,7 +213,7 @@ public class MedicationManager {
     public static void removeMedication(int listIndex) throws IndexOutOfBoundsException {
         listIndex--; // Decremented to 0-base indexing
         medications.remove(listIndex);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 
     /**
@@ -250,28 +270,6 @@ public class MedicationManager {
     }
 
     /**
-     * Converts a String to a double.
-     * Introduced to help populate the Medication object from the save file.
-     *
-     * @param doubleString The String object to be converted to a double type.
-     * @return The value of type double. Placeholder value of -1.0 if an exception is thrown.
-     */
-    private static double convertStringToDouble(String doubleString) {
-        double placeholderValue = -1.0;
-
-        try {
-            return Double.parseDouble(doubleString);
-        } catch (NumberFormatException e) {
-            logger.warning("Possibly corrupt data. Unable to parse String '" + doubleString
-                    + "' into double. Using placeholder value -1.0");
-            return placeholderValue;
-        } catch (NullPointerException e) {
-            logger.warning("Null Pointer passed for conversion to double. Using placeholder value -1.0");
-            return placeholderValue;
-        }
-    }
-
-    /**
      * Populates the MedicationManager from the save file.
      * If there are corrupt data, it may be substituted with placeholder values.
      *
@@ -288,45 +286,17 @@ public class MedicationManager {
                 }
                 String value = medInfo.get(key);
 
-                switch (keyEnum) {
-                case NAME:
-                    medication.setName(value);
-                    break;
-                case QUANTITY:
-                    double qty = convertStringToDouble(value);
-                    medication.setQuantity(qty);
-                    break;
-                case DOSAGE_MORNING:
-                    double doseMorning = convertStringToDouble(value);
-                    medication.setDosageMorning(doseMorning);
-                    break;
-                case DOSAGE_AFTERNOON:
-                    double doseAfternoon = convertStringToDouble(value);
-                    medication.setDosageAfternoon(doseAfternoon);
-                    break;
-                case DOSAGE_EVENING:
-                    double doseEvening = convertStringToDouble(value);
-                    medication.setDosageEvening(doseEvening);
-                    break;
-                case EXPIRATION_DATE:
-                    medication.setExpiryDate(value);
-                    break;
-                case REMARKS:
-                    medication.setRemarks(value);
-                    break;
-                case REPEAT:
-                    int repeatValue = (int) convertStringToDouble(value);
-                    medication.setRepeat(repeatValue);
-                    break;
-                case DAY_ADDED:
-                    int dayValue = (int) convertStringToDouble(value);
-                    medication.setDayAdded(dayValue);
-                    break;
-                default:
-                    logger.warning("Unhandled ArgumentName Enum Type " + keyEnum.value);
+                try {
+                    medication.setMedicationValue(keyEnum, value);
+                } catch (MediTrackerException e) {
+                    Ui.showErrorMessage(e);
                 }
             }
-            addMedication(medication);
+            try {
+                addMedication(medication);
+            } catch (MediTrackerException e) {
+                Ui.showErrorMessage(e);
+            }
         }
     }
 
@@ -350,7 +320,7 @@ public class MedicationManager {
         Ui.showInfoMessage(message);
 
         medication.setQuantity(newQuantity);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 
     /**
@@ -378,6 +348,6 @@ public class MedicationManager {
         Ui.showInfoMessage(message);
 
         medication.setQuantity(newQuantity);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 }

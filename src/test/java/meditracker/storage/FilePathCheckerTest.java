@@ -3,17 +3,17 @@ package meditracker.storage;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
+
+import org.junit.jupiter.api.Test;
 
 public class FilePathCheckerTest {
     @Test
     public void isValidJsonFullPath_validFullPaths_returnedTrue() {
         boolean result;
 
-        // https://www.baeldung.com/java-detect-os
+        // OS check adapted from: https://www.baeldung.com/java-detect-os
         if (System.getProperty("os.name").startsWith("Windows")) {
             Path validRootDirectory = Path.of("C:/noFolderExists/noFileExists.jsON");
             result = FilePathChecker.isValidFullPath(validRootDirectory);
@@ -28,7 +28,7 @@ public class FilePathCheckerTest {
         result = FilePathChecker.isValidFullPath(validSubDirectory1);
         assertTrue(result);
 
-        Path validSubdirectory2 = Path.of ("\\prnter\\auxiliary\\null\\json.json");
+        Path validSubdirectory2 = Path.of("\\prnter\\auxiliary\\null\\json.json");
         result = FilePathChecker.isValidFullPath(validSubdirectory2);
         assertTrue(result);
     }
@@ -61,6 +61,7 @@ public class FilePathCheckerTest {
     public void isValidJsonFullPath_invalidFolders_returnedFalse() {
         boolean result;
 
+        // OS check adapted from: https://www.baeldung.com/java-detect-os
         if (System.getProperty("os.name").startsWith("Windows")) {
             Path invalidRootDirectory = Path.of("M:/noFolderExists/noFileExists.json");
             result = FilePathChecker.isValidFullPath(invalidRootDirectory);

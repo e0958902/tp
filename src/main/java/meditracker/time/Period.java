@@ -7,13 +7,13 @@ import java.time.LocalTime;
  * Period enum to represent different time Periods and their corresponding TimeRange
  */
 public enum Period {
-    MORNING('M', LocalTime.MIDNIGHT, LocalTime.NOON.minusNanos(1)),
-    AFTERNOON('A', LocalTime.NOON, LocalTime.of(18, 0).minusNanos(1)),
-    EVENING('E', LocalTime.of(18, 0), LocalTime.MIDNIGHT.minusNanos(1)),
+    MORNING("M", LocalTime.MIDNIGHT, LocalTime.NOON.minusNanos(1)),
+    AFTERNOON("A", LocalTime.NOON, LocalTime.of(18, 0).minusNanos(1)),
+    EVENING("E", LocalTime.of(18, 0), LocalTime.MIDNIGHT.minusNanos(1)),
     UNKNOWN,
     NONE;
 
-    public final char badge;
+    public final String badge;
     public final TimeRange timeRange;
 
     /**
@@ -21,7 +21,7 @@ public enum Period {
      */
     Period() {
         timeRange = null;
-        badge = '-';
+        badge = "-";
     }
 
     /**
@@ -31,7 +31,7 @@ public enum Period {
      * @param start time of the period
      * @param end time of the period
      */
-    Period(char badge, LocalTime start, LocalTime end) {
+    Period(String badge, LocalTime start, LocalTime end) {
         this.timeRange = new TimeRange(start, end);
         this.badge = badge;
     }
@@ -74,9 +74,9 @@ public enum Period {
         return UNKNOWN;
     }
 
-    public static Period getPeriod(char badge) {
+    public static Period getPeriod(String badge) {
         for (Period period : Period.values()) {
-            if (period.badge == badge) {
+            if (period.badge.equals(badge)) {
                 return period;
             }
         }

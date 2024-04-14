@@ -22,8 +22,8 @@ import meditracker.medication.MedicationManager;
  * A class to handle the importing of raw json file data and process them.
  * Passes the data in an intermediate format to the various Managers involved for them to initialise.
  */
-public class JsonImporter {
-    private static Logger logger = MediLogger.getMediLogger();
+class JsonImporter {
+    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
      * Converts information from JSONArray into a List of (String, String) mappings.
@@ -52,8 +52,8 @@ public class JsonImporter {
                 }
                 list.add(kvMap);
             } catch (JSONException e) {
-                logger.warning("JSONArray to List<Map<String,String>> Error: " + e.getMessage());
-                logger.warning("Entry skipped.");
+                MEDILOGGER.warning("JSONArray to List<Map<String,String>> Error: " + e.getMessage());
+                MEDILOGGER.warning("Entry skipped.");
                 continue;
             }
         }
@@ -76,17 +76,17 @@ public class JsonImporter {
         try {
             jsonFileData = Files.readAllLines(mediTrackerJsonPath);
         } catch (IOException e) {
-            logger.warning("Unable to read from the JSON save file.");
+            MEDILOGGER.warning("Unable to read from the JSON save file.");
             return null;
         }
 
         if (jsonFileData.isEmpty()) {
-            logger.warning("Empty JSON file.");
+            MEDILOGGER.warning("Empty JSON file.");
             return null;
         }
 
         if (jsonFileData.size() > 1) {
-            logger.warning("Multiple lines detected. JSON file should only contain one line of data. "
+            MEDILOGGER.warning("Multiple lines detected. JSON file should only contain one line of data. "
                     + "Only the first line will be loaded. Ignoring other lines.");
         }
         return jsonFileData.get(0);
@@ -98,18 +98,18 @@ public class JsonImporter {
      * If the JSON file could not be found or if the structure is corrupted and could not be read,
      * a warning will be thrown to the user and the program will run as if it is the first time running.
      *
-     * @param mediTrackerJsonPath The Path object specifying the path to the MediTracker save data.
-     * @return true if the JSON file has been successfully loaded, false otherwise.
+     * @param medicationJsonPath The Path object specifying the path to the MediTracker save data.
      */
-    public static boolean processMediTrackerJsonFile(Path mediTrackerJsonPath) {
-        if (mediTrackerJsonPath == null) {
-            logger.warning("No path specified to read the JSON file.");
-            return false;
+    static void processMedicationJsonFile(Path medicationJsonPath) {
+        if (medicationJsonPath == null) {
+            MEDILOGGER.warning("No path specified to read the JSON file.");
+            return;
         }
 
-        String jsonStringData = loadRawJsonFileData(mediTrackerJsonPath);
+        String jsonStringData = loadRawJsonFileData(medicationJsonPath);
         if (jsonStringData == null) {
-            return false;
+            MEDILOGGER.warning("Empty JSON file.");
+            return;
         }
 
         // Solution on reading and parsing a JSON file adapted from
@@ -119,13 +119,12 @@ public class JsonImporter {
             JSONObject rawJsonData = new JSONObject(jsonStringData);
             medicationList = rawJsonData.getJSONArray("medicationList");
         } catch (JSONException e) {
-            logger.warning("JSON Read Error: " + e.getMessage());
-            logger.warning("JSON Save Data not read and processed.");
-            return false;
+            MEDILOGGER.warning("JSON Read Error: " + e.getMessage());
+            MEDILOGGER.warning("JSON Save Data not read and processed.");
+            return;
         }
 
         List<Map<String, String>> medicationStringMap = convertJsonArrayToStringMap(medicationList);
         MedicationManager.addMedicationFromSaveFile(medicationStringMap);
-        return true;
     }
 }

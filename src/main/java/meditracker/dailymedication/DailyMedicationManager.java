@@ -50,12 +50,8 @@ public class DailyMedicationManager {
      * @param lines lines of String read from each row in the textfile
      */
     public static void importDailyMedicationManager(List<String> lines) {
-        try {
-            for (String line : lines) {
-                parseImportedLine(line);
-            }
-        } catch (Exception e) {
-            System.out.println("Error" + e.getMessage());
+        for (String line : lines) {
+            parseImportedLine(line);
         }
     }
 
@@ -78,10 +74,6 @@ public class DailyMedicationManager {
      * @param dailyMedication daily medication to be taken for the day to add to respective sub lists
      */
     private static void addImportToSubLists(DailyMedication dailyMedication) {
-        Period period = dailyMedication.getPeriod();
-        if (period == Period.UNKNOWN) {
-            return;
-        }
         addDailyMedication(dailyMedication);
     }
 
@@ -247,6 +239,37 @@ public class DailyMedicationManager {
     }
 
     /**
+     * Updates Medication and all instances of DailyMedication name to new name
+     *
+     * @param medication Medication object being updated
+     * @param newName New name to replace with
+     */
+    public static void updateDailyMedicationName(Medication medication, String newName) {
+        if (!DailyMedicationManager.doesBelongToDailyList(medication)) {
+            return;
+        }
+
+        for (Period period : Period.values()) {
+            if (!medication.hasDosage(period)) {
+                continue;
+            }
+
+            DailyMedication dailyMedication;
+            try {
+                String oldName = medication.getName();
+                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, period);
+            } catch (MedicationNotFoundException e) {
+                String message = String.format("Possible data corruption: Medication missing from %s list", period);
+                Ui.showWarningMessage(message);
+                continue;
+            }
+
+            dailyMedication.setName(newName);
+        }
+        FileReaderWriter.saveDailyMedicationData(null);
+    }
+
+    /**
      * Fetches the corresponding DailyMedication and set the medication to taken
      *
      * @param listIndex Index of the dailyMedications list to update (1-based indexing)
@@ -269,7 +292,7 @@ public class DailyMedicationManager {
         MedicationManager.decreaseMedicationQuantity(dailyMedication.getName(), period);
 
         dailyMedication.take();
-        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null);
     }
 
     /**
@@ -293,7 +316,7 @@ public class DailyMedicationManager {
         MedicationManager.increaseMedicationQuantity(dailyMedication.getName(), period);
 
         dailyMedication.untake();
-        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null);
     }
 
     /**
@@ -400,6 +423,6 @@ public class DailyMedicationManager {
             DailyMedication dailyMedication = new DailyMedication(medication.getName(), dosage, period);
             addDailyMedication(dailyMedication);
         }
-        FileReaderWriter.saveDailyMedicationData(getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null);
     }
 }

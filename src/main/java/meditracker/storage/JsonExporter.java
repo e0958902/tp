@@ -5,20 +5,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import meditracker.logging.MediLogger;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import meditracker.argument.ArgumentName;
+import meditracker.logging.MediLogger;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 
 //@@author annoy-o-mus
 /**
- * A Class that converts Meditracker data to JSON and writes to the target file.
+ * A class that converts Medication data to JSON and writes to the target file.
  */
 class JsonExporter {
-    private static final Logger logger = MediLogger.getMediLogger();
+    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
      * Converts the information inside a Medication object into a JSON Object.
@@ -28,17 +29,22 @@ class JsonExporter {
      */
     private static JSONObject convertMedicationInfoToJsonObject(Medication medInfo) {
         JSONObject medObject = new JSONObject();
+        try {
+            medObject.put(ArgumentName.NAME.value, medInfo.getName());
+            medObject.put(ArgumentName.EXPIRATION_DATE.value, medInfo.getExpiryDate());
+            medObject.put(ArgumentName.REMARKS.value, medInfo.getRemarks());
 
-        medObject.put(ArgumentName.NAME.value, medInfo.getName());
-        medObject.put(ArgumentName.QUANTITY.value, medInfo.getQuantity());
-        medObject.put(ArgumentName.DOSAGE_MORNING.value, medInfo.getDosageMorning());
-        medObject.put(ArgumentName.DOSAGE_AFTERNOON.value, medInfo.getDosageAfternoon());
-        medObject.put(ArgumentName.DOSAGE_EVENING.value, medInfo.getDosageEvening());
-        medObject.put(ArgumentName.EXPIRATION_DATE.value, medInfo.getExpiryDate());
-        medObject.put(ArgumentName.REMARKS.value, medInfo.getRemarks());
-        medObject.put(ArgumentName.REPEAT.value, medInfo.getRepeat());
-        medObject.put(ArgumentName.DAY_ADDED.value, medInfo.getDayAdded());
-
+            medObject.put(ArgumentName.QUANTITY.value, medInfo.getQuantity());
+            medObject.put(ArgumentName.DOSAGE_MORNING.value, medInfo.getDosageMorning());
+            medObject.put(ArgumentName.DOSAGE_AFTERNOON.value, medInfo.getDosageAfternoon());
+            medObject.put(ArgumentName.DOSAGE_EVENING.value, medInfo.getDosageEvening());
+            medObject.put(ArgumentName.REPEAT.value, medInfo.getRepeat());
+            medObject.put(ArgumentName.DAY_ADDED.value, medInfo.getDayAdded());
+        } catch (JSONException e) {
+            MEDILOGGER.severe(e.getMessage());
+            MEDILOGGER.severe("Entry not saved to JSON file.");
+            return null;
+        }
         return medObject;
     }
 
@@ -71,7 +77,7 @@ class JsonExporter {
             Files.write(fileToWrite, root.toString().getBytes());
             return true;
         } catch (IOException e) {
-            logger.severe("Unable to write data to JSON file.");
+            MEDILOGGER.severe("Unable to write data to JSON file.");
             return false;
         }
     }
