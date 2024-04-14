@@ -14,7 +14,7 @@
 - Issue #159: [PE-D][Tester E] Remarks changes from null to empty upon restart of application
 - Issue #182: [PE-D][Tester C] Lack of /help page
 - Issue #184: [PE-D][Tester F] using an example from the user guide is causing an error
-- Issue #191: [PE-D][Tester F] empty imput is allowed when adding
+- Issue #191: [PE-D][Tester F] empty input is allowed when adding
 - Issue #231: NoSuchElementException when program is terminated with Ctrl-C
 - Issue #235: UG Command Summary, Table of Contents linking and back
 
