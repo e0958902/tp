@@ -648,10 +648,9 @@ Here are the search results:
 If in any situation you are stuck while using MediTracker, please do not worry. The help command is specifically 
 designed to guide users to use the MediTracker. All you need to do is to type in `help`.
 
-Usage:
-```
-meditracker> help
-```
+
+Example: `meditracker> help`
+
 
 Output:
 ```
@@ -707,6 +706,10 @@ Also, ensure that the file does not end with a space or a dot (.); the file must
 
 Ensure that the folder you are going to write to has the proper access rights. Don't write to system folders; it will likely fail.
 
+<br>
+
+<div style="page-break-after: always;"></div>
+
 ### Reading from a file: `load`
 Loads the JSON files from the specified path.
 
@@ -734,6 +737,10 @@ A prompt will then ask for your confirmation to overwrite existing data as an ad
 
 WARNING: Loading will overwrite existing running data, so be sure to save a copy first before deciding to overwrite.
 See the part on [Editing the File](#editing-the-file) for warnings on modifying the saved file.
+
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ### Editing the file
 The medication information are saved in a `.json` format while the daily medication information are saved
@@ -769,6 +776,10 @@ case of data corruption in one of the files, please be minded that `list -t all`
 not display anything at all.
 </div>
 
+<br>
+
+<div style="page-break-after: always;"></div>
+
 ### Advanced feature: Setting an arbitrary time
 This feature is intended for developers to test out the features. See the developer guide (To be updated) for more detailed explanation on its implementation.
 To make use of this feature, simply add the following flag and argument **when running the program** (not during the program execution itself)
@@ -779,6 +790,10 @@ The `-sim` flag informs the program that a simulated time is expected. The suppl
 or else the parser will return an error. The supplied time is of the format `YYYY-MM-DDTHH:MM:SSZ`
 
 In the above example, it will set the time for the program to be **1 Jan 2024, 1pm**.
+
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ## Exit: `exit`
 A goodbye message is printed on the screen, and the program exits after.
@@ -791,6 +806,10 @@ Output:
 ```
 Thank you for using MediTracker. Hope to see you again!
 ```
+
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ## FAQ
 **Q**: How do I transfer my data to another computer? 
