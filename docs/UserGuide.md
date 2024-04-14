@@ -113,26 +113,9 @@ Extremely important text.
 3. Save the file in an empty folder in `Desktop`, then this will be your home folder for `MediTracker`.
 4. Open up a Command Prompt/Terminal. 
    - You can use `cd` to navigate to the folder where you have saved the program in
-   - and enter `java -jar meditracker.jar` to start the app. If MediTracker has run succesfuly, you should see the following:
-
-```
-
-                    __      ______                      __                      
- /'\_/`\           /\ \  __/\__  _\                    /\ \                     
-/\      \     __   \_\ \/\_\/_/\ \/ _ __    __      ___\ \ \/'\      __   _ __  
-\ \ \__\ \  /'__`\ /'_` \/\ \ \ \ \/\`'__\/'__`\   /'___\ \ , <    /'__`\/\`'__\
- \ \ \_/\ \/\  __//\ \L\ \ \ \ \ \ \ \ \//\ \L\.\_/\ \__/\ \ \\`\ /\  __/\ \ \/
-  \ \_\\ \_\ \____\ \___,_\ \_\ \ \_\ \_\\ \__/.\_\ \____\\ \_\ \_\ \____\\ \_\ 
-   \/_/ \/_/\/____/\/__,_ /\/_/  \/_/\/_/ \/__/\/_/\/____/ \/_/\/_/\/____/ \/_/ 
-                                                                                
-                                                                                
-Welcome to MediTracker, your best companion to track your medicine intake.
-Let's begin tracking!
-
-____________________________________________________________
-meditracker>
-
-```
+   - Then enter `java -jar meditracker.jar` to start the app.
+   - If MediTracker has run succesfuly, you should see the following:<br>
+   ![Windows cd](images/MediTracker-Startup-Logo.png)
 
 <br>
 
