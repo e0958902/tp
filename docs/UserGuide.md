@@ -114,7 +114,9 @@ Extremely important text.
 4. Open up a Command Prompt/Terminal. 
    - You can use `cd` to navigate to the folder where you have saved the program in
    - and enter `java -jar meditracker.jar` to start the app. If MediTracker has run succesfuly, you should see the following:
-```text
+
+```
+
                     __      ______                      __                      
  /'\_/`\           /\ \  __/\__  _\                    /\ \                     
 /\      \     __   \_\ \/\_\/_/\ \/ _ __    __      ___\ \ \/'\      __   _ __  
@@ -129,8 +131,12 @@ Let's begin tracking!
 
 ____________________________________________________________
 meditracker>
+
 ```
 
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ## Features 
 
