@@ -25,7 +25,7 @@ data storage so that you can review your past medication intake.
   - [Add Medication: ](#adding-a-medication-add)`add`
   - [List Medication](#listing-medications-list)
     - [Summary of all medications: ](#all-medications)`list -t all`
-    - [Summary of medications for the day:](#daily-medications)`list -t today`
+    - [Summary of medications for the day: ](#daily-medications)`list -t today`
   - [View Medication](#viewing-medications-view)
     - [View Medication by index: ](#view-medication-by-index)`view -l`
     - [View Medication by name: ](#view-medication-by-name)`view -n`
@@ -138,8 +138,9 @@ Adds a medication to the medication manager.
 
 ```
 Usage:
-	`add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM DOSAGE_MORNING -dA DOSAGE_AFTERNOON 
--dE DOSAGE_EVENING -r REMARKS -rep REPEAT`
+	`add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM 
+	DOSAGE_MORNING -dA DOSAGE_AFTERNOON -dE DOSAGE_EVENING -r 
+	REMARKS -rep REPEAT`
 
 Options:
 	-n name                 Name of medication
@@ -464,14 +465,12 @@ This command allows multiple flags to be specified in one line.
 changes.)
 </div>
 
-Usage:
-
-`modify (-l listIndex) [-n name] [-q quantity] [-dM dosageMorning] [-dA dosageAfternoon] [-dE dosageEvening]
-[-e expirationDate] [-r remarks] [-rep] [-h]`
-
-Options:
-
 ```
+Usage:
+	modify (-l listIndex) [-n name] [-q quantity] [-dM dosageMorning] 
+	[-dA dosageAfternoon] [-dE dosageEvening] [-e expirationDate] 
+	[-r remarks] [-rep] [-h]
+Options:
 	-l listIndex            Index of item in list
 	-n name                 Name of medication
 	-q quantity             Quantity of medication
@@ -566,8 +565,8 @@ SUCCESS: Medicine has been untaken
 
 ## Delete a medication
 
-To delete a medication, you can type `delete`, followed by the list index `-l listIndex`. You can obtain the list index 
-by entering [`list -t all`](#all-medications) to refer to the list of all medications.
+To delete a medication, you can type `delete`, followed by the list index `-l listIndex`. 
+You can obtain the list index by entering [`list -t all`](#all-medications) to refer to the list of all medications.
 
 ```
 Usage:
@@ -597,11 +596,11 @@ Usage:
 	search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword)
 	[-h]
 Options:
-    -n name                 Name of medication
-    -i illness              Illness that the medication is used for
-    -s sideEffects          Side effects of the medication
-    -a allFields            Search all fields
-    -h                      Prints this help message
+	-n name                 Name of medication
+	-i illness              Illness that the medication is used for
+	-s sideEffects          Side effects of the medication
+	-a allFields            Search all fields
+	-h                      Prints this help message
 ```
 Examples:
 - `search -n Medication A`: Search for medication with the name `Medication A`
