@@ -176,6 +176,8 @@ Options:
   <ul>
     <li>The remarks tag is optional.</li>
     <li>The expiration date must be in yyyy-MM-dd format.</li>
+    <li>You should only specify numerical values for quantity and dosages. Specifying them with units, 
+        such as mg/ml, will not be accepted as valid input.</li>
   </ul>
 </div>
 
@@ -573,6 +575,12 @@ changes.)
 New dosage and/or repeat frequency will be applied tomorrow/next time you require 
 to take the medication (whichever occurs later). No changes will be made to today's list of 
 medication to take.
+</div>
+
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+You should only specify numerical values for quantity and dosages. Specifying them with units, 
+such as mg/ml, will not be accepted as valid input.
 </div>
 
 ```
