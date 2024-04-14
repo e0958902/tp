@@ -220,6 +220,7 @@ Displays an overview of the list of medications that you will be taking for the 
 
 <div class="note-box">
 :notebook: <strong>Note: </strong>
+</div>
 
 Example: `meditracker> list -t today`
 * If you want to specify a particular period of the day, simply enter `list -t today` followed by:
@@ -227,8 +228,6 @@ Example: `meditracker> list -t today`
   * `-a`: Afternoon (12pm to 6pm)
   * `-e`: Evening (6pm to Midnight)
   * Example: `meditracker> list -t today -m` will display the list of medications to be taken in the morning only
-
-</div>
 
 Output:
 ```
@@ -262,10 +261,12 @@ You can view detailed information about the medications you have added in the me
 Perform <a href="#all-medications"><code>list -t all</code></a> first to display the lists of medications
 in medication list and use its fields for the features below.
 
+</div>
+
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
+
 You are only allowed to use one flag and argument.
-</div>
 
 </div>
 
