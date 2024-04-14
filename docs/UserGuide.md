@@ -15,8 +15,6 @@ your daily medication dose. It tracks your daily intake and reminds you when you
 data storage so that you can review your past medication intake.
 <br>
 
-<div style="page-break-after: always;"></div>
-
 ## Table of Contents
 Here are the comprehensive sections which MediTracker has to offer. 
 Simply click on any items below to navigate to that page immediately. You may also click on the items' heading to move
@@ -24,6 +22,7 @@ back to the Table of Contents.
 * [How to use the User Guide](#how-to-use-the-user-guide)
 * [Quick Start](#quick-start)
 * [Features](#features)
+  - [Help](#help)
   - [Add Medication](#adding-a-medication-add)`add`
   - [List Medication](#listing-medications-list)
     - [Summary of all medications](#all-medications)`list -t all`
@@ -41,7 +40,6 @@ back to the Table of Contents.
   - [Delete Medication](#delete-medication-delete--l)`delete -l`
   - [Search](#search)
       - [Access Medicine Database ](#access-database)`search`
-  - [Help](#help)
   - [General data management](#general-data-management)
     - [Saving to a file](#saving-to-a-file-save)`save`
     - [Reading from a file](#reading-from-a-file-load)`load`
@@ -144,6 +142,37 @@ characters), or the flag coupled with a value
 If you forget how to use each command, simply entering just the command word will display the help message with all its 
 usage and option(s).
 </div>
+
+<br>
+
+## [Help](#table-of-contents)
+
+If in any situation you are stuck while using MediTracker, please do not worry. The help command is specifically
+designed to guide users to use the MediTracker. All you need to do is to type in `help`.
+
+
+Example: `meditracker> help`
+
+
+Output:
+```
+Here are the commands you can use with MediTracker:
+
+	exit      Exits MediTracker.
+	help      Lists all available commands and their description.
+	add       Adds a medication to the medication manager.
+	view      Get information of a specific medication.
+	modify    Modify medication information.
+	list      Summary of medications for the day.
+	delete    Delete medication information.
+	search    Access medicine database.
+	take      Record taking of medication.
+	untake    Record untaking of medication.
+	save      Saves the JSON file to the specified path.
+	load      Loads the JSON file from the specified path.
+
+For more details about each command, simply type in the command name.
+```
 
 <br>
 
@@ -348,8 +377,6 @@ SUCCESS: Medication details has been retrieved
 
 <br>
 
-<div style="page-break-after: always;"></div>
-
 ### [View Medication by name](#table-of-contents)
 You can view all medication information by its name.
 
@@ -407,9 +434,6 @@ SUCCESS: Medication details has been retrieved
 ```
 
 <br>
-
-<div style="page-break-after: always;"></div>
-
 
 ### [View Medication by expiry](#table-of-contents)
 You can view all medication information by its expiry year.
@@ -516,8 +540,6 @@ SUCCESS: Medicine has been taken
 ```
 
 <br>
-
-<div style="page-break-after: always;"></div>
 
 ### [Untake Medication](#table-of-contents) `untake -l`
 If you have accidentally entered the wrong command and wish to un-take the medication, you can type `untake`, 
@@ -666,39 +688,6 @@ Here are the search results:
 
 <div style="page-break-after: always;"></div>
 
-## [Help](#table-of-contents)
-
-If in any situation you are stuck while using MediTracker, please do not worry. The help command is specifically 
-designed to guide users to use the MediTracker. All you need to do is to type in `help`.
-
-
-Example: `meditracker> help`
-
-
-Output:
-```
-Here are the commands you can use with MediTracker:
-
-	exit      Exits MediTracker.
-	help      Lists all available commands and their description.
-	add       Adds a medication to the medication manager.
-	view      Get information of a specific medication.
-	modify    Modify medication information.
-	list      Summary of medications for the day.
-	delete    Delete medication information.
-	search    Access medicine database.
-	take      Record taking of medication.
-	untake    Record untaking of medication.
-	save      Saves the JSON file to the specified path.
-	load      Loads the JSON file from the specified path.
-
-For more details about each command, simply type in the command name.
-```
-
-<br>
-
-<div style="page-break-after: always;"></div>
-
 ## General Data Management
 
 ### [Saving to a file](#table-of-contents) `save`
@@ -728,8 +717,6 @@ Also, ensure that the file does not end with a space or a dot (.); the file must
 Ensure that the folder you are going to write to has the proper access rights. Don't write to system folders; it will likely fail.
 
 <br>
-
-<div style="page-break-after: always;"></div>
 
 ### [Reading from a file](#table-of-contents) `load`
 Loads the JSON files from the specified path.
