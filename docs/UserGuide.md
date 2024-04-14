@@ -218,10 +218,6 @@ Your list of medications has been successfully shown!
 ### Daily medications:
 Displays an overview of the list of medications that you will be taking for the day.
 
-<div class="note-box">
-:notebook: <strong>Note: </strong>
-</div>
-
 Example: `meditracker> list -t today`
 * If you want to specify a particular period of the day, simply enter `list -t today` followed by:
   * `-m`: Morning (Midnight to 12 Noon)
@@ -255,6 +251,19 @@ Command</code></a> here.
 ## Viewing medications: `view`
 You can view detailed information about the medications you have added in the medication list.
 
+```
+Usage:
+	view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] 
+	[-r remarks] [-h]
+Options:
+	-l listIndex          Index of item in list
+	-n name               Name of medication
+	-q quantity           Quantity of medication
+	-e expirationDate     Expiration date of medication
+	-r remarks            Additional remarks on medication
+	-h                    Prints this help message
+```
+
 <div class="info-box">
 :information_source: <strong>Info: </strong>
 
@@ -273,19 +282,6 @@ You are only allowed to use one flag and argument.
 This output will be shown if you used more than one flag and argument.
 ```
 ERROR: You can only have one flag!
-```
-
-```
-Usage:
-	view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] 
-	[-r remarks] [-h]
-Options:
-	-l listIndex          Index of item in list
-	-n name               Name of medication
-	-q quantity           Quantity of medication
-	-e expirationDate     Expiration date of medication
-	-r remarks            Additional remarks on medication
-	-h                    Prints this help message
 ```
 
 <br>
@@ -350,6 +346,10 @@ Repeat: 6
 
 SUCCESS: Medication details has been retrieved
 ```
+
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ### View Medication by quantity:
 You can view all medication information by its quantity.
@@ -497,6 +497,10 @@ Output:
 SUCCESS: Medicine has been modified
 ```
 
+<br>
+
+<div style="page-break-after: always;"></div>
+
 ### Record taking of medication
 
 #### Take a medication
@@ -533,6 +537,10 @@ INFO: Medication quantity decreased: 40.0 -> 38.0
 SUCCESS: Medicine has been taken
 ```
 
+<br>
+
+<div style="page-break-after: always;"></div>
+
 #### Untake a medication
 
 If you have accidentally entered the wrong command and wish to un-take the medication, you can type `untake`, 
@@ -567,6 +575,10 @@ INFO: Medication quantity increased: 38.0 -> 40.0
 SUCCESS: Medicine has been untaken
 ```
 
+<br>
+
+<div style="page-break-after: always;"></div>
+
 ## Delete a medication
 
 To delete a medication, you can type `delete`, followed by the list index `-l listIndex`. 
@@ -586,6 +598,10 @@ Output:
 ```
 SUCCESS: Medicine has been deleted
 ```
+
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ## Search
 
@@ -618,6 +634,11 @@ Here are the search results:
 1. Medication A; Treats: Headache; May cause: Dizziness
 2. Medication B; Treats: Fever; Side Effects: Dizziness
 ```
+
+<br>
+
+<div style="page-break-after: always;"></div>
+
 ## Help
 
 If in any situation you are stuck while using MediTracker, please do not worry. The help command is specifically 
@@ -649,10 +670,13 @@ load: Loads the JSON file from the specified path.
 For more details about each command, simply type in the command name.
 ____________________________________________________________
 ```
+
+<br>
+
+<div style="page-break-after: always;"></div>
+
+
 ## General Data Management
-
-
-
 
 ### Saving to a file: `save`
 Saves the JSON file to the specified path.
