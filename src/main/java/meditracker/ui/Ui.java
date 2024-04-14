@@ -114,8 +114,12 @@ public class Ui {
     }
 
     /**
-     * Reads user input command.
-     * @return The user input command as a String.
+     * Reads a command from the user input, prompting with "meditracker> ".
+     * This method continuously waits and reads user input until a command is entered.
+     * If there is no more input (end of stream), the method will display an exit message and terminate the program.
+     *
+     * @return The input entered by the user. If the program terminates due to no more input, null is returned.
+     * @throws NoSuchElementException if the input stream is closed and no more tokens are available for retrieval.
      */
     public static String readCommand() {
         System.out.print("meditracker> ");
