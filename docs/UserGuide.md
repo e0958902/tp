@@ -678,7 +678,6 @@ Example: `meditracker> help`
 
 Output:
 ```
-____________________________________________________________
 Here are the commands you can use with MediTracker:
 
 	exit      Exits MediTracker.
@@ -695,7 +694,6 @@ Here are the commands you can use with MediTracker:
 	load      Loads the JSON file from the specified path.
 
 For more details about each command, simply type in the command name.
-____________________________________________________________
 ```
 
 <br>
