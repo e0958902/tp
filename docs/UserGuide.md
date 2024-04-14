@@ -865,12 +865,12 @@ making sure it is at the same level as the `.jar` file.
     <td>
       Format: <br>
       <code>
-        add (-n name) (-q quantity) (-e expirationDate) (-dM dosageMorning) (-dA dosageAfternoon) <br> 
+        add (-n name) (-q quantity) (-e expirationDate) (-dM dosageMorning) <br> (-dA dosageAfternoon) 
         (-dE dosageEvening) (-rep repeat) [-r remarks] [-h]
       </code> <br><br>
       Example: <br>
       <code>
-        add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1 
+        add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -dE 100 <br> -r cause_dizziness -rep 1 
       </code>
     </td>
   </tr>
@@ -888,7 +888,7 @@ making sure it is at the same level as the `.jar` file.
     <td>View</td>
     <td>
       Format: <br>
-      <code>view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] [-r remarks] [-h] </code><br><br>
+      <code>view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] <br> [-r remarks] [-h]</code><br><br>
       Example: <br><code>view -l 1<br></code><code>view -n Medication B<br></code><code>view -q 1000<br></code><code>view -e 2025<br></code><code>view -r dizziness</code>
     </td>
   </tr>
@@ -897,7 +897,7 @@ making sure it is at the same level as the `.jar` file.
     <td>
       Format: <br>
       <code>
-        modify (-l listIndex) [-n name] [-q quantity] [-e expirationDate] [-dM dosageMorning] <br> 
+        modify (-l listIndex) [-n name] [-q quantity] [-e expirationDate] <br> [-dM dosageMorning]
         [-dA dosageAfternoon] [-dE dosageEvening] [-rep repeat] [-r remarks] [-h]
       </code>
       <br><br>
