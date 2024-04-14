@@ -15,6 +15,7 @@
 - Issue #182: [PE-D][Tester C] Lack of /help page
 - Issue #184: [PE-D][Tester F] using an example from the user guide is causing an error
 - Issue #191: [PE-D][Tester F] empty imput is allowed when adding
+- Issue #231: NoSuchElementException when program is terminated with Ctrl-C
 
 ### Developer Guide Contributions
 - Add command specifications
@@ -25,7 +26,8 @@
   - Command Format
   - Example
   - Output
-  
+- Command Summary
+- Table of Contents
 
 - Help command
 
@@ -34,7 +36,7 @@
 [(Issue #16)](https://github.com/nus-cs2113-AY2324S2/forum/issues/16)
 
 ### PR Reviews
-#42, #61, #62, #64, #70, #73, #75, #127, #131, #132, #142, #144
+#42, #61, #62, #64, #70, #73, #75, #127, #131, #132, #142, #144, #227
 
 ### Miscellaneous
 #### Refactor:
