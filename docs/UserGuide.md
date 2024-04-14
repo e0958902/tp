@@ -913,7 +913,7 @@ making sure it is at the same level as the `.jar` file.
     </td>
   </tr>
   <tr>
-    <td>Un-take</td>
+    <td>Untake</td>
     <td>
       Format: <br>
       <code>untake (-l listIndex) [-m] [-a] [-e] [-h] </code><br><br>
