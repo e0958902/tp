@@ -672,18 +672,18 @@ Output:
 ____________________________________________________________
 Here are the commands you can use with MediTracker:
 
-exit: Exits MediTracker.
-help: Lists all available commands and their description.
-add: Adds a medication to the medication manager.
-view: Get information of a specific medication.
-modify: Modify medication information.
-list: Summary of medications for the day.
-delete: Delete medication information.
-search: Access medicine database.
-take: Record taking of medication.
-untake: Record untaking of medication.
-save: Saves the JSON file to the specified path.
-load: Loads the JSON file from the specified path.
+	exit      Exits MediTracker.
+	help      Lists all available commands and their description.
+	add       Adds a medication to the medication manager.
+	view      Get information of a specific medication.
+	modify    Modify medication information.
+	list      Summary of medications for the day.
+	delete    Delete medication information.
+	search    Access medicine database.
+	take      Record taking of medication.
+	untake    Record untaking of medication.
+	save      Saves the JSON file to the specified path.
+	load      Loads the JSON file from the specified path.
 
 For more details about each command, simply type in the command name.
 ____________________________________________________________
