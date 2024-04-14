@@ -138,9 +138,9 @@ Adds a medication to the medication manager.
 
 ```
 Usage:
-	`add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM 
+	add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM 
 	DOSAGE_MORNING -dA DOSAGE_AFTERNOON -dE DOSAGE_EVENING -r 
-	REMARKS -rep REPEAT`
+	REMARKS -rep REPEAT
 
 Options:
 	-n name                 Name of medication
@@ -219,6 +219,7 @@ Your list of medications has been successfully shown!
 Displays an overview of the list of medications that you will be taking for the day.
 
 <div class="note-box">
+:notebook: <strong>Note: </strong>
 Example: `meditracker> list -t today`
 * If you want to specify a particular period of the day, simply enter `list -t today` followed by:
   * `-m`: Morning (Midnight to 12 Noon)
