@@ -220,12 +220,14 @@ Displays an overview of the list of medications that you will be taking for the 
 
 <div class="note-box">
 :notebook: <strong>Note: </strong>
+
 Example: `meditracker> list -t today`
 * If you want to specify a particular period of the day, simply enter `list -t today` followed by:
   * `-m`: Morning (Midnight to 12 Noon)
   * `-a`: Afternoon (12pm to 6pm)
   * `-e`: Evening (6pm to Midnight)
   * Example: `meditracker> list -t today -m` will display the list of medications to be taken in the morning only
+
 </div>
 
 Output:
@@ -594,8 +596,8 @@ search for.
 
 ```
 Usage:
-	search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword)
-	[-h]
+	search ([-n name] [-i illness] [-s sideEffects] [-a allFields] 
+	keyword) [-h]
 Options:
 	-n name                 Name of medication
 	-i illness              Illness that the medication is used for
