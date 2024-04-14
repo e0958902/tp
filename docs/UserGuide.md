@@ -206,6 +206,8 @@ Options:
 	-h              Prints this help message
 ```
 
+<br>
+
 ### All medications:
 Displays the whole lists of medications that you have added to the medication list.
 
@@ -234,10 +236,13 @@ Output:
 Here are the Daily Medications you have to take today: 
 Morning:
 	1. [ ] Medication A | 500.0
+	2. [ ] Medication B | 500.0
 Afternoon:
 	1. [ ] Medication A | 250.0
+	2. [ ] Medication B | 250.0
 Evening:
 	1. [ ] Medication A | 100.0
+	2. [ ] Medication B | 50.0
 ```
 
 * If you want to specify a particular period of the day, simply enter `list -t today` followed by:
@@ -252,6 +257,7 @@ Output:
 Here are the Daily Medications you have to take today: 
 Morning:
 	1. [ ] Medication A | 500.0
+	2. [ ] Medication B | 500.0
 ```
 
 <div class="info-box">
