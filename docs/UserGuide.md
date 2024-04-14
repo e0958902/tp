@@ -37,7 +37,7 @@ data storage so that you can review your past medication intake.
     - [Modify medication information: ](#modify-medication-information)`modify -l`
   - [Delete medication information: ](#delete-a-medication)`delete -l`
   - [Search](#search)
-      - [Access Medicine Database](#access-database)`search`
+      - [Access Medicine Database ](#access-database)`search`
   - [Help](#help)
   - [General data management](#general-data-management)
     - [Saving to a file: ](#saving-to-a-file-save)`save`
@@ -305,8 +305,7 @@ Format: `view -l MEDICATION_INDEX`
 
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
-Only the first flag and argument will be used to 
-show a medication by the specified index.
+You are only allowed to use one flag and argument.
 </div>
 
 Example: `meditracker> view -l 1`
@@ -336,8 +335,7 @@ Format: `view -n MEDICATION_NAME`
 
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
-Only the first flag and argument will be used to 
-show a medication by the specified name.
+You are only allowed to use one flag and argument.
 </div>
 
 Example: `meditracker> view -n Medication B`
@@ -367,8 +365,7 @@ Format: `view -q MEDICATION_QUANTITY`
 
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
-Only the first flag and argument will be used to 
-show all medications that is less than or equal to the specified quantity.
+You are only allowed to use one flag and argument.
 </div>
 
 Example: `meditracker> view -q 1000`
@@ -399,8 +396,7 @@ Format: `view -e MEDICATION_EXPIRY_IN_YYYY`
 
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
-Only the first flag and argument will be used to 
-show all medications that is expiring by that specified year.
+You are only allowed to use one flag and argument.
 </div>
 
 Example: `meditracker> view -e 2025`
@@ -439,8 +435,7 @@ Format: `view -r MEDICATION_REMARKS`
 
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
-Only the first flag and argument will be used to
-show all medications that contains the specified remarks.
+You are only allowed to use one flag and argument.
 </div>
 
 Example: `meditracker> view -r dizziness`
