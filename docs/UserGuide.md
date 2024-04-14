@@ -624,7 +624,7 @@ SUCCESS: Medicine has been deleted
 <div style="page-break-after: always;"></div>
 
 ## [Search](#table-of-contents)
-MediTracker has a built-in medication library that you can search for common medications. This library contains 
+MediTracker has a built-in medication library where you can search for common medications. This library contains 
 information on the medication name, the illness that the medication is used for, and the side effects of the medication.
 
 To search for a medication in the library, you can type 'search', followed by the field you want to search for and the 
@@ -634,11 +634,10 @@ search for.
 
 ```
 Usage:
-```
+
 	search ([-n name] [-i illness] [-s sideEffects] [-a keyword]) [-h]
-```
 Options:
-```
+
     -n name                 Name of medication
     -i illness              Illness that the medication is used for
     -s sideEffects          Side effects of the medication
