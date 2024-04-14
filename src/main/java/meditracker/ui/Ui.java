@@ -2,7 +2,6 @@ package meditracker.ui;
 
 import meditracker.argument.ArgumentHelper;
 import meditracker.command.CommandName;
-import meditracker.dailymedication.DailyMedication;
 import meditracker.library.SearchResult;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
@@ -197,65 +196,6 @@ public class Ui {
                 medication.getRepeat(),
                 medication.getDayAdded());
         System.out.println();
-    }
-
-    /**
-     * Prints the sub lists of dailyMedications based on the period
-     *
-     * @param medsList list of medications from MedicationManager
-     * @param dailyMedications subList of dailyMedication
-     * @param period Specified period of the day
-     */
-    public static void printMedsLists(List<Medication> medsList,
-                                      List<DailyMedication> dailyMedications, String period) {
-        int numbering = 0;
-        assert medsList != null;
-        assert dailyMedications != null;
-        for (DailyMedication med: dailyMedications) {
-            String name = med.getName();
-            Double intakeDose = 0.0;
-            int index = getIndex(medsList, name);
-            Medication medication;
-            try {
-                medication = medsList.get(index);
-            } catch (IndexOutOfBoundsException e) {
-                return;
-            }
-            switch (period) {
-            case "Morning:":
-                intakeDose = medication.getDosageMorning();
-                break;
-            case "Afternoon:":
-                intakeDose = medication.getDosageAfternoon();
-                break;
-            case "Evening:":
-                intakeDose = medication.getDosageEvening();
-                break;
-            default:
-                showErrorMessage("Medication not found.");
-            }
-            numbering++;
-            System.out.println("\t" + numbering + ". " + med + " | " + intakeDose);
-        }
-        
-    }
-
-    /**
-     * Gets index of the dailyMedication in the Main Medication list
-     *
-     * @param medsList list of medications from MedicationManager
-     * @param name name of DailyMedication
-     * @return index of the medication in main medication
-     */
-    private static int getIndex(List<Medication> medsList, String name) {
-        int index = 0;
-        for (Medication medication: medsList) {
-            if (medication.getName().equals(name)) {
-                return index;
-            }
-            index++;
-        }
-        return -1;
     }
 
     /**
