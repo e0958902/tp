@@ -8,12 +8,9 @@ import meditracker.argument.ListIndexArgument;
 import meditracker.argument.NameArgument;
 import meditracker.argument.QuantityArgument;
 import meditracker.argument.RemarksArgument;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MedicationNotFoundException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.MedicationManager;
 import meditracker.ui.Ui;
 
@@ -39,15 +36,13 @@ public class ViewCommand extends Command {
      * Constructs a ViewCommand object with the specified arguments.
      *
      * @param arguments The arguments containing information to be parsed.
-     * @throws ArgumentNotFoundException Argument flag specified not found
-     * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
-     * @throws ArgumentNoValueException When argument requires value but no value specified
-     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
+     * @throws ArgumentException Argument flag specified not found,
+     *              or when argument requires value but no value specified,
+     *              or when unknown argument flags found in user input,
+     *              or when duplicate argument flag found
      */
-    public ViewCommand(String arguments)
-            throws ArgumentNotFoundException, DuplicateArgumentFoundException, HelpInvokedException,
-            ArgumentNoValueException, UnknownArgumentFoundException {
+    public ViewCommand(String arguments) throws HelpInvokedException, ArgumentException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
