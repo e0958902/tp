@@ -7,7 +7,7 @@ CREDIT: We try to follow the ideas and structure of the following sample user gu
 https://se-education.org/addressbook-level3/UserGuide.html
 -->
 
-# User Guide
+# MediTracker User Guide
 ## Introduction
 MediTracker is a desktop app for users who want to track their medication intake on a daily basis. It offers intuitive
 features that works seamlessly right from the very beginning. With MediTracker, you do not have to worry about missing
