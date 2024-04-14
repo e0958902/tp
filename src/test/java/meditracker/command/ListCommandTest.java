@@ -25,22 +25,24 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ListCommandTest {
-    @BeforeEach
-    @AfterEach
-    void resetManagers() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-        DailyMedicationManagerTest.resetDailyMedicationManager();
-        MedicationManagerTest.resetMedicationManager();
-    }
-
     ArgumentList testArgumentList = new ArgumentList(
             new NameArgument(false),
             new QuantityArgument(false),
             new DosageMorningArgument(false),
             new RemarksArgument(false)
     );
+
+    @BeforeEach
+    @AfterEach
+    void resetManagers() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        DailyMedicationManagerTest.resetDailyMedicationManager();
+        MedicationManagerTest.resetMedicationManager();
+    }
 
     @Test
     void execute_listCommand_expect() throws MediTrackerException {
