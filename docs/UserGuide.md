@@ -44,7 +44,7 @@ data storage so that you can review your past medication intake.
     - [Reading from a file: ](#reading-from-a-file-load)`load`
     - [Editing the file](#editing-the-file)
     - [Advanced feature: Setting an arbitrary time](#advanced-feature-setting-an-arbitrary-time)
-  - [Exit](#exit)
+  - [Exit](#Exit-exit)
 - [FAQ](#faq)
 - [Glossary](#glossary)
 - [Command Summary](#command-summary)
