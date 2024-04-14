@@ -14,7 +14,14 @@ features that works seamlessly right from the very beginning. With MediTracker, 
 your daily medication dose. It tracks your daily intake and reminds you when your remaining amount is low, and enables
 data storage so that you can review your past medication intake.
 <br>
-
+<div style="display: flex; justify-content: space-between; position: fixed; bottom: 0; left: 0; width: 100%;">
+    <div>
+        <a href="#command-summary">:arrow_down_small: Jump to Command Summary</a>
+    </div>
+    <div>
+        <a href="#table-of-contents">:arrow_up_small: Jump to Table of Contents</a>
+    </div>
+</div>
 <div style="page-break-after: always;"></div>
 
 ## Table of Contents
