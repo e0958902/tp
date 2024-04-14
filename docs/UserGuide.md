@@ -170,8 +170,8 @@ Remarks will default to Nil if it is not specified.
 
 Examples:
 
-* `meditracker> add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1`
-* `meditracker> add -n Medication B -q 1000 -e 30/09/24 -dM 500 -dA 250 -dE 50 -rep 6`
+* `meditracker> add -n Medication A -q 5000 -e 2025-07-01 -dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1`
+* `meditracker> add -n Medication B -q 1000 -e 2024-09-30 -dM 500 -dA 250 -dE 50 -rep 6`
 
 Output:
 ```
@@ -219,11 +219,6 @@ Your list of medications has been successfully shown!
 Displays an overview of the list of medications that you will be taking for the day.
 
 Example: `meditracker> list -t today`
-* If you want to specify a particular period of the day, simply enter `list -t today` followed by:
-  * `-m`: Morning (Midnight to 12 Noon)
-  * `-a`: Afternoon (12pm to 6pm)
-  * `-e`: Evening (6pm to Midnight)
-  * Example: `meditracker> list -t today -m` will display the list of medications to be taken in the morning only
 
 Output:
 ```
@@ -234,6 +229,20 @@ Afternoon:
 	1. [ ] Medication A | 250.0
 Evening:
 	1. [ ] Medication A | 100.0
+```
+
+* If you want to specify a particular period of the day, simply enter `list -t today` followed by:
+  * `-m`: Morning (Midnight to 12 Noon)
+  * `-a`: Afternoon (12pm to 6pm)
+  * `-e`: Evening (6pm to Midnight)
+
+Example: `meditracker> list -t today -m` will display the list of medications to be taken in the morning only
+
+Output:
+```
+Here are the Daily Medications you have to take today: 
+Morning:
+	1. [ ] Medication A | 500.0
 ```
 
 <div class="info-box">
@@ -272,8 +281,8 @@ in medication list and use its fields for the features below.
 
 </div>
 
-<div class="tip-box">
-:bulb: <strong>Tip: </strong>
+<div class="warning-box">
+:warning: <strong>Warning: </strong>
 
 You are only allowed to use one flag and argument.
 
@@ -294,13 +303,13 @@ you can see all the fields of that medication index.
 
 Format: `view -l MEDICATION_INDEX`
 
-Example: `meditracker> view -l 1`
-
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
 Only the first flag and argument will be used to 
 show a medication by the specified index.
 </div>
+
+Example: `meditracker> view -l 1`
 
 Output:
 ```
@@ -325,13 +334,13 @@ You can view all medication information by its name.
 
 Format: `view -n MEDICATION_NAME`
 
-Example: `meditracker> view -n Medication B`
-
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
 Only the first flag and argument will be used to 
 show a medication by the specified name.
 </div>
+
+Example: `meditracker> view -n Medication B`
 
 Output:
 ```
@@ -356,13 +365,13 @@ You can view all medication information by its quantity.
 
 Format: `view -q MEDICATION_QUANTITY`
 
-Example: `meditracker> view -q 1000`
-
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
 Only the first flag and argument will be used to 
 show all medications that is less than or equal to the specified quantity.
 </div>
+
+Example: `meditracker> view -q 1000`
 
 Output:
 ```
@@ -386,15 +395,15 @@ SUCCESS: Medication details has been retrieved
 ### View Medication by expiry:
 You can view all medication information by its expiry year.
 
-Format: `view -e MEDICINE_EXPIRY_IN_YYYY`
-
-Example: `meditracker> view -e 2025`
+Format: `view -e MEDICATION_EXPIRY_IN_YYYY`
 
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
 Only the first flag and argument will be used to 
 show all medications that is expiring by that specified year.
 </div>
+
+Example: `meditracker> view -e 2025`
 
 Output:
 ```
@@ -426,15 +435,15 @@ SUCCESS: Medication details has been retrieved
 ### View Medication by remarks:
 You can view all medication information by its remarks.
 
-Format: `view -r MEDICINE_REMARKS`
-
-Example: `meditracker> view -r dizziness`
+Format: `view -r MEDICATION_REMARKS`
 
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
 Only the first flag and argument will be used to
 show all medications that contains the specified remarks.
 </div>
+
+Example: `meditracker> view -r dizziness`
 
 Output:
 ```
