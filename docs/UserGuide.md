@@ -6,6 +6,7 @@ title: User Guide
 CREDIT: We try to follow the ideas and structure of the following sample user guide:
 https://se-education.org/addressbook-level3/UserGuide.html
 -->
+<div>
 
 # MediTracker User Guide
 ## Introduction
@@ -13,6 +14,9 @@ MediTracker is a desktop app for users who want to track their medication intake
 features that works seamlessly right from the very beginning. With MediTracker, you do not have to worry about missing
 your daily medication dose. It tracks your daily intake and reminds you when your remaining amount is low, and enables
 data storage so that you can review your past medication intake.
+---
+
+</div>
 
 * [How to use the User Guide](#how-to-use-the-user-guide)
 * [Quick Start](#quick-start)
@@ -43,6 +47,8 @@ data storage so that you can review your past medication intake.
 - [FAQ](#faq)
 - [Glossary](#glossary)
 - [Command Summary](#command-summary)
+
+---
 
 ## How to Use the User Guide
 <!-- @@author annoy-o-mus-reused
