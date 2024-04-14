@@ -22,26 +22,26 @@ data storage so that you can review your past medication intake.
 * [How to use the User Guide](#how-to-use-the-user-guide)
 * [Quick Start](#quick-start)
 * [Features](#features)
-  - [Add Medication:](#adding-a-medication-add)`add`
+  - [Add Medication: ](#adding-a-medication-add)`add`
   - [List Medication](#listing-medications-list)
-    - [Summary of all medications:](#all-medications)`list -t all`
+    - [Summary of all medications: ](#all-medications)`list -t all`
     - [Summary of medications for the day:](#daily-medications)`list -t today`
   - [View Medication](#viewing-medications-view)
-    - [View Medication by index:](#view-medication-by-index)`view -l`
-    - [View Medication by name:](#view-medication-by-name)`view -n`
-    - [View Medication by quantity:](#view-medication-by-quantity)`view -q`
-    - [View Medication by expiry:](#view-medication-by-expiry)`view -e`
-    - [View Medication by remarks:](#view-medication-by-remarks)`view -r`
+    - [View Medication by index: ](#view-medication-by-index)`view -l`
+    - [View Medication by name: ](#view-medication-by-name)`view -n`
+    - [View Medication by quantity: ](#view-medication-by-quantity)`view -q`
+    - [View Medication by expiry: ](#view-medication-by-expiry)`view -e`
+    - [View Medication by remarks: ](#view-medication-by-remarks)`view -r`
   - [Update medication information](#update)
-    - [Record taking of medication:](#record-taking-of-medication)`take/untake -l`
-    - [Modify medication information:](#modify-medication-information)`modify -l`
-  - [Delete medication information:](#delete-a-medication)`delete -l`
+    - [Record taking of medication: ](#record-taking-of-medication)`take/untake -l`
+    - [Modify medication information: ](#modify-medication-information)`modify -l`
+  - [Delete medication information: ](#delete-a-medication)`delete -l`
   - [Search](#search)
       - [Access Medicine Database](#access-database)`search`
   - [Help](#help)
   - [General data management](#general-data-management)
-    - [Saving to a file:](#saving-to-a-file-save)`save`
-    - [Reading from a file:](#reading-from-a-file-load)`load`
+    - [Saving to a file: ](#saving-to-a-file-save)`save`
+    - [Reading from a file: ](#reading-from-a-file-load)`load`
     - [Editing the file](#editing-the-file)
     - [Advanced feature: Setting an arbitrary time](#advanced-feature-setting-an-arbitrary-time)
   - [Exit](#exit)
