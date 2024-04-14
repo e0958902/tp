@@ -19,6 +19,8 @@ data storage so that you can review your past medication intake.
 
 <div style="page-break-after: always;"> </div>
 
+## Table of Contents
+
 * [How to use the User Guide](#how-to-use-the-user-guide)
 * [Quick Start](#quick-start)
 * [Features](#features)
@@ -48,6 +50,7 @@ data storage so that you can review your past medication intake.
 - [FAQ](#faq)
 - [Glossary](#glossary)
 - [Command Summary](#command-summary)
+<br>
 
 ---
 
@@ -96,6 +99,11 @@ Important text.
 :bangbang: <strong>Danger: </strong>
 Extremely important text.
 </div>
+<br>
+
+---
+
+<div style="page-break-after: always;"> </div>
 
 ## Quick Start
 1. Ensure that you have Java 11 or above installed. 
