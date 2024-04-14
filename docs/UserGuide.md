@@ -7,8 +7,6 @@ CREDIT: We try to follow the ideas and structure of the following sample user gu
 https://se-education.org/addressbook-level3/UserGuide.html
 -->
 
-<div style="page-break-after: always;">
-
 # MediTracker User Guide
 ## Introduction
 MediTracker is a desktop app for users who want to track their medication intake on a daily basis. It offers intuitive
@@ -16,9 +14,10 @@ features that works seamlessly right from the very beginning. With MediTracker, 
 your daily medication dose. It tracks your daily intake and reminds you when your remaining amount is low, and enables
 data storage so that you can review your past medication intake.
 <br>
+
 ---
 
-</div>
+<div style="page-break-after: always;"> </div>
 
 * [How to use the User Guide](#how-to-use-the-user-guide)
 * [Quick Start](#quick-start)
@@ -51,6 +50,8 @@ data storage so that you can review your past medication intake.
 - [Command Summary](#command-summary)
 
 ---
+
+<div style="page-break-after: always;"> </div>
 
 ## How to Use the User Guide
 <!-- @@author annoy-o-mus-reused
