@@ -1,5 +1,10 @@
 package meditracker.command;
 
+import meditracker.argument.ArgumentList;
+import meditracker.argument.DosageMorningArgument;
+import meditracker.argument.NameArgument;
+import meditracker.argument.QuantityArgument;
+import meditracker.argument.RemarksArgument;
 import meditracker.dailymedication.DailyMedicationManagerTest;
 import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
@@ -21,8 +26,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ListCommandTest {
+    ArgumentList testArgumentList = new ArgumentList(
+            new NameArgument(false),
+            new QuantityArgument(false),
+            new DosageMorningArgument(false),
+            new RemarksArgument(false)
+    );
+
     @BeforeEach
     @AfterEach
     void resetManagers() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
@@ -140,5 +154,135 @@ class ListCommandTest {
                 medicationNameTwo, medicationQuantityTwo, expiryDateTwo, medicationRemarksTwo);
 
         assertEquals(output, body);
+    }
+
+    @Test
+    void listAllMedication_extraFlagAfterCommand_showErrorMessage() throws DuplicateArgumentFoundException,
+            HelpInvokedException, ArgumentNoValueException, ArgumentNotFoundException, UnknownArgumentFoundException {
+        PrintStream oldOut = System.out;
+
+        // Create a ByteArrayOutputStream to get the output from the call to print
+        ByteArrayOutputStream content = new ByteArrayOutputStream();
+
+        // Change System.out to point out to our stream
+        System.setOut(new PrintStream(content));
+
+        // Execute the view by name command
+        String inputString = "list -t all -a";
+        ListCommand command = new ListCommand(inputString);
+        command.execute();
+
+        // Reset back to System.out
+        System.setOut(oldOut);
+
+        // Output contains the content from the stream
+        String output = content.toString();
+
+        assertTrue(output.contains("ERROR: List type -> \"AFTERNOON\" not compatible with \"list -t all\" command."));
+    }
+
+    @Test
+    void listAllMedication_extraWordsAfterCommand_showErrorMessage() throws DuplicateArgumentFoundException,
+            HelpInvokedException, ArgumentNoValueException, ArgumentNotFoundException, UnknownArgumentFoundException {
+        PrintStream oldOut = System.out;
+
+        // Create a ByteArrayOutputStream to get the output from the call to print
+        ByteArrayOutputStream content = new ByteArrayOutputStream();
+
+        // Change System.out to point out to our stream
+        System.setOut(new PrintStream(content));
+
+        // Execute the view by name command
+        String inputString = "list -t all asdf";
+        ListCommand command = new ListCommand(inputString);
+        command.execute();
+
+        // Reset back to System.out
+        System.setOut(oldOut);
+
+        // Output contains the content from the stream
+        String output = content.toString();
+
+        assertTrue(output.contains("ERROR: Unknown list type -> \"all asdf\""));
+    }
+
+    @Test
+    void listAllMedication_unknownFlagAfterCommand_showErrorMessage() {
+        String testArgumentString = "list -t all -asdf";
+
+        assertThrows(
+                UnknownArgumentFoundException.class,
+                () -> testArgumentList.parse(testArgumentString)
+        );
+    }
+
+    @Test
+    void listDailyMedication_extraWordsAfterCommand_showErrorMessage() throws DuplicateArgumentFoundException,
+            HelpInvokedException, ArgumentNoValueException, ArgumentNotFoundException, UnknownArgumentFoundException {
+        PrintStream oldOut = System.out;
+
+        // Create a ByteArrayOutputStream to get the output from the call to print
+        ByteArrayOutputStream content = new ByteArrayOutputStream();
+
+        // Change System.out to point out to our stream
+        System.setOut(new PrintStream(content));
+
+        // Execute the view by name command
+        String inputString = "list -t today asdf";
+        ListCommand command = new ListCommand(inputString);
+        command.execute();
+
+        // Reset back to System.out
+        System.setOut(oldOut);
+
+        // Output contains the content from the stream
+        String output = content.toString();
+
+        assertTrue(output.contains("ERROR: Unknown list type -> \"today asdf\""));
+    }
+
+    @Test
+    void listDailyMedication_extraFlagsAfterCommand_showErrorMessage() throws DuplicateArgumentFoundException,
+            HelpInvokedException, ArgumentNoValueException, ArgumentNotFoundException, UnknownArgumentFoundException {
+        PrintStream oldOut = System.out;
+
+        // Create a ByteArrayOutputStream to get the output from the call to print
+        ByteArrayOutputStream content = new ByteArrayOutputStream();
+
+        // Change System.out to point out to our stream
+        System.setOut(new PrintStream(content));
+
+        // Execute the view by name command
+        String inputString = "list -t today -a -m";
+        ListCommand command = new ListCommand(inputString);
+        command.execute();
+
+        // Reset back to System.out
+        System.setOut(oldOut);
+
+        // Output contains the content from the stream
+        String output = content.toString();
+
+        assertTrue(output.contains("ERROR: Unknown list type -> \"UNKNOWN\""));
+    }
+
+    @Test
+    void listDailyMedication_unknownFlagAfterCommand_showErrorMessage() {
+        String testArgumentString = "list -t today -a -asd";
+
+        assertThrows(
+                UnknownArgumentFoundException.class,
+                () -> testArgumentList.parse(testArgumentString)
+        );
+    }
+
+    @Test
+    void listDailyMedication_extraWordsAfterFlag_showErrorMessage() {
+        String testArgumentString = "list -t today -a asdf";
+
+        assertThrows(
+                UnknownArgumentFoundException.class,
+                () -> testArgumentList.parse(testArgumentString)
+        );
     }
 }
