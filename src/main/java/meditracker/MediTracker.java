@@ -3,13 +3,10 @@ package meditracker;
 import meditracker.command.Command;
 import meditracker.command.CommandName;
 import meditracker.command.CommandParser;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.CommandNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.InvalidSimulatedTimeException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.logging.MediLogger;
 import meditracker.storage.FileReaderWriter;
 import meditracker.time.MediTrackerTime;
@@ -47,8 +44,7 @@ public class MediTracker {
             Command command;
             try {
                 command = commandParser.getCommand();
-            } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | CommandNotFoundException |
-                     ArgumentNoValueException | UnknownArgumentFoundException e) {
+            } catch (CommandNotFoundException | ArgumentException e) {
                 Ui.showErrorMessage(e);
                 continue;
             } catch (HelpInvokedException e) {

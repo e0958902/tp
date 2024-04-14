@@ -2,12 +2,9 @@ package meditracker.command;
 
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.dailymedication.DailyMedicationManagerTest;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MediTrackerException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
@@ -35,8 +32,7 @@ public class ModifyCommandTest {
 
     @Test
     void execute_inOrderArgument_expectMedicationModified()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate parsedExpiryDate = LocalDate.parse("2025-07-01", dateTimeFormatter);
         Medication medication = new Medication(
@@ -63,8 +59,7 @@ public class ModifyCommandTest {
 
     @Test
     void execute_outOfOrderArgument_expectMedicationModified()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate parsedExpiryDate = LocalDate.parse("2025-07-01", dateTimeFormatter);
         Medication medication = new Medication(
@@ -90,9 +85,7 @@ public class ModifyCommandTest {
     }
 
     @Test
-    void execute_erroneousListIndex_errorMessagePrinted()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+    void execute_erroneousListIndex_errorMessagePrinted() throws HelpInvokedException, ArgumentException {
         //Solution below adapted by https://stackoverflow.com/questions/58665761
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;

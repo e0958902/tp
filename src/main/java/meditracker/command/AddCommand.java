@@ -2,12 +2,9 @@ package meditracker.command;
 
 import meditracker.argument.ArgumentHelper;
 import meditracker.dailymedication.DailyMedicationManager;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MediTrackerException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.time.MediTrackerTime;
@@ -56,15 +53,13 @@ public class AddCommand extends Command {
      * Constructs an AddCommand object with the specified arguments.
      *
      * @param arguments The arguments containing medication information to be parsed.
-     * @throws ArgumentNotFoundException if a required argument is not found.
-     * @throws ArgumentNoValueException When argument requires value but no value specified
-     * @throws DuplicateArgumentFoundException Duplicate argument found
-     * @throws HelpInvokedException When help argument is used
-     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
+     * @throws HelpInvokedException When help argument is used or help message needed
+     * @throws ArgumentException Argument flag specified not found,
+     *              or when argument requires value but no value specified,
+     *              or when unknown argument flags found in user input,
+     *              or when duplicate argument flag found
      */
-    public AddCommand(String arguments)
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+    public AddCommand(String arguments) throws HelpInvokedException, ArgumentException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
