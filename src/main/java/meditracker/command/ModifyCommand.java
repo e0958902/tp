@@ -12,18 +12,13 @@ import meditracker.argument.NameArgument;
 import meditracker.argument.QuantityArgument;
 import meditracker.argument.RemarksArgument;
 import meditracker.argument.RepeatArgument;
-import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MediTrackerException;
-import meditracker.exception.MedicationNotFoundException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
-import meditracker.time.Period;
+import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
 
 import java.util.Map;
@@ -51,15 +46,13 @@ public class ModifyCommand extends Command {
      * Constructs a ModifyCommand object with the specified arguments.
      *
      * @param arguments The arguments containing medication information to be parsed.
-     * @throws ArgumentNotFoundException Argument flag specified not found
-     * @throws ArgumentNoValueException When argument requires value but no value specified
-     * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
-     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
+     * @throws ArgumentException Argument flag specified not found,
+     *              or when argument requires value but no value specified,
+     *              or when unknown argument flags found in user input,
+     *              or when duplicate argument flag found
      */
-    public ModifyCommand(String arguments)
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+    public ModifyCommand(String arguments) throws HelpInvokedException, ArgumentException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
@@ -79,116 +72,72 @@ public class ModifyCommand extends Command {
             return;
         }
 
-        Medication medicationCopy = Medication.deepCopy(medication);
-        try {
-            updateMedication(medication);
-        } catch (NumberFormatException e) {
-            medication.revertMedication(medicationCopy);
-            String errorContext = String.format("Unable to format correctly. %s.", e.getMessage());
-            Ui.showErrorMessage(errorContext);
-            Ui.showWarningMessage("Changes have been rolled back. Medicine not modified.");
-            return;
-        } catch (MediTrackerException e) {
-            medication.revertMedication(medicationCopy);
-            Ui.showErrorMessage(e);
-            Ui.showWarningMessage("Changes have been rolled back. Medicine not modified.");
+        parsedArguments.remove(ArgumentName.LIST_INDEX);
+        if (parsedArguments.isEmpty()) {
+            Ui.showSuccessMessage("No changes specified. Medicine not modified.");
             return;
         }
 
+        Medication medicationCopy = Medication.deepCopy(medication);
+        try {
+            updateMedication(medication);
+        } catch (MediTrackerException e) {
+            Ui.showErrorMessage(e);
+            Ui.showWarningMessage("Rolling back changes...");
+            try {
+                rollbackChanges(medication, medicationCopy);
+            } catch (MediTrackerException ex) {
+                Ui.showErrorMessage(ex);
+                return;
+            }
+            Ui.showInfoMessage("Changes have been rolled back. Medicine not modified.");
+            return;
+        }
+
+        FileReaderWriter.saveMedicationData(null);
         Ui.showSuccessMessage("Medicine has been modified");
+    }
+
+    /**
+     * Rollbacks the changes made to Medication and DailyMedication
+     *
+     * @param medication Medication object in MedicationManager. To be written to.
+     * @param medicationCopy Backup copy of original Medication object. To be read from.
+     * @throws MediTrackerException Unable to revert Medication
+     */
+    private void rollbackChanges(Medication medication, Medication medicationCopy) throws MediTrackerException {
+        if (parsedArguments.containsKey(ArgumentName.NAME)) {
+            String oldName = medicationCopy.getName();
+            DailyMedicationManager.updateDailyMedicationName(medication, oldName);
+        }
+        medication.revertMedication(medicationCopy);
     }
 
     /**
      * Updates Medication info
      *
      * @param medication Medication object to update
-     * @throws NumberFormatException When Double.parseDouble or Integer.parseInt fails
      */
-    private void updateMedication(Medication medication) throws NumberFormatException, MediTrackerException {
+    private void updateMedication(Medication medication) throws MediTrackerException {
         for (Map.Entry<ArgumentName, String> argument: parsedArguments.entrySet()) {
             ArgumentName argumentName = argument.getKey();
             String argumentValue = argument.getValue();
+            medication.setMedicationValue(argumentName, argumentValue);
 
-            switch (argumentName) {
-            case DOSAGE_MORNING:
-                medication.setDosageMorning(Double.parseDouble(argumentValue));
-                break;
-            case DOSAGE_AFTERNOON:
-                medication.setDosageAfternoon(Double.parseDouble(argumentValue));
-                break;
-            case DOSAGE_EVENING:
-                medication.setDosageEvening(Double.parseDouble(argumentValue));
-                break;
-            case EXPIRATION_DATE:
-                medication.setExpiryDate(argumentValue);
-                break;
-            case REPEAT:
-                int repeat = Command.getRepeat(parsedArguments);
-                medication.setRepeat(repeat);
-                break;
-            case LIST_INDEX:
-                continue;
-            case NAME:
-                updateMedicationName(medication, argumentValue);
-                break;
-            case QUANTITY:
-                medication.setQuantity(Double.parseDouble(argumentValue));
-                break;
-            case REMARKS:
-                medication.setRemarks(argumentValue);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + argumentName);
+            if (argumentName == ArgumentName.NAME) {
+                DailyMedicationManager.updateDailyMedicationName(medication, argumentValue);
             }
         }
+        medication.checkValidity();
         checkDosageOrRepeatModified(medication);
-    }
-
-    /**
-     * Updates Medication and all instances of DailyMedication name to new name
-     *
-     * @param medication Medication object being updated
-     * @param newName New name to replace with
-     */
-    private static void updateMedicationName(Medication medication, String newName) {
-        String oldName = medication.getName();
-        medication.setName(newName);
-
-        if (!DailyMedicationManager.doesBelongToDailyList(medication)) {
-            return;
-        }
-
-        for (Period period : Period.values()) {
-            if (!medication.hasDosage(period)) {
-                continue;
-            }
-
-            DailyMedication dailyMedication;
-            try {
-                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, period);
-            } catch (MedicationNotFoundException e) {
-                String message = String.format("Possible data corruption: Medication missing from %s list", period);
-                Ui.showWarningMessage(message);
-                continue;
-            }
-
-            dailyMedication.setName(newName);
-        }
     }
 
     /**
      * Checks whether dosage and/or repeat was modified and also if all dosages are 0
      *
      * @param medication Medication object being checked
-     * @throws MediTrackerException Thrown if all dosages are 0
      */
-    private void checkDosageOrRepeatModified(Medication medication) throws MediTrackerException {
-        boolean hasNoDosages = medication.hasNoDosages();
-        if (hasNoDosages) {
-            throw new MediTrackerException("Medication modification results in all empty dosages. " +
-                    "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
-        }
-
+    private void checkDosageOrRepeatModified(Medication medication) {
         boolean doesBelongToDailyList = DailyMedicationManager.doesBelongToDailyList(medication);
         if (!doesBelongToDailyList) {
             // Warning message below does not apply for today as medication not part of today's list

@@ -11,9 +11,11 @@
 - Issue #27, #55: Read and Write medication-related data to JSON file
 - Issue #48, #121: Read and wrote daily medication related data to txt file
 - Issue #41: Introduce MediTracker Logger for logging
-- Issue #96: Introduce save to and load from custom location
+- Issue #96, #226: Introduce save to and load from custom location
 - Issue #43: Simulated Time
 
+### Miscellaneous Code Contributions (Styling and Quality related)
+Issue #222
 
 ### Developer Guide Contributions
 
@@ -21,7 +23,7 @@
 <!-- To talk about Issue 25 -->
 
 ### PR Reviews
-#2, #5, #40, #44, #51, #66, #82, #87, #93, #111
+#2, #5, #40, #44, #51, #66, #82, #87, #93, #111, #209, #215, #218, #221
 
 ### Team-based tasks
 - Added PR Template (#11, #21).
@@ -30,4 +32,5 @@
   - Disabled rebase and squash merging (thanks @wenenhoe)
 - Brought in the JSON package (https://github.com/stleary/JSON-java) (#26)
 - Brought in DG Comments from the main repo PR (#211)
+- Created the Jekyll configuration and introduced admonition template (#76)
 

@@ -1,7 +1,6 @@
 package meditracker.storage;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import static java.nio.file.StandardOpenOption.APPEND;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,16 +10,16 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import meditracker.MediTrackerConfig;
+import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.FileReadWriteException;
 import meditracker.logging.MediLogger;
-
 
 //@@author annoy-o-mus
 /**
  * A static class to handle the reading and writing to the filesystem.
  */
 public class FileReaderWriter {
-    private static final Logger logger = MediLogger.getMediLogger();
+    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
      * Returns either the Path of folder or the Path of file.
@@ -29,7 +28,7 @@ public class FileReaderWriter {
      * @param getFolder Whether to return the Path of folder or the Path of file.
      * @return The Path object of either the file name or the folder name. Null if the chosen field is empty.
      */
-    static Path getFullPathComponent(Path path, boolean getFolder) {
+    public static Path getFullPathComponent(Path path, boolean getFolder) {
         if (path == null) {
             return null;
         }
@@ -42,6 +41,44 @@ public class FileReaderWriter {
     }
 
     /**
+     * Returns the temporary save file which is in the same directory as the final save file.
+     *
+     * @param path The path of the final save file
+     * @return The Path of the temp file. `null` if there are issues creating the file.
+     */
+    private static Path getCreatedTemporarySaveFile(Path path) {
+        Path folder = getFullPathComponent(path, true);
+        return createTempSaveFile(folder);
+    }
+
+    /**
+     * Writes or overwrites the save file with the temp file and deletes the temp file.
+     *
+     * @param saveFile The save file to write to
+     * @param tempFile The temp file to write to the save file
+     * @param isTempFileSaveSuccess Whether the saving to the temp file was a success.
+     * @return `true` if the save file has been successfully written or overwritten, `false` otherwise.
+     */
+    private static boolean processTempFileOverwrite(Path saveFile, Path tempFile, boolean isTempFileSaveSuccess) {
+        if (saveFile == null || tempFile == null) {
+            return false;
+        }
+
+        try {
+            if (isTempFileSaveSuccess) {
+                Files.move(tempFile, saveFile, REPLACE_EXISTING);
+                return true;
+            } else {
+                Files.delete(tempFile);
+                return false;
+            }
+        } catch (IOException e) {
+            MEDILOGGER.severe("IO Exception occurred when trying to update existing save file.");
+            return false;
+        }
+    }
+
+    /**
      * Creates new directories to allow writing of MediTracker data to the save files.
      *
      * @param folderName The directory, including its parents, to create. If null, the creation is skipped.
@@ -49,7 +86,7 @@ public class FileReaderWriter {
      */
     private static void initialiseDirectory(Path folderName) throws FileReadWriteException {
         if (folderName == null) {
-            logger.info("Directory portion is null. Skipping creation.");
+            MEDILOGGER.info("Directory portion is null. Skipping creation.");
             return;
         }
 
@@ -81,40 +118,30 @@ public class FileReaderWriter {
         try {
             initialiseDirectory(directory);
         } catch (FileReadWriteException e) {
-            logger.severe(e.getMessage());
+            MEDILOGGER.severe(e.getMessage());
             return null;
         }
 
         try {
-            return Files.createTempFile(directory,null,null);
+            return Files.createTempFile(directory, null, null);
         } catch (IOException e) {
-            logger.severe("IO Error: Unable to create temp save file");
+            MEDILOGGER.severe("IO Error: Unable to create temp save file");
             return null;
         } catch (SecurityException e) {
-            logger.severe("Unable to create temp save file. Please make sure that "
+            MEDILOGGER.severe("Unable to create temp save file. Please make sure that "
                     + "the file has the appropriate permissions for MediTracker to write to.");
             return null;
         }
     }
 
     /**
-     * Reads the JSON data file to load and populate the MediTracker.
-     * If the file is not found, a warning will be thrown to alert the user, and the program
-     * will run without the saved data (fresh state).
-     */
-    public static void loadMediTrackerData() {
-        Path mediTrackerJsonPath = MediTrackerConfig.getDefaultJsonSaveFilePath();
-        JsonImporter.processMediTrackerJsonFile(mediTrackerJsonPath);
-    }
-
-    /**
-     * Saves the medication information in MediTracker.
+     * Saves the Medication information in MediTracker.
      *
      * @param path The Path object (relative or absolute) to save the information to. If null, the path will be the
      *     path specified in `MediTrackerConfig`.
      * @return true if the saving is successful, false otherwise.
      */
-    public static boolean saveMediTrackerData(Path path) {
+    public static boolean saveMedicationData(Path path) {
         Path fullJsonPath;
         if (path == null) {
             fullJsonPath = MediTrackerConfig.getDefaultJsonSaveFilePath();
@@ -122,79 +149,86 @@ public class FileReaderWriter {
             fullJsonPath = path;
         }
 
-        Path jsonFolder = getFullPathComponent(fullJsonPath, true);
-        Path tmpSaveFile = createTempSaveFile(jsonFolder);
-
+        Path tmpSaveFile = getCreatedTemporarySaveFile(fullJsonPath);
         if (tmpSaveFile == null) {
             return false;
         }
 
         boolean saveStatus = JsonExporter.saveMedicationDataToJson(tmpSaveFile);
-        try {
-            if (saveStatus) {
-                Files.move(tmpSaveFile,fullJsonPath, REPLACE_EXISTING);
-            } else {
-                Files.delete(tmpSaveFile);
-            }
-        } catch (IOException e) {
-            logger.severe("IO Exception occurred when trying to update existing save file.");
+        return processTempFileOverwrite(fullJsonPath, tmpSaveFile, saveStatus);
+    }
+
+    /**
+     * Saves the daily medication information to a text file under a predefined sub-folder.
+     * This sub-folder (relative to JSON file) can be found under `MediTrackerConfig`.
+     *
+     * @param suppliedDailyPath The DailyMedication file to save to. If null, the path will be built based on the
+     *     default directory the JSON file resides in `MediTrackerConfig`.
+     * @return `true` if successfully saved, `false` otherwise.
+     */
+    public static boolean saveDailyMedicationData(Path suppliedDailyPath) {
+        Path dailyMedSavePath;
+        if (suppliedDailyPath == null) {
+            dailyMedSavePath = MediTrackerConfig.getDailymedFilePath(null);
+        } else {
+            dailyMedSavePath = suppliedDailyPath;
+        }
+
+        if (dailyMedSavePath == null) {
             return false;
         }
-        return true;
+
+        Path tmpSaveFile = getCreatedTemporarySaveFile(dailyMedSavePath);
+        if (tmpSaveFile == null) {
+            return false;
+        }
+
+        boolean saveStatus = DailyMedicationExporter.writeDailyMedicationToFile(tmpSaveFile);
+        return processTempFileOverwrite(dailyMedSavePath, tmpSaveFile, saveStatus);
     }
 
     /**
-     * Saves the daily medication information to a fixed file data/dailymed/today.txt.
+     * Loads all MediTracker related data.
+     * This includes the JSON data for the Medications and the txt data for DailyMedications.
      *
-     * @param dailyMedData A list of type String for the daily medication data.
+     * @param jsonPath The Path of the json file. If null, will attempt to load from default location.
      */
-    public static void saveDailyMedicationData(List<String> dailyMedData) {
-        Path dailyMedFullSavePath = MediTrackerConfig.getDailySaveFilePath();
-        Path dailyMedFolder = getFullPathComponent(dailyMedFullSavePath, true);
-        Path tmpSaveFile = createTempSaveFile(dailyMedFolder);
-
-        if (tmpSaveFile == null){
-            return;
+    public static void loadMediTrackerData(Path jsonPath) {
+        Path jsonFilePath;
+        if (jsonPath == null) {
+            jsonFilePath = MediTrackerConfig.getDefaultJsonSaveFilePath();
+        } else {
+            jsonFilePath = jsonPath;
         }
 
-        //@@author annoy-o-mus-reused
-        // Reused from https://stackoverflow.com/a/6548204
-        // with minor modifications
-        boolean writeStatus = false;
-        try {
-            for (String stringData : dailyMedData) {
-                byte[] dataInBytes = (stringData + System.lineSeparator()).getBytes();
-                Files.write(tmpSaveFile, dataInBytes, APPEND);
-            }
-            writeStatus = true;
-        } catch (IOException e) {
-            logger.severe("Unable to write DailyMedication data to file.");
-        }
+        JsonImporter.processMedicationJsonFile(jsonFilePath);
 
-        try {
-            if (writeStatus) {
-                Files.move(tmpSaveFile,dailyMedFullSavePath, REPLACE_EXISTING);
-            } else {
-                Files.delete(tmpSaveFile);
-            }
-        } catch (IOException e) {
-            logger.severe("IO Exception occurred when trying to update existing save file.");
-        }
+        Path dailyMedFilePath = MediTrackerConfig.getDailymedFilePath(jsonFilePath);
+        loadDailyMedicationData(dailyMedFilePath);
     }
 
     /**
-     * Loads the daily medication information from a fixed file data/dailymed/today.txt.
+     * Loads the daily medication information from a text file under a predefined sub-folder.
+     * This sub-folder name (relative to JSON file) can be found under `MediTrackerConfig`.
      *
-     * @return A list of string with the daily medication data. null if the file could not be loaded.
+     * @param dailyMedPath Path of the txt file containing the DailyMedication information.
      */
-    public static List<String> loadDailyMedicationData() {
+    private static void loadDailyMedicationData(Path dailyMedPath) {
+        List<String> dailyMedData;
         try {
-            Path dailyMedTextFile = MediTrackerConfig.getDailySaveFilePath();
-            return Files.readAllLines(dailyMedTextFile);
+            dailyMedData = Files.readAllLines(dailyMedPath);
         } catch (IOException e) {
-            logger.warning("Unable to Read Daily medication data. "
-                    + "Daily medication data starting with clean state.");
-            return null;
+            MEDILOGGER.warning("IOException. Unable to Read Daily medication data.");
+            dailyMedData = null;
+        } catch (NullPointerException e) {
+            MEDILOGGER.warning("Null path supplied. Unable to read daily medication data.");
+            dailyMedData = null;
+        }
+
+        if (dailyMedData == null) {
+            DailyMedicationManager.createDailyMedicationManager();
+        } else {
+            DailyMedicationManager.importDailyMedicationManager(dailyMedData);
         }
     }
 }

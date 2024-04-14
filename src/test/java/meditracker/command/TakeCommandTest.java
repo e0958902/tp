@@ -3,11 +3,9 @@ package meditracker.command;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.dailymedication.DailyMedicationManagerTest;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.UnknownArgumentFoundException;
+import meditracker.exception.MediTrackerException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
@@ -20,6 +18,8 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,15 +35,16 @@ public class TakeCommandTest {
 
     @Test
     void execute_inOrderArgument_expectDailyMedicationTaken()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate = LocalDate.parse("2025-07-01", dateTimeFormatter);
         Medication medication = new Medication(
                 "Medication_A",
                 60.0,
                 10.0,
                 0.0,
                 0.0,
-                "01/07/25",
+                parsedExpiryDate,
                 "cause_dizziness",
                 1,
                 87);
@@ -61,9 +62,7 @@ public class TakeCommandTest {
     }
 
     @Test
-    void execute_erroneousListIndex_errorMessagePrinted()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+    void execute_erroneousListIndex_errorMessagePrinted() throws HelpInvokedException, ArgumentException {
         //Solution below adapted by https://stackoverflow.com/questions/58665761
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;

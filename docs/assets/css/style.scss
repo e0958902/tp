@@ -1,0 +1,77 @@
+---
+# Front matter, do not remove
+---
+
+// Initial structure adapted from
+// https://github.com/se-edu/addressbook-level3/blob/master/docs/assets/css/style.scss
+.icon {
+    height: 21px;
+    width: 21px
+}
+
+// Colour scheme adapted from
+// https://ay2223s1-cs2103t-w16-2.github.io/tp/UserGuide.html#installation
+// with modifications
+.note-box {
+    padding: 15px;
+    border: 0px solid transparent;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border-left-width: 4px;
+    color: #444450;
+    background-color: #f8f8f9;
+    border-color: #ceced5;
+}
+.tip-box {
+    padding: 15px;
+    border: 0px solid transparent;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border-left-width: 4px;
+    color: #257425;
+    background-color: #e6f5e6;
+    border-color: #9ee09e;
+}
+
+.info-box {
+    padding: 15px;
+    border: 0px solid transparent;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border-left-width: 4px;
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #a7d5ec;
+}
+
+.warning-box {
+    padding: 15px;
+    border: 0px solid transparent;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border-left-width: 4px;
+    color: #5E4703;
+    background-color: #fff5d5;
+    border-color: #ffe285;
+}
+
+.danger-box {
+    padding: 15px;
+    border: 0px solid transparent;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border-left-width: 4px;
+    color: #850005;
+    background-color: #ffebec;
+    border-color: #ffb8bb;
+}
+
+// The below are overriding styles for the code chunks and blocks
+.highlighter-rouge {
+  border-color:#BEBEC6
+}
+
+.highlight {
+  border-left-width:4px;
+  border-color:#212126
+}

@@ -8,13 +8,10 @@ import meditracker.argument.EveningArgument;
 import meditracker.argument.ListIndexArgument;
 import meditracker.argument.MorningArgument;
 import meditracker.dailymedication.DailyMedicationManager;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.MedicationUnchangedException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
 
@@ -38,15 +35,13 @@ public class UntakeCommand extends Command {
      * Constructs a UntakeCommand object with the specified arguments.
      *
      * @param arguments The arguments containing information to be parsed.
-     * @throws ArgumentNotFoundException Argument flag specified not found
-     * @throws ArgumentNoValueException When argument requires value but no value specified
-     * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
-     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
+     * @throws ArgumentException Argument flag specified not found,
+     *              or when argument requires value but no value specified,
+     *              or when unknown argument flags found in user input,
+     *              or when duplicate argument flag found
      */
-    public UntakeCommand(String arguments)
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+    public UntakeCommand(String arguments) throws HelpInvokedException, ArgumentException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 

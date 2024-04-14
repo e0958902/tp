@@ -1,10 +1,7 @@
 package meditracker.command;
 
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.library.LibraryManager;
 import meditracker.library.SearchResult;
 
@@ -18,8 +15,7 @@ public class SearchCommandTest {
 
     @Test
     void execute_searchCommandSearchAllFields_expectSearchResult()
-            throws DuplicateArgumentFoundException, HelpInvokedException, ArgumentNotFoundException,
-            ArgumentNoValueException, UnknownArgumentFoundException {
+            throws HelpInvokedException, ArgumentException {
         String keyword = "paracetamol";
         String inputString = "search -a " + keyword;
 
@@ -43,8 +39,7 @@ public class SearchCommandTest {
 
     @Test
     void execute_searchCommandSearchMedicationName_expectSearchResult()
-            throws DuplicateArgumentFoundException, HelpInvokedException, ArgumentNotFoundException,
-            ArgumentNoValueException, UnknownArgumentFoundException {
+            throws HelpInvokedException, ArgumentException {
         String keyword = "paracetamol";
         String inputString = "search -n " + keyword;
 
@@ -68,8 +63,7 @@ public class SearchCommandTest {
 
     @Test
     void execute_searchCommandSearchIllness_expectSearchResults()
-            throws DuplicateArgumentFoundException, HelpInvokedException, ArgumentNotFoundException,
-            ArgumentNoValueException, UnknownArgumentFoundException {
+            throws HelpInvokedException, ArgumentException {
         String keyword = "fever";
         String inputString = "search -i " + keyword;
 
@@ -98,8 +92,7 @@ public class SearchCommandTest {
 
     @Test
     void execute_searchCommandSearchSideEffect_expectSearchResult()
-            throws DuplicateArgumentFoundException, HelpInvokedException, ArgumentNotFoundException,
-            ArgumentNoValueException, UnknownArgumentFoundException {
+            throws HelpInvokedException, ArgumentException {
         String keyword = "fatigue";
         String inputString = "search -s " + keyword;
 

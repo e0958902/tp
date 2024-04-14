@@ -2,12 +2,9 @@ package meditracker.command;
 
 import meditracker.argument.ArgumentHelper;
 import meditracker.dailymedication.DailyMedicationManager;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MediTrackerException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.time.MediTrackerTime;
@@ -52,26 +49,17 @@ public class AddCommand extends Command {
 
     private final Map<ArgumentName, String> parsedArguments;
 
-    private double medicationQuantity;
-    private double medicationDosageMorning = 0.0;
-    private double medicationDosageAfternoon = 0.0;
-    private double medicationDosageEvening = 0.0;
-    private int repeat;
-    private String remarks = "Nil";
-
     /**
      * Constructs an AddCommand object with the specified arguments.
      *
      * @param arguments The arguments containing medication information to be parsed.
-     * @throws ArgumentNotFoundException if a required argument is not found.
-     * @throws ArgumentNoValueException When argument requires value but no value specified
-     * @throws DuplicateArgumentFoundException Duplicate argument found
-     * @throws HelpInvokedException When help argument is used
-     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
+     * @throws HelpInvokedException When help argument is used or help message needed
+     * @throws ArgumentException Argument flag specified not found,
+     *              or when argument requires value but no value specified,
+     *              or when unknown argument flags found in user input,
+     *              or when duplicate argument flag found
      */
-    public AddCommand(String arguments)
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+    public AddCommand(String arguments) throws HelpInvokedException, ArgumentException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
@@ -91,13 +79,12 @@ public class AddCommand extends Command {
             return;
         }
 
-        if (medication.hasNoDosages()) {
-            Ui.showErrorMessage("Medication has no dosages. " +
-                    "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
+        try {
+            MedicationManager.addMedication(medication);
+        } catch (MediTrackerException e) {
+            Ui.showErrorMessage(e);
             return;
         }
-
-        MedicationManager.addMedication(medication);
         DailyMedicationManager.checkForDaily(medication);
         assertionTest();
         Ui.showSuccessMessage("Medicine has been added");
@@ -115,86 +102,19 @@ public class AddCommand extends Command {
      *                              incorrect number formats, or if required arguments are missing.
      */
     Medication createMedication() throws MediTrackerException {
-        // Extract medication details from parsed arguments
-        String medicationName = parsedArguments.get(ArgumentName.NAME);
-        String expiryDate = parsedArguments.get(ArgumentName.EXPIRATION_DATE);
-        String remarksArg = parsedArguments.get(ArgumentName.REMARKS);
-        String medicationQuantityArg = parsedArguments.get(ArgumentName.QUANTITY);
-        String medicationDosageMorningArg = parsedArguments.get(ArgumentName.DOSAGE_MORNING);
-        String medicationDosageAfternoonArg = parsedArguments.get(ArgumentName.DOSAGE_AFTERNOON);
-        String medicationDosageEveningArg = parsedArguments.get(ArgumentName.DOSAGE_EVENING);
+        Medication medication = new Medication();
 
-        try {
-            // Validate and parse input
-            sanitiseInput(medicationName);
-            repeat = Command.getRepeat(parsedArguments);
-            parseStringToValues(medicationQuantityArg, medicationDosageMorningArg,
-                    medicationDosageAfternoonArg, medicationDosageEveningArg, remarksArg);
-
-            // Get the current date and the day of the year
-            LocalDate currentDate = MediTrackerTime.getCurrentDate();
-            int dayAdded = currentDate.getDayOfYear();
-
-            // Create and return a new Medication object
-            return new Medication(medicationName, medicationQuantity,
-                    medicationDosageMorning, medicationDosageAfternoon, medicationDosageEvening,
-                    expiryDate, remarks, repeat, dayAdded);
-
-        } catch (NumberFormatException e) {
-            throw new MediTrackerException("Incorrect Number format given");
-        } catch (NullPointerException e) {
-            throw new MediTrackerException("Medication not found");
+        for (Map.Entry<ArgumentName, String> keyValuePair : parsedArguments.entrySet()) {
+            ArgumentName argumentName = keyValuePair.getKey();
+            String argumentValue = keyValuePair.getValue();
+            medication.setMedicationValue(argumentName, argumentValue);
         }
-    }
 
-    /**
-     * Parses string values to its corresponding value for medication attributes.
-     *
-     * @param medicationQuantity The quantity of the medication.
-     * @param medicationDosageMorning The morning dosage of the medication.
-     * @param medicationDosageAfternoon The afternoon dosage of the medication.
-     * @param medicationDosageEvening The evening dosage of the medication.
-     * @param remarks The additional remarks regarding the medication.
-     * @throws NumberFormatException if there is an error in parsing numeric values.
-     * @throws NullPointerException  if any of the required arguments are null.
-     */
-    void parseStringToValues(String medicationQuantity,
-                             String medicationDosageMorning,
-                             String medicationDosageAfternoon, String medicationDosageEvening,
-                             String remarks)
-            throws NumberFormatException, NullPointerException {
+        LocalDate currentDate = MediTrackerTime.getCurrentDate();
+        int dayAdded = currentDate.getDayOfYear();
+        medication.setMedicationValue(ArgumentName.DAY_ADDED, String.valueOf(dayAdded));
 
-        this.medicationQuantity = Double.parseDouble(medicationQuantity);
-
-        if (medicationDosageMorning != null) {
-            this.medicationDosageMorning = Double.parseDouble(medicationDosageMorning);
-        }
-        if (medicationDosageAfternoon != null) {
-            this.medicationDosageAfternoon = Double.parseDouble(medicationDosageAfternoon);
-        }
-        if (medicationDosageEvening != null) {
-            this.medicationDosageEvening = Double.parseDouble(medicationDosageEvening);
-        }
-        if (remarks != null) {
-            this.remarks = remarks;
-        }
-    }
-
-    /**
-     * Sanitizes the input for medication name by checking if it contains only alphabetic characters and spaces.
-     *
-     * @param medicationName The name of the medication to be sanitized.
-     * @throws MediTrackerException if the medication name contains non-alphabetic characters.
-     */
-    void sanitiseInput(String medicationName) throws MediTrackerException {
-
-        // Check if the medication name contains only alphabetic characters
-        boolean isAlphabetic = medicationName.matches("^[a-zA-Z ]+$");
-
-        // If the name contains non-alphabetic characters, throw an exception
-        if (!isAlphabetic) {
-            throw new MediTrackerException("Please enter a proper medication name.");
-        }
+        return medication;
     }
 
     /**

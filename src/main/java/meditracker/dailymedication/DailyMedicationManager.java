@@ -40,9 +40,7 @@ public class DailyMedicationManager {
      */
     public static void createDailyMedicationManager() {
         for (Medication medication : MedicationManager.getMedications()) {
-            if (doesBelongToDailyList(medication)) {
-                addToSubLists(medication);
-            }
+            checkForDaily(medication);
         }
     }
 
@@ -52,12 +50,8 @@ public class DailyMedicationManager {
      * @param lines lines of String read from each row in the textfile
      */
     public static void importDailyMedicationManager(List<String> lines) {
-        try {
-            for (String line : lines) {
-                parseImportedLine(line);
-            }
-        } catch (Exception e) {
-            System.out.println("Error" + e.getMessage());
+        for (String line : lines) {
+            parseImportedLine(line);
         }
     }
 
@@ -65,34 +59,13 @@ public class DailyMedicationManager {
      * Separates each row by the separator and add into the DailyMedicationManager
      *
      * @param line each line read from the textfile
-     * @return dailyMedication object to add into the DailyMedicationManager
      */
     private static void parseImportedLine(String line) {
-        String[] fields = line.split("\\|");
-        boolean isTaken = Boolean.parseBoolean(fields[1].trim());
-        DailyMedication dailyMedication = new DailyMedication(fields[2].trim());
-        if (isTaken) {
-            dailyMedication.take();
-        } else {
-            dailyMedication.untake();
+        DailyMedication dailyMedication = DailyMedication.fromStringData(line);
+        if (dailyMedication == null) {
+            return;
         }
-        addImportToSubLists(fields[0], dailyMedication);
-    }
-
-    /**
-     * Imports data from the read text file
-     *
-     * @param period time of the day
-     * @param dailyMedication daily medication to be taken for the day to add to respective sub lists
-     */
-    private static void addImportToSubLists(String period, DailyMedication dailyMedication) {
-        if (period.equals("M")) {
-            addDailyMedication(dailyMedication, Period.MORNING);
-        } else if (period.equals("A")) {
-            addDailyMedication(dailyMedication, Period.AFTERNOON);
-        } else {
-            addDailyMedication(dailyMedication, Period.EVENING);
-        }
+        addDailyMedication(dailyMedication);
     }
 
     /**
@@ -109,7 +82,9 @@ public class DailyMedicationManager {
      *
      * @param dailyMedication DailyMedication to be added to the list
      */
-    public static void addDailyMedication(DailyMedication dailyMedication, Period period) {
+    public static void addDailyMedication(DailyMedication dailyMedication) {
+        Period period = dailyMedication.getPeriod();
+
         switch (period) {
         case MORNING:
             morningMedications.add(dailyMedication);
@@ -233,28 +208,57 @@ public class DailyMedicationManager {
     /**
      * Prints all medications to be taken today
      *
-     * @param medications list of medications from MedicationManager
      */
-    public static void printTodayMedications(List<Medication> medications) {
+    public static void printTodayMedications() {
         System.out.println("Here are the Daily Medications you have to take today: ");
-        printTodayMedications(medications, morningMedications, "Morning:");
-        printTodayMedications(medications, afternoonMedications, "Afternoon:");
-        printTodayMedications(medications, eveningMedications, "Evening:");
+        printTodayMedications(Period.MORNING);
+        printTodayMedications(Period.AFTERNOON);
+        printTodayMedications(Period.EVENING);
     }
 
     /**
      * Prints the sub lists according to the period of the day
      *
-     * @param medications list of medications from MedicationManager
-     * @param subList sublist of daily medication
      * @param period time of the day
      */
-    public static void printTodayMedications(List<Medication> medications,
-                                             List<DailyMedication> subList, String period) {
+    public static void printTodayMedications(Period period) {
+        List<DailyMedication> subList = getDailyMedications(period);
+        assert subList != null;
         if (!subList.isEmpty()) {
-            System.out.println(period);
-            Ui.printMedsLists(medications, subList, period);
+            System.out.println(period + ":");
+            Ui.printMedsList(subList);
         }
+    }
+
+    /**
+     * Updates Medication and all instances of DailyMedication name to new name
+     *
+     * @param medication Medication object being updated
+     * @param newName New name to replace with
+     */
+    public static void updateDailyMedicationName(Medication medication, String newName) {
+        if (!DailyMedicationManager.doesBelongToDailyList(medication)) {
+            return;
+        }
+
+        for (Period period : Period.values()) {
+            if (!medication.hasDosage(period)) {
+                continue;
+            }
+
+            DailyMedication dailyMedication;
+            try {
+                String oldName = medication.getName();
+                dailyMedication = DailyMedicationManager.getDailyMedication(oldName, period);
+            } catch (MedicationNotFoundException e) {
+                String message = String.format("Possible data corruption: Medication missing from %s list", period);
+                Ui.showWarningMessage(message);
+                continue;
+            }
+
+            dailyMedication.setName(newName);
+        }
+        FileReaderWriter.saveDailyMedicationData(null);
     }
 
     /**
@@ -280,7 +284,7 @@ public class DailyMedicationManager {
         MedicationManager.decreaseMedicationQuantity(dailyMedication.getName(), period);
 
         dailyMedication.take();
-        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null);
     }
 
     /**
@@ -304,7 +308,7 @@ public class DailyMedicationManager {
         MedicationManager.increaseMedicationQuantity(dailyMedication.getName(), period);
 
         dailyMedication.untake();
-        FileReaderWriter.saveDailyMedicationData(DailyMedicationManager.getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null);
     }
 
     /**
@@ -316,13 +320,13 @@ public class DailyMedicationManager {
     public static List<String> getDailyMedicationStringData() {
         List<String> dailyMedicationStrings = new ArrayList<>();
         for (DailyMedication morningMedication : morningMedications) {
-            dailyMedicationStrings.add("M|" + morningMedication.isTaken() + "|" + morningMedication.getName());
+            dailyMedicationStrings.add(morningMedication.toStringData());
         }
         for (DailyMedication afternoonMedication : afternoonMedications) {
-            dailyMedicationStrings.add("A|" + afternoonMedication.isTaken() + "|" + afternoonMedication.getName());
+            dailyMedicationStrings.add(afternoonMedication.toStringData());
         }
         for (DailyMedication eveningMedication : eveningMedications) {
-            dailyMedicationStrings.add("E|" + eveningMedication.isTaken() + "|" + eveningMedication.getName());
+            dailyMedicationStrings.add(eveningMedication.toStringData());
         }
         return dailyMedicationStrings;
     }
@@ -389,20 +393,28 @@ public class DailyMedicationManager {
      */
     private static void addToSubLists(Medication medication) {
         for (Period period : Period.values()) {
+            if (!medication.hasDosage(period)) {
+                continue;
+            }
+
+            double dosage;
             switch (period) {
-            case MORNING: // fall through
-            case AFTERNOON: // fall through
+            case MORNING:
+                dosage = medication.getDosageMorning();
+                break;
+            case AFTERNOON:
+                dosage = medication.getDosageAfternoon();
+                break;
             case EVENING:
-                if (!medication.hasDosage(period)) {
-                    continue;
-                }
-                DailyMedication dailyMedication = new DailyMedication(medication.getName());
-                addDailyMedication(dailyMedication, period);
+                dosage = medication.getDosageEvening();
                 break;
             default:
-                break;
+                continue;
             }
+
+            DailyMedication dailyMedication = new DailyMedication(medication.getName(), dosage, period);
+            addDailyMedication(dailyMedication);
         }
-        FileReaderWriter.saveDailyMedicationData(getDailyMedicationStringData());
+        FileReaderWriter.saveDailyMedicationData(null);
     }
 }

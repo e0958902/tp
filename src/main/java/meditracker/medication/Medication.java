@@ -1,11 +1,19 @@
 package meditracker.medication;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Objects;
+
+import meditracker.time.MediTrackerTime;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import meditracker.argument.ArgumentName;
+import meditracker.exception.MediTrackerException;
 import meditracker.time.Period;
 
 // @@author nickczh
-
-import java.util.Objects;
-
 /**
  * The Medication class represents a medication.
  * It stores information about the medication such as name, quantity, dosage, expiry date, intake frequency, remarks,
@@ -18,31 +26,20 @@ public class Medication {
     private Double dosageMorning;
     private Double dosageAfternoon;
     private Double dosageEvening;
-    private String expiryDate;
+    private LocalDate expiryDate;
     private String remarks;
     private int repeat;
     private int dayAdded;
 
     /**
-     * Constructs a new Medication object with default placeholder values.
-     * Used by MedicationManager to populate medication data from the save file.
+     * Constructs a new Medication object with null values.
      */
     public Medication() {
-        final double placeholderValue = -1.0;
-
-        setName("");
-        setQuantity(placeholderValue);
-        setDosageMorning(placeholderValue);
-        setDosageAfternoon(placeholderValue);
-        setDosageEvening(placeholderValue);
-        setExpiryDate("");
-        setRemarks("");
-        setRepeat((int) placeholderValue);
-        setDayAdded((int) placeholderValue);
     }
 
     /**
      * Constructs a Medication object with the specified information.
+     *
      * @param name The name of the medication.
      * @param quantity The quantity of the medication.
      * @param dosageMorning The morning dosage of the medication.
@@ -54,7 +51,7 @@ public class Medication {
      */
     public Medication(String name, Double quantity,
                       Double dosageMorning, Double dosageAfternoon, Double dosageEvening,
-                      String expiryDate, String remarks, int repeat, int dayAdded) {
+                      LocalDate expiryDate, String remarks, int repeat, int dayAdded) {
         this.name = name;
         this.quantity = quantity;
         this.dosageMorning = dosageMorning;
@@ -66,11 +63,63 @@ public class Medication {
         this.dayAdded = dayAdded;
     }
 
+    // @@author
+
+    /**
+     * Checks the validity of the Medication object
+     *
+     * @throws MediTrackerException If Medication has uninitialised values or has no dosages
+     */
+    public void checkValidity() throws MediTrackerException {
+        boolean isUninitialised =
+                name == null ||
+                quantity == null ||
+                dosageMorning == null ||
+                dosageAfternoon == null ||
+                dosageEvening == null ||
+                expiryDate == null ||
+                remarks == null ||
+                repeat == 0 ||
+                dayAdded == 0;
+        if (isUninitialised) {
+            throw new MediTrackerException("Medication has uninitialised values. Discarding Medication.");
+        }
+
+        if (hasNoDosages()) {
+            throw new MediTrackerException("Medication has no dosages. " +
+                    "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
+        }
+    }
+
+    // @@author nickczh
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    /**
+     * Sets the name of medication without checks
+     *
+     * @param name Name of the medication
+     */
+    protected void setNameUnchecked(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Sets the name if it contains alphabetic characters and spaces only
+     *
+     * @param name Name of the medication
+     * @throws MediTrackerException If medication name contains non-alphabetic characters
+     */
+    protected void setName(String name) throws MediTrackerException {
+        // Check if the medication name contains only alphabetic characters
+        boolean isAlphabetic = name.matches("^[a-zA-Z ]+$");
+
+        // If the name contains non-alphabetic characters, throw an exception
+        if (!isAlphabetic) {
+            throw new MediTrackerException("Please enter a proper medication name.");
+        }
         this.name = name;
     }
 
@@ -78,7 +127,7 @@ public class Medication {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    protected void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 
@@ -86,7 +135,7 @@ public class Medication {
         return dosageMorning;
     }
 
-    public void setDosageMorning(Double dosageMorning) {
+    protected void setDosageMorning(Double dosageMorning) {
         this.dosageMorning = dosageMorning;
     }
 
@@ -94,7 +143,7 @@ public class Medication {
         return dosageAfternoon;
     }
 
-    public void setDosageAfternoon(Double dosageAfternoon) {
+    protected void setDosageAfternoon(Double dosageAfternoon) {
         this.dosageAfternoon = dosageAfternoon;
     }
 
@@ -102,31 +151,63 @@ public class Medication {
         return dosageEvening;
     }
 
-    public void setDosageEvening(Double dosageEvening) {
+    protected void setDosageEvening(Double dosageEvening) {
         this.dosageEvening = dosageEvening;
     }
 
-    public String getExpiryDate() {
+    // @@author
+
+    public LocalDate getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(String expiryDate) {
+    public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
     }
+
+    // @@author nickczh
 
     public String getRemarks() {
         return remarks;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    /**
+     * Checks and sets the remarks. Defaults to Nil if remarks is null.
+     *
+     * @param remarks Remarks value to checked and set
+     */
+    protected void setRemarks(String remarks) {
+        this.remarks = Objects.requireNonNullElse(remarks, "Nil");
     }
+
+    // @@author
+
+    // @@author T0nyLin
 
     public int getRepeat() {
         return repeat;
     }
 
-    public void setRepeat(int repeat) {
+    /**
+     * Sets the repeat value of Medication object without checks
+     *
+     * @param repeat  Repeat value to be set
+     */
+    protected void setRepeatUnchecked(int repeat) {
+        this.repeat = repeat;
+    }
+
+    /**
+     * Checks if repeat is within range of 1 to 7
+     *
+     * @param repeatStr Repeat value to be parsed, checked and set
+     * @throws MediTrackerException When the value is not within the specified range
+     */
+    protected void setRepeat(String repeatStr) throws MediTrackerException {
+        int repeat = convertStringToInteger(repeatStr);
+        if (repeat < 1 || repeat > 7) {
+            throw new MediTrackerException("Provide a \"-rep\" number from 1 to 7");
+        }
         this.repeat = repeat;
     }
 
@@ -134,9 +215,62 @@ public class Medication {
         return dayAdded;
     }
 
-    public void setDayAdded(int dayAdded) {
+    protected void setDayAdded(int dayAdded) {
         this.dayAdded = dayAdded;
     }
+
+    // @@author
+
+    // @@author annoy-o-mus
+
+    /**
+     * Calls the setter method with the parsed data based on the argumentName specified
+     *
+     * @param argumentName ArgumentName that identifies what type of data it is
+     * @param argumentValue Value of the data to be (converted and) set
+     * @throws MediTrackerException If it fails the checks and/or parsing
+     */
+    public void setMedicationValue(ArgumentName argumentName, String argumentValue) throws MediTrackerException {
+        switch (argumentName) {
+        case NAME:
+            setName(argumentValue);
+            break;
+        case QUANTITY:
+            double quantity = convertStringToDouble(argumentValue);
+            setQuantity(quantity);
+            break;
+        case DOSAGE_MORNING:
+            double dosageMorning = convertStringToDouble(argumentValue);
+            setDosageMorning(dosageMorning);
+            break;
+        case DOSAGE_AFTERNOON:
+            double dosageAfternoon = convertStringToDouble(argumentValue);
+            setDosageAfternoon(dosageAfternoon);
+            break;
+        case DOSAGE_EVENING:
+            double dosageEvening = convertStringToDouble(argumentValue);
+            setDosageEvening(dosageEvening);
+            break;
+        case EXPIRATION_DATE:
+            LocalDate expiryDate = convertStringToLocalDate(argumentValue);
+            setExpiryDate(expiryDate);
+            break;
+        case REMARKS:
+            setRemarks(argumentValue);
+            break;
+        case REPEAT:
+            setRepeat(argumentValue);
+            break;
+        case DAY_ADDED:
+            int dayAdded = convertStringToInteger(argumentValue);
+            setDayAdded(dayAdded);
+            break;
+        default:
+            throw new MediTrackerException("Unexpected value: " + argumentName);
+        }
+    }
+
+    // @@author
 
     @Override
     public String toString() {
@@ -179,15 +313,21 @@ public class Medication {
      *
      * @param medication Medication object values to replace with
      */
-    public void revertMedication(Medication medication) {
-        setName(medication.getName());
+    public void revertMedication(Medication medication) throws MediTrackerException {
+        try {
+            setName(medication.getName());
+            setRepeat(String.valueOf(medication.getRepeat()));
+        } catch (MediTrackerException e) {
+            // critical error as this should not happen
+            throw new MediTrackerException("Critical issue occurred, unable to revert Medication.");
+        }
+
         setQuantity(medication.getQuantity());
         setDosageMorning(medication.getDosageMorning());
         setDosageAfternoon(medication.getDosageAfternoon());
         setDosageEvening(medication.getDosageEvening());
         setExpiryDate(medication.getExpiryDate());
         setRemarks(medication.getRemarks());
-        setRepeat(medication.getRepeat());
         setDayAdded(medication.getDayAdded());
     }
 
@@ -200,14 +340,14 @@ public class Medication {
     public static Medication deepCopy(Medication medication) {
         Medication newMedication = new Medication();
 
-        newMedication.setName(medication.getName());
+        newMedication.setNameUnchecked(medication.getName());
         newMedication.setQuantity(medication.getQuantity());
         newMedication.setDosageMorning(medication.getDosageMorning());
         newMedication.setDosageAfternoon(medication.getDosageAfternoon());
         newMedication.setDosageEvening(medication.getDosageEvening());
         newMedication.setExpiryDate(medication.getExpiryDate());
         newMedication.setRemarks(medication.getRemarks());
-        newMedication.setRepeat(medication.getRepeat());
+        newMedication.setRepeatUnchecked(medication.getRepeat());
         newMedication.setDayAdded(medication.getDayAdded());
 
         return newMedication;
@@ -239,5 +379,84 @@ public class Medication {
                 && Objects.equals(getRepeat(), medication.getRepeat())
                 && Objects.equals(getDayAdded(), medication.getDayAdded());
     }
+
+    /**
+     * Converts a String to a double.
+     *
+     * @param doubleString The String object to be converted to a double type.
+     * @return The value of type double.
+     * @throws MediTrackerException If unable to parse string to double or not storable in JSON.
+     */
+    private static double convertStringToDouble(String doubleString) throws MediTrackerException {
+        double value;
+        try {
+            value = Double.parseDouble(doubleString);
+        } catch (NumberFormatException e) {
+            throw new MediTrackerException("Unable to parse String '" + doubleString + "' into double.");
+        } catch (NullPointerException e) {
+            throw new MediTrackerException("Null Pointer passed for conversion to double.");
+        }
+
+        try {
+            JSONObject.testValidity(value);
+        } catch (JSONException e) {
+            String errorContext = String.format(
+                    "Provided value \"%s\" not supported as it is either too large or NaN.",
+                    doubleString);
+            throw new MediTrackerException(errorContext);
+        }
+
+        return value;
+    }
+
+    /**
+     * Converts a String to an integer.
+     *
+     * @param integerString The String object to be converted to an integer type.
+     * @return The value of type integer.
+     * @throws MediTrackerException If unable to parse string to integer or not storable in JSON.
+     */
+    private static int convertStringToInteger(String integerString) throws MediTrackerException {
+        int value;
+        try {
+            value = Integer.parseInt(integerString);
+        } catch (NumberFormatException e) {
+            throw new MediTrackerException("Unable to parse String '" + integerString + "' into integer.");
+        } catch (NullPointerException e) {
+            throw new MediTrackerException("Null Pointer passed for conversion to integer.");
+        }
+
+        try {
+            JSONObject.testValidity(value);
+        } catch (JSONException e) {
+            String errorContext = String.format(
+                    "Provided value \"%s\" not supported as it is either too large or NaN.",
+                    integerString);
+            throw new MediTrackerException(errorContext);
+        }
+
+        return value;
+    }
+
+    /**
+     * Converts String to LocalDate
+     * Also checks if the user input String is expired or is an invalid date format
+     *
+     * @param expiryDateString The String object to be converted to an LocalDate type in yyyy-MM-dd format
+     * @throws MediTrackerException When the date entered is in wrong format or is already expired
+     */
+    private static LocalDate convertStringToLocalDate(String expiryDateString) throws MediTrackerException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedExpiryDate;
+        LocalDate currentDate = MediTrackerTime.getCurrentDate();
+        try {
+            parsedExpiryDate = LocalDate.parse(expiryDateString, dateTimeFormatter);
+            if (parsedExpiryDate.isBefore(currentDate) || parsedExpiryDate.equals(currentDate)) {
+                throw new MediTrackerException("You are not allowed to enter expired medications!");
+            }
+        } catch (DateTimeParseException e) {
+            throw new MediTrackerException("Please enter a valid expiry date in yyyy-MM-dd!");
+        }
+        return parsedExpiryDate;
+    }
 }
-// @@author

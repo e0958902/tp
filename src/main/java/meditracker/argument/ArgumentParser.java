@@ -1,10 +1,7 @@
 package meditracker.argument;
 
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.UnknownArgumentFoundException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,14 +23,12 @@ class ArgumentParser {
      *
      * @param argumentList List of argument
      * @param rawInput Raw input to be parsed
-     * @throws DuplicateArgumentFoundException Duplicate argument flag found
-     * @throws ArgumentNoValueException When argument requires value but no value specified
-     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
-     * @throws HelpInvokedException When help argument is used or help message needed
+     * @throws HelpInvokedException When help argument is used
+     * @throws ArgumentException Duplicate argument flag found,
+     *              or when argument requires value but no value specified,
+     *              or when unknown argument flags found in user input,
      */
-    public ArgumentParser(ArgumentList argumentList, String rawInput)
-            throws DuplicateArgumentFoundException, ArgumentNoValueException, UnknownArgumentFoundException,
-            HelpInvokedException {
+    ArgumentParser(ArgumentList argumentList, String rawInput) throws HelpInvokedException, ArgumentException {
         this.argumentList = argumentList;
 
         List<String> rawInputSplit = List.of(rawInput.split(" "));
@@ -50,9 +45,9 @@ class ArgumentParser {
     /**
      * Checks for missing required arguments
      *
-     * @throws ArgumentNotFoundException Argument flag specified not found
+     * @throws ArgumentException Argument flag specified not found
      */
-    public void checkForMissingRequiredArguments() throws ArgumentNotFoundException {
+    void checkForMissingRequiredArguments() throws ArgumentException {
         for (Argument argument: argumentList.getArguments()) {
             String flag = argument.getFlag();
             boolean isFoundInParsedArgs = parsedArguments.containsKey(argument.getName());
@@ -62,7 +57,7 @@ class ArgumentParser {
             if (isMissing) {
                 // arg keyword not found in additional input
                 String errorContext = String.format("Missing \"%s\" argument", flag);
-                throw new ArgumentNotFoundException(errorContext);
+                throw new ArgumentException(errorContext);
             }
         }
     }
@@ -73,9 +68,9 @@ class ArgumentParser {
      * Checks if unknown argument flags are found in user input
      *
      * @param rawInputSplit List of raw input split by spaces
-     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
+     * @throws ArgumentException When unknown argument flags found in user input
      */
-    public void checkForUnknownArguments(List<String> rawInputSplit) throws UnknownArgumentFoundException {
+    void checkForUnknownArguments(List<String> rawInputSplit) throws ArgumentException {
         List<String> argumentFlags = argumentList.getArguments().stream()
                 .map(Argument::getFlag)
                 .collect(Collectors.toList());
@@ -92,7 +87,7 @@ class ArgumentParser {
         if (!unknownFlags.isEmpty()) {
             String unknownFlagsString = String.join(" ", unknownFlags);
             String errorContext = String.format("Unknown argument flags found: %s", unknownFlagsString);
-            throw new UnknownArgumentFoundException(errorContext);
+            throw new ArgumentException(errorContext);
         }
     }
     // @@author
@@ -102,22 +97,22 @@ class ArgumentParser {
      *
      * @param argument Argument to verify its value is expected or not
      * @param argValue User-provided input
-     * @throws ArgumentNoValueException When argument requires value but no value specified
-     * @throws UnknownArgumentFoundException When unknown argument value found in user input
+     * @throws ArgumentException When argument requires value but no value specified, or
+     *              when unknown argument value found in user input
      */
     private static void checkArgumentValue(Argument argument, String argValue)
-            throws ArgumentNoValueException, UnknownArgumentFoundException {
+            throws ArgumentException {
         boolean hasValue = argument.hasValue();
         boolean hasArgValue = !argValue.isEmpty();
 
         if (hasValue && !hasArgValue) {
             String errorContext = String.format("No value found for argument \"%s\"", argument.getFlag());
-            throw new ArgumentNoValueException(errorContext);
+            throw new ArgumentException(errorContext);
         } else if (!hasValue && hasArgValue) {
             String errorContext = String.format("Unexpected value found (\"%s\") for argument \"%s\"",
                     argValue,
                     argument.getFlag());
-            throw new UnknownArgumentFoundException(errorContext);
+            throw new ArgumentException(errorContext);
         } // else (!hasValue && !hasArgValue) + (hasValue && hasArgValue)
     }
 
@@ -140,16 +135,16 @@ class ArgumentParser {
      * @param rawInputSplit List of raw input split by spaces
      * @param flag Argument flag to index
      * @return Index of the argument flag
-     * @throws DuplicateArgumentFoundException Duplicate argument flag found
+     * @throws ArgumentException Duplicate argument flag found
      */
     private static int getArgumentIndex(List<String> rawInputSplit, String flag)
-            throws DuplicateArgumentFoundException {
+            throws ArgumentException {
         int firstFlagIndex = rawInputSplit.indexOf(flag);
         int lastFlagIndex = rawInputSplit.lastIndexOf(flag);
 
         if (firstFlagIndex != lastFlagIndex) {
             String errorContext = String.format("Duplicate \"%s\" argument found", flag);
-            throw new DuplicateArgumentFoundException(errorContext);
+            throw new ArgumentException(errorContext);
         }
         return firstFlagIndex;
     }
@@ -161,10 +156,10 @@ class ArgumentParser {
      *
      * @param rawInputSplit List of raw input split by spaces
      * @return A sorted map of arguments and their corresponding indexes
-     * @throws DuplicateArgumentFoundException Duplicate argument flag found
+     * @throws ArgumentException Duplicate argument flag found
      */
     private SortedMap<Integer, Argument> getArgumentIndexes(List<String> rawInputSplit)
-            throws DuplicateArgumentFoundException {
+            throws ArgumentException {
         SortedMap<Integer, Argument> indexes = new TreeMap<>();
         for (Argument argument: argumentList.getArguments()) {
             String flag = argument.getFlag();
@@ -188,11 +183,11 @@ class ArgumentParser {
      *
      * @param indexes A sorted map of arguments and their corresponding indexes
      * @param rawInputSplit List of raw input split by spaces
-     * @throws ArgumentNoValueException When argument requires value but no value specified
-     * @throws UnknownArgumentFoundException When unknown argument value found in user input
+     * @throws ArgumentException When argument requires value but no value specified, or
+     *              when unknown argument value found in user input
      */
     private void getArgumentValues(SortedMap<Integer, Argument> indexes, List<String> rawInputSplit)
-            throws ArgumentNoValueException, UnknownArgumentFoundException {
+            throws ArgumentException {
         Argument argument = indexes.get(indexes.firstKey());
         ArgumentName argKey = argument.getName();
         int startIndex = indexes.firstKey() + 1; // position after argument flag
