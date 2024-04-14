@@ -65,15 +65,6 @@ public class DailyMedicationManager {
         if (dailyMedication == null) {
             return;
         }
-        addImportToSubLists(dailyMedication);
-    }
-
-    /**
-     * Imports data from the read text file
-     *
-     * @param dailyMedication daily medication to be taken for the day to add to respective sub lists
-     */
-    private static void addImportToSubLists(DailyMedication dailyMedication) {
         addDailyMedication(dailyMedication);
     }
 
