@@ -756,8 +756,11 @@ This will trigger the help message to be displayed rather than processing the sa
 
 A prompt will then ask for your confirmation to overwrite existing data as an additional layer of safeguard.
 
-WARNING: Loading will overwrite existing running data, so be sure to save a copy first before deciding to overwrite.
-See the part on [Editing the File](#editing-the-file) for warnings on modifying the saved file.
+<div class="warning-box">
+:warning: <strong>Warning: </strong>
+Loading will overwrite existing running data, so be sure to save a copy first before deciding to overwrite.
+See the part on <a href="#editing-the-file">Editing the File</a> for warnings on modifying the saved file.
+</div>
 
 <br>
 
