@@ -3,12 +3,9 @@ package meditracker.command;
 // @@author nickczh
 
 import meditracker.dailymedication.DailyMedicationManagerTest;
-import meditracker.exception.ArgumentNoValueException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.MediTrackerException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
@@ -37,8 +34,7 @@ class AddCommandTest {
     // unitBeingTested_descriptionOfTestInputs_expectedOutcome
     @Test
     void execute_correctExampleInput_expectOneMedication()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+            throws HelpInvokedException, ArgumentException {
 
         // setup lines
         String inputString = "add -n Medication A -q 5000 -e 2025-07-01 " +
@@ -52,8 +48,7 @@ class AddCommandTest {
 
     @Test
     void execute_invalidCharactersInMedicationName_expectZeroMedication()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+            throws HelpInvokedException, ArgumentException {
         // setup lines
         String inputString = "add -n Medication_A -q 60 -e 2025-07-01 -dM 500.0 -dA 250.0 -dE 100.0"
                 + "-r cause_dizziness -rep 1";
@@ -66,8 +61,7 @@ class AddCommandTest {
 
     @Test
     void execute_emptyMedicationName_expectZeroMedication()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+            throws HelpInvokedException, ArgumentException {
         // setup lines
         String inputString = "add -n \" \" -q 60 -e 2025-07-01 -dM 500.0 -dA 250.0 -dE 100.0"
                 + "-r cause_dizziness -rep 1";
@@ -80,8 +74,7 @@ class AddCommandTest {
 
     @Test
     void createMedication_correctExampleInput_success()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
         // setup lines
         String inputString = "add -n Medication A -q 5000 -e 2025-07-01 -dM 500 -dA 250 -dE 100 " +
                 "-r cause_dizziness -rep 1";
@@ -108,8 +101,7 @@ class AddCommandTest {
 
     @Test
     void createMedication_incorrectQuantityInput_exceptionThrown()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+            throws HelpInvokedException, ArgumentException {
         // setup lines
         String inputString = "add -n Medication A -q %%% -e 2025-07-01 -dM 500 -dA 250 -dE 100 " +
                 "-r cause_dizziness -rep 1";

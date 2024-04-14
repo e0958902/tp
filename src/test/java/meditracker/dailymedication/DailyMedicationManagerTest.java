@@ -1,15 +1,12 @@
 package meditracker.dailymedication;
 
 import meditracker.command.AddCommand;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MediTrackerException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.MedicationUnchangedException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
@@ -52,8 +49,7 @@ public class DailyMedicationManagerTest {
 
     @Test
     public void addDailyMedication_genericDailyMedication_dailyMedicationAdded()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+            throws HelpInvokedException, ArgumentException {
         String inputString = "add -n Medication A -q 60.0 -e 2025-07-01 -dM 500.0 -dA 250.0 "
                 + "-dE 300.0 -r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);

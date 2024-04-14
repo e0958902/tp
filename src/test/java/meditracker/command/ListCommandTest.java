@@ -1,12 +1,9 @@
 package meditracker.command;
 
 import meditracker.dailymedication.DailyMedicationManagerTest;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MediTrackerException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
@@ -59,8 +56,7 @@ class ListCommandTest {
     // Solution below adapted by https://stackoverflow.com/questions/32241057/
     @Test
     void execute_listAllMedications_expectToShowAllMedicationsInMedicationList()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
         String medicationNameOne = "Dexamethasone";
         Double medicationQuantityOne = 20.0;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
