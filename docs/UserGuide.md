@@ -266,13 +266,12 @@ ERROR: You can only have one flag!
 You are only allowed to use one flag and argument.
 </div>
 
-Usage:
-```
-view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] [-r remarks] [-h]
-```
 
-Options:
 ```
+Usage:
+	view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] [-r remarks] 
+[-h]
+Options:
 	-l listIndex          Index of item in list
 	-n name               Name of medication
 	-q quantity           Quantity of medication
@@ -572,13 +571,12 @@ To search for a medication in the library, you can type 'search', followed by th
 You have to include at least one of the following flags: `-n`, `-i`, `-s`, `-a` to specify the field you want to 
 search for.
 
+
+```
 Usage:
-```
-    search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword)
-    [-h]
-```
+	search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword)
+	[-h]
 Options:
-```
     -n name                 Name of medication
     -i illness              Illness that the medication is used for
     -s sideEffects          Side effects of the medication
