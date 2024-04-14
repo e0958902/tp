@@ -866,8 +866,8 @@ making sure it is at the same level as the `.jar` file.
     <td>
       Format: <br>
       <code>
-        add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM DOSAGE_MORNING -dA DOSAGE_AFTERNOON -dE DOSAGE_EVENING
-        -r REMARKS -rep REPEAT
+        add (-n name) (-q quantity) (-e expirationDate) (-dM dosageMorning) (-dA dosageAfternoon) <br> 
+        (-dE dosageEvening) (-rep repeat) [-r remarks] [-h]
       </code> <br><br>
       Example: <br>
       <code>
@@ -882,7 +882,7 @@ making sure it is at the same level as the `.jar` file.
       <code>
       list (-t listType) [-m] [-a] [-e] [-h] 
       </code> <br><br>
-      Example: <br><code>list -t all<br>list -t today</code>
+      Example: <br><code>list -t all<br></code><code>list -t today</code>
     </td>
   </tr>
   <tr>
@@ -890,16 +890,19 @@ making sure it is at the same level as the `.jar` file.
     <td>
       Format: <br>
       <code>view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] [-r remarks] [-h] </code><br><br>
-      Example: <br><code>view -l 1<br>view -n Medication B<br>view -q 1000<br>view -e 2025<br>view -r dizziness</code>
+      Example: <br><code>view -l 1<br></code><code>view -n Medication B<br></code><code>view -q 1000<br></code><code>view -e 2025<br></code><code>view -r dizziness</code>
     </td>
   </tr>
   <tr>
     <td>Update</td>
     <td>
       Format: <br>
-      <code>modify (-l listIndex) [-n name] [-q quantity] [-dM dosageMorning] [-dA dosageAfternoon] [-dE dosageEvening] 
-      [-e expirationDate] [-r remarks] [-rep] [-h]</code><br><br>
-      Example: <br><code>modify -l 1 -n MedB<br>modify -l 1 -q 40 -dA 2</code>
+      <code>
+        modify (-l listIndex) [-n name] [-q quantity] [-e expirationDate] [-dM dosageMorning] <br> 
+        [-dA dosageAfternoon] [-dE dosageEvening] [-rep repeat] [-r remarks] [-h]
+      </code>
+      <br><br>
+      Example: <br><code>modify -l 1 -n MedB<br></code><code>modify -l 1 -q 40 -dA 2</code>
     </td>
   </tr>
   <tr>
@@ -907,7 +910,7 @@ making sure it is at the same level as the `.jar` file.
     <td>
       Format: <br>
       <code>take (-l listIndex) [-m] [-a] [-e] [-h] </code><br><br>
-      Example: <br><code>take -l 1<br>take -l 1 -m</code>
+      Example: <br><code>take -l 1<br></code><code>take -l 1 -m</code>
     </td>
   </tr>
   <tr>
@@ -915,7 +918,7 @@ making sure it is at the same level as the `.jar` file.
     <td>
       Format: <br>
       <code>untake (-l listIndex) [-m] [-a] [-e] [-h] </code><br><br>
-      Example: <br><code>untake -l 1<br>untake -l 1 -m</code>
+      Example: <br><code>untake -l 1<br></code><code>untake -l 1 -m</code>
     </td>
   </tr>
   <tr>
@@ -931,7 +934,7 @@ making sure it is at the same level as the `.jar` file.
     <td>
       Format: <br>
       <code>search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword) [-h] </code><br><br>
-      Example: <br><code>search -n Medication A<br>search -i Headache</code>
+      Example: <br><code>search -n Medication A<br></code><code>search -i Headache</code>
     </td>
   </tr>
   <tr>
@@ -946,7 +949,7 @@ making sure it is at the same level as the `.jar` file.
     <td>
       Format: <br>
       <code>save [-o saveFile] [-h] </code><br><br>
-      Example: <br><code>save<br>save -o data/testfolder/output.json</code>
+      Example: <br><code>save<br></code><code>save -o data/testfolder/output.json</code>
     </td>
   </tr>
   <tr>
