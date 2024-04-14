@@ -34,10 +34,11 @@ back to the Table of Contents.
     - [View Medication by quantity](#view-medication-by-quantity)`view -q`
     - [View Medication by expiry](#view-medication-by-expiry)`view -e`
     - [View Medication by remarks](#view-medication-by-remarks)`view -r`
-  - [Update medication information](#update)
-    - [Record taking of medication](#record-taking-of-medication)`take/untake -l`
-    - [Modify medication information](#modify-medication-information)`modify -l`
-  - [Delete medication information](#delete-a-medication)`delete -l`
+  - [Record taking of medication](#record-taking-of-medication)
+    - [Take Medication](#take-medication-take--l)`take -l`
+    - [Untake Medication](#untake-medication-untake--l)`untake -l`
+  - [Modify medication information](#modify-medication-information-modify--l)`modify -l`
+  - [Delete medication information](#delete-a-medication-delete--l)`delete -l`
   - [Search](#search)
       - [Access Medicine Database ](#access-database)`search`
   - [Help](#help)
@@ -478,11 +479,9 @@ SUCCESS: Medication details has been retrieved
 
 <div style="page-break-after: always;"></div>
 
-## [Update](#table-of-contents)
+## [Record taking of medication](#table-of-contents)
 
-### [Record taking of medication](#table-of-contents)
-
-#### [Take a medication](#table-of-contents)
+### [Take Medication](#table-of-contents) `take -l`
 When you have taken your medication, you can type `take`, followed by the list index `-l listIndex` to mark it as taken.
 You can obtain the list index by entering [`list -t today`](#daily-medications) and refer to the index for the 
 medication you have taken. This command is time aware and will mark the index you specified based on what time of day 
@@ -519,7 +518,7 @@ SUCCESS: Medicine has been taken
 
 <div style="page-break-after: always;"></div>
 
-#### [Untake a medication](#table-of-contents)
+### [Untake Medication](#table-of-contents) `untake -l`
 If you have accidentally entered the wrong command and wish to un-take the medication, you can type `untake`, 
 followed by the list index `-l listIndex`. Similarly, you can obtain the list index by entering 
 [`list -t today`](#daily-medications) and refer to the index for the medication you wish to un-mark. This command is 
@@ -556,7 +555,7 @@ SUCCESS: Medicine has been untaken
 
 <div style="page-break-after: always;"></div>
 
-### [Modify Medication Information](#table-of-contents)
+## [Modify Medication Information](#table-of-contents) `modify -l`
 If you require modification to the medication information, you can type `modify`, followed by the list index
 `-l listIndex`. You can obtain the list index from the Medication List by entering [`list -t all`](#all-medications).
 
@@ -607,7 +606,7 @@ SUCCESS: Medicine has been modified
 
 <div style="page-break-after: always;"></div>
 
-## [Delete a medication](#table-of-contents)
+## [Delete a medication](#table-of-contents) `delete -l`
 
 To delete a medication, you can type `delete`, followed by the list index `-l listIndex`. 
 You can obtain the list index by entering [`list -t all`](#all-medications) to refer to the list of all medications.
