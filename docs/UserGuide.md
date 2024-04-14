@@ -819,7 +819,16 @@ This folder resides at the same level as the `meditracker.jar` file.
 To transfer the data, just copy/shift the `data` folder to the new computer, 
 making sure it is at the same level as the `.jar` file.
 
+<br>
+
+<div style="page-break-after: always;"></div>
+
 ## Glossary
+
+
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ## Command Summary
 
