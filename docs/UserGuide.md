@@ -136,21 +136,22 @@ characters), or the flag coupled with a value
 
 Adds a medication to the medication manager.
 
-Format: `add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM DOSAGE_MORNING -dA DOSAGE_AFTERNOON 
+```
+Usage:
+	`add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM DOSAGE_MORNING -dA DOSAGE_AFTERNOON 
 -dE DOSAGE_EVENING -r REMARKS -rep REPEAT`
 
-```
 Options:
--n name                 Name of medication
--q quantity             Quantity of medication
--e expirationDate       Expiration date of medication
--dM dosageMorning       Morning dosage of medication
--dA dosageAfternoon     Afternoon dosage of medication
--dE dosageEvening       Evening dosage of medication
--rep                    How often to take medication
-                          (eg: Supply a number from 1 to 7)
--r remarks              Additional remarks on medication
--h                      Prints this help message
+	-n name                 Name of medication
+	-q quantity             Quantity of medication
+	-e expirationDate       Expiration date of medication
+	-dM dosageMorning       Morning dosage of medication
+	-dA dosageAfternoon     Afternoon dosage of medication
+	-dE dosageEvening       Evening dosage of medication
+	-rep                    How often to take medication
+                              (eg: Supply a number from 1 to 7)
+	-r remarks              Additional remarks on medication
+	-h                      Prints this help message
 ```
 
 <div class="tip-box">
@@ -216,12 +217,14 @@ Your list of medications has been successfully shown!
 ### Daily medications:
 Displays an overview of the list of medications that you will be taking for the day.
 
+<div class="note-box">
 Example: `meditracker> list -t today`
 * If you want to specify a particular period of the day, simply enter `list -t today` followed by:
   * `-m`: Morning (Midnight to 12 Noon)
   * `-a`: Afternoon (12pm to 6pm)
   * `-e`: Evening (6pm to Midnight)
   * Example: `meditracker> list -t today -m` will display the list of medications to be taken in the morning only
+</div>
 
 Output:
 ```
@@ -269,8 +272,8 @@ You are only allowed to use one flag and argument.
 
 ```
 Usage:
-	view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] [-r remarks] 
-[-h]
+	view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] 
+	[-r remarks] [-h]
 Options:
 	-l listIndex          Index of item in list
 	-n name               Name of medication
