@@ -105,16 +105,31 @@ Extremely important text.
      - Press the `Windows Key` on your keyboard and enter `Command Prompt` or `cmd` and press enter.
      - When the program opens, enter `java -version`.
    - If you are using macOS/Linux:
-     - Open the `Terminal`, then enter `java -version`.
+     - Open the `Terminal`, then enter `java -version`. 
    - If Java 11 is installed, you should get an output similar to below:
-     -
+     - {insert screenshot}
    - If you see otherwise, please follow the instructions from [here](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A).
 2. Once that is settled, head over to the [link](https://github.com/AY2324S2-CS2113T-T09-1/tp/releases/latest) to obtain the latest version of `MediTracker`.
 3. Save the file in an empty folder in `Desktop`, then this will be your home folder for `MediTracker`.
-4. Double-click on meditracker.jar to start the app.
-   - Alternatively, you may also use the Command Prompt/Terminal. 
-   - Navigate to the home folder where you have saved the program in, and enter `java -jar meditracker.jar` to 
-   start the app.
+4. Open up a Command Prompt/Terminal. 
+   - You can use `cd` to navigate to the folder where you have saved the program in
+   - and enter `java -jar meditracker.jar` to start the app. If MediTracker has run succesfuly, you should see the following:
+```text
+                    __      ______                      __                      
+ /'\_/`\           /\ \  __/\__  _\                    /\ \                     
+/\      \     __   \_\ \/\_\/_/\ \/ _ __    __      ___\ \ \/'\      __   _ __  
+\ \ \__\ \  /'__`\ /'_` \/\ \ \ \ \/\`'__\/'__`\   /'___\ \ , <    /'__`\/\`'__\
+ \ \ \_/\ \/\  __//\ \L\ \ \ \ \ \ \ \ \//\ \L\.\_/\ \__/\ \ \\`\ /\  __/\ \ \/
+  \ \_\\ \_\ \____\ \___,_\ \_\ \ \_\ \_\\ \__/.\_\ \____\\ \_\ \_\ \____\\ \_\ 
+   \/_/ \/_/\/____/\/__,_ /\/_/  \/_/\/_/ \/__/\/_/\/____/ \/_/\/_/\/____/ \/_/ 
+                                                                                
+                                                                                
+Welcome to MediTracker, your best companion to track your medicine intake.
+Let's begin tracking!
+
+____________________________________________________________
+meditracker>
+```
 
 
 ## Features 
