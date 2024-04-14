@@ -159,7 +159,7 @@ Options:
 	-dA dosageAfternoon     Afternoon dosage of medication
 	-dE dosageEvening       Evening dosage of medication
 	-rep repeat             How often to take medication
-                              (eg: Supply a number from 1 to 7)
+	                            (eg: Supply a number from 1 to 7)
 	-r remarks              Additional remarks on medication
 	-h                      Prints this help message
 ```
@@ -167,7 +167,7 @@ Options:
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
   <ul>
-    <li>The dosage and remarks tags are optional.</li>
+    <li>The remarks tag is optional.</li>
     <li>The expiration date must be in yyyy-MM-dd format.</li>
   </ul>
 </div>
