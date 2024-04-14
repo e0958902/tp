@@ -16,6 +16,7 @@
 - Issue #184: [PE-D][Tester F] using an example from the user guide is causing an error
 - Issue #191: [PE-D][Tester F] empty imput is allowed when adding
 - Issue #231: NoSuchElementException when program is terminated with Ctrl-C
+- Issue #235: UG Command Summary, Table of Contents linking and back
 
 ### Developer Guide Contributions
 - Add command specifications
