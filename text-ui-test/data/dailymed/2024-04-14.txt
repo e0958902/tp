@@ -1,0 +1,9 @@
+M|true|Medication A
+M|false|Dexamethasone
+M|false|Dextromethorphan
+A|false|Medication A
+A|false|Dexamethasone
+A|false|Dextromethorphan
+E|false|Medication A
+E|false|Dexamethasone
+E|false|Dextromethorphan

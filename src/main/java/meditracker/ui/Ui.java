@@ -81,7 +81,6 @@ public class Ui {
      * Displays the exit message.
      */
     public static void showExitMessage() {
-        System.out.println();
         System.out.println("Thank you for using MediTracker. Hope to see you again!");
     }
 
