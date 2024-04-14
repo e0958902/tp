@@ -119,7 +119,6 @@ public class Ui {
      * If there is no more input (end of stream), the method will display an exit message and terminate the program.
      *
      * @return The input entered by the user. If the program terminates due to no more input, null is returned.
-     * @throws NoSuchElementException if the input stream is closed and no more tokens are available for retrieval.
      */
     public static String readCommand() {
         System.out.print("meditracker> ");
