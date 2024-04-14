@@ -122,11 +122,11 @@ public class ModifyCommand extends Command {
         for (Map.Entry<ArgumentName, String> argument: parsedArguments.entrySet()) {
             ArgumentName argumentName = argument.getKey();
             String argumentValue = argument.getValue();
-            medication.setMedicationValue(argumentName, argumentValue);
 
             if (argumentName == ArgumentName.NAME) {
                 DailyMedicationManager.updateDailyMedicationName(medication, argumentValue);
             }
+            medication.setMedicationValue(argumentName, argumentValue);
         }
         medication.checkValidity();
         checkDosageOrRepeatModified(medication);
