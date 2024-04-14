@@ -61,6 +61,9 @@ public class AddCommand extends Command {
      */
     public AddCommand(String arguments) throws HelpInvokedException, ArgumentException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
+        if (!parsedArguments.containsKey(ArgumentName.REMARKS)) {
+            parsedArguments.put(ArgumentName.REMARKS, null);
+        }
     }
 
     /**
