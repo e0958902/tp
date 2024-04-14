@@ -641,8 +641,7 @@ search for.
 
 ```
 Usage:
-	search ([-n name] [-i illness] [-s sideEffects] [-a allFields] 
-	keyword) [-h]
+	search [-n name] [-i illness] [-s sideEffects] [-a allFields] [-h]
 Options:
 	-n name                 Name of medication
 	-i illness              Illness that the medication is used for
@@ -933,7 +932,7 @@ making sure it is at the same level as the `.jar` file.
     <td>Search</td>
     <td>
       Format: <br>
-      <code>search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword) [-h] </code><br><br>
+      <code>search [-n name] [-i illness] [-s sideEffects] [-a allFields] [-h] </code><br><br>
       Example: <br><code>search -n Medication A<br></code><code>search -i Headache</code>
     </td>
   </tr>
