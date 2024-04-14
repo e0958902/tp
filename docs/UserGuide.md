@@ -166,10 +166,11 @@ Adds a medication to the medication manager.
 
 ```
 Usage:
-	add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM 
-	DOSAGE_MORNING -dA DOSAGE_AFTERNOON -dE DOSAGE_EVENING -r 
-	REMARKS -rep REPEAT
-
+	add (-n name) (-q quantity) (-e expirationDate)
+	(-dM dosageMorning) (-dA dosageAfternoon) (-dE dosageEvening) 
+	[-rep repeat] [-r REMARKS] 
+	
+	
 Options:
 	-n name                 Name of medication
 	-q quantity             Quantity of medication
@@ -177,7 +178,7 @@ Options:
 	-dM dosageMorning       Morning dosage of medication
 	-dA dosageAfternoon     Afternoon dosage of medication
 	-dE dosageEvening       Evening dosage of medication
-	-rep                    How often to take medication
+	-rep repeat             How often to take medication
                               (eg: Supply a number from 1 to 7)
 	-r remarks              Additional remarks on medication
 	-h                      Prints this help message
@@ -198,7 +199,7 @@ Remarks will default to Nil if it is not specified.
 
 Examples:
 
-* `meditracker> add -n Medication A -q 5000 -e 2025-07-01 -dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1`
+* `meditracker> add -n Medication A -q 5000 -e 2025-07-01 -dM 500 -dA 250 -dE 100 -rep 1 -r cause_dizziness`
 * `meditracker> add -n Medication B -q 1000 -e 2024-09-30 -dM 500 -dA 250 -dE 50 -rep 6`
 
 Output:
