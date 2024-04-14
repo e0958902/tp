@@ -563,11 +563,15 @@ If you require modification to the medication information, you can type `modify`
 `-l listIndex`. You can obtain the list index from the Medication List by entering [`list -t all`](#all-medications).
 
 
-<div class="note-box">
-:notebook: <strong>Note: </strong>
-This command allows multiple flags to be specified in one line.
-(For each of the fields that you would like to modify, you can specify the corresponding flag and the new value to make
-changes.)
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+  <ul>
+    <li>This command allows multiple flags to be specified in one line.
+        (For each of the fields that you would like to modify, you can specify the corresponding flag and 
+        the new value to make changes.)</li>
+    <li>You should only specify numerical values for quantity and dosages. Specifying them with units, 
+        such as mg/ml, will not be accepted as valid input.</li>
+  </ul>
 </div>
 
 <div class="warning-box">
@@ -575,12 +579,6 @@ changes.)
 New dosage and/or repeat frequency will be applied tomorrow/next time you require 
 to take the medication (whichever occurs later). No changes will be made to today's list of 
 medication to take.
-</div>
-
-<div class="tip-box">
-:bulb: <strong>Tip: </strong>
-You should only specify numerical values for quantity and dosages. Specifying them with units, 
-such as mg/ml, will not be accepted as valid input.
 </div>
 
 ```
