@@ -45,7 +45,7 @@ back to the Table of Contents.
     - [Saving to a file](#saving-to-a-file-save)`save`
     - [Reading from a file](#reading-from-a-file-load)`load`
     - [Editing the file](#editing-the-file)
-    - [Setting an arbitrary time](#Setting-an-arbitrary-time)
+    - [Setting an arbitrary time](#setting-an-arbitrary-time)
   - [Exit](#exit-exit)
 - [FAQ](#faq)
 - [Glossary](#glossary)
@@ -795,7 +795,9 @@ not display anything at all.
 
 <div style="page-break-after: always;"></div>
 
+
 ### [Setting an arbitrary time](#table-of-contents)
+
 This feature is intended for developers to test out the features. See the developer guide (To be updated) for more detailed explanation on its implementation.
 To make use of this feature, simply add the following flag and argument **when running the program** (not during the program execution itself)
 
