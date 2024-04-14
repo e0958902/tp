@@ -618,6 +618,11 @@ SUCCESS: Medicine has been modified
 To delete a medication, you can type `delete`, followed by the list index `-l listIndex`. 
 You can obtain the list index by entering [`list -t all`](#all-medications) to refer to the list of all medications.
 
+<div class="danger-box">
+:bangbang: <strong>Danger: </strong>
+This operation is irreversible. Once a medication is deleted, it cannot be restored back. Proceed with caution.
+</div>
+
 ```
 Usage:
 	delete (-l listIndex) [-h]
