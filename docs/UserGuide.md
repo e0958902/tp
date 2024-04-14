@@ -98,14 +98,14 @@ or above installed.
    - If you using Windows:
      - Press the `Windows Key` on your keyboard and enter `Command Prompt` or `cmd` and press enter.
      - When the program opens, enter `java -version`.
-   - If you are using MacOS/Linux:
+   - If you are using macOS/Linux:
      - Open the `Terminal`, then enter `java -version`.
    - If Java 11 is installed, you should get an output similar to below:</br></br>
      ![img.png](images/Java11.png)</br></br>
    - If you see otherwise, please follow the instructions from [here](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A).
-3. Once that is settled, head over to the [link](https://github.com/AY2324S2-CS2113T-T09-1/tp/releases/latest) to obtain the latest version of `MediTracker`.
-4. Save the file in an empty folder in `Desktop`, then this will be your home folder for `MediTracker`.
-5. Double-click on meditracker.jar to start the app.
+2. Once that is settled, head over to the [link](https://github.com/AY2324S2-CS2113T-T09-1/tp/releases/latest) to obtain the latest version of `MediTracker`.
+3. Save the file in an empty folder in `Desktop`, then this will be your home folder for `MediTracker`.
+4. Double-click on meditracker.jar to start the app.
    - Alternatively, you may also use the Command Prompt/Terminal. 
    - Navigate to the home folder where you have saved the program in, and enter `java -jar meditracker.jar` to 
    start the app.
@@ -122,15 +122,23 @@ optional arguments)
 - Each option are specified with either just its flag (which is of the form `-*` where `*` signifies some alphabetic 
 characters), or the flag coupled with a value
 
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+If you forget how to use each command, simply entering just the command word will display the help message with all its 
+usage and option(s).
+</div>
+
 ## [Adding a medication](#table-of-contents) `add`
 
 Adds a medication to the medication manager.
 
-Format: `add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM DOSAGE_MORNING -dA DOSAGE_AFTERNOON 
+Usage: 
+
+`add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM DOSAGE_MORNING -dA DOSAGE_AFTERNOON 
 -dE DOSAGE_EVENING -r REMARKS -rep REPEAT`
 
-```
 Options:
+```
 -n name                 Name of medication
 -q quantity             Quantity of medication
 -e expirationDate       Expiration date of medication

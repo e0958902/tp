@@ -3,7 +3,6 @@ package meditracker.dailymedication;
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.MedicationUnchangedException;
-import meditracker.logging.MediLogger;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.storage.FileReaderWriter;
@@ -14,7 +13,6 @@ import meditracker.ui.Ui;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Manages a list of DailyMedication and CRUD-operations (Create, Read, Update, Delete)
@@ -26,7 +24,6 @@ public class DailyMedicationManager {
     private static final List<DailyMedication> afternoonMedications = new ArrayList<>();
     private static final List<DailyMedication> eveningMedications = new ArrayList<>();
     private static final LocalDate currentDate = MediTrackerTime.getCurrentDate();
-    private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
      * Prevents defaulting to the public constructor
@@ -43,9 +40,7 @@ public class DailyMedicationManager {
      */
     public static void createDailyMedicationManager() {
         for (Medication medication : MedicationManager.getMedications()) {
-            if (doesBelongToDailyList(medication)) {
-                addToSubLists(medication);
-            }
+            checkForDaily(medication);
         }
     }
 
@@ -56,12 +51,7 @@ public class DailyMedicationManager {
      */
     public static void importDailyMedicationManager(List<String> lines) {
         for (String line : lines) {
-            try {
-                parseImportedLine(line);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                MEDILOGGER.warning("Unable to import data from text file. " +
-                        "Potentially due to corruption of data. --> (Skipping over this medication)");
-            }
+            parseImportedLine(line);
         }
     }
 
@@ -71,34 +61,11 @@ public class DailyMedicationManager {
      * @param line each line read from the textfile
      */
     private static void parseImportedLine(String line) {
-        String[] fields = line.split("\\|");
-        boolean isTaken = Boolean.parseBoolean(fields[1].toLowerCase().trim());
-        DailyMedication dailyMedication = new DailyMedication(fields[2].trim());
-        if (isTaken) {
-            dailyMedication.take();
-        } else {
-            dailyMedication.untake();
+        DailyMedication dailyMedication = DailyMedication.fromStringData(line);
+        if (dailyMedication == null) {
+            return;
         }
-        addImportToSubLists(fields[0].toUpperCase().trim(), dailyMedication);
-    }
-
-    /**
-     * Imports data from the read text file
-     *
-     * @param period time of the day
-     * @param dailyMedication daily medication to be taken for the day to add to respective sub lists
-     */
-    private static void addImportToSubLists(String period, DailyMedication dailyMedication) {
-        if (period.equals("M")) {
-            addDailyMedication(dailyMedication, Period.MORNING);
-        } else if (period.equals("A")) {
-            addDailyMedication(dailyMedication, Period.AFTERNOON);
-        } else if (period.equals("E")) {
-            addDailyMedication(dailyMedication, Period.EVENING);
-        } else {
-            MEDILOGGER.warning("Assigned medication period not recognised. \"" +
-                    dailyMedication.getName() + "\" not imported into today's list.");
-        }
+        addDailyMedication(dailyMedication);
     }
 
     /**
@@ -115,7 +82,9 @@ public class DailyMedicationManager {
      *
      * @param dailyMedication DailyMedication to be added to the list
      */
-    public static void addDailyMedication(DailyMedication dailyMedication, Period period) {
+    public static void addDailyMedication(DailyMedication dailyMedication) {
+        Period period = dailyMedication.getPeriod();
+
         switch (period) {
         case MORNING:
             morningMedications.add(dailyMedication);
@@ -239,27 +208,25 @@ public class DailyMedicationManager {
     /**
      * Prints all medications to be taken today
      *
-     * @param medications list of medications from MedicationManager
      */
-    public static void printTodayMedications(List<Medication> medications) {
+    public static void printTodayMedications() {
         System.out.println("Here are the Daily Medications you have to take today: ");
-        printTodayMedications(medications, morningMedications, "Morning:");
-        printTodayMedications(medications, afternoonMedications, "Afternoon:");
-        printTodayMedications(medications, eveningMedications, "Evening:");
+        printTodayMedications(Period.MORNING);
+        printTodayMedications(Period.AFTERNOON);
+        printTodayMedications(Period.EVENING);
     }
 
     /**
      * Prints the sub lists according to the period of the day
      *
-     * @param medications list of medications from MedicationManager
-     * @param subList sublist of daily medication
      * @param period time of the day
      */
-    public static void printTodayMedications(List<Medication> medications,
-                                             List<DailyMedication> subList, String period) {
+    public static void printTodayMedications(Period period) {
+        List<DailyMedication> subList = getDailyMedications(period);
+        assert subList != null;
         if (!subList.isEmpty()) {
-            System.out.println(period);
-            Ui.printMedsLists(medications, subList, period);
+            System.out.println(period + ":");
+            Ui.printMedsList(subList);
         }
     }
 
@@ -353,13 +320,13 @@ public class DailyMedicationManager {
     public static List<String> getDailyMedicationStringData() {
         List<String> dailyMedicationStrings = new ArrayList<>();
         for (DailyMedication morningMedication : morningMedications) {
-            dailyMedicationStrings.add("M|" + morningMedication.isTaken() + "|" + morningMedication.getName());
+            dailyMedicationStrings.add(morningMedication.toStringData());
         }
         for (DailyMedication afternoonMedication : afternoonMedications) {
-            dailyMedicationStrings.add("A|" + afternoonMedication.isTaken() + "|" + afternoonMedication.getName());
+            dailyMedicationStrings.add(afternoonMedication.toStringData());
         }
         for (DailyMedication eveningMedication : eveningMedications) {
-            dailyMedicationStrings.add("E|" + eveningMedication.isTaken() + "|" + eveningMedication.getName());
+            dailyMedicationStrings.add(eveningMedication.toStringData());
         }
         return dailyMedicationStrings;
     }
@@ -426,19 +393,27 @@ public class DailyMedicationManager {
      */
     private static void addToSubLists(Medication medication) {
         for (Period period : Period.values()) {
+            if (!medication.hasDosage(period)) {
+                continue;
+            }
+
+            double dosage;
             switch (period) {
-            case MORNING: // fall through
-            case AFTERNOON: // fall through
+            case MORNING:
+                dosage = medication.getDosageMorning();
+                break;
+            case AFTERNOON:
+                dosage = medication.getDosageAfternoon();
+                break;
             case EVENING:
-                if (!medication.hasDosage(period)) {
-                    continue;
-                }
-                DailyMedication dailyMedication = new DailyMedication(medication.getName());
-                addDailyMedication(dailyMedication, period);
+                dosage = medication.getDosageEvening();
                 break;
             default:
-                break;
+                continue;
             }
+
+            DailyMedication dailyMedication = new DailyMedication(medication.getName(), dosage, period);
+            addDailyMedication(dailyMedication);
         }
         FileReaderWriter.saveDailyMedicationData(null);
     }

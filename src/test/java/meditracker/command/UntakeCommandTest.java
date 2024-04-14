@@ -3,11 +3,8 @@ package meditracker.command;
 import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.dailymedication.DailyMedicationManagerTest;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.MedicationManagerTest;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
@@ -32,11 +29,9 @@ public class UntakeCommandTest {
     }
 
     @Test
-    void execute_inOrderArgument_expectDailyMedicationUntaken()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
-        DailyMedication dailyMedication = new DailyMedication("Medication_A");
-        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);    //only doing for MORNING sub list
+    void execute_inOrderArgument_expectDailyMedicationUntaken() throws HelpInvokedException, ArgumentException {
+        DailyMedication dailyMedication = new DailyMedication("Medication_A", 10, Period.MORNING);
+        DailyMedicationManager.addDailyMedication(dailyMedication);    //only doing for MORNING sub list
 
         String inputString = "untake -l 1 -m";
         UntakeCommand command = new UntakeCommand(inputString);
@@ -46,9 +41,7 @@ public class UntakeCommandTest {
     }
 
     @Test
-    void execute_erroneousListIndex_errorMessagePrinted()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+    void execute_erroneousListIndex_errorMessagePrinted() throws HelpInvokedException, ArgumentException {
         //Solution below adapted by https://stackoverflow.com/questions/58665761
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;

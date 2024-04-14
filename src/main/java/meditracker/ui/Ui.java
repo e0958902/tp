@@ -2,13 +2,13 @@ package meditracker.ui;
 
 import meditracker.argument.ArgumentHelper;
 import meditracker.command.CommandName;
-import meditracker.dailymedication.DailyMedication;
 import meditracker.library.SearchResult;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 /**
  * The Ui class handles user interface-related operations.
@@ -113,12 +113,21 @@ public class Ui {
     }
 
     /**
-     * Reads user input command.
-     * @return The user input command as a String.
+     * Reads a command from the user input, prompting with "meditracker> ".
+     * This method continuously waits and reads user input until a command is entered.
+     * If there is no more input (end of stream), the method will display an exit message and terminate the program.
+     *
+     * @return The input entered by the user. If the program terminates due to no more input, null is returned.
      */
     public static String readCommand() {
         System.out.print("meditracker> ");
-        return input.nextLine();
+        try {
+            return input.nextLine();
+        } catch (NoSuchElementException e) {
+            Ui.showExitMessage();
+            System.exit(0);
+            return null;
+        }
     }
 
     /**
@@ -187,65 +196,6 @@ public class Ui {
                 medication.getRepeat(),
                 medication.getDayAdded());
         System.out.println();
-    }
-
-    /**
-     * Prints the sub lists of dailyMedications based on the period
-     *
-     * @param medsList list of medications from MedicationManager
-     * @param dailyMedications subList of dailyMedication
-     * @param period Specified period of the day
-     */
-    public static void printMedsLists(List<Medication> medsList,
-                                      List<DailyMedication> dailyMedications, String period) {
-        int numbering = 0;
-        assert medsList != null;
-        assert dailyMedications != null;
-        for (DailyMedication med: dailyMedications) {
-            String name = med.getName();
-            Double intakeDose = 0.0;
-            int index = getIndex(medsList, name);
-            Medication medication;
-            try {
-                medication = medsList.get(index);
-            } catch (IndexOutOfBoundsException e) {
-                return;
-            }
-            switch (period) {
-            case "Morning:":
-                intakeDose = medication.getDosageMorning();
-                break;
-            case "Afternoon:":
-                intakeDose = medication.getDosageAfternoon();
-                break;
-            case "Evening:":
-                intakeDose = medication.getDosageEvening();
-                break;
-            default:
-                showErrorMessage("Medication not found.");
-            }
-            numbering++;
-            System.out.println("\t" + numbering + ". " + med + " | " + intakeDose);
-        }
-        
-    }
-
-    /**
-     * Gets index of the dailyMedication in the Main Medication list
-     *
-     * @param medsList list of medications from MedicationManager
-     * @param name name of DailyMedication
-     * @return index of the medication in main medication
-     */
-    private static int getIndex(List<Medication> medsList, String name) {
-        int index = 0;
-        for (Medication medication: medsList) {
-            if (medication.getName().equals(name)) {
-                return index;
-            }
-            index++;
-        }
-        return -1;
     }
 
     /**

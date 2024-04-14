@@ -1,11 +1,8 @@
 package meditracker.command;
 
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.CommandNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.UnknownArgumentFoundException;
 
 // @@author nickczh
 /**
@@ -38,16 +35,15 @@ public class CommandParser {
      * Gets the Command object based on the CommandName enum type
      *
      * @return A Command object corresponding to the parsed command.
-     * @throws ArgumentNotFoundException When argument required not found
-     * @throws ArgumentNoValueException When argument requires value but no value specified
-     * @throws DuplicateArgumentFoundException When duplicate argument found
      * @throws HelpInvokedException When help argument is used or help message needed
+     * @throws ArgumentException Argument flag specified not found,
+     *              or when argument requires value but no value specified,
+     *              or when unknown argument flags found in user input,
+     *              or when duplicate argument flag found
      * @throws CommandNotFoundException Command specified not found
-     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
      */
     public Command getCommand()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, CommandNotFoundException, UnknownArgumentFoundException {
+            throws HelpInvokedException, ArgumentException, CommandNotFoundException {
         switch (commandName) {
         case EXIT:
             return new ExitCommand();

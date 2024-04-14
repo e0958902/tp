@@ -34,6 +34,7 @@ public abstract class Command {
         try {
             return Integer.parseInt(listIndexString);
         } catch (NumberFormatException e) {
+            // list index is 1-base indexing. 0 will result in index out of bounds.
             return 0;
         }
     }
