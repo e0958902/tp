@@ -22,8 +22,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -59,23 +57,12 @@ public class DailyMedicationManagerTest {
         AddCommand command = new AddCommand(inputString);
         command.execute();
 
-        List<DailyMedication> morningMedications = new ArrayList<>();
-        List<DailyMedication> afternoonMedications = new ArrayList<>();
-        List<DailyMedication> eveningMedications = new ArrayList<>();
-
         DailyMedication morningMeds = new DailyMedication("Medication A", 500, Period.MORNING);
-        morningMedications.add(morningMeds);
 
         DailyMedication afternoonMeds = new DailyMedication("Medication A", 250, Period.AFTERNOON);
-        afternoonMedications.add(afternoonMeds);
 
         DailyMedication eveningMeds = new DailyMedication("Medication A", 300, Period.EVENING);
-        eveningMedications.add(eveningMeds);
 
-
-        DailyMedicationManager.printTodayMedications(Period.MORNING);
-        DailyMedicationManager.printTodayMedications(Period.AFTERNOON);
-        DailyMedicationManager.printTodayMedications(Period.EVENING);
 
         int actualIndex = 1; // 1-based indexing
         DailyMedication morningMedicationTest = DailyMedicationManager.getDailyMedication(actualIndex, Period.MORNING);
