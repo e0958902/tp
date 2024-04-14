@@ -157,6 +157,7 @@ Adds a medication to the medication manager.
 Usage:
 	add (-n name) (-q quantity) (-e expirationDate) (-dM dosageMorning)
 	(-dA dosageAfternoon) (-dE dosageEvening) (-rep repeat) [-r remarks]
+	[-h]
 Options:
 	-n name                 Name of medication
 	-q quantity             Quantity of medication
