@@ -25,9 +25,7 @@ data storage so that you can review your past medication intake.
 <div style="page-break-after: always;"></div>
 
 ## Table of Contents
-Here are the comprehensive sections which MediTracker has to offer. 
-Simply click on any items below to navigate to that page immediately. You may also click on the items' heading to move
-back to the Table of Contents.
+Here are the comprehensive sections which MediTracker has to offer:
 * [How to use the User Guide](#how-to-use-the-user-guide)
 * [Quick Start](#quick-start)
 * [Features](#features)
@@ -62,7 +60,7 @@ back to the Table of Contents.
 
 <div style="page-break-after: always;"></div>
 
-## [How to Use the User Guide](#table-of-contents)
+## How to Use the User Guide
 <!-- @@author annoy-o-mus-reused
 reused from: https://ay2223s1-cs2103t-w16-2.github.io/tp/UserGuide.html#admonition-boxes
 with minor modifications
@@ -109,7 +107,7 @@ Extremely important text.
 
 <div style="page-break-after: always;"></div>
 
-## [Quick Start](#table-of-contents)
+## Quick Start
 1. Ensure that you have [Java 11](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html) 
 or above installed. 
    - If you using Windows:
@@ -134,7 +132,7 @@ or above installed.
 
 <div style="page-break-after: always;"></div>
 
-## [Features](#table-of-contents)
+## Features
 
 #### NOTES about the command format:
 
@@ -156,7 +154,7 @@ usage and option(s).
 
 <div style="page-break-after: always;"></div>
 
-## [Adding a medication](#table-of-contents) `add`
+## Adding a medication `add`
 
 Adds a medication to the medication manager.
 
@@ -207,7 +205,7 @@ SUCCESS: Medicine has been added
 
 <div style="page-break-after: always;"></div>
 
-## [Listing medications](#table-of-contents) `list`
+## Listing medications `list`
 
 You can show the medications that you have added to the medication list, 
 and show the medications that you will be taking for the day.
@@ -224,7 +222,7 @@ Options:
 ```
 <br>
 
-### [All medications](#table-of-contents)
+### All medications
 Displays the whole lists of medications that you have added to the medication list.
 
 Example: `meditracker> list -t all`
@@ -242,7 +240,7 @@ Your list of medications has been successfully shown!
 
 <div style="page-break-after: always;"></div>
 
-### [Daily medications](#table-of-contents)
+### Daily medications
 Displays an overview of the list of medications that you will be taking for the day.
 
 Example: `meditracker> list -t today`
@@ -288,7 +286,7 @@ Command</code></a> here.
 
 <div style="page-break-after: always;"></div>
 
-## [Viewing medications](#table-of-contents) `view`
+## Viewing medications `view`
 You can view detailed information about the medications you have added in the medication list.
 
 ```
@@ -328,7 +326,7 @@ ERROR: You can only have one flag!
 
 <div style="page-break-after: always;"></div>
 
-### [View Medication by index](#table-of-contents)
+### View Medication by index
 By using the index shown in the medication list [`list -t all`](#all-medications), 
 you can see all the fields of that medication index.
 
@@ -359,7 +357,7 @@ SUCCESS: Medication details has been retrieved
 
 <div style="page-break-after: always;"></div>
 
-### [View Medication by name](#table-of-contents)
+### View Medication by name
 You can view all medication information by its name.
 
 Format: `view -n MEDICATION_NAME`
@@ -389,7 +387,7 @@ SUCCESS: Medication details has been retrieved
 
 <div style="page-break-after: always;"></div>
 
-### [View Medication by quantity](#table-of-contents)
+### View Medication by quantity
 You can view all medication information by its quantity.
 
 Format: `view -q MEDICATION_QUANTITY`
@@ -420,7 +418,7 @@ SUCCESS: Medication details has been retrieved
 <div style="page-break-after: always;"></div>
 
 
-### [View Medication by expiry](#table-of-contents)
+### View Medication by expiry
 You can view all medication information by its expiry year.
 
 Format: `view -e MEDICATION_EXPIRY_IN_YYYY`
@@ -459,7 +457,7 @@ SUCCESS: Medication details has been retrieved
 
 <div style="page-break-after: always;"></div>
 
-### [View Medication by remarks](#table-of-contents)
+### View Medication by remarks
 You can view all medication information by its remarks.
 
 Format: `view -r MEDICATION_REMARKS`
@@ -489,9 +487,9 @@ SUCCESS: Medication details has been retrieved
 
 <div style="page-break-after: always;"></div>
 
-## [Record taking of medication](#table-of-contents)
+## Record taking of medication
 
-### [Take Medication](#table-of-contents) `take -l`
+### Take Medication `take -l`
 When you have taken your medication, you can type `take`, followed by the list index `-l listIndex` to mark it as taken.
 You can obtain the list index by entering [`list -t today`](#daily-medications) and refer to the index for the 
 medication you have taken. This command is time aware and will mark the index you specified based on what time of day 
@@ -528,7 +526,7 @@ SUCCESS: Medicine has been taken
 
 <div style="page-break-after: always;"></div>
 
-### [Untake Medication](#table-of-contents) `untake -l`
+### Untake Medication `untake -l`
 If you have accidentally entered the wrong command and wish to un-take the medication, you can type `untake`, 
 followed by the list index `-l listIndex`. Similarly, you can obtain the list index by entering 
 [`list -t today`](#daily-medications) and refer to the index for the medication you wish to un-mark. This command is 
@@ -565,7 +563,7 @@ SUCCESS: Medicine has been untaken
 
 <div style="page-break-after: always;"></div>
 
-## [Modify Medication Information](#table-of-contents) `modify -l`
+## Modify Medication Information `modify -l`
 If you require modification to the medication information, you can type `modify`, followed by the list index
 `-l listIndex`. You can obtain the list index from the Medication List by entering [`list -t all`](#all-medications).
 
@@ -620,7 +618,7 @@ SUCCESS: Medicine has been modified
 
 <div style="page-break-after: always;"></div>
 
-## [Delete Medication](#table-of-contents) `delete -l`
+## Delete Medication `delete -l`
 
 To delete a medication, you can type `delete`, followed by the list index `-l listIndex`. 
 You can obtain the list index by entering [`list -t all`](#all-medications) to refer to the list of all medications.
@@ -649,7 +647,7 @@ SUCCESS: Medicine has been deleted
 
 <div style="page-break-after: always;"></div>
 
-## [Search](#table-of-contents)
+## Search
 
 To search for a medication in the library, you can type 'search', followed by the field you want to search for and the keyword 
 `keyword`.
@@ -684,7 +682,7 @@ Here are the search results:
 
 <div style="page-break-after: always;"></div>
 
-## [Help](#table-of-contents)
+## Help
 
 If in any situation you are stuck while using MediTracker, please do not worry. The help command is specifically 
 designed to guide users to use the MediTracker. All you need to do is to type in `help`.
@@ -719,7 +717,7 @@ For more details about each command, simply type in the command name.
 
 ## General Data Management
 
-### [Saving to a file](#table-of-contents) `save`
+### Saving to a file `save`
 
 Saves the JSON file to the specified path.
 
@@ -749,7 +747,7 @@ Ensure that the folder you are going to write to has the proper access rights. D
 
 <div style="page-break-after: always;"></div>
 
-### [Reading from a file](#table-of-contents) `load`
+### Reading from a file `load`
 Loads the JSON files from the specified path.
 
 ```
@@ -784,7 +782,7 @@ See the part on <a href="#editing-the-file">Editing the File</a> for warnings on
 
 <div style="page-break-after: always;"></div>
 
-### [Editing the file](#table-of-contents)
+### Editing the file
 The medication information are saved in a `.json` format while the daily medication information are saved
 in the `.txt` format (two independent files). Advanced users can modify the text files directly.
 
@@ -823,7 +821,7 @@ not display anything at all.
 <div style="page-break-after: always;"></div>
 
 
-### [Setting an arbitrary time](#table-of-contents)
+### Setting an arbitrary time
 
 This feature is intended for developers to test out the features. See the developer guide (To be updated) for more detailed explanation on its implementation.
 To make use of this feature, simply add the following flag and argument **when running the program** (not during the program execution itself)
@@ -839,7 +837,7 @@ In the above example, it will set the time for the program to be **1 Jan 2024, 1
 
 <div style="page-break-after: always;"></div>
 
-## [Exit](#table-of-contents) `exit`
+## Exit `exit`
 A goodbye message is printed on the screen, and the program exits after.
 
 Format: `exit`
@@ -855,7 +853,7 @@ Thank you for using MediTracker. Hope to see you again!
 
 <div style="page-break-after: always;"></div>
 
-## [FAQ](#table-of-contents)
+## FAQ
 **Q**: How do I transfer my data to another computer? 
 
 **A**: By default, all meditracker-related data will be saved under the `data` folder. 
@@ -867,13 +865,13 @@ making sure it is at the same level as the `.jar` file.
 
 <div style="page-break-after: always;"></div>
 
-## [Glossary](#table-of-contents)
+## Glossary
 
 <br>
 
 <div style="page-break-after: always;"></div>
 
-## [Command Summary](#table-of-contents)
+## Command Summary
 <!-- Markdown table is not suitable as it does not provide text wrapping -->
 
 <table>
