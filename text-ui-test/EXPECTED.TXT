@@ -31,13 +31,13 @@ ____________________________________________________________
 meditracker> SUCCESS: Medication already taken, no changes were made
 ____________________________________________________________
 meditracker> You have 1 medications listed below.
-   Name                           Quantity   Expiry     Remarks                       
-1. Medication A                   500.0      01/07/25   cause_dizziness                
+   Name                           Quantity   Expiry       Remarks                       
+1. Medication A                   500.0      2025-07-31   cause_dizziness                
 Your list of medications has been successfully shown!
 ____________________________________________________________
 meditracker> Name: Medication A
 Quantity: 500.0
-Expiry Date: 01/07/25
+Expiry Date: 2025-07-31
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
@@ -54,7 +54,7 @@ meditracker> ERROR: No value found for argument "-l"
 ____________________________________________________________
 meditracker> Name: Dexamethasone
 Quantity: 20.0
-Expiry Date: 31/01/25
+Expiry Date: 2025-01-31
 Remarks: aggression, weight gain, nausea
 Morning Dosage: 1.0
 Afternoon Dosage: 1.0
@@ -65,7 +65,7 @@ SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> Name: Dexamethasone
 Quantity: 20.0
-Expiry Date: 31/01/25
+Expiry Date: 2025-01-31
 Remarks: aggression, weight gain, nausea
 Morning Dosage: 1.0
 Afternoon Dosage: 1.0
@@ -74,7 +74,7 @@ Repeat: 1
 
 Name: Dextromethorphan
 Quantity: 30.0
-Expiry Date: 31/02/26
+Expiry Date: 2026-03-30
 Remarks: restlessness, nausea
 Morning Dosage: 1.0
 Afternoon Dosage: 1.0
@@ -85,7 +85,7 @@ SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> Name: Medication A
 Quantity: 500.0
-Expiry Date: 01/07/25
+Expiry Date: 2025-07-31
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
@@ -94,7 +94,7 @@ Repeat: 1
 
 Name: Dexamethasone
 Quantity: 20.0
-Expiry Date: 31/01/25
+Expiry Date: 2025-01-31
 Remarks: aggression, weight gain, nausea
 Morning Dosage: 1.0
 Afternoon Dosage: 1.0
@@ -105,7 +105,7 @@ SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> Name: Medication A
 Quantity: 500.0
-Expiry Date: 01/07/25
+Expiry Date: 2025-07-31
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
@@ -115,5 +115,11 @@ Repeat: 1
 SUCCESS: Medication details has been retrieved
 ____________________________________________________________
 meditracker> ERROR: You can only have one flag!
+____________________________________________________________
+meditracker> ERROR: You are not allowed to enter expired medications!
+____________________________________________________________
+meditracker> ERROR: Please enter a valid expiry date in yyyy-MM-dd!
+____________________________________________________________
+meditracker> ERROR: Medication already exists in the list!
 ____________________________________________________________
 meditracker> Thank you for using MediTracker. Hope to see you again!

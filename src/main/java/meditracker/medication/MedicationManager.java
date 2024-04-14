@@ -53,12 +53,12 @@ public class MedicationManager {
         medication.checkValidity();
         checkForDuplicateMedication(medication.getName());
         medications.add(medication);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 
     protected static void addMedicationWithoutChecks(Medication medication) {
         medications.add(medication);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 
     /**
@@ -164,8 +164,7 @@ public class MedicationManager {
         int medicationsFound = 0;
 
         for (Medication medication : medications) {
-            String[] dateArr = medication.getExpiryDate().split("/", 3);
-            int medicationYear = Integer.parseInt(dateArr[2]);
+            int medicationYear = medication.getExpiryDate().getYear();
             int userYear = Integer.parseInt(expiry);
 
             if (medicationYear <= userYear) {
@@ -214,7 +213,7 @@ public class MedicationManager {
     public static void removeMedication(int listIndex) throws IndexOutOfBoundsException {
         listIndex--; // Decremented to 0-base indexing
         medications.remove(listIndex);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 
     /**
@@ -321,7 +320,7 @@ public class MedicationManager {
         Ui.showInfoMessage(message);
 
         medication.setQuantity(newQuantity);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 
     /**
@@ -349,6 +348,6 @@ public class MedicationManager {
         Ui.showInfoMessage(message);
 
         medication.setQuantity(newQuantity);
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
     }
 }

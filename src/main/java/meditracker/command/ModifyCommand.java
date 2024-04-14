@@ -99,7 +99,7 @@ public class ModifyCommand extends Command {
             return;
         }
 
-        FileReaderWriter.saveMediTrackerData(null);
+        FileReaderWriter.saveMedicationData(null);
         Ui.showSuccessMessage("Medicine has been modified");
     }
 

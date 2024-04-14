@@ -137,10 +137,12 @@ Options:
 -h                      Prints this help message
 ```
 
-
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
-The dosage and remarks tags are optional.
+  <ul>
+    <li>The dosage and remarks tags are optional.</li>
+    <li>The expiration date must be in yyyy-MM-dd format.</li>
+  </ul>
 </div>
 
 <div class="note-box">
@@ -180,9 +182,9 @@ Example: `meditracker> list -t all`
 Output:
 ```
 You have 2 medications listed below.
-   Name                           Quantity   Expiry     Remarks                       
-1. Medication A                   5000.0     01/07/25   cause_dizziness  
-2. Medication B                   1000.0     30/09/24
+   Name                           Quantity   Expiry       Remarks                       
+1. Medication A                   5000.0     2025-07-01   cause_dizziness  
+2. Medication B                   1000.0     2024-09-30   Nil
 Your list of medications has been successfully shown!
 ```
 
@@ -267,7 +269,7 @@ Output:
 ```
 Name: Medication A
 Quantity: 5000.0
-Expiry Date: 01/07/25
+Expiry Date: 2025-07-01
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
@@ -295,7 +297,7 @@ Output:
 ```
 Name: Medication B
 Quantity: 1000.0
-Expiry Date: 30/09/24
+Expiry Date: 2024-09-30
 Remarks: Nil
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
@@ -323,7 +325,7 @@ Output:
 ```
 Name: Medication B
 Quantity: 1000.0
-Expiry Date: 30/09/24
+Expiry Date: 2024-09-30
 Remarks: Nil
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
@@ -337,9 +339,9 @@ SUCCESS: Medication details has been retrieved
 ### View Medication by expiry:
 You can view all medication information by its expiry year.
 
-Format: `view -e MEDICINE_EXPIRY_IN_YY`
+Format: `view -e MEDICINE_EXPIRY_IN_YYYY`
 
-Example: `meditracker> view -e 25`
+Example: `meditracker> view -e 2025`
 
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
@@ -351,7 +353,7 @@ Output:
 ```
 Name: Medication A
 Quantity: 5000.0
-Expiry Date: 01/07/25
+Expiry Date: 2025-07-01
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
@@ -360,7 +362,7 @@ Repeat: 1
 
 Name: Medication B
 Quantity: 1000.0
-Expiry Date: 30/09/24
+Expiry Date: 2024-09-30
 Remarks: Nil
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0
@@ -388,7 +390,7 @@ Output:
 ```
 Name: Medication A
 Quantity: 5000.0
-Expiry Date: 01/07/25
+Expiry Date: 2025-07-01
 Remarks: cause_dizziness
 Morning Dosage: 500.0
 Afternoon Dosage: 250.0

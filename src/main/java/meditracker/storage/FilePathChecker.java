@@ -163,8 +163,6 @@ public class FilePathChecker {
      *     null otherwise.
      */
     public static Path validateUserPathArgument(String fileLocationArgument) {
-
-        assert (fileLocationArgument != null);
         if (fileLocationArgument == null) {
             return null;
         }
