@@ -15,9 +15,7 @@ your daily medication dose. It tracks your daily intake and reminds you when you
 data storage so that you can review your past medication intake.
 <br>
 
----
-
-<div style="page-break-after: always;"> </div>
+<div style="page-break-after: always;"></div>
 
 ## Table of Contents
 
@@ -52,9 +50,7 @@ data storage so that you can review your past medication intake.
 - [Command Summary](#command-summary)
 <br>
 
----
-
-<div style="page-break-after: always;"> </div>
+<div style="page-break-after: always;"></div>
 
 ## How to Use the User Guide
 <!-- @@author annoy-o-mus-reused
@@ -101,9 +97,7 @@ Extremely important text.
 </div>
 <br>
 
----
-
-<div style="page-break-after: always;"> </div>
+<div style="page-break-after: always;"></div>
 
 ## Quick Start
 1. Ensure that you have Java 11 or above installed. 
@@ -133,6 +127,10 @@ Extremely important text.
 optional arguments)
 - Each option are specified with either just its flag (which is of the form `-*` where `*` signifies some alphabetic 
 characters), or the flag coupled with a value
+
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ## Adding a medication: `add`
 
