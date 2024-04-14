@@ -9,6 +9,7 @@ import meditracker.medication.MedicationManager;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 /**
  * The Ui class handles user interface-related operations.
@@ -80,6 +81,7 @@ public class Ui {
      * Displays the exit message.
      */
     public static void showExitMessage() {
+        System.out.println();
         System.out.println("Thank you for using MediTracker. Hope to see you again!");
     }
 
@@ -118,7 +120,13 @@ public class Ui {
      */
     public static String readCommand() {
         System.out.print("meditracker> ");
-        return input.nextLine();
+        try {
+            return input.nextLine();
+        } catch (NoSuchElementException e) {
+            Ui.showExitMessage();
+            System.exit(0);
+            return null;
+        }
     }
 
     /**
