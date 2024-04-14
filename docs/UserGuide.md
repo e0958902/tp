@@ -258,17 +258,17 @@ You can view detailed information about the medications you have added in the me
 Perform <a href="#all-medications"><code>list -t all</code></a> first to display the lists of medications
 in medication list and use its fields for the features below.
 
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+You are only allowed to use one flag and argument.
+</div>
+
 </div>
 
 This output will be shown if you used more than one flag and argument.
 ```
 ERROR: You can only have one flag!
 ```
-<div class="tip-box">
-:bulb: <strong>Tip: </strong>
-You are only allowed to use one flag and argument.
-</div>
-
 
 ```
 Usage:
@@ -282,6 +282,10 @@ Options:
 	-r remarks            Additional remarks on medication
 	-h                    Prints this help message
 ```
+
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ### View Medication by index:
 By using the index shown in the medication list [`list -t all`](#all-medications), 
@@ -311,6 +315,9 @@ Repeat: 1
 SUCCESS: Medication details has been retrieved
 ```
 
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ### View Medication by name:
 You can view all medication information by its name.
@@ -339,7 +346,6 @@ Repeat: 6
 SUCCESS: Medication details has been retrieved
 ```
 
-
 ### View Medication by quantity:
 You can view all medication information by its quantity.
 
@@ -366,6 +372,10 @@ Repeat: 6
 
 SUCCESS: Medication details has been retrieved
 ```
+
+<br>
+
+<div style="page-break-after: always;"></div>
 
 
 ### View Medication by expiry:
@@ -404,6 +414,9 @@ Repeat: 6
 SUCCESS: Medication details has been retrieved
 ```
 
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ### View Medication by remarks:
 You can view all medication information by its remarks.
@@ -431,6 +444,10 @@ Repeat: 1
 
 SUCCESS: Medication details has been retrieved
 ```
+
+<br>
+
+<div style="page-break-after: always;"></div>
 
 ## Update
 
