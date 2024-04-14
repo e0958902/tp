@@ -3,7 +3,6 @@ package meditracker.dailymedication;
 import meditracker.logging.MediLogger;
 import meditracker.time.Period;
 
-import java.security.MessageDigest;
 import java.util.logging.Logger;
 
 // @@author T0nyLin
@@ -84,7 +83,7 @@ public class DailyMedication {
      * @return Formatted String to save in text file
      */
     public String toStringData() {
-        return String.format("%c|%b|%s|%f", period.badge, isTaken, name, dosage);
+        return String.format("%s|%b|%s|%f", period.badge, isTaken, name, dosage);
     }
 
     /**

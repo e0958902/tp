@@ -232,6 +232,7 @@ public class DailyMedicationManager {
      */
     public static void printTodayMedications(Period period) {
         List<DailyMedication> subList = getDailyMedications(period);
+        assert subList != null;
         if (!subList.isEmpty()) {
             System.out.println(period + ":");
             Ui.printMedsList(subList);
