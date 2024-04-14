@@ -147,7 +147,8 @@ Options:
 -dM dosageMorning       Morning dosage of medication
 -dA dosageAfternoon     Afternoon dosage of medication
 -dE dosageEvening       Evening dosage of medication
--rep                    How often to take medication (eg: Supply a number from 1 to 7)
+-rep                    How often to take medication
+                          (eg: Supply a number from 1 to 7)
 -r remarks              Additional remarks on medication
 -h                      Prints this help message
 ```
@@ -202,8 +203,8 @@ Example: `meditracker> list -t all`
 Output:
 ```
 You have 2 medications listed below.
-   Name                           Quantity   Expiry       Remarks                       
-1. Medication A                   5000.0     2025-07-01   cause_dizziness  
+   Name                           Quantity   Expiry       Remarks
+1. Medication A                   5000.0     2025-07-01   cause_dizziness
 2. Medication B                   1000.0     2024-09-30   Nil
 Your list of medications has been successfully shown!
 ```
@@ -266,8 +267,9 @@ You are only allowed to use one flag and argument.
 </div>
 
 Usage:
-
-`view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] [-r remarks] [-h]`
+```
+view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] [-r remarks] [-h]
+```
 
 Options:
 ```
@@ -572,7 +574,8 @@ search for.
 
 Usage:
 ```
-    search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword) [-h]
+    search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword)
+    [-h]
 ```
 Options:
 ```
