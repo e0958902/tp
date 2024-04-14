@@ -38,7 +38,7 @@ back to the Table of Contents.
     - [Take Medication](#take-medication-take--l)`take -l`
     - [Untake Medication](#untake-medication-untake--l)`untake -l`
   - [Modify medication information](#modify-medication-information-modify--l)`modify -l`
-  - [Delete medication information](#delete-a-medication-delete--l)`delete -l`
+  - [Delete Medication](#delete-medication-delete--l)`delete -l`
   - [Search](#search)
       - [Access Medicine Database ](#access-database)`search`
   - [Help](#help)
@@ -606,7 +606,7 @@ SUCCESS: Medicine has been modified
 
 <div style="page-break-after: always;"></div>
 
-## [Delete a medication](#table-of-contents) `delete -l`
+## [Delete Medication](#table-of-contents) `delete -l`
 
 To delete a medication, you can type `delete`, followed by the list index `-l listIndex`. 
 You can obtain the list index by entering [`list -t all`](#all-medications) to refer to the list of all medications.
