@@ -8,11 +8,8 @@ import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.LoadArgument;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.storage.FilePathChecker;
 import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
@@ -25,9 +22,17 @@ public class LoadCommand extends Command {
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.LOAD, ARGUMENT_LIST);
     private Map<ArgumentName, String> parsedArguments;
 
-    public LoadCommand(String arguments)
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+    /**
+     * Parses the arguments associated with the `load` command.
+     *
+     * @param arguments Associated arguments, if any.
+     * @throws HelpInvokedException When help argument is used
+     * @throws ArgumentException If compulsory arguments are not found,
+     *              or if any argument with a compulsory value is not found,
+     *              or if there are duplicate arguments,
+     *              or if an argument not supported by the command is found.
+     */
+    public LoadCommand(String arguments) throws HelpInvokedException, ArgumentException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 

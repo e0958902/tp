@@ -37,6 +37,7 @@
 - Issue #203: Fix `modify` not updating daily list when dosages are modified
 - Issue #205: Fix large value not handled by `add` and `modify`
 - Issue #224: Move all validation to Medication setters so all values are validated
+- Issue #123: Refactor argument exceptions to simplify exceptions thrown
 
 ### Developer Guide Contributions
 - Information related to how `ArgumentParser` works
@@ -52,7 +53,7 @@ if more `Argument`s are needed
 #3, #6, #7, #10, #12, #17, #22, #28, #33, #35, 
 #47, #49, #58, #59, #73, #75, #80, #84, #101, #108, 
 #109, #112, #113, #117, #122, #124, #132, #136, #141, #206, 
-#208, #210, #216, #219, #220
+#208, #210, #216, #219, #220, #228
 
 ### Team-based tasks
 - Manage product development and resolve feature conflicts

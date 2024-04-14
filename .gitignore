@@ -16,7 +16,7 @@ bin/
 # Test Files
 text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
-data/MediTrackerData.json
+data/MedicationData.json
 data/dailymed/*
 
 # Others

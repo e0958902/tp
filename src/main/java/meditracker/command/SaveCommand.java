@@ -8,11 +8,8 @@ import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
 import meditracker.argument.SaveArgument;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.storage.FilePathChecker;
 import meditracker.storage.FileReaderWriter;
 
@@ -29,15 +26,13 @@ public class SaveCommand extends Command {
      * If empty, the parsed arguments will receive `null`.
      *
      * @param arguments Associated arguments, if any.
-     * @throws ArgumentNotFoundException If compulsory arguments are not found.
-     * @throws ArgumentNoValueException If any argument with a compulsory value is not found.
-     * @throws DuplicateArgumentFoundException If there are duplicate arguments.
      * @throws HelpInvokedException If the help message is invoked.
-     * @throws UnknownArgumentFoundException If an argument not supported by the command is found.
+     * @throws ArgumentException If compulsory arguments are not found,
+     *              or if any argument with a compulsory value is not found,
+     *              or if there are duplicate arguments,
+     *              or if an argument not supported by the command is found.
      */
-    public SaveCommand(String arguments)
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+    public SaveCommand(String arguments) throws HelpInvokedException, ArgumentException {
         if (arguments.isEmpty()) {
             parsedArguments = null;
         } else {

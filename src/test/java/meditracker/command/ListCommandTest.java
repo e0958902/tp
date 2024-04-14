@@ -6,12 +6,9 @@ import meditracker.argument.NameArgument;
 import meditracker.argument.QuantityArgument;
 import meditracker.argument.RemarksArgument;
 import meditracker.dailymedication.DailyMedicationManagerTest;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MediTrackerException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
@@ -73,8 +70,7 @@ class ListCommandTest {
     // Solution below adapted by https://stackoverflow.com/questions/32241057/
     @Test
     void execute_listAllMedications_expectToShowAllMedicationsInMedicationList()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
         String medicationNameOne = "Dexamethasone";
         Double medicationQuantityOne = 20.0;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -157,8 +153,7 @@ class ListCommandTest {
     }
 
     @Test
-    void listAllMedication_extraFlagAfterCommand_showErrorMessage() throws DuplicateArgumentFoundException,
-            HelpInvokedException, ArgumentNoValueException, ArgumentNotFoundException, UnknownArgumentFoundException {
+    void listAllMedication_extraFlagAfterCommand_showErrorMessage() throws HelpInvokedException, ArgumentException {
         PrintStream oldOut = System.out;
 
         // Create a ByteArrayOutputStream to get the output from the call to print
@@ -182,8 +177,7 @@ class ListCommandTest {
     }
 
     @Test
-    void listAllMedication_extraWordsAfterCommand_showErrorMessage() throws DuplicateArgumentFoundException,
-            HelpInvokedException, ArgumentNoValueException, ArgumentNotFoundException, UnknownArgumentFoundException {
+    void listAllMedication_extraWordsAfterCommand_showErrorMessage() throws HelpInvokedException, ArgumentException {
         PrintStream oldOut = System.out;
 
         // Create a ByteArrayOutputStream to get the output from the call to print
@@ -211,14 +205,13 @@ class ListCommandTest {
         String testArgumentString = "list -t all -asdf";
 
         assertThrows(
-                UnknownArgumentFoundException.class,
+                ArgumentException.class,
                 () -> testArgumentList.parse(testArgumentString)
         );
     }
 
     @Test
-    void listDailyMedication_extraWordsAfterCommand_showErrorMessage() throws DuplicateArgumentFoundException,
-            HelpInvokedException, ArgumentNoValueException, ArgumentNotFoundException, UnknownArgumentFoundException {
+    void listDailyMedication_extraWordsAfterCommand_showErrorMessage() throws HelpInvokedException, ArgumentException {
         PrintStream oldOut = System.out;
 
         // Create a ByteArrayOutputStream to get the output from the call to print
@@ -242,8 +235,7 @@ class ListCommandTest {
     }
 
     @Test
-    void listDailyMedication_extraFlagsAfterCommand_showErrorMessage() throws DuplicateArgumentFoundException,
-            HelpInvokedException, ArgumentNoValueException, ArgumentNotFoundException, UnknownArgumentFoundException {
+    void listDailyMedication_extraFlagsAfterCommand_showErrorMessage() throws HelpInvokedException, ArgumentException {
         PrintStream oldOut = System.out;
 
         // Create a ByteArrayOutputStream to get the output from the call to print
@@ -271,7 +263,7 @@ class ListCommandTest {
         String testArgumentString = "list -t today -a -asd";
 
         assertThrows(
-                UnknownArgumentFoundException.class,
+                ArgumentException.class,
                 () -> testArgumentList.parse(testArgumentString)
         );
     }
@@ -281,7 +273,7 @@ class ListCommandTest {
         String testArgumentString = "list -t today -a asdf";
 
         assertThrows(
-                UnknownArgumentFoundException.class,
+                ArgumentException.class,
                 () -> testArgumentList.parse(testArgumentString)
         );
     }
