@@ -60,24 +60,19 @@ public class DailyMedicationManagerTest {
         List<DailyMedication> afternoonMedications = new ArrayList<>();
         List<DailyMedication> eveningMedications = new ArrayList<>();
 
-        DailyMedication morningMeds = new DailyMedication("Medication A");
+        DailyMedication morningMeds = new DailyMedication("Medication A", 500, Period.MORNING);
         morningMedications.add(morningMeds);
 
-        DailyMedication afternoonMeds = new DailyMedication("Medication A");
+        DailyMedication afternoonMeds = new DailyMedication("Medication A", 250, Period.AFTERNOON);
         afternoonMedications.add(afternoonMeds);
 
-        DailyMedication eveningMeds = new DailyMedication("Medication A");
+        DailyMedication eveningMeds = new DailyMedication("Medication A", 300, Period.EVENING);
         eveningMedications.add(eveningMeds);
 
 
-        List<Medication> medicationList = MedicationManager.getMedications();
-
-        DailyMedicationManager.printTodayMedications(medicationList,
-                morningMedications, "Morning:");
-        DailyMedicationManager.printTodayMedications(medicationList,
-                afternoonMedications, "Afternoon:");
-        DailyMedicationManager.printTodayMedications(medicationList,
-                eveningMedications, "Evening:");
+        DailyMedicationManager.printTodayMedications(Period.MORNING);
+        DailyMedicationManager.printTodayMedications(Period.AFTERNOON);
+        DailyMedicationManager.printTodayMedications(Period.EVENING);
 
         int actualIndex = 1; // 1-based indexing
         DailyMedication morningMedicationTest = DailyMedicationManager.getDailyMedication(actualIndex, Period.MORNING);
@@ -108,9 +103,9 @@ public class DailyMedicationManagerTest {
                 87);
         MedicationManager.addMedication(medication);
 
-        DailyMedication dailyMedication = new DailyMedication(medicationName);
+        DailyMedication dailyMedication = new DailyMedication(medicationName, dosage, Period.MORNING);
         assertFalse(dailyMedication.isTaken());
-        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
+        DailyMedicationManager.addDailyMedication(dailyMedication);
 
         int actualIndex = 1; // 1-based indexing
         DailyMedicationManager.takeDailyMedication(actualIndex, Period.MORNING);
@@ -137,9 +132,9 @@ public class DailyMedicationManagerTest {
                 87);
         MedicationManager.addMedication(medication);
 
-        DailyMedication dailyMedication = new DailyMedication(medicationName);
+        DailyMedication dailyMedication = new DailyMedication(medicationName, dosage, Period.MORNING);
         assertFalse(dailyMedication.isTaken());
-        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
+        DailyMedicationManager.addDailyMedication(dailyMedication);
 
         int actualIndex = 1; // 1-based indexing
         assertThrows(
@@ -165,10 +160,10 @@ public class DailyMedicationManagerTest {
                 87);
         MedicationManager.addMedication(medication);
 
-        DailyMedication dailyMedication = new DailyMedication(medicationName);
+        DailyMedication dailyMedication = new DailyMedication(medicationName, dosage, Period.MORNING);
         dailyMedication.take();
         assertTrue(dailyMedication.isTaken());
-        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
+        DailyMedicationManager.addDailyMedication(dailyMedication);
 
         int actualIndex = 1; // 1-based indexing
         DailyMedicationManager.untakeDailyMedication(actualIndex, Period.MORNING);
