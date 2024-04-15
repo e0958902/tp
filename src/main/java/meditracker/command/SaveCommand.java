@@ -3,7 +3,6 @@ package meditracker.command;
 import java.nio.file.Path;
 import java.util.Map;
 
-import meditracker.storage.MediTrackerFileConfig;
 import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
@@ -12,6 +11,7 @@ import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.storage.FilePathChecker;
 import meditracker.storage.FileReaderWriter;
+import meditracker.storage.MediTrackerFileConfig;
 
 /**
  * A class that handles the `save` command and its relevant arguments.
