@@ -84,8 +84,8 @@ then automatically checks off the relevant medication in the DailyMedication lis
 ### View Medication Command
 The view medication command extends from Command parent class and contains the following:
 
-Given below is an example of and how the view command behaves at each step 
-with the help of a the sequence diagram with a usage scenario.
+With the help of a sequence diagram given below, it explains an usage scenario 
+on how the view command behaves at each step.
 
 ![ViewCommand.png](images/ViewCommand.png)
 - Step 1. User initiates MediTracker and done a viewCommand.
