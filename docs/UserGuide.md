@@ -44,8 +44,7 @@ Here are the comprehensive sections which MediTracker has to offer:
     - [Untake Medication](#untake-medication-untake--l)`untake -l`
   - [Modify medication information](#modify-medication-information-modify--l)`modify -l`
   - [Delete Medication](#delete-medication-delete--l)`delete -l`
-  - [Search](#search)
-      - [Access Medicine Database ](#access-database)`search`
+  - [Search Medicine Library](#search)`search`
   - [Help](#help)
   - [General data management](#general-data-management)
     - [Saving to a file](#saving-to-a-file-save)`save`
@@ -649,21 +648,29 @@ SUCCESS: Medicine has been deleted
 
 ## Search
 
-To search for a medication in the library, you can type 'search', followed by the field you want to search for and the keyword 
-`keyword`.
+MediTracker has a built-in medication library where you can search for common medications. This library contains 
+information on the medication name, the illness that the medication is used for, and the side effects of the medication.
+
+<div class="note-box">
+:notebook: <strong>Note: </strong>
+The search command searches for medications from the built-in medication library, which is different from your personal 
+medication list.
+</div>
+
+To search for a medication in the library, you can type 'search', followed by the field you want to search for and the 
+keyword.
 You have to include at least one of the following flags: `-n`, `-i`, `-s`, `-a` to specify the field you want to 
 search for.
-
 
 ```
 Usage:
 	search [-n name] [-i illness] [-s sideEffects] [-a allFields] [-h]
 Options:
-	-n name                 Name of medication
-	-i illness              Illness that the medication is used for
-	-s sideEffects          Side effects of the medication
-	-a allFields            Search all fields
-	-h                      Prints this help message
+    -n name                 Name of medication
+    -i illness              Illness that the medication is used for
+    -s sideEffects          Side effects of the medication
+    -a allFields            Search all fields (name, illness, side effects)
+    -h                      Prints this help message
 ```
 Examples:
 - `search -n Medication A`: Search for medication with the name `Medication A`
@@ -856,7 +863,7 @@ Thank you for using MediTracker. Hope to see you again!
 ## FAQ
 **Q**: How do I transfer my data to another computer? 
 
-**A**: By default, all meditracker-related data will be saved under the `data` folder. 
+**A**: By default, all MediTracker-related data will be saved under the `data` folder. 
 This folder resides at the same level as the `meditracker.jar` file.
 To transfer the data, just copy/shift the `data` folder to the new computer, 
 making sure it is at the same level as the `.jar` file.
