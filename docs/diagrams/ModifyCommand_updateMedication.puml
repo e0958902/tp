@@ -1,0 +1,49 @@
+@startuml
+participant ":ModifyCommand" as ModifyCommand
+participant "medication:Medication" as MED
+participant "<<class>>\n DailyMedicationManager" as DailyMedicationManager
+participant "<<class>>\n Ui" as Ui
+
+activate ModifyCommand
+activate MED
+ModifyCommand -> ModifyCommand: updateMedication(medication)
+activate ModifyCommand
+
+loop all entries (argumentName, argumentValue) in parsedArguments
+    opt argumentName == ArgumentName.NAME
+        ModifyCommand -> DailyMedicationManager: updateDailyMedicationName(medication, argumentValue)
+        activate DailyMedicationManager
+        DailyMedicationManager --> ModifyCommand
+        deactivate DailyMedicationManager
+    end
+
+    ModifyCommand -> MED: setMedicationValue(argumentName, argumentValue)
+    activate MED
+    MED --> ModifyCommand
+    deactivate MED
+end
+
+ModifyCommand -> MED: checkValidity()
+activate MED
+MED --> ModifyCommand
+deactivate MED
+
+ModifyCommand -> ModifyCommand: checkDosageOrRepeatModified(medication)
+activate ModifyCommand
+ModifyCommand -> DailyMedicationManager: doesBelongToDailyList(medication)
+activate DailyMedicationManager
+DailyMedicationManager --> ModifyCommand: doesBelongToDailyList:boolean
+deactivate DailyMedicationManager
+
+opt Does belong to daily list and has modified dosage and/or repeat
+    ModifyCommand -> Ui: showWarningMessage(warningMessage)
+    activate Ui
+    Ui --> ModifyCommand
+    deactivate Ui
+end
+deactivate ModifyCommand
+
+ModifyCommand --> ModifyCommand
+deactivate MED
+deactivate ModifyCommand
+@enduml
