@@ -19,16 +19,16 @@ import meditracker.medication.MedicationManager;
 
 //@@author annoy-o-mus
 /**
- * A class to handle the importing of raw json file data and process them.
- * Passes the data in an intermediate format to the various Managers involved for them to initialise.
+ * A class to handle the importing of raw json file data.
+ * Passes the intermediate data to MedicationManager to process.
  */
 class JsonImporter {
     private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
      * Converts information from JSONArray into a List of (String, String) mappings.
-     * The JSONArray should contain purely JSONObjects, and each JSONObject should contain purely
-     * keys of type String and values of type String.
+     * The JSONArray should contain purely JSONObjects (with no additional nesting),
+     *     and each JSONObject should contain purely keys of type String and values of type String.
      *
      * @param jsonArray A JSONArray of JSONObjects containing key-value pairs of type (String, String).
      * @return A list of (String, String) key-value pairs. May contain only partial entries if there are entries not
@@ -61,20 +61,20 @@ class JsonImporter {
     }
 
     /**
-     * Loads the file and returns JSON data as a raw string.
+     * Loads from the file and returns JSON data as a raw string.
      * The JSON file should only contain one line of data. Any additional lines in the file will be ignored.
      *
-     * @param mediTrackerJsonPath The Path object specifying the path to the MediTracker save data.
+     * @param jsonPath The Path object specifying the path to the JSON save data.
      * @return The JSON data as a String object. Null if the data cannot be loaded or is empty.
      */
-    private static String loadRawJsonFileData(Path mediTrackerJsonPath) {
+    private static String loadRawJsonFileData(Path jsonPath) {
         List<String> jsonFileData = null;
 
         // Choice of reader adapted from
         // https://www.stackchief.com/blog/FileReader%20vs%20BufferedReader%20vs%20Scanner%20%7C%20Java
         // and https://stackoverflow.com/a/20838298
         try {
-            jsonFileData = Files.readAllLines(mediTrackerJsonPath);
+            jsonFileData = Files.readAllLines(jsonPath);
         } catch (IOException e) {
             MEDILOGGER.warning("Unable to read from the JSON save file.");
             return null;
@@ -94,11 +94,11 @@ class JsonImporter {
 
 
     /**
-     * Reads from the JSON file and populates the various Managers with various information.
+     * Reads from the JSON file and sends MedicationManager the required information.
      * If the JSON file could not be found or if the structure is corrupted and could not be read,
-     * a warning will be thrown to the user and the program will run as if it is the first time running.
+     *     a warning will be thrown to the user and the program will run with a clean state.
      *
-     * @param medicationJsonPath The Path object specifying the path to the MediTracker save data.
+     * @param medicationJsonPath The Path object specifying the path to the JSON save data.
      */
     static void processMedicationJsonFile(Path medicationJsonPath) {
         if (medicationJsonPath == null) {
@@ -114,6 +114,7 @@ class JsonImporter {
 
         // Solution on reading and parsing a JSON file adapted from
         // https://stackoverflow.com/q/10926353
+        MEDILOGGER.info("Reading JSON file...");
         JSONArray medicationList = null;
         try {
             JSONObject rawJsonData = new JSONObject(jsonStringData);
@@ -124,6 +125,7 @@ class JsonImporter {
             return;
         }
 
+        MEDILOGGER.info("JSON file Read. Loading Medication data...");
         List<Map<String, String>> medicationStringMap = convertJsonArrayToStringMap(medicationList);
         MedicationManager.addMedicationFromSaveFile(medicationStringMap);
     }

@@ -12,9 +12,9 @@ import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.logging.MediLogger;
 
 /**
- * A class that processes DailyMedication data and writes to the target file.
+ * A package-private class that processes DailyMedication data and writes to the target file.
  */
-public class DailyMedicationExporter {
+class DailyMedicationExporter {
     private static final Logger MEDILOGGER = MediLogger.getMediLogger();
 
     /**
