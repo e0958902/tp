@@ -34,6 +34,7 @@ to import the project into IDEA.
    You can refer to our [UserGuide](UserGuide.md).
    2. Run the tests to ensure they all pass using Gradle.
       Open a console and run the command gradlew clean test (Mac/Linux: ./gradlew clean test)
+
 > [!TIP]
 > Link: Read this [Gradle Tutorial from the se-edu/guides](https://se-education.org/guides/tutorials/gradle.html) to learn more about using Gradle.
 
@@ -41,6 +42,7 @@ to import the project into IDEA.
 <!-- Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable. -->
 
 <!-- Comment: Perhaps add sequence diagram or class diagram here to show the interactions and relationships since this seems to involve quite a lot of classes? -->
+
 ### Add Medication Command
 The add medication command extends from the Command parent class and implements the following operations:
 - execute(MedicationManager, DailyMedicationManager, Ui) - Adds the medication object into the respective medication managers.
