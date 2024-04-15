@@ -1,3 +1,8 @@
+---
+layout: default
+title: Developer Guide
+---
+
 # Developer Guide
 
 ## Acknowledgements
@@ -31,12 +36,36 @@ Additional Packages used:
 * [Instructions for manual testing](#instructions-for-manual-testing)
 
 ## Setting up and getting started
+### Setting up the project in your computer
 
+<div class="warning-box">
+:warning: <strong>Warning: </strong>
+
+Follow the steps in the following guide precisely...
+
+</div>
+
+First, fork this [repo](https://github.com/AY2324S2-CS2113T-T09-1/tp), 
+and clone the fork into your computer.
+
+We highly recommend you to use Intellij IDEA.
+1. **Configure the JDK**: Follow the 
+[guide IDEA: Configuring the JDK](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk) 
+to ensure Intellij is configured to use JDK 11.
+2. **Import the project as a Gradle project**: Follow the 
+[guide IDEA: Importing a Gradle project](https://se-education.org/guides/tutorials/intellijImportGradleProject.html) 
+to import the project into IDEA.
+3. **Verify the setup**: 
+   1. meditracker.MediTracker and try a few commands.
+   You can refer to our [UserGuide](UserGuide.md).
+   2. Run the tests to ensure they all pass using Gradle.
+      Open a console and run the command gradlew clean test (Mac/Linux: ./gradlew clean test)
 
 ## Design & implementation
 <!-- Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable. -->
 
 <!-- Comment: Perhaps add sequence diagram or class diagram here to show the interactions and relationships since this seems to involve quite a lot of classes? -->
+
 ### Add Medication Command
 The add medication command extends from the Command parent class and implements the following operations:
 - execute(MedicationManager, DailyMedicationManager, Ui) - Adds the medication object into the respective medication managers.
