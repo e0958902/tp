@@ -20,7 +20,7 @@ Additional Packages used:
 <!-- Add a TOC -->
 
 # Setting up and getting started
-Follow the [Quick Start](UserGuide#quick-start) Section of the User Guide.
+
 
 # Design & implementation
 <!-- Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable. -->
@@ -133,27 +133,53 @@ In order to utilise the argument parser,
 4. Finally, invoking `ArgumentList.parse` with the `String` object to obtain the parsed argument values.
 
 Overview of the `meditracker.argument` core classes:
-- TODO: Add class diagrams and/or object diagrams required to illustrate the above information
+ <!-- TODO: Add class diagrams and/or object diagrams required to illustrate the above information -->
 
 ---
+## Storage Design component
+The `storage` package primarily consists of utility classes that serves to write to and read from the files and managers.
 
-## Export to JSON File
+This package has 2 core utility classes: `FilePathChecker` and `FileReaderWriter`.
 
+The `FilePathChecker` class handles all the input checking from the `load` and `save` commands to make sure that the path supplied is supported by the Operating System.
+
+The `FileReaderWriter` class serves as a facade class, the "interface" that handles all the exporting and importing related functionality.
+All other functions and classes will have to call `FileReaderWriter` in order to read or save their data.
+
+The `FileReaderWriter` then calls `JsonExporter`, `JsonImporter` and `DailyMedicationExporter` (all of them are package-private classes) depending on the kind of data and the operation (to save or load).
+
+
+## Exporting data 
 ![jsonFileExport.png](images/JsonFileExport.png)
 
-<!--
-- TODO: Design and Implementation of the Logging Functionaity (SX) (Issue #41)
-- TODO: Design and Implementing of the Load and Save functionality (SX) (Issue #25)
-- TODO: Design and Implementing of the Reading and Writing of JSON file (SX) (Issue #27)
-- TODO: Consider the design and impl. of #48
--->
-
+How the exporting works:
+1. There are many ways in which the data gets saved (or exported). One of the way is after the user entered the `add` or `modify` command.
+2. The other way is when the user uses the `save` command with the path to save the data to.
+3. Once the path validation checks by `FilePathChecker` are completed and determined to be valid, the `save` command will call the `FileReaderWriter` to:
+   1. First write `Medication` related information to the JSON file. 
+      1. The temporary file, which will be in the same directory as the JSON file, will be created and written to. In case of a write issue, the actual save file will not be affected.
+      2. `JsonExporter` is then called to save the `Medication` data, converting it into a JSON-compatible format and then saved
+   2. Next, it will write `DailyMedication` related information to the text files.
+      1. The temporary file will be created in the same directory as the txt file.
+      2. `DailyMedicationExporter` is then called to write to the txt file.
 
 ## Importing data
 ![FileImport.png](images/FileImport.png)
 
+How the exporting works:
+1. When the program first starts up, the program will first attempt to load the `Medication` and `DailyMedication` information from the default save location.
+2. Another way is for the user to use the `load` command with the path to the JSON file to load from. 
+3. Once the path validation checks by `FilePathChecker` are completed and determined to be valid, the `load` command will call the `FileReaderWriter` to load all MediTracker related data.
+4. The loading of the JSON file for `Medication` data is independent of that of `DailyMedication` data. The failure of loading of one will not affect the other.
+   1. For the importing of the JSON file, the `Medication` data is loaded and then `MedicationManager` is then called to populate the `Medication` information
+   2. The text file will be read, the daily medication data is loaded, and then `DailyMedicationManager` is called to populate the daily medication information.
+
 ## Simulated Time
-This is an advanced feature. Offset based on the system time so that the user or developer does not have to worry about calculating the time and can just type in the time.
+This is implemented under `MediTrackerTime`. When the user types in `java -jar meditracker.jar -sim 2024-01-01T00:00:00Z` the program will first run the
+`setUpSimulatedTime` function to check if the `-sim` flag is present and whether the following parameter is of the `YYYY-MM-DDTHH:MM:SSZ` format.
+If it is of the right format, it will further proceed to set up and refer to the simulated time using `setMediTrackerTime`.
+Otherwise, it will just refer to the system time as per normal. However, since we are using the `Clock.fixed` function, the time will be fixed at whatever was set in the commandline
+and "time" will not progress.
 
 # Product scope
 ## Target user profile

@@ -41,6 +41,8 @@ Issues [#140](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/140), [#146](h
 - Populate some related instructions under manual testing.
 - Introduced some Non-Functional Requirements relating to my part (Modify and share data, time support for developers)
 - Introduced users stories relating to my part (saving and loading)
+- Exporting and Importing data process (with sequence diagram)
+- Storage Design component
 
 ### User Guide Contributions
 <!-- To talk about Issue 25 -->
