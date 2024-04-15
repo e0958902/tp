@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import meditracker.logging.MediLogger;
 
 /**
- * A class that perform checks on the supplied file path.
+ * A utility class that perform checks on the supplied file path (format checks).
  * This does not check for file permissions (to be created, read, accessed etc.).
  */
 public class FilePathChecker {
@@ -73,10 +73,9 @@ public class FilePathChecker {
         return false;
     }
 
-
     /**
      * Checks if the Path object has a valid root.
-     * This applies to windows filesystem where there are multiple local drives with different drive letters.
+     * This applies to the Windows filesystem where there are multiple local drives with different drive letters.
      * Relative paths should always return true.
      *
      * @param path The path object to be checked for the presence of the valid root.
@@ -102,13 +101,14 @@ public class FilePathChecker {
 
     /**
      * Checks the String input if it contains potentially illegal characters as a valid filepath.
-     * The Path object does not contain illegal characters as the conversion from String to Path would have thrown
-     * an `InvalidPathException` error.
+     * This method serves as an informational check to inform the user of illegal characters.
+     * The Path object does not contain illegal characters as the conversion from String to Path later
+     *     would have thrown an `InvalidPathException` error.
      *
-     * @param inputToCheck The String input to check for illegal characters
+     * @param inputToCheck The String input to check for illegal characters.
      * @return true if an illegal character is found, false otherwise.
      */
-    public static boolean containsIllegalCharacters(String inputToCheck) {
+    static boolean containsIllegalCharacters(String inputToCheck) {
         // Credit: https://stackoverflow.com/a/31976060
         String[] illegalCharacters = {"<", ">", "\"", "'", "|", "?", "*"};
 
@@ -127,7 +127,7 @@ public class FilePathChecker {
      * @param path The Path object.
      * @return true if the Path object is valid for the filesystem, false otherwise.
      */
-    public static boolean isValidFullPath(Path path) {
+    static boolean isValidFullPath(Path path) {
         if (path == null) {
             return false;
         }
@@ -151,18 +151,17 @@ public class FilePathChecker {
             MEDILOGGER.warning("File does not end in .json");
             return false;
         }
-
         return true;
     }
 
     /**
-     * Validates the path input and return the Path object if successfully validated.
+     * Validates the string input and return the Path object if successfully validated.
      *
-     * @param fileLocationArgument The argument specifying the location of the file (as String)
-     * @return The Path object corresponding to the argument for the save file if it passes validation checks.
+     * @param fileLocationArgument The argument specifying the location of the file (as String).
+     * @return The Path object corresponding to the string argument for the save file if it passes validation checks,
      *     null otherwise.
      */
-    public static Path validateUserPathArgument(String fileLocationArgument) {
+    public static Path getValidatedUserPathArgument(String fileLocationArgument) {
         if (fileLocationArgument == null) {
             return null;
         }
@@ -189,7 +188,6 @@ public class FilePathChecker {
             System.out.println("Please ensure the path contains valid folder names and ends with .json");
             return null;
         }
-
         return pathOfSaveFile;
     }
 }

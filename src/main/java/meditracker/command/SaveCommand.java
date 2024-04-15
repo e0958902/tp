@@ -103,7 +103,7 @@ public class SaveCommand extends Command {
         assert (parsedArguments != null);
 
         String saveFileLocation = parsedArguments.get(ArgumentName.SAVE_FILE);
-        Path pathOfJsonSaveFile = FilePathChecker.validateUserPathArgument(saveFileLocation);
+        Path pathOfJsonSaveFile = FilePathChecker.getValidatedUserPathArgument(saveFileLocation);
         if (pathOfJsonSaveFile != null) {
             saveToSpecifiedLocation(pathOfJsonSaveFile);
         }

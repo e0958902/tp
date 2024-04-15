@@ -52,7 +52,7 @@ public class LoadCommand extends Command {
         assert (parsedArguments != null);
 
         String loadFileLocation = parsedArguments.get(ArgumentName.LOAD_FILE);
-        Path pathOfJsonLoadFile = FilePathChecker.validateUserPathArgument(loadFileLocation);
+        Path pathOfJsonLoadFile = FilePathChecker.getValidatedUserPathArgument(loadFileLocation);
         if (pathOfJsonLoadFile == null) {
             return;
         }
