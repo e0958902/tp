@@ -1,3 +1,8 @@
+---
+layout: default
+title: Developer Guide
+---
+
 # Developer Guide
 
 ## Acknowledgements
@@ -16,8 +21,10 @@ Additional Packages used:
 ## Setting up and getting started
 ### Setting up the project in your computer
 
-> [!CAUTION]
-> Follow the steps in the following guide precisely.
+<div class="warning-box">
+:warning: <strong>Warning: </strong>
+Follow the steps in the following guide precisely..
+</div>
 
 First, fork this [repo](https://github.com/AY2324S2-CS2113T-T09-1/tp), 
 and clone the fork into your computer.
@@ -35,8 +42,11 @@ to import the project into IDEA.
    2. Run the tests to ensure they all pass using Gradle.
       Open a console and run the command gradlew clean test (Mac/Linux: ./gradlew clean test)
 
-> [!TIP]
-> Link: Read this [Gradle Tutorial from the se-edu/guides](https://se-education.org/guides/tutorials/gradle.html) to learn more about using Gradle.
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+Link: Read this [Gradle Tutorial from the se-edu/guides](https://se-education.org/guides/tutorials/gradle.html) 
+to learn more about using Gradle.
+</div>
 
 ## Design & implementation
 <!-- Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable. -->
