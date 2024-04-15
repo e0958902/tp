@@ -1,5 +1,9 @@
 package meditracker.medication;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import meditracker.argument.ArgumentName;
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MediTrackerException;
@@ -7,10 +11,6 @@ import meditracker.exception.MedicationNotFoundException;
 import meditracker.storage.FileReaderWriter;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * The MedicationManager class represents a list of medications.
@@ -256,14 +256,14 @@ public class MedicationManager {
 
     /**
      * Prints the specific medication specific according to the medication list index.
-     * 
+     *
      * @param listIndex The index of the medication in the Medication list
      * @throws IndexOutOfBoundsException Out of range index specified
      * @throws NullPointerException Trying to access non-existent object
      * @throws NumberFormatException When a string is keyed in for the index
      */
     public static void printSpecificMedication(int listIndex)
-            throws IndexOutOfBoundsException, NullPointerException, NumberFormatException  {
+            throws IndexOutOfBoundsException, NullPointerException, NumberFormatException {
         assert medications != null;
         Medication medication = MedicationManager.getMedication(listIndex);
         Ui.printSpecificMed(medication);

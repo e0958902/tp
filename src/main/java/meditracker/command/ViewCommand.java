@@ -1,5 +1,7 @@
 package meditracker.command;
 
+import java.util.Map;
+
 import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
@@ -13,8 +15,6 @@ import meditracker.exception.HelpInvokedException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.medication.MedicationManager;
 import meditracker.ui.Ui;
-
-import java.util.Map;
 
 /**
  * The ViewCommand class represents a command to print an existing medication.
@@ -62,18 +62,18 @@ public class ViewCommand extends Command {
             }
 
         } catch (IndexOutOfBoundsException e) {
-            String errorContext = String.format("Invalid medication index specified. %s. " +
-                            "Medicine can not be found", e.getMessage());
+            String errorContext = String.format("Invalid medication index specified. %s. "
+                     + "Medicine can not be found", e.getMessage());
             Ui.showErrorMessage(errorContext);
 
         } catch (NullPointerException e) {
-            String errorContext = String.format("You have to input a number. %s. " +
-                             "Medicine can not be found", e.getMessage());
+            String errorContext = String.format("You have to input a number. %s. "
+                     + "Medicine can not be found", e.getMessage());
             Ui.showErrorMessage(errorContext);
 
         } catch (NumberFormatException e) {
-            String errorContext = String.format("Please enter a number. %s. " +
-                            "Medicine can not be found", e.getMessage());
+            String errorContext = String.format("Please enter a number. %s. "
+                     + "Medicine can not be found", e.getMessage());
             Ui.showErrorMessage(errorContext);
 
         } catch (MedicationNotFoundException e) {
