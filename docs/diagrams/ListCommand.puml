@@ -2,7 +2,6 @@
 'https://plantuml.com/sequence-diagram
 
 actor User
-actor User
 
 participant ":ListCommand" as LC
 participant "ARGUMENT_LIST:ArgumentList" as AL
