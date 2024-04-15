@@ -16,6 +16,8 @@ Additional Packages used:
 - [JSON](https://github.com/stleary/JSON-java)
 - GitHub's built-in Jekyll integration to allow us to render the documentation in a slightly different style.
 
+<div style="page-break-after: always;"></div>
+
 # Overview
 * [MediTracker Developer Guide](#meditracker-developer-guide)
   * [Acknowledgements](#acknowledgements)
@@ -46,6 +48,8 @@ Additional Packages used:
   * [Modifying some medication information](#modifying-some-medication-information)
   * [Taking the medication](#taking-the-medication)
   * [Saving data](#saving-data)
+
+<div style="page-break-after: always;"></div>
 
 # Setting up and getting started
 ## Setting up the project in your computer
