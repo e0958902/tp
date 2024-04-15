@@ -80,10 +80,9 @@ to import the project into IDEA.
 <!-- Comment: Perhaps add sequence diagram or class diagram here to show the interactions and relationships since this seems to involve quite a lot of classes? -->
 ## Add Medication Command
 The add medication command extends from the Command parent class and implements the following operations:
-- execute(MedicationManager, DailyMedicationManager, Ui) - Adds the medication object into the respective medication managers.
-- setMedicineAttributes() - Sets the medicine object's attributes to be added to the medicine managers. 
-- assertionTest(MedicationManager, DailyMedicationManager) - Asserts that medicine has been added to both medication managers.
-- parseStringToValues(Arguments) - Parses string input for medicine quantity and dosage into double type.
+- `execute()` - Adds the medication object into the respective medication managers.
+- `createMedication()` - Creates and populates a Medication object with values derived from parsed command-line arguments and the current date.
+- `assertionTest()` - Asserts that medicine has been added to both medication managers.
 
 Given below is an example usage scenario, along with the sequence diagram and how the add command behaves at each step:
 

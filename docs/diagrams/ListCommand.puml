@@ -6,7 +6,7 @@ actor User
 participant ":ListCommand" as LC
 participant "ARGUMENT_LIST:ArgumentList" as AL
 
-User -> LC ** : new \nListCommand\n(argument)
+User -> LC ** : new ListCommand(argument)
 activate LC
 LC -> AL: parse(argument)
 activate AL
