@@ -5,12 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
-import meditracker.time.MediTrackerTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import meditracker.argument.ArgumentName;
 import meditracker.exception.MediTrackerException;
+import meditracker.time.MediTrackerTime;
 import meditracker.time.Period;
 
 // @@author nickczh
@@ -72,22 +72,22 @@ public class Medication {
      */
     public void checkValidity() throws MediTrackerException {
         boolean isUninitialised =
-                name == null ||
-                quantity == null ||
-                dosageMorning == null ||
-                dosageAfternoon == null ||
-                dosageEvening == null ||
-                expiryDate == null ||
-                remarks == null ||
-                repeat == 0 ||
-                dayAdded == 0;
+                name == null
+                || quantity == null
+                || dosageMorning == null
+                || dosageAfternoon == null
+                || dosageEvening == null
+                || expiryDate == null
+                || remarks == null
+                || repeat == 0
+                || dayAdded == 0;
         if (isUninitialised) {
             throw new MediTrackerException("Medication has uninitialised values. Discarding Medication.");
         }
 
         if (hasNoDosages()) {
-            throw new MediTrackerException("Medication has no dosages. " +
-                    "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
+            throw new MediTrackerException("Medication has no dosages. "
+                    + "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
         }
     }
 
