@@ -1,16 +1,17 @@
 package meditracker.argument;
 
-import meditracker.exception.ArgumentException;
-import meditracker.exception.HelpInvokedException;
-import org.junit.jupiter.api.Test;
-
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+
+import meditracker.exception.ArgumentException;
+import meditracker.exception.HelpInvokedException;
+
 public class ArgumentParserTest {
-    ArgumentList testArgumentList = new ArgumentList(
+    private final ArgumentList testArgumentList = new ArgumentList(
             new NameArgument(false),
             new QuantityArgument(false),
             new DosageMorningArgument(false),
@@ -105,10 +106,7 @@ public class ArgumentParserTest {
                 remarks,
                 name);
 
-        assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
-        );
+        assertThrows(ArgumentException.class, () -> testArgumentList.parse(testArgumentString));
     }
 
     @Test
@@ -121,10 +119,7 @@ public class ArgumentParserTest {
                 quantity,
                 remarks);
 
-        assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
-        );
+        assertThrows(ArgumentException.class, () -> testArgumentList.parse(testArgumentString));
     }
 
     @Test
@@ -137,10 +132,7 @@ public class ArgumentParserTest {
                 dosage,
                 quantity);
 
-        assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
-        );
+        assertThrows(ArgumentException.class, () -> testArgumentList.parse(testArgumentString));
     }
 
     @Test
@@ -155,9 +147,6 @@ public class ArgumentParserTest {
                 quantity,
                 remarks);
 
-        assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
-        );
+        assertThrows(ArgumentException.class, () -> testArgumentList.parse(testArgumentString));
     }
 }
