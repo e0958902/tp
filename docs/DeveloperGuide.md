@@ -16,6 +16,8 @@ Additional Packages used:
 - [JSON](https://github.com/stleary/JSON-java)
 - GitHub's built-in Jekyll integration to allow us to render the documentation in a slightly different style.
 
+<div style="page-break-after: always;"></div>
+
 # Overview
 * [MediTracker Developer Guide](#meditracker-developer-guide)
   * [Acknowledgements](#acknowledgements)
@@ -48,6 +50,8 @@ Additional Packages used:
   * [Taking the medication](#taking-the-medication)
   * [Saving data](#saving-data)
 
+<div style="page-break-after: always;"></div>
+
 # Setting up and getting started
 ## Setting up the project in your computer
 
@@ -74,6 +78,8 @@ to import the project into IDEA.
    2. Run the tests to ensure they all pass using Gradle.
       Open a console and run the command gradlew clean test (Mac/Linux: ./gradlew clean test)
 
+<div style="page-break-after: always;"></div>
+
 # Design & implementation
 <!-- Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable. -->
 
@@ -97,6 +103,8 @@ parsing the arguments.
 - Step 7. Checks and updates daily medication records in `DailyMedicationManager`.
 - Step 8. `Ui` displays success or error messages to the user.
 
+<div style="page-break-after: always;"></div>
+
 ### Expanding Step 7
 ![sublist](images/AddToSubLists.png)
 - Every medication is checked if they contain dosage for each `period` (morning, afternoon, evening) of the day.
@@ -104,6 +112,9 @@ parsing the arguments.
 and `period` values.
 - This `dailyMedication` is then added to the respective sub lists according to the `period`.
 - Finally, the `dailyMedication` is saved into the text file and returns `true` if saved successfully.
+---
+
+<div style="page-break-after: always;"></div>
 
 ## Modify Medication Command
 The modify medication command extends from Command parent class with the following methods:
@@ -178,6 +189,8 @@ list, based on the repeat value.
 * Additional checks in `ListCommand.execute()` prevent user from entering unnecessary flags or words **after** 
 `list -t all` and `list -t today (-m/-a/-e)`.
 
+<div style="page-break-after: always;"></div>
+
 ## Utilising the Period and TimeRange
 * A day is divided into three `Periods`: Morning, afternoon and evening
 * `TimeRange` determines the time when a medication is to be taken
@@ -187,6 +200,8 @@ list, based on the repeat value.
 * `timeRange.isWithinTimeRange` detects if the current time of the day falls into one of the 3 periods, 
 then automatically checks off the relevant medication in the DailyMedication list, without user specifying 
 `(-m/-a/-e)` **after** `take -l [index]`.
+
+<div style="page-break-after: always;"></div>
 
 ## View Medication Command
 The view medication command extends from Command parent class and contains the following:
@@ -206,6 +221,8 @@ and displays the medication via `printSpecificMed(medicationDetails)` in `Ui`.
 - Step 8. `Ui` displays a success message to the user.
 - Step 9. `Else`, if the parsed arguments is more than one, then `Ui` displays an error message to the user.
 
+<div style="page-break-after: always;"></div>
+
 ## Search Medication Command
 The search medication command extends from Command parent class and contains the following methods:
 - execute(MedicationManager, DailyMedicationManager, Ui) - Searches the local medication library for medication names,
@@ -213,6 +230,11 @@ what illnesses they treat and their side effects, and prints the results to the 
 
 The 'search' command requires the following:
 1. To be added.
+
+
+<div style="page-break-after: always;"></div>
+
+<!--Comment: Consider using a class diagram to illustrate this to provide visual feedback.-->
 
 ## Utilising the argument parser
 
@@ -254,6 +276,9 @@ Overview of the `meditracker.argument` core classes:
 ![ArgumentPackageClassDiagram.png](images/ArgumentPackageClassDiagram.png)
 
 ---
+
+<div style="page-break-after: always;"></div>
+
 ## Storage Design component
 The `storage` package primarily consists of utility classes that serves to write to and read from the files and managers.
 
@@ -266,6 +291,7 @@ All other functions and classes will have to call `FileReaderWriter` in order to
 
 The `FileReaderWriter` then calls `JsonExporter`, `JsonImporter` and `DailyMedicationExporter` (all of them are package-private classes) depending on the kind of data and the operation (to save or load).
 
+<div style="page-break-after: always;"></div>
 
 ## Exporting data 
 ![jsonFileExport.png](images/JsonFileExport.png)
@@ -280,6 +306,8 @@ How the exporting works:
    2. Next, it will write `DailyMedication` related information to the text files.
       1. The temporary file will be created in the same directory as the txt file.
       2. `DailyMedicationExporter` is then called to write to the txt file.
+
+<div style="page-break-after: always;"></div>
 
 ## Importing data
 ![FileImport.png](images/FileImport.png)
@@ -298,6 +326,8 @@ This is implemented under `MediTrackerTime`. When the user types in `java -jar m
 If it is of the right format, it will further proceed to set up and refer to the simulated time using `setMediTrackerTime`.
 Otherwise, it will just refer to the system time as per normal. However, since we are using the `Clock.fixed` function, the time will be fixed at whatever was set in the commandline
 and "time" will not progress.
+
+<div style="page-break-after: always;"></div>
 
 # Product scope
 ## Target user profile
@@ -318,18 +348,20 @@ Ensuring that you would not forget your next dose of medication.
 | v1.0    | user     | delete medications medication list                                           | remove medications that I do not need will not be there anymore                                                                                        |
 | v1.0    | user     | search medications from existing medicine library                            | search medications locally to have a quick preview of them and their purpose without the web                                                           |
 | v1.0    | user     | know the list of medications I have added                                    | have a quick overview of the medication list and check the quantity and expiry date of each medication                                                 |
+| v1.0    | user     | Save data locally                                                            | Use the application and see the data even when offline between sessions (data is persistent)                                                           |
+| v1.0    | user     | Be able to load existing data                                                | I don't have to start from a fresh state everytime                                                                                                     |
 | v2.0    | user     | see how much to be taken at each specific time of the day                    | have a quick overview of the list of medications to take at the specific period of the day                                                             |
 | v2.0    | user     | retrieve all the values related to a medication                              | have a quickly verify all the details I have input for that particular medication                                                                      |
 | v2.0    | user     | search medications by their side effects from existing medicine library      | search medications by their side effects locally to have a quick preview of them and their purpose without the web                                     |
 | v2.0    | user     | search medications by their illness treatment from existing medicine library | search medications by their illness treatment locally to have a quick preview of them and their purpose without the web                                |
 | v2.0    | user     | mark a medication as taken without specifying the period                     | reduce the hassle of telling the program explicitly that I have taken a medication for that period of the day                                          |
+| v2.0    | user     | Be able to save the file to a place of my choosing                           | I can easily refer or transfer the files to another system                                                                                             |
+| v2.0    | user     | Be able to load existing data from a place I choose                          | load the data by typing rather than dragging to the default save location                                                                              |
 | v2.1    | user     | know which medications are low in quantity                                   | filter from my list of medications and see which ones need to be restock soon                                                                          |
 | v2.1    | user     | know which medications are going to be expired                               | filter from my list of medications and see which ones are going to be expired                                                                          |
 | v2.1    | user     | filter my medications based on a keyword                                     | have a quick overview of the medication list and check the quantity and expiry date of each medication                                                 |
-| v1.0    | user     | Save data locally                                                            | Use the application and see the data even when offline between sessions (data is persistent)                                                           |
-| v2.0    | user     | Be able to save the file to a place of my choosing                           | I can easily refer or transfer the files to another system                                                                                             |
-| v1.0    | user     | Be able to load existing data                                                | I don't have to start from a fresh state everytime                                                                                                     |
-| v2.0    | user     | Be able to load existing data from a place I choose                          | load the data by typing rather than dragging to the default save location                                                                              |
+
+<div style="page-break-after: always;"></div>
 
 ## Non-Functional Requirements
 - The user's program data (medication, daily medication) should be persistent between program sessions.
@@ -346,6 +378,8 @@ Ensuring that you would not forget your next dose of medication.
 | Flags                 | Most commands in MediTracker uses the flags with the "-" to recognise values within certain fields. Eg. `-n`, `-a`, `-l`, etc.  |
 | Medication Data       | Data related to the overview of the medication itself                                                                           |
 | Daily Medication Data | Data related to the medication's current day dosage, including its status                                                       |
+
+<div style="page-break-after: always;"></div>
 
 # Instructions for manual testing
 <div class="info-box">
@@ -388,6 +422,8 @@ Run `list -t all` to see that the medication name has been changed.
 Use `take -l 1` to take the medication. By default, the program chooses the time based on either the simulated time or the system time.
 
 You can run `list -t today` to see that the medication has been taken.
+
+<div style="page-break-after: always;"></div>
 
 ## Saving data
 By default, data is automatically saved to the default location (under the `data` folder). you can just `exit` the program.
