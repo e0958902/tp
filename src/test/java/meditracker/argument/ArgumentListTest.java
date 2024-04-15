@@ -1,16 +1,17 @@
 package meditracker.argument;
 
-import meditracker.exception.ArgumentException;
-import meditracker.exception.HelpInvokedException;
-import org.junit.jupiter.api.Test;
-
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+
+import meditracker.exception.ArgumentException;
+import meditracker.exception.HelpInvokedException;
+
 public class ArgumentListTest {
-    ArgumentList testArgumentList = new ArgumentList(
+    private final ArgumentList testArgumentList = new ArgumentList(
             new NameArgument(false),
             new DosageMorningArgument(false),
             new QuantityArgument(false)
@@ -58,9 +59,6 @@ public class ArgumentListTest {
         String dosage = "100";
         String testArgumentString = String.format("-n %s -dM %s", name, dosage);
 
-        assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
-        );
+        assertThrows(ArgumentException.class, () -> testArgumentList.parse(testArgumentString));
     }
 }

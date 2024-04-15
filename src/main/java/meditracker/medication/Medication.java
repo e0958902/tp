@@ -5,12 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
-import meditracker.time.MediTrackerTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import meditracker.argument.ArgumentName;
 import meditracker.exception.MediTrackerException;
+import meditracker.time.MediTrackerTime;
 import meditracker.time.Period;
 
 // @@author nickczh
@@ -72,22 +72,22 @@ public class Medication {
      */
     public void checkValidity() throws MediTrackerException {
         boolean isUninitialised =
-                name == null ||
-                quantity == null ||
-                dosageMorning == null ||
-                dosageAfternoon == null ||
-                dosageEvening == null ||
-                expiryDate == null ||
-                remarks == null ||
-                repeat == 0 ||
-                dayAdded == 0;
+                name == null
+                || quantity == null
+                || dosageMorning == null
+                || dosageAfternoon == null
+                || dosageEvening == null
+                || expiryDate == null
+                || remarks == null
+                || repeat == 0
+                || dayAdded == 0;
         if (isUninitialised) {
             throw new MediTrackerException("Medication has uninitialised values. Discarding Medication.");
         }
 
         if (hasNoDosages()) {
-            throw new MediTrackerException("Medication has no dosages. " +
-                    "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
+            throw new MediTrackerException("Medication has no dosages. "
+                    + "Please ensure at least 1 period of day has dosage (-dM, -dA and/or -dE).");
         }
     }
 
@@ -222,13 +222,12 @@ public class Medication {
     // @@author
 
     // @@author annoy-o-mus
-
     /**
-     * Calls the setter method with the parsed data based on the argumentName specified
+     * Calls the setter method with the parsed data based on the argumentName specified.
      *
-     * @param argumentName ArgumentName that identifies what type of data it is
-     * @param argumentValue Value of the data to be (converted and) set
-     * @throws MediTrackerException If it fails the checks and/or parsing
+     * @param argumentName ArgumentName that identifies what type of data it is.
+     * @param argumentValue Value of the data to be (converted and) set.
+     * @throws MediTrackerException If it fails the checks and/or parsing.
      */
     public void setMedicationValue(ArgumentName argumentName, String argumentValue) throws MediTrackerException {
         switch (argumentName) {
@@ -266,10 +265,9 @@ public class Medication {
             setDayAdded(dayAdded);
             break;
         default:
-            throw new MediTrackerException("Unexpected value: " + argumentName);
+            throw new MediTrackerException("Unexpected argument name: " + argumentName);
         }
     }
-
     // @@author
 
     @Override

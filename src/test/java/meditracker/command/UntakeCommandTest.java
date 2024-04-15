@@ -1,5 +1,16 @@
 package meditracker.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.dailymedication.DailyMedicationManagerTest;
@@ -8,16 +19,6 @@ import meditracker.exception.HelpInvokedException;
 import meditracker.medication.MedicationManagerTest;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class UntakeCommandTest {
 
@@ -31,7 +32,7 @@ public class UntakeCommandTest {
     @Test
     void execute_inOrderArgument_expectDailyMedicationUntaken() throws HelpInvokedException, ArgumentException {
         DailyMedication dailyMedication = new DailyMedication("Medication_A", 10, Period.MORNING);
-        DailyMedicationManager.addDailyMedication(dailyMedication);    //only doing for MORNING sub list
+        DailyMedicationManager.addDailyMedication(dailyMedication); // only doing for MORNING sub list
 
         String inputString = "untake -l 1 -m";
         UntakeCommand command = new UntakeCommand(inputString);

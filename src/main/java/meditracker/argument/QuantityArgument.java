@@ -1,9 +1,15 @@
 package meditracker.argument;
 
 /**
- * Quantity of medication
+ * Argument for quantity of medication.
  */
 public class QuantityArgument extends Argument {
+
+    /**
+     * Constructs an QuantityArgument with whether the argument is optional.
+     *
+     * @param isOptional Whether the argument is optional.
+     */
     public QuantityArgument(boolean isOptional) {
         super(
                 ArgumentName.QUANTITY,
