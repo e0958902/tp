@@ -8,7 +8,7 @@ https://se-education.org/addressbook-level3/UserGuide.html
 -->
 
 # MediTracker User Guide
-## Introduction
+# Introduction
 MediTracker is a desktop app for users who want to track their medication intake on a daily basis. It offers intuitive
 features that works seamlessly right from the very beginning. With MediTracker, you do not have to worry about missing
 your daily medication dose. It tracks your daily intake and reminds you when your remaining amount is low, and enables
@@ -24,42 +24,49 @@ data storage so that you can review your past medication intake.
 </div>
 <div style="page-break-after: always;"></div>
 
-## Table of Contents
+# Table of Contents
 Here are the comprehensive sections which MediTracker has to offer:
-* [How to use the User Guide](#how-to-use-the-user-guide)
+<!-- TOC -->
+* [MediTracker User Guide](#meditracker-user-guide)
+* [Introduction](#introduction)
+* [Table of Contents](#table-of-contents)
+* [How to Use the User Guide](#how-to-use-the-user-guide)
 * [Quick Start](#quick-start)
 * [Features](#features)
-  - [Add Medication](#adding-a-medication-add)`add`
-  - [List Medication](#listing-medications-list)
-    - [Summary of all medications](#all-medications)`list -t all`
-    - [Summary of medications for the day](#daily-medications)`list -t today`
-  - [View Medication](#viewing-medications-view)
-    - [View Medication by index](#view-medication-by-index)`view -l`
-    - [View Medication by name](#view-medication-by-name)`view -n`
-    - [View Medication by quantity](#view-medication-by-quantity)`view -q`
-    - [View Medication by expiry](#view-medication-by-expiry)`view -e`
-    - [View Medication by remarks](#view-medication-by-remarks)`view -r`
-  - [Record taking of medication](#record-taking-of-medication)
-    - [Take Medication](#take-medication-take--l)`take -l`
-    - [Untake Medication](#untake-medication-untake--l)`untake -l`
-  - [Modify medication information](#modify-medication-information-modify--l)`modify -l`
-  - [Delete Medication](#delete-medication-delete--l)`delete -l`
-  - [Search Medicine Library](#search)`search`
-  - [Help](#help)
-  - [General data management](#general-data-management)
-    - [Saving to a file](#saving-to-a-file-save)`save`
-    - [Reading from a file](#reading-from-a-file-load)`load`
-    - [Editing the file](#editing-the-file)
-    - [Setting an arbitrary time](#setting-an-arbitrary-time)
-  - [Exit](#exit-exit)
-- [FAQ](#faq)
-- [Glossary](#glossary)
-- [Command Summary](#command-summary)
+  * [Adding a medication `add`](#adding-a-medication-add)
+  * [Listing medications `list`](#listing-medications-list)
+    * [All medications](#all-medications)
+    * [Daily medications](#daily-medications)
+  * [Viewing medications `view`](#viewing-medications-view)
+    * [View Medication by index](#view-medication-by-index)
+    * [View Medication by name](#view-medication-by-name)
+    * [View Medication by quantity](#view-medication-by-quantity)
+    * [View Medication by expiry](#view-medication-by-expiry)
+    * [View Medication by remarks](#view-medication-by-remarks)
+  * [Record taking of medication](#record-taking-of-medication)
+    * [Take Medication `take -l`](#take-medication-take--l)
+    * [Untake Medication `untake -l`](#untake-medication-untake--l)
+  * [Modify Medication Information `modify -l`](#modify-medication-information-modify--l)
+  * [Delete Medication `delete -l`](#delete-medication-delete--l)
+  * [Search](#search)
+  * [Help](#help)
+  * [General Data Management](#general-data-management)
+    * [Saving to a file `save`](#saving-to-a-file-save)
+    * [Reading from a file `load`](#reading-from-a-file-load)
+    * [Editing the file](#editing-the-file)
+  * [Setting an arbitrary time](#setting-an-arbitrary-time)
+  * [Exit `exit`](#exit-exit)
+* [Future Developments](#future-developments)
+* [FAQ](#faq)
+* [Glossary](#glossary)
+* [Command Summary](#command-summary)
+<!-- TOC -->
+
 <br>
 
 <div style="page-break-after: always;"></div>
 
-## How to Use the User Guide
+# How to Use the User Guide
 <!-- @@author annoy-o-mus-reused
 reused from: https://ay2223s1-cs2103t-w16-2.github.io/tp/UserGuide.html#admonition-boxes
 with minor modifications
@@ -106,7 +113,7 @@ Extremely important text.
 
 <div style="page-break-after: always;"></div>
 
-## Quick Start
+# Quick Start
 1. Ensure that you have [Java 11](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html) 
 or above installed. 
    - If you are using Windows:
@@ -131,10 +138,9 @@ or above installed.
 
 <div style="page-break-after: always;"></div>
 
-## Features
+# Features
 
-#### NOTES about the command format:
-
+NOTES about the command format:
 - Each command starts with a command keyword
 - Following which, you may specify additional options
 - These options can be in round brackets `()` (which are mandatory arguments) and in square brackets `[]` (which are
@@ -740,7 +746,7 @@ Format: `save [-o saveFile]`
 
 Examples:
 - `save`: Save the file to the default location.
-- `save -o data/testfolder/output.json`: Saves the file
+- `save -o data/testfolder/output.json`: Saves the file to specified location.
 
 The default save location is `data/MediTrackerData.json`.
 As far as possible, refrain from using spaces in the file path, especially with `-h` i.e. `path/to -h/`. 
@@ -749,6 +755,12 @@ This will trigger the help message to be displayed rather than processing the sa
 Also, ensure that the file does not end with a space or a dot (.); the file must end with `.json`.
 
 Ensure that the folder you are going to write to has the proper access rights. Don't write to system folders; it will likely fail.
+
+<div class="info-box">
+:information_source: <strong>Info: </strong>
+The <code>dailymed</code> folder will be created at the same level as that of the JSON file.
+Keep both the folder structure and the file name as is as our loading functionality relies on this particular save format.
+</div>
 
 <br>
 
@@ -779,6 +791,12 @@ This will trigger the help message to be displayed rather than processing the sa
 
 A prompt will then ask for your confirmation to overwrite existing data as an additional layer of safeguard.
 
+<div class="info-box">
+:information_source: <strong>Info: </strong>
+The <code>dailymed</code> folder must be at the same level as that of the JSON file and the text file must be of format <code>YYYY--MM-DD.txt</code> or the program will fail to find the files needed to load 
+to update the Daily Medications.
+</div>
+
 <div class="warning-box">
 :warning: <strong>Warning: </strong>
 Loading will overwrite existing running data, so be sure to save a copy first before deciding to overwrite.
@@ -800,25 +818,30 @@ MediTracker may:
 
 <ol>
   <li>Discard all the data and start with a fresh state</li>
-  <li>Tries to read some information, and fill in placeholder values for fields that fail to load.</li>
+  <li>Tries to read some information, and fill in placeholder values for fields that fail to load, which may result in unexpected results </li>
   <li>Crash due to bad data.</li>
 </ol>
 
+Some kinds of modifications that can render a file invalid include: 
+<ol>
+  <li>Removing semicolons (:) from the JSON file</li>
+  <li>Using NaN and large numbers (9999999999999)</li>
+</ol>
 </div>
 
 > Therefore, only edit the file if you are confident you can update it correctly.
 
 <div class="warning-box">
 :warning: <strong>Warning: </strong>
-If you edit valid data directly inside the <code>.json</code> file, you have to <b>delete the text file &lt;TODAY_DATE&gt;.txt in 
-data/dailymed/</b>. Otherwise, the next time MediTracker runs, it will continue to read the old data saved in the
+If you edit valid data directly inside the <code>.json</code> file, you might have to <b>modify the text file &lt;TODAY_DATE&gt;.txt in 
+data/dailymed/</b> as well. Otherwise, the next time MediTracker runs, it will continue to read the old data saved in the
 &lt;TODAY_DATE&gt;.txt.
 </div>
 
 <div class="info-box">
 :information_source: <strong>Info: </strong>
-As mentioned earlier, <code>.json</code> and <code>.txt</code> store All Medications and Daily Medications respectively. Therefore, in the 
-case of data corruption in one of the files, please be minded that `list -t all` might display empty, while 
+As mentioned earlier, <code>.json</code> and <code>.txt</code> store All Medications and Daily Medications independently of each other. 
+Therefore, in the case of data corruption in one of the files, please be minded that `list -t all` might display empty, while 
 `list -t today` might display its contents normally, or vice versa. Or if both files are corrupted, both commands might 
 not display anything at all.
 </div>
@@ -828,10 +851,10 @@ not display anything at all.
 <div style="page-break-after: always;"></div>
 
 
-### Setting an arbitrary time
+## Setting an arbitrary time
 
-This feature is intended for developers to test out the features. See the developer guide (To be updated) for more detailed explanation on its implementation.
-To make use of this feature, simply add the following flag and argument **when running the program** (not during the program execution itself)
+This feature is intended for developers to test out the features. 
+To make use of this feature, simply add the following flag and argument **before running the program** (not during the program execution itself)
 
 Example: `java -jar meditracker.jar -sim 2024-01-01T13:00:00Z`
 
@@ -839,6 +862,8 @@ The `-sim` flag informs the program that a simulated time is expected. The suppl
 or else the parser will return an error. The supplied time is of the format `YYYY-MM-DDTHH:MM:SSZ`
 
 In the above example, it will set the time for the program to be **1 Jan 2024, 1pm**.
+
+The time will be fixed and will not "move" once the time has been set.
 
 <br>
 
@@ -860,13 +885,22 @@ Thank you for using MediTracker. Hope to see you again!
 
 <div style="page-break-after: always;"></div>
 
-## FAQ
+# Future Developments
+- Support Different save file type (.csv)
+- Better file path checks to differentiate Operating Systems
+- Configuration File to change default file settings
+- Show historical data of the list of medication taken daily (show records of medication taken in the past)
+
+
+# FAQ
 **Q**: How do I transfer my data to another computer? 
 
 **A**: By default, all MediTracker-related data will be saved under the `data` folder. 
 This folder resides at the same level as the `meditracker.jar` file.
 To transfer the data, just copy/shift the `data` folder to the new computer, 
 making sure it is at the same level as the `.jar` file.
+
+<br>
 
 **Q**: Why does the program keep returning "Invalid index specified"?
 
@@ -876,9 +910,23 @@ respectively. You may also use the `<command> -h` to see how the command works.
 
 <br>
 
+**Q**: How do I reset the program?
+
+**A**: While we have yet to implement a reset functionality, there is a workaround. You can just delete the files at the default save location and the program will start with a fresh state.
+
+<br>
+
+**Q**: Where is the default save location?
+
+**A**: The `.json` file is by default saved under the `data` folder which you can find in the same folder as the program you are running on.
+The `.txt` files containing daily information are located by default inside the `data/dailymed` folder
+
+<br> 
+
 <div style="page-break-after: always;"></div>
 
-## Glossary
+# Glossary
+
 | Term  | Explanation                                                                                                                                                                                                   |
 |-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | .json | JSON stands for JavaScript Object Notation, which is used to save **all** medications added by the user.                                                                                                      |
@@ -889,7 +937,7 @@ respectively. You may also use the `<command> -h` to see how the command works.
 
 <div style="page-break-after: always;"></div>
 
-## Command Summary
+# Command Summary
 <!-- Markdown table is not suitable as it does not provide text wrapping -->
 
 <table>
