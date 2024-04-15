@@ -50,7 +50,7 @@ Here are the comprehensive sections which MediTracker has to offer:
     - [Saving to a file](#saving-to-a-file-save)`save`
     - [Reading from a file](#reading-from-a-file-load)`load`
     - [Editing the file](#editing-the-file)
-    - [Setting an arbitrary time](#setting-an-arbitrary-time)
+  - [Setting an arbitrary time](#setting-an-arbitrary-time)
   - [Exit](#exit-exit)
 - [FAQ](#faq)
 - [Glossary](#glossary)
@@ -828,7 +828,7 @@ not display anything at all.
 <div style="page-break-after: always;"></div>
 
 
-### Setting an arbitrary time
+## Setting an arbitrary time
 
 This feature is intended for developers to test out the features. See the developer guide (To be updated) for more detailed explanation on its implementation.
 To make use of this feature, simply add the following flag and argument **when running the program** (not during the program execution itself)
@@ -860,6 +860,13 @@ Thank you for using MediTracker. Hope to see you again!
 
 <div style="page-break-after: always;"></div>
 
+## Future Developments
+- Support Different save file type (.csv)
+- Better file path checks to differentiate Operating Systems
+- Configuration File to change default file settings
+- Show historical data of the list of medication taken daily (show records of medication taken in the past)
+
+
 ## FAQ
 **Q**: How do I transfer my data to another computer? 
 
@@ -888,6 +895,8 @@ respectively. You may also use the `<command> -h` to see how the command works.
 
 **A**: The `.json` file is by default saved under the `data` folder which you can find in the same folder as the program you are running on.
 The `.txt` files containing daily information are located by default inside the `data/dailymed` folder
+
+<br> 
 
 <div style="page-break-after: always;"></div>
 
