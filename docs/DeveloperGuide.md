@@ -81,6 +81,16 @@ The list medication command extends from Command parent class and contains the f
 then automatically checks off the relevant medication in the DailyMedication list, without user specifying 
 `(-m/-a/-e)` **after** `take -l [index]`.
 
+### View Medication Command
+The view medication command extends from Command parent class and contains the following:
+
+Given below is an example of and how the view command behaves at each step 
+with the help of a the sequence diagram with a usage scenario.
+
+![ViewCommand.png](images/ViewCommand.png)
+- Step 1. User initiates MediTracker and done a viewCommand.
+- Step 2. 
+
 ### Search Medication Command
 The search medication command extends from Command parent class and contains the following methods:
 - execute(MedicationManager, DailyMedicationManager, Ui) - Searches the local medication library for medication names,
