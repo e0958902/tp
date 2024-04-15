@@ -278,7 +278,7 @@ Morning:
 :information_source: <strong>Info: </strong>
 
 If you want to mark the medication you have taken, you can refer to the <a href="#take-medication-take--l"><code>Take 
-Command</code></a> here.
+Command</code></a>.
 
 </div>
 
@@ -784,7 +784,7 @@ See the part on <a href="#editing-the-file">Editing the File</a> for warnings on
 
 ### Editing the file
 The medication information are saved in a `.json` format while the daily medication information are saved
-in the `.txt` format (two independent files). Advanced users can modify the text files directly.
+in the `.txt` format (two independent files). Advanced users can modify either files directly.
 
 <div class="danger-box">
 :bangbang: <strong>Danger: </strong>
@@ -856,16 +856,27 @@ Thank you for using MediTracker. Hope to see you again!
 ## FAQ
 **Q**: How do I transfer my data to another computer? 
 
-**A**: By default, all meditracker-related data will be saved under the `data` folder. 
+**A**: By default, all MediTracker-related data will be saved under the `data` folder. 
 This folder resides at the same level as the `meditracker.jar` file.
 To transfer the data, just copy/shift the `data` folder to the new computer, 
 making sure it is at the same level as the `.jar` file.
+
+**Q**: Why does the program keep returning "Invalid index specified"?
+
+**A**: Please make sure you are referring to the correct list. MediTracker uses [`list -t all`](#all-medications)
+and [`list -t today`](#daily-medications) commands to display all medications and medications to be taken for the day, 
+respectively. You may also use the `<command> -h` to see how the command works.
 
 <br>
 
 <div style="page-break-after: always;"></div>
 
 ## Glossary
+| Term  | Explanation                                                                                                                                                                                                   |
+|-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| .json | JSON stands for JavaScript Object Notation, which is used to save **all** medications added by the user.                                                                                                      |
+| .txt  | It represents a text file that contains plain text in the form of lines. <br/>Medications to be taken for a particular day is saved in the text file, and a new text file is created at the start of the day. |
+| Flags | Most commands in MediTracker uses the flags with the "-" to recognise values within certain fields per command.                                                                                               |
 
 <br>
 

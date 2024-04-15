@@ -24,20 +24,24 @@ The following contains my contribution summary and pull request reviews.
 - Issue #198: Specifying the correct list index to refer when using take command
 - Issue #201: Stating the usage of -h in list command
 - Issue #200: Stating in UG that entering the command word alone with print the help message
+- Issue #147: Abidance to a stricter checkstyle
 
 
 ### Developer Guide Contributions
 - Added some user stories into the table
+- Added a sequence diagram for how a medication is added into dailyMedicationManager
 - Added command guide for  how list -t today -m/-a/-e will print
-  - Explained how the time ranges affects the addition of each medication into their sub lists
+  - Explained how the time ranges affect the addition of each medication into their sub lists
 
 ### User Guide Contributions
 - Summary of list for the Daily Medication
 - Added breakdown of sub lists within the Daily Medication list
 - Helped to construct clearer instructions in UG, especially issues found from PE-D
+- Added a Glossary section
 
 ### PR Reviews
-#4, #5, #8, #10, #54, #56, #57, #68, #75, #78, #85, #88, #133, #135, #144, #207, #213 #223
+#4, #5, #8, #10, #54, #56, #57, #68, #75, #78, #85, #88, #133, #135, #144, #207, #213, #223,
+#229, #242, #247, #248
 
 ### Team-based tasks
 - Book room for weekly project meetings
