@@ -1,0 +1,32 @@
+@startuml
+participant ":ModifyCommand" as ModifyCommand
+participant "medication:Medication" as MED
+participant "medicationCopy:Medication" as COPY
+participant "<<class>>\n DailyMedicationManager" as DailyMedicationManager
+
+activate ModifyCommand
+activate MED
+activate COPY
+ModifyCommand -> ModifyCommand: rollbackChanges(medication, medicationCopy)
+activate ModifyCommand
+
+opt processedArguments contains ArgumentName.NAME
+    ModifyCommand -> COPY: getName()
+    activate COPY
+    COPY --> ModifyCommand: oldName:String
+    deactivate COPY
+    ModifyCommand -> DailyMedicationManager: updateDailyMedicationName(medication, oldName)
+    activate DailyMedicationManager
+    DailyMedicationManager --> ModifyCommand
+    deactivate DailyMedicationManager
+end
+ModifyCommand -> MED: revertMedication(medicationCopy)
+activate MED
+MED --> ModifyCommand
+deactivate MED
+
+ModifyCommand --> ModifyCommand
+deactivate COPY
+deactivate MED
+deactivate ModifyCommand
+@enduml

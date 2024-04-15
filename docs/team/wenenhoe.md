@@ -86,6 +86,8 @@
 - Included what is required to add on and further extend the argument package
 if more `Argument`s are needed
 - Added information on how help messages for `ArgumentList` is generated
+- Added sequence diagrams for `ModifyCommand`
+- Added class diagram for `meditracker.argument` package core classes
 
 ### User Guide Contributions
 - Added description on command format
