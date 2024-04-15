@@ -1,5 +1,9 @@
 package meditracker.dailymedication;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.MedicationUnchangedException;
@@ -9,10 +13,6 @@ import meditracker.storage.FileReaderWriter;
 import meditracker.time.MediTrackerTime;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Manages a list of DailyMedication and CRUD-operations (Create, Read, Update, Delete)
@@ -355,7 +355,7 @@ public class DailyMedicationManager {
 
         switch (num) {
         case 1:
-            return true;                     //everyday
+            return true; //everyday
         case 2:
             return isNDay(medication, 2); //every 2 days
         case 3:
@@ -384,7 +384,7 @@ public class DailyMedicationManager {
         int dateNum = medication.getDayAdded();
         int currentDayValue = currentDate.getDayOfYear();
         int daysDiff = currentDayValue - dateNum;
-        return daysDiff % n == 0;       //modulo to find out if dailyMedication can be added to today's list
+        return daysDiff % n == 0; //modulo to find out if dailyMedication can be added to today's list
     }
 
     /**
