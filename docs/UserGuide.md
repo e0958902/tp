@@ -653,7 +653,7 @@ information on the medication name, the illness that the medication is used for,
 
 <div class="note-box">
 :notebook: <strong>Note: </strong>
-The `search` command searches for medications in the built-in medication library, which is different from your personal 
+The search command searches for medications from the built-in medication library, which is different from your personal 
 medication list.
 </div>
 
