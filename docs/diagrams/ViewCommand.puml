@@ -1,0 +1,32 @@
+@startuml
+actor User
+participant ":ViewCommand" as ViewCommand
+participant ":ArgumentList" as ArgumentList
+participant "<<class>>\n MedicationManager" as MedicationManager
+participant "<<class>>\n Ui" as Ui
+
+User -> ViewCommand: new ViewCommand(arguments)
+activate ViewCommand
+ViewCommand -> ArgumentList: parse(arguments)
+activate ArgumentList
+ArgumentList --> ViewCommand: return parsedArguments
+deactivate ArgumentList
+
+ViewCommand -> ViewCommand: execute()
+activate ViewCommand #65c2a6
+
+ViewCommand -> MedicationManager: printSpecificMedication(medication)
+activate MedicationManager #d192d0
+MedicationManager -> MedicationManager: getMedication(medication)
+
+MedicationManager -> Ui: printSpecificMed(medicationDetails)
+deactivate MedicationManager
+activate Ui #c6d67e
+Ui --> ViewCommand: return
+
+ViewCommand -> Ui: showSuccessMessage("Medication details has been retrieved")
+Ui --> ViewCommand: return
+deactivate Ui
+deactivate ViewCommand
+return User
+@enduml
