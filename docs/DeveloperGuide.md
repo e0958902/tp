@@ -88,8 +88,11 @@ With the help of a sequence diagram given below, it explains an usage scenario
 on how the view command behaves at each step.
 
 ![ViewCommand.png](images/ViewCommand.png)
-- Step 1. User initiates MediTracker and done a viewCommand.
-- Step 2. 
+- Step 1. User initiates a viewCommand via MediTracker.
+- Step 2. `ViewCommand` constructs an instance using the constructor `ViewCommand(String arguments)`.
+- Step 3. Then it uses an `ArgumentList` to store the arguments.
+- Step 4. The ArgumentList is parsed in `ArgumentParser`.
+- Step 5. If the parsed arguments is one, then 
 
 ### Search Medication Command
 The search medication command extends from Command parent class and contains the following methods:
