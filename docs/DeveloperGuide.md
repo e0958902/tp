@@ -184,21 +184,21 @@ Ensuring that you would not forget your next dose of medication.
 
 ## Glossary
 
-| Term                  | Meaning                                                        |
-|-----------------------|----------------------------------------------------------------|
-| JSON                  | A text-based file format to save data to                       |
-| Medication Data       | Data related to the overview of the medication itself          |
-| Daily Medication Data | Data related to the current day's dosage, including its status |
+| Term                  | Meaning                                                                   |
+|-----------------------|---------------------------------------------------------------------------|
+| JSON                  | A text-based file format to save data                                     |
+| Medication Data       | Data related to the overview of the medication itself                     |
+| Daily Medication Data | Data related to the medication's current day dosage, including its status |
 
 ## Instructions for manual testing
 <div class="info-box">
 :information_source: <strong>Info: </strong>
 This section is only intended as a starting point for testers to get started on understanding <b>SOME</b> of the core functionalities. 
-The tester is expected to do more exploratory testing based on the <a href="UserGuide.md">User Guide</a>.
+The tester is expected to do more exploratory testing based on the <a href="UserGuide">User Guide</a>.
 </div>
 
 ### Launching the Program
-Follow the [Quick Start](UserGuide.md#quick-start) Section of the User Guide
+Follow the [Quick Start](UserGuide#quick-start) Section of the User Guide
 
 <div class="note-box">
 :notebook: <strong>Note: </strong>
