@@ -177,13 +177,12 @@ Ensuring that you would not forget your next dose of medication.
 - The user's program data (medication, daily medication) should be persistent between program sessions.
 - Users should have a way to save and load data to and from a preferred location.
 - Developers should have a way to simulate time to test out certain time-based functionality (i.e. check if medicine has been taken on a certain date) without having to tweak the actual system clock.
-- 
 
 ## Glossary
-| Term | Meaning                                                       |
-| - |---------------------------------------------------------------|
-| JSON | A text-based file format to save data to                      |
-| Medication Data | Data related to the overview of the medication itself         |
+| Term                  | Meaning                                                        |
+|-----------------------|----------------------------------------------------------------|
+| JSON                  | A text-based file format to save data to                       |
+| Medication Data       | Data related to the overview of the medication itself          |
 | Daily Medication Data | Data related to the current day's dosage, including its status |
 
 
@@ -191,7 +190,7 @@ Ensuring that you would not forget your next dose of medication.
 ## Instructions for manual testing
 <div class="info-box">
 :information_source: <strong>Info: </strong>
-This section is only intended as a starting point for testers to get started on understanding SOME of the core functionalities. 
+This section is only intended as a starting point for testers to get started on understanding <b>SOME</b> of the core functionalities. 
 The tester is expected to do more exploratory testing based on the <a href="UserGuide.md">User Guide</a>.
 </div>
 
@@ -207,10 +206,8 @@ Please remember that the time will be fixed at that time
 
 ### Adding some medication information
 Start populating some medication data with the following commands:
-
-`add -n Test Medication -q 100 -e 2026-02-02 -dM 1 -dA 2 -dE 3 -rep 4 -r nil`
-
-`add -n Test Medication Two -q 300 -e 2026-02-02 -dM 10 -dA 20 -dE 30.5 -rep 2 -r nil`
+- `add -n Test Medication -q 100 -e 2026-02-02 -dM 1 -dA 2 -dE 3 -rep 4 -r nil`
+- `add -n Test Medication Two -q 300 -e 2026-02-02 -dM 10 -dA 20 -dE 30.5 -rep 2 -r nil`
 
 <div class="note-box">
 :notebook: <strong>Note: </strong>
@@ -223,8 +220,7 @@ At the same time, the Daily Medication information is also updated with the rele
 
 ### Modifying some medication information
 Modify the second medication's name using the following: 
-
-`modify -2 -n New Test Medication Name`
+- `modify -2 -n New Test Medication Name`
 
 Run `list -t all` to see that the medication name has been changed.
 
@@ -236,4 +232,4 @@ You can run `list -t today` to see that the medication has been taken.
 ### Saving data
 By default, data is automatically saved to the default location (under the `data` folder). you can just `exit` the program.
 
-The information will be saved as readable text files `.json` and `.txt` files. You can simulate a corrupted file by modifying any of the fields or introduce additional parameters.
+The information will be saved as readable text files `.json` and `.txt` files. You can simulate a corrupted file by modifying, removing any of the fields or special syntax characters or introduce additional parameters.
