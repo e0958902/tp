@@ -124,7 +124,7 @@ or above installed.
 4. Open up a Command Prompt/Terminal. 
    - You can use `cd` to navigate to the folder where you have saved the program in
    - Then enter `java -jar meditracker.jar` to start the app.
-   - If MediTracker has run succesfuly, you should see the following:<br>
+   - If MediTracker has run successfully, you should see the following:<br>
    ![Windows cd](images/MediTracker-Startup-Logo.png)
 
 <br>
