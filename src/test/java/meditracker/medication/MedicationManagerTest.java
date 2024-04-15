@@ -6,7 +6,6 @@ import java.lang.reflect.Method;
 /**
  * This test file is to perform tests on the MedicationManager
  */
-
 public class MedicationManagerTest {
 
     /**
