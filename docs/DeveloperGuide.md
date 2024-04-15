@@ -139,7 +139,7 @@ Overview of the `meditracker.argument` core classes:
 
 ## Export to JSON File
 
-![img.png](images/JsonFileExport.png)
+![jsonFileExport.png](images/JsonFileExport.png)
 
 <!--
 - TODO: Design and Implementation of the Logging Functionaity (SX) (Issue #41)
@@ -148,6 +148,9 @@ Overview of the `meditracker.argument` core classes:
 - TODO: Consider the design and impl. of #48
 -->
 
+
+## Importing data
+![FileImport.png](images/FileImport.png)
 
 ## Simulated Time
 This is an advanced feature. Offset based on the system time so that the user or developer does not have to worry about calculating the time and can just type in the time.

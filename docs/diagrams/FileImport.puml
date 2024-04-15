@@ -1,0 +1,56 @@
+@startuml
+
+participant ":LoadCommand" as LC
+participant "<<class>>\n FileReaderWriter" as FRW
+participant "<<class>>\n JsonImporter" as JI
+participant "<<class>>\n MedicationManager" as MM
+participant "<<class>>\n DailyMedicationManager" as DMM
+
+-> LC: execute()
+activate LC
+
+LC -> FRW: loadMediTrackerData(jsonPath:Path)
+activate FRW
+
+FRW -> JI: processMedicationJsonFile(jsonPath:Path)
+activate JI
+
+JI -> MM: addMedicationFromSaveFile(data)
+activate MM
+
+JI <-- MM
+deactivate MM
+
+FRW <-- JI
+deactivate JI
+
+FRW -> FRW: loadDailyMedicationData(dailyMedPath:Path)
+activate FRW
+
+alt dailyMedData == null
+FRW -> DMM : createDailyMedicationManager()
+activate DMM
+FRW <-- DMM
+deactivate DMM
+
+
+else else
+FRW -> DMM :importDailyMedicationManager(dailyMedData)
+activate DMM
+FRW <-- DMM
+deactivate DMM
+
+end
+
+
+
+FRW --> FRW
+deactivate FRW
+
+
+LC <-- FRW :
+deactivate FRW
+
+<-- LC
+deactivate LC
+@enduml
