@@ -11,7 +11,24 @@ Additional Packages used:
 - [JSON](https://github.com/stleary/JSON-java)
 
 # Overview
-<!-- Add a TOC -->
+* [Setting up and getting started](#setting-up-and-getting-started)
+* [Design & implementation](#design--implementation)
+  * [Add Medication Command](#add-medication-command)
+  * [Expanding Step 7](#expanding-step-7)
+  * [List Medication Command](#list-medication-command)
+  * [Utilising the Period and TimeRange](#utilising-the-period-and-timerange)
+  * [View Medication Command](#view-medication-command)
+  * [Search Medication Command](#search-medication-command)
+  * [Utilising the argument parser](#utilising-the-argument-parser)
+  * [Export to JSON File](#export-to-json-file)
+  * [Simulated Time](#simulated-time)
+* [Product scope](#product-scope)
+  * [Target user profile](#target-user-profile)
+  * [Value proposition](#value-proposition)
+* [User Stories](#user-stories)
+* [Non-Functional Requirements](#non-functional-requirements)
+* [Glossary](#glossary)
+* [Instructions for manual testing](#instructions-for-manual-testing)
 
 ## Setting up and getting started
 
