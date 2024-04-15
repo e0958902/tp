@@ -20,7 +20,7 @@ Additional Packages used:
 <!-- Add a TOC -->
 
 ## Setting up and getting started
-
+Follow the [Quick Start](UserGuide#quick-start) Section of the User Guide.
 
 ## Design & implementation
 <!-- Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable. -->
@@ -223,7 +223,7 @@ At the same time, the Daily Medication information is also updated with the rele
 
 ### Modifying some medication information
 Modify the second medication's name using the following: 
-- `modify -2 -n New Test Medication Name`
+- `modify -l 2 -n New Test Medication Name`
 
 Run `list -t all` to see that the medication name has been changed.
 
