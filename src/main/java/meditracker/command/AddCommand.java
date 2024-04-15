@@ -88,15 +88,15 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Creates a new Medication object based on parsed arguments.
-     * This method reads and validates medication-related information from the parsed arguments,
-     * such as name, expiry date, quantity, dosage for different times of the day, and remarks.
-     * It sanitizes the input, converts necessary string arguments to their respective types,
-     * and then instantiates a Medication object with these details.
+     * Creates a new Medication object, initializing it with values derived from both
+     * parsed command-line arguments and the current date.
+     * This method iterates through each entry in the parsedArguments map, which contains
+     * argument names paired with their corresponding values. Each argument is added to the
+     * Medication object. Additionally, the current day of the year is calculated and set
+     * as DAY_ADDED in the Medication object.
      *
-     * @return A new Medication object populated with the provided arguments.
-     * @throws MediTrackerException if any of the input values are invalid, such as non-alphabetic medication names,
-     *                              incorrect number formats, or if required arguments are missing.
+     * @return A fully populated Medication object with values set from command-line arguments
+     *         and the current day of the year.
      */
     Medication createMedication() throws MediTrackerException {
         Medication medication = new Medication();
