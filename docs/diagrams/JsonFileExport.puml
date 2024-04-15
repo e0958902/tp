@@ -1,19 +1,24 @@
 @startuml
 
+participant ":SaveCommand" as SC
 participant "<<class>>\n FileReaderWriter" as FRW
 participant "<<class>>\n JsonExporter" as JE
+participant "<<class>>\n DailyMedicationExporter" as DME
 
--> FRW: saveMediTrackerData(path:Path)
+-> SC: execute()
+activate SC
+
+SC -> FRW: saveMedicationData(jsonPath:Path)
 activate FRW
 
-FRW -> FRW: createTempSaveFile(jsonFolder:Path)
+FRW -> FRW: getCreatedTemporarySaveFile(jsonPath:Path)
 activate FRW
 FRW --> FRW: tmpSaveFile:Path
 deactivate FRW
 
 FRW -> JE: saveMedicationDataToJson(tmpSaveFile:Path)
 activate JE
-JE -> JE: populateMedicationList()
+JE -> JE: populateJsonMedicationList()
 activate JE
 JE --> JE: medicationList:JSONArray
 deactivate JE
@@ -25,11 +30,45 @@ JE --> FRW: saveStatus:boolean
 
 deactivate JE
 note over FRW
-Checks status and renames the temp file
-to the output file.
+Checks save status
+overwrites the output file with the temp file
+and deletes the temp file
 end note
 
-<-- FRW
+SC <-- FRW: :boolean
 deactivate FRW
 
+
+
+SC -> FRW: saveDailyMedicationData(jsonPath:Path)
+activate FRW
+
+FRW -> FRW: getCreatedTemporarySaveFile(jsonPath:Path)
+activate FRW
+FRW --> FRW: tmpSaveFile:Path
+deactivate FRW
+
+FRW -> DME: writeDailyMedicationToFile(tmpSaveFile:Path)
+activate DME
+
+
+
+FRW <-- DME: saveStatus:boolean
+deactivate DME
+
+
+
+
+
+note over FRW
+Checks save status
+overwrites the output file with the temp file
+and deletes the temp file
+end note
+
+SC <-- FRW : :boolean
+deactivate FRW
+
+<-- SC
+deactivate SC
 @enduml
