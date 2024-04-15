@@ -14,13 +14,18 @@ features that works seamlessly right from the very beginning. With MediTracker, 
 your daily medication dose. It tracks your daily intake and reminds you when your remaining amount is low, and enables
 data storage so that you can review your past medication intake.
 <br>
-
+<div style="display: flex; justify-content: space-between; position: fixed; bottom: 0; left: 0; width: 100%;">
+    <div>
+        <a href="#command-summary">:arrow_down_small: Jump to Command Summary</a>
+    </div>
+    <div>
+        <a href="#table-of-contents">:arrow_up_small: Jump to Table of Contents</a>
+    </div>
+</div>
 <div style="page-break-after: always;"></div>
 
 ## Table of Contents
-Here are the comprehensive sections which MediTracker has to offer. 
-Simply click on any items below to navigate to that page immediately. You may also click on the items' heading to move
-back to the Table of Contents.
+Here are the comprehensive sections which MediTracker has to offer:
 * [How to use the User Guide](#how-to-use-the-user-guide)
 * [Quick Start](#quick-start)
 * [Features](#features)
@@ -34,10 +39,11 @@ back to the Table of Contents.
     - [View Medication by quantity](#view-medication-by-quantity)`view -q`
     - [View Medication by expiry](#view-medication-by-expiry)`view -e`
     - [View Medication by remarks](#view-medication-by-remarks)`view -r`
-  - [Update medication information](#update)
-    - [Record taking of medication](#record-taking-of-medication)`take/untake -l`
-    - [Modify medication information](#modify-medication-information)`modify -l`
-  - [Delete medication information](#delete-a-medication)`delete -l`
+  - [Record taking of medication](#record-taking-of-medication)
+    - [Take Medication](#take-medication-take--l)`take -l`
+    - [Untake Medication](#untake-medication-untake--l)`untake -l`
+  - [Modify medication information](#modify-medication-information-modify--l)`modify -l`
+  - [Delete Medication](#delete-medication-delete--l)`delete -l`
   - [Search](#search)
       - [Access Medicine Database ](#access-database)`search`
   - [Help](#help)
@@ -54,7 +60,7 @@ back to the Table of Contents.
 
 <div style="page-break-after: always;"></div>
 
-## [How to Use the User Guide](#table-of-contents)
+## How to Use the User Guide
 <!-- @@author annoy-o-mus-reused
 reused from: https://ay2223s1-cs2103t-w16-2.github.io/tp/UserGuide.html#admonition-boxes
 with minor modifications
@@ -101,7 +107,7 @@ Extremely important text.
 
 <div style="page-break-after: always;"></div>
 
-## [Quick Start](#table-of-contents)
+## Quick Start
 1. Ensure that you have [Java 11](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html) 
 or above installed. 
    - If you using Windows:
@@ -126,7 +132,7 @@ or above installed.
 
 <div style="page-break-after: always;"></div>
 
-## [Features](#table-of-contents)
+## Features
 
 #### NOTES about the command format:
 
@@ -148,14 +154,15 @@ usage and option(s).
 
 <div style="page-break-after: always;"></div>
 
-## [Adding a medication](#table-of-contents) `add`
+## Adding a medication `add`
 
 Adds a medication to the medication manager.
 
 ```
 Usage:
 	add (-n name) (-q quantity) (-e expirationDate) (-dM dosageMorning)
-	(-dA dosageAfternoon) (-dE dosageEvening) [-rep repeat] [-r remarks]
+	(-dA dosageAfternoon) (-dE dosageEvening) (-rep repeat) [-r remarks]
+	[-h]
 Options:
 	-n name                 Name of medication
 	-q quantity             Quantity of medication
@@ -174,6 +181,8 @@ Options:
   <ul>
     <li>The remarks tag is optional.</li>
     <li>The expiration date must be in yyyy-MM-dd format.</li>
+    <li>You should only specify numerical values for quantity and dosages. Specifying them with units, 
+        such as mg/ml, will not be accepted as valid input.</li>
   </ul>
 </div>
 
@@ -196,7 +205,7 @@ SUCCESS: Medicine has been added
 
 <div style="page-break-after: always;"></div>
 
-## [Listing medications](#table-of-contents) `list`
+## Listing medications `list`
 
 You can show the medications that you have added to the medication list, 
 and show the medications that you will be taking for the day.
@@ -213,7 +222,7 @@ Options:
 ```
 <br>
 
-### [All medications](#table-of-contents)
+### All medications
 Displays the whole lists of medications that you have added to the medication list.
 
 Example: `meditracker> list -t all`
@@ -231,7 +240,7 @@ Your list of medications has been successfully shown!
 
 <div style="page-break-after: always;"></div>
 
-### [Daily medications](#table-of-contents)
+### Daily medications
 Displays an overview of the list of medications that you will be taking for the day.
 
 Example: `meditracker> list -t today`
@@ -268,7 +277,7 @@ Morning:
 <div class="info-box">
 :information_source: <strong>Info: </strong>
 
-If you want to mark the medication you have taken, you can refer to the <a href="#take-a-medication"><code>Take 
+If you want to mark the medication you have taken, you can refer to the <a href="#take-medication-take--l"><code>Take 
 Command</code></a> here.
 
 </div>
@@ -277,7 +286,7 @@ Command</code></a> here.
 
 <div style="page-break-after: always;"></div>
 
-## [Viewing medications](#table-of-contents) `view`
+## Viewing medications `view`
 You can view detailed information about the medications you have added in the medication list.
 
 ```
@@ -317,7 +326,7 @@ ERROR: You can only have one flag!
 
 <div style="page-break-after: always;"></div>
 
-### [View Medication by index](#table-of-contents)
+### View Medication by index
 By using the index shown in the medication list [`list -t all`](#all-medications), 
 you can see all the fields of that medication index.
 
@@ -348,7 +357,7 @@ SUCCESS: Medication details has been retrieved
 
 <div style="page-break-after: always;"></div>
 
-### [View Medication by name](#table-of-contents)
+### View Medication by name
 You can view all medication information by its name.
 
 Format: `view -n MEDICATION_NAME`
@@ -378,7 +387,7 @@ SUCCESS: Medication details has been retrieved
 
 <div style="page-break-after: always;"></div>
 
-### [View Medication by quantity](#table-of-contents)
+### View Medication by quantity
 You can view all medication information by its quantity.
 
 Format: `view -q MEDICATION_QUANTITY`
@@ -409,7 +418,7 @@ SUCCESS: Medication details has been retrieved
 <div style="page-break-after: always;"></div>
 
 
-### [View Medication by expiry](#table-of-contents)
+### View Medication by expiry
 You can view all medication information by its expiry year.
 
 Format: `view -e MEDICATION_EXPIRY_IN_YYYY`
@@ -448,7 +457,7 @@ SUCCESS: Medication details has been retrieved
 
 <div style="page-break-after: always;"></div>
 
-### [View Medication by remarks](#table-of-contents)
+### View Medication by remarks
 You can view all medication information by its remarks.
 
 Format: `view -r MEDICATION_REMARKS`
@@ -478,55 +487,9 @@ SUCCESS: Medication details has been retrieved
 
 <div style="page-break-after: always;"></div>
 
-## [Update](#table-of-contents)
+## Record taking of medication
 
-### [Modify Medication Information](#table-of-contents)
-If you require modification to the medication information, you can type `modify`, followed by the list index 
-`-l listIndex`. You can obtain the list index from the Medication List by entering [`list -t all`](#all-medications).
-
-
-<div class="note-box">
-:notebook: <strong>Note: </strong>
-This command allows multiple flags to be specified in one line.
-(For each of the fields that you would like to modify, you can specify the corresponding flag and the new value to make
-changes.)
-</div>
-
-```
-Usage:
-	modify (-l listIndex) [-n name] [-q quantity] [-dM dosageMorning] 
-	[-dA dosageAfternoon] [-dE dosageEvening] [-e expirationDate] 
-	[-r remarks] [-rep] [-h]
-Options:
-	-l listIndex            Index of item in list
-	-n name                 Name of medication
-	-q quantity             Quantity of medication
-	-dM dosageMorning       Morning dosage of medication
-	-dA dosageAfternoon     Afternoon dosage of medication
-	-dE dosageEvening       Evening dosage of medication
-	-e expirationDate       Expiration date of medication
-	-r remarks              Additional remarks on medication
-	-rep                    How often to take medication 
-	                          (eg: Supply a number from 1 to 7)
-	-h                      Prints this help message
-```
-Examples:
-
-* `meditracker> modify -l 1 -n MedB`
-* `meditracker> modify -l 1 -q 40 -dA 2`
-
-Output:
-```
-SUCCESS: Medicine has been modified
-```
-
-<br>
-
-<div style="page-break-after: always;"></div>
-
-### [Record taking of medication](#table-of-contents)
-
-#### [Take a medication](#table-of-contents)
+### Take Medication `take -l`
 When you have taken your medication, you can type `take`, followed by the list index `-l listIndex` to mark it as taken.
 You can obtain the list index by entering [`list -t today`](#daily-medications) and refer to the index for the 
 medication you have taken. This command is time aware and will mark the index you specified based on what time of day 
@@ -563,7 +526,7 @@ SUCCESS: Medicine has been taken
 
 <div style="page-break-after: always;"></div>
 
-#### [Untake a medication](#table-of-contents)
+### Untake Medication `untake -l`
 If you have accidentally entered the wrong command and wish to un-take the medication, you can type `untake`, 
 followed by the list index `-l listIndex`. Similarly, you can obtain the list index by entering 
 [`list -t today`](#daily-medications) and refer to the index for the medication you wish to un-mark. This command is 
@@ -600,10 +563,70 @@ SUCCESS: Medicine has been untaken
 
 <div style="page-break-after: always;"></div>
 
-## [Delete a medication](#table-of-contents)
+## Modify Medication Information `modify -l`
+If you require modification to the medication information, you can type `modify`, followed by the list index
+`-l listIndex`. You can obtain the list index from the Medication List by entering [`list -t all`](#all-medications).
+
+
+<div class="tip-box">
+:bulb: <strong>Tip: </strong>
+  <ul>
+    <li>This command allows multiple flags to be specified in one line.
+        (For each of the fields that you would like to modify, you can specify the corresponding flag and 
+        the new value to make changes.)</li>
+    <li>You should only specify numerical values for quantity and dosages. Specifying them with units, 
+        such as mg/ml, will not be accepted as valid input.</li>
+  </ul>
+</div>
+
+<div class="warning-box">
+:warning: <strong>Warning: </strong>
+New dosage and/or repeat frequency will be applied tomorrow/next time you require 
+to take the medication (whichever occurs later). No changes will be made to today's list of 
+medication to take.
+</div>
+
+```
+Usage:
+	modify (-l listIndex) [-n name] [-q quantity] [-e expirationDate] 
+	[-dM dosageMorning] [-dA dosageAfternoon] [-dE dosageEvening] 
+	[-rep repeat] [-r remarks] [-h]
+Options:
+	-l listIndex            Index of item in list
+	-n name                 Name of medication
+	-q quantity             Quantity of medication
+	-e expirationDate       Expiration date of medication
+	-dM dosageMorning       Morning dosage of medication
+	-dA dosageAfternoon     Afternoon dosage of medication
+	-dE dosageEvening       Evening dosage of medication
+	-rep repeat             How often to take medication
+	                            (eg: Supply a number from 1 to 7)
+	-r remarks              Additional remarks on medication
+	-h                      Prints this help message
+```
+Examples:
+
+* `meditracker> modify -l 1 -n MedB`
+* `meditracker> modify -l 1 -q 40 -dA 2`
+
+Output:
+```
+SUCCESS: Medicine has been modified
+```
+
+<br>
+
+<div style="page-break-after: always;"></div>
+
+## Delete Medication `delete -l`
 
 To delete a medication, you can type `delete`, followed by the list index `-l listIndex`. 
 You can obtain the list index by entering [`list -t all`](#all-medications) to refer to the list of all medications.
+
+<div class="danger-box">
+:bangbang: <strong>Danger: </strong>
+This operation is irreversible. Once a medication is deleted, it cannot be restored back. Proceed with caution.
+</div>
 
 ```
 Usage:
@@ -624,7 +647,7 @@ SUCCESS: Medicine has been deleted
 
 <div style="page-break-after: always;"></div>
 
-## [Search](#table-of-contents)
+## Search
 
 To search for a medication in the library, you can type 'search', followed by the field you want to search for and the keyword 
 `keyword`.
@@ -634,8 +657,7 @@ search for.
 
 ```
 Usage:
-	search ([-n name] [-i illness] [-s sideEffects] [-a allFields] 
-	keyword) [-h]
+	search [-n name] [-i illness] [-s sideEffects] [-a allFields] [-h]
 Options:
 	-n name                 Name of medication
 	-i illness              Illness that the medication is used for
@@ -660,7 +682,7 @@ Here are the search results:
 
 <div style="page-break-after: always;"></div>
 
-## [Help](#table-of-contents)
+## Help
 
 If in any situation you are stuck while using MediTracker, please do not worry. The help command is specifically 
 designed to guide users to use the MediTracker. All you need to do is to type in `help`.
@@ -671,7 +693,6 @@ Example: `meditracker> help`
 
 Output:
 ```
-____________________________________________________________
 Here are the commands you can use with MediTracker:
 
 	exit      Exits MediTracker.
@@ -688,7 +709,6 @@ Here are the commands you can use with MediTracker:
 	load      Loads the JSON file from the specified path.
 
 For more details about each command, simply type in the command name.
-____________________________________________________________
 ```
 
 <br>
@@ -697,7 +717,7 @@ ____________________________________________________________
 
 ## General Data Management
 
-### [Saving to a file](#table-of-contents) `save`
+### Saving to a file `save`
 
 Saves the JSON file to the specified path.
 
@@ -727,7 +747,7 @@ Ensure that the folder you are going to write to has the proper access rights. D
 
 <div style="page-break-after: always;"></div>
 
-### [Reading from a file](#table-of-contents) `load`
+### Reading from a file `load`
 Loads the JSON files from the specified path.
 
 ```
@@ -752,14 +772,17 @@ This will trigger the help message to be displayed rather than processing the sa
 
 A prompt will then ask for your confirmation to overwrite existing data as an additional layer of safeguard.
 
-WARNING: Loading will overwrite existing running data, so be sure to save a copy first before deciding to overwrite.
-See the part on [Editing the File](#editing-the-file) for warnings on modifying the saved file.
+<div class="warning-box">
+:warning: <strong>Warning: </strong>
+Loading will overwrite existing running data, so be sure to save a copy first before deciding to overwrite.
+See the part on <a href="#editing-the-file">Editing the File</a> for warnings on modifying the saved file.
+</div>
 
 <br>
 
 <div style="page-break-after: always;"></div>
 
-### [Editing the file](#table-of-contents)
+### Editing the file
 The medication information are saved in a `.json` format while the daily medication information are saved
 in the `.txt` format (two independent files). Advanced users can modify the text files directly.
 
@@ -798,7 +821,7 @@ not display anything at all.
 <div style="page-break-after: always;"></div>
 
 
-### [Setting an arbitrary time](#table-of-contents)
+### Setting an arbitrary time
 
 This feature is intended for developers to test out the features. See the developer guide (To be updated) for more detailed explanation on its implementation.
 To make use of this feature, simply add the following flag and argument **when running the program** (not during the program execution itself)
@@ -814,7 +837,7 @@ In the above example, it will set the time for the program to be **1 Jan 2024, 1
 
 <div style="page-break-after: always;"></div>
 
-## [Exit](#table-of-contents) `exit`
+## Exit `exit`
 A goodbye message is printed on the screen, and the program exits after.
 
 Format: `exit`
@@ -830,7 +853,7 @@ Thank you for using MediTracker. Hope to see you again!
 
 <div style="page-break-after: always;"></div>
 
-## [FAQ](#table-of-contents)
+## FAQ
 **Q**: How do I transfer my data to another computer? 
 
 **A**: By default, all meditracker-related data will be saved under the `data` folder. 
@@ -842,13 +865,13 @@ making sure it is at the same level as the `.jar` file.
 
 <div style="page-break-after: always;"></div>
 
-## [Glossary](#table-of-contents)
+## Glossary
 
 <br>
 
 <div style="page-break-after: always;"></div>
 
-## [Command Summary](#table-of-contents)
+## Command Summary
 <!-- Markdown table is not suitable as it does not provide text wrapping -->
 
 <table>
@@ -861,12 +884,12 @@ making sure it is at the same level as the `.jar` file.
     <td>
       Format: <br>
       <code>
-        add -n MEDICATION_NAME -q QUANTITY -e EXPIRATION_DATE -dM DOSAGE_MORNING -dA DOSAGE_AFTERNOON -dE DOSAGE_EVENING
-        -r REMARKS -rep REPEAT
+        add (-n name) (-q quantity) (-e expirationDate) (-dM dosageMorning) <br> (-dA dosageAfternoon) 
+        (-dE dosageEvening) (-rep repeat) [-r remarks] [-h]
       </code> <br><br>
       Example: <br>
       <code>
-        add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1 
+        add -n Medication A -q 5000 -e 01/07/25 -dM 500 -dA 250 -dE 100 <br> -r cause_dizziness -rep 1 
       </code>
     </td>
   </tr>
@@ -877,24 +900,27 @@ making sure it is at the same level as the `.jar` file.
       <code>
       list (-t listType) [-m] [-a] [-e] [-h] 
       </code> <br><br>
-      Example: <br><code>list -t all<br>list -t today</code>
+      Example: <br><code>list -t all<br></code><code>list -t today</code>
     </td>
   </tr>
   <tr>
     <td>View</td>
     <td>
       Format: <br>
-      <code>view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] [-r remarks] [-h] </code><br><br>
-      Example: <br><code>view -l 1<br>view -n Medication B<br>view -q 1000<br>view -e 2025<br>view -r dizziness</code>
+      <code>view [-l listIndex] [-n name] [-q quantity] [-e expirationDate] <br> [-r remarks] [-h]</code><br><br>
+      Example: <br><code>view -l 1<br></code><code>view -n Medication B<br></code><code>view -q 1000<br></code><code>view -e 2025<br></code><code>view -r dizziness</code>
     </td>
   </tr>
   <tr>
     <td>Update</td>
     <td>
       Format: <br>
-      <code>modify (-l listIndex) [-n name] [-q quantity] [-dM dosageMorning] [-dA dosageAfternoon] [-dE dosageEvening] 
-      [-e expirationDate] [-r remarks] [-rep] [-h]</code><br><br>
-      Example: <br><code>modify -l 1 -n MedB<br>modify -l 1 -q 40 -dA 2</code>
+      <code>
+        modify (-l listIndex) [-n name] [-q quantity] [-e expirationDate] <br> [-dM dosageMorning]
+        [-dA dosageAfternoon] [-dE dosageEvening] [-rep repeat] [-r remarks] [-h]
+      </code>
+      <br><br>
+      Example: <br><code>modify -l 1 -n MedB<br></code><code>modify -l 1 -q 40 -dA 2</code>
     </td>
   </tr>
   <tr>
@@ -902,15 +928,15 @@ making sure it is at the same level as the `.jar` file.
     <td>
       Format: <br>
       <code>take (-l listIndex) [-m] [-a] [-e] [-h] </code><br><br>
-      Example: <br><code>take -l 1<br>take -l 1 -m</code>
+      Example: <br><code>take -l 1<br></code><code>take -l 1 -m</code>
     </td>
   </tr>
   <tr>
-    <td>Un-take</td>
+    <td>Untake</td>
     <td>
       Format: <br>
       <code>untake (-l listIndex) [-m] [-a] [-e] [-h] </code><br><br>
-      Example: <br><code>untake -l 1<br>untake -l 1 -m</code>
+      Example: <br><code>untake -l 1<br></code><code>untake -l 1 -m</code>
     </td>
   </tr>
   <tr>
@@ -925,8 +951,8 @@ making sure it is at the same level as the `.jar` file.
     <td>Search</td>
     <td>
       Format: <br>
-      <code>search ([-n name] [-i illness] [-s sideEffects] [-a allFields] keyword) [-h] </code><br><br>
-      Example: <br><code>search -n Medication A<br>search -i Headache</code>
+      <code>search [-n name] [-i illness] [-s sideEffects] [-a allFields] [-h] </code><br><br>
+      Example: <br><code>search -n Medication A<br></code><code>search -i Headache</code>
     </td>
   </tr>
   <tr>
@@ -941,7 +967,7 @@ making sure it is at the same level as the `.jar` file.
     <td>
       Format: <br>
       <code>save [-o saveFile] [-h] </code><br><br>
-      Example: <br><code>save<br>save -o data/testfolder/output.json</code>
+      Example: <br><code>save<br></code><code>save -o data/testfolder/output.json</code>
     </td>
   </tr>
   <tr>
