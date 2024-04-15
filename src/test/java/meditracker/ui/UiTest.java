@@ -1,16 +1,17 @@
 package meditracker.ui;
 
-import meditracker.dailymedication.DailyMedication;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import meditracker.dailymedication.DailyMedication;
 
 //Solution below adapted by https://stackoverflow.com/questions/58665761
 class UiTest {
@@ -36,8 +37,8 @@ class UiTest {
 
         for (DailyMedication dailyMedication : medications) {
             int numbering = medications.indexOf(dailyMedication) + 1;
-            expectedOutput.append("\t").
-                    append(numbering).append(". ").append(dailyMedication)
+            expectedOutput.append("\t")
+                    .append(numbering).append(". ").append(dailyMedication)
                     .append(System.lineSeparator());
         }
         assertEquals(expectedOutput.toString(), output.toString());

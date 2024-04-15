@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+actor User
+
+participant "<<class>>\n :DailyMedicationManager" as DailyMedicationManager
+participant "period:Period" as Period
+participant "medication:Medication" as Medication
+
+User -> DailyMedicationManager: addToSublists(medication)
+activate DailyMedicationManager
+    loop all periods
+        DailyMedicationManager -> Period: gePeriod()
+        activate Period
+        return period
+        deactivate Period
+        DailyMedicationManager -> Medication: getDosage(), getName()
+        activate Medication
+        return dosage, name
+        deactivate Medication
+        DailyMedicationManager -> "dailyMedication:DailyMedication" as DailyMeds ** : new DailyMedication(name, dosage, period)
+        activate DailyMeds
+        return dailyMedication
+        deactivate DailyMeds
+        DailyMedicationManager -> DailyMedicationManager: addDailyMedication(dailyMedication)
+        activate DailyMedicationManager
+        return
+        participant "<<class>>\n :FileReaderWriter" as FileReaderWriter
+        DailyMedicationManager -> FileReaderWriter: saveDailyMedicationData(null)
+        activate FileReaderWriter
+        return true
+    end
+DailyMedicationManager --> User
+deactivate DailyMedicationManager
+@enduml
