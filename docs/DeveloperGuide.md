@@ -114,6 +114,8 @@ and `period` values.
 - Finally, the `dailyMedication` is saved into the text file and returns `true` if saved successfully.
 
 ---
+
+<div style="page-break-after: always;"></div>
 ## List Medication Command
 ![sublist](images/ListCommand.png)
 The list medication command extends from Command parent class and contains the following methods:
@@ -145,6 +147,8 @@ list, based on the repeat value.
 * Additional checks in `ListCommand.execute()` prevent user from entering unnecessary flags or words **after** 
 `list -t all` and `list -t today (-m/-a/-e)`.
 
+<div style="page-break-after: always;"></div>
+
 ## Utilising the Period and TimeRange
 * A day is divided into three `Periods`: Morning, afternoon and evening
 * `TimeRange` determines the time when a medication is to be taken
@@ -154,6 +158,8 @@ list, based on the repeat value.
 * `timeRange.isWithinTimeRange` detects if the current time of the day falls into one of the 3 periods, 
 then automatically checks off the relevant medication in the DailyMedication list, without user specifying 
 `(-m/-a/-e)` **after** `take -l [index]`.
+
+<div style="page-break-after: always;"></div>
 
 ## View Medication Command
 The view medication command extends from Command parent class and contains the following:
@@ -172,6 +178,8 @@ view command behaves at each step.
 and displays the medication via `printSpecificMed(medicationDetails)` in `Ui`.
 - Step 8. `Ui` displays a success message to the user.
 - Step 9. `Else`, if the parsed arguments is more than one, then `Ui` displays an error message to the user.
+
+<div style="page-break-after: always;"></div>
 
 ## Search Medication Command
 The search medication command extends from Command parent class and contains the following methods:
