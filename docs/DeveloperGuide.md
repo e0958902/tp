@@ -189,6 +189,8 @@ what illnesses they treat and their side effects, and prints the results to the 
 The 'search' command requires the following:
 1. To be added.
 
+<div style="page-break-after: always;"></div>
+
 <!--Comment: Consider using a class diagram to illustrate this to provide visual feedback.-->
 ## Utilising the argument parser
 The `ArgumentParser` requires the following to work:
