@@ -21,6 +21,8 @@ import meditracker.medication.MedicationManager;
 import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,6 +43,7 @@ public class ModifyCommand extends Command {
     );
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.MODIFY, ARGUMENT_LIST);
     private final Map<ArgumentName, String> parsedArguments;
+    private final List<ArgumentName> processedArguments;
 
     /**
      * Constructs a ModifyCommand object with the specified arguments.
@@ -54,6 +57,7 @@ public class ModifyCommand extends Command {
      */
     public ModifyCommand(String arguments) throws HelpInvokedException, ArgumentException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
+        processedArguments = new ArrayList<>();
     }
 
     /**
@@ -106,7 +110,7 @@ public class ModifyCommand extends Command {
      * @throws MediTrackerException Unable to revert Medication
      */
     private void rollbackChanges(Medication medication, Medication medicationCopy) throws MediTrackerException {
-        if (parsedArguments.containsKey(ArgumentName.NAME)) {
+        if (processedArguments.contains(ArgumentName.NAME)) {
             String oldName = medicationCopy.getName();
             DailyMedicationManager.updateDailyMedicationName(medication, oldName);
         }
@@ -122,11 +126,12 @@ public class ModifyCommand extends Command {
         for (Map.Entry<ArgumentName, String> argument: parsedArguments.entrySet()) {
             ArgumentName argumentName = argument.getKey();
             String argumentValue = argument.getValue();
-            medication.setMedicationValue(argumentName, argumentValue);
 
             if (argumentName == ArgumentName.NAME) {
                 DailyMedicationManager.updateDailyMedicationName(medication, argumentValue);
             }
+            medication.setMedicationValue(argumentName, argumentValue);
+            processedArguments.add(argumentName);
         }
         medication.checkValidity();
         checkDosageOrRepeatModified(medication);
