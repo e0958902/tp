@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import meditracker.MediTrackerConfig;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 
@@ -78,7 +77,7 @@ public class JsonExporterTest {
 
     @BeforeEach
     public void setUpWriteFile() {
-        Path jsonSaveFile = MediTrackerConfig.getDefaultJsonSaveFilePath();
+        Path jsonSaveFile = MediTrackerFileConfig.getDefaultJsonSaveFilePath();
         Path jsonFolder = FileReaderWriter.getFullPathComponent(jsonSaveFile, true);
         fileToExport = FileReaderWriter.createTempSaveFile(jsonFolder);
     }

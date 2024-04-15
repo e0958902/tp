@@ -3,7 +3,7 @@ package meditracker.command;
 import java.nio.file.Path;
 import java.util.Map;
 
-import meditracker.MediTrackerConfig;
+import meditracker.storage.MediTrackerFileConfig;
 import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
@@ -41,7 +41,7 @@ public class SaveCommand extends Command {
     }
 
     /**
-     * Saves MediTracker information to the default save location specified in `MediTrackerConfig`.
+     * Saves MediTracker information to the default save location specified in `MediTrackerFileConfig`.
      * Includes the Medication data (in JSON) and DailyMedication data (in txt).
      */
     private void saveToDefaultLocation() {
@@ -49,7 +49,7 @@ public class SaveCommand extends Command {
         if (!isSaveSuccessful) {
             System.out.println("An error occurred while saving Medication data. Data is not saved.");
         } else {
-            Path defaultJsonPath = MediTrackerConfig.getDefaultJsonSaveFilePath();
+            Path defaultJsonPath = MediTrackerFileConfig.getDefaultJsonSaveFilePath();
             Path absoluteJsonPath = defaultJsonPath.toAbsolutePath();
             System.out.println("Medication Data successfully saved to: " + absoluteJsonPath);
             System.out.println("Use the -o flag to save the data to another location.");
@@ -59,7 +59,7 @@ public class SaveCommand extends Command {
         if (!isSaveSuccessful) {
             System.out.println("An error occurred while saving DailyMedication Data. Data is not saved.");
         } else {
-            Path dailyMedPath = MediTrackerConfig.getDailymedFilePath(null);
+            Path dailyMedPath = MediTrackerFileConfig.getDailymedFilePath(null);
             Path absoluteDailyMedPath = dailyMedPath.toAbsolutePath();
             System.out.println("DailyMedication Data successfully saved to: " + absoluteDailyMedPath);
         }
@@ -81,7 +81,7 @@ public class SaveCommand extends Command {
             System.out.println("Data successfully saved to: " + absoluteJsonPath);
         }
 
-        Path dailyMedPath = MediTrackerConfig.getDailymedFilePath(jsonSaveFilePath);
+        Path dailyMedPath = MediTrackerFileConfig.getDailymedFilePath(jsonSaveFilePath);
         isSaveSuccessful = FileReaderWriter.saveDailyMedicationData(dailyMedPath);
         if (!isSaveSuccessful) {
             System.out.println("An error occurred while saving DailyMedication Data. Data is not saved.");

@@ -1,15 +1,14 @@
-package meditracker;
+package meditracker.storage;
 
 import java.nio.file.Path;
 
-import meditracker.storage.FileReaderWriter;
 import meditracker.time.MediTrackerTime;
 
 /**
  * A class that holds configuration related properties.
  * This is to allow the user to customise certain user preferences. (To be implemented beyond v2.1)
  */
-public class MediTrackerConfig {
+public class MediTrackerFileConfig {
     /* Path to save Medication related information.*/
     private static final Path DEFAULT_JSON_SAVE_FILE_PATH = Path.of("data/MedicationData.json");
 

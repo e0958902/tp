@@ -138,13 +138,13 @@ public class FileReaderWriter {
      * Saves the Medication information in MediTracker.
      *
      * @param path The Path object (relative or absolute) to save the information to. If null, the path will be the
-     *     path specified in `MediTrackerConfig`.
+     *     path specified in `MediTrackerFileConfig`.
      * @return true if the saving is successful, false otherwise.
      */
     public static boolean saveMedicationData(Path path) {
         Path fullJsonPath;
         if (path == null) {
-            fullJsonPath = MediTrackerConfig.getDefaultJsonSaveFilePath();
+            fullJsonPath = MediTrackerFileConfig.getDefaultJsonSaveFilePath();
         } else {
             fullJsonPath = path;
         }
@@ -160,16 +160,16 @@ public class FileReaderWriter {
 
     /**
      * Saves the daily medication information to a text file under a predefined sub-folder.
-     * This sub-folder (relative to JSON file) can be found under `MediTrackerConfig`.
+     * This sub-folder (relative to JSON file) can be found under `MediTrackerFileConfig`.
      *
      * @param suppliedDailyPath The DailyMedication file to save to. If null, the path will be built based on the
-     *     default directory the JSON file resides in `MediTrackerConfig`.
+     *     default directory the JSON file resides in `MediTrackerFileConfig`.
      * @return `true` if successfully saved, `false` otherwise.
      */
     public static boolean saveDailyMedicationData(Path suppliedDailyPath) {
         Path dailyMedSavePath;
         if (suppliedDailyPath == null) {
-            dailyMedSavePath = MediTrackerConfig.getDailymedFilePath(null);
+            dailyMedSavePath = MediTrackerFileConfig.getDailymedFilePath(null);
         } else {
             dailyMedSavePath = suppliedDailyPath;
         }
@@ -196,20 +196,20 @@ public class FileReaderWriter {
     public static void loadMediTrackerData(Path jsonPath) {
         Path jsonFilePath;
         if (jsonPath == null) {
-            jsonFilePath = MediTrackerConfig.getDefaultJsonSaveFilePath();
+            jsonFilePath = MediTrackerFileConfig.getDefaultJsonSaveFilePath();
         } else {
             jsonFilePath = jsonPath;
         }
 
         JsonImporter.processMedicationJsonFile(jsonFilePath);
 
-        Path dailyMedFilePath = MediTrackerConfig.getDailymedFilePath(jsonFilePath);
+        Path dailyMedFilePath = MediTrackerFileConfig.getDailymedFilePath(jsonFilePath);
         loadDailyMedicationData(dailyMedFilePath);
     }
 
     /**
      * Loads the daily medication information from a text file under a predefined sub-folder.
-     * This sub-folder name (relative to JSON file) can be found under `MediTrackerConfig`.
+     * This sub-folder name (relative to JSON file) can be found under `MediTrackerFileConfig`.
      *
      * @param dailyMedPath Path of the txt file containing the DailyMedication information.
      */
