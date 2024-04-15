@@ -1,6 +1,16 @@
 package meditracker.command;
 
 import meditracker.argument.ArgumentHelper;
+import meditracker.argument.ArgumentList;
+import meditracker.argument.ArgumentName;
+import meditracker.argument.DosageAfternoonArgument;
+import meditracker.argument.DosageEveningArgument;
+import meditracker.argument.DosageMorningArgument;
+import meditracker.argument.ExpirationDateArgument;
+import meditracker.argument.NameArgument;
+import meditracker.argument.QuantityArgument;
+import meditracker.argument.RemarksArgument;
+import meditracker.argument.RepeatArgument;
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.exception.ArgumentNoValueException;
 import meditracker.exception.ArgumentNotFoundException;
@@ -12,17 +22,6 @@ import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.time.MediTrackerTime;
 import meditracker.ui.Ui;
-
-import meditracker.argument.ArgumentName;
-import meditracker.argument.ArgumentList;
-import meditracker.argument.RepeatArgument;
-import meditracker.argument.DosageAfternoonArgument;
-import meditracker.argument.DosageMorningArgument;
-import meditracker.argument.DosageEveningArgument;
-import meditracker.argument.NameArgument;
-import meditracker.argument.QuantityArgument;
-import meditracker.argument.ExpirationDateArgument;
-import meditracker.argument.RemarksArgument;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -79,17 +78,12 @@ public class AddCommand extends Command {
         Medication medication;
         try {
             medication = createMedication();
-        } catch (MediTrackerException e) {
-            Ui.showErrorMessage(e);
-            return;
-        }
-
-        try {
             MedicationManager.addMedication(medication);
         } catch (MediTrackerException e) {
             Ui.showErrorMessage(e);
             return;
         }
+
         DailyMedicationManager.checkForDaily(medication);
         assertionTest();
         Ui.showSuccessMessage("Medicine has been added");
@@ -126,8 +120,8 @@ public class AddCommand extends Command {
      * Performs assertion tests for medication and daily medication managers.
      */
     private void assertionTest() {
-        assert MedicationManager.getTotalMedications() != 0 : "Total medications in medication " +
-                "manager should not be 0!";
+        assert MedicationManager.getTotalMedications() != 0 : "Total medications in medication "
+                + "manager should not be 0!";
     }
 
 }

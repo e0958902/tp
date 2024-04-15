@@ -14,11 +14,12 @@
 - Issue #159: [PE-D][Tester E] Remarks changes from null to empty upon restart of application
 - Issue #182: [PE-D][Tester C] Lack of /help page
 - Issue #184: [PE-D][Tester F] using an example from the user guide is causing an error
-- Issue #191: [PE-D][Tester F] empty imput is allowed when adding
+- Issue #191: [PE-D][Tester F] empty input is allowed when adding
 
 ### Developer Guide Contributions
 - Add command specifications
-- Update Add Command with sequence diagrams (Issue #138)
+- Sequence diagram for Add Command (Issue #138)
+
 ### User Guide Contributions
 - Add command
   - Description
