@@ -156,12 +156,13 @@ and displays the medication via `printSpecificMed(medicationDetails)` in `Ui`.
 - Step 9. `Else`, if the parsed arguments is more than one, then `Ui` displays an error message to the user.
 
 ### Search Medication Command
+The search medication command allows users to search for medications from the local medication library.
 The search medication command extends from Command parent class and contains the following methods:
-- execute(MedicationManager, DailyMedicationManager, Ui) - Searches the local medication library for medication names,
-what illnesses they treat and their side effects, and prints the results to the user.
+- execute() - Executes the search function. It searches the local medication library for medication names, what
+  illnesses they treat and their side effects, and prints the results to the user.
 
-The 'search' command requires the following:
-1. To be added.
+Here is a sequence diagram that explains the usage for the search command:
+![SearchCommand.png](images/SearchCommand.png)
 
 <!--Comment: Consider using a class diagram to illustrate this to provide visual feedback.-->
 ### Utilising the argument parser
