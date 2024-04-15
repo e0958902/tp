@@ -276,8 +276,6 @@ How the exporting works:
    1. For the importing of the JSON file, the `Medication` data is loaded and then `MedicationManager` is then called to populate the `Medication` information
    2. The text file will be read, the daily medication data is loaded, and then `DailyMedicationManager` is called to populate the daily medication information.
 
-<div style="page-break-after: always;"></div>
-
 ## Simulated Time
 This is implemented under `MediTrackerTime`. When the user types in `java -jar meditracker.jar -sim 2024-01-01T00:00:00Z` the program will first run the
 `setUpSimulatedTime` function to check if the `-sim` flag is present and whether the following parameter is of the `YYYY-MM-DDTHH:MM:SSZ` format.
@@ -306,18 +304,20 @@ Ensuring that you would not forget your next dose of medication.
 | v1.0    | user     | delete medications medication list                                           | remove medications that I do not need will not be there anymore                                                                                        |
 | v1.0    | user     | search medications from existing medicine library                            | search medications locally to have a quick preview of them and their purpose without the web                                                           |
 | v1.0    | user     | know the list of medications I have added                                    | have a quick overview of the medication list and check the quantity and expiry date of each medication                                                 |
+| v1.0    | user     | Save data locally                                                            | Use the application and see the data even when offline between sessions (data is persistent)                                                           |
+| v1.0    | user     | Be able to load existing data                                                | I don't have to start from a fresh state everytime                                                                                                     |
 | v2.0    | user     | see how much to be taken at each specific time of the day                    | have a quick overview of the list of medications to take at the specific period of the day                                                             |
 | v2.0    | user     | retrieve all the values related to a medication                              | have a quickly verify all the details I have input for that particular medication                                                                      |
 | v2.0    | user     | search medications by their side effects from existing medicine library      | search medications by their side effects locally to have a quick preview of them and their purpose without the web                                     |
 | v2.0    | user     | search medications by their illness treatment from existing medicine library | search medications by their illness treatment locally to have a quick preview of them and their purpose without the web                                |
 | v2.0    | user     | mark a medication as taken without specifying the period                     | reduce the hassle of telling the program explicitly that I have taken a medication for that period of the day                                          |
+| v2.0    | user     | Be able to save the file to a place of my choosing                           | I can easily refer or transfer the files to another system                                                                                             |
+| v2.0    | user     | Be able to load existing data from a place I choose                          | load the data by typing rather than dragging to the default save location                                                                              |
 | v2.1    | user     | know which medications are low in quantity                                   | filter from my list of medications and see which ones need to be restock soon                                                                          |
 | v2.1    | user     | know which medications are going to be expired                               | filter from my list of medications and see which ones are going to be expired                                                                          |
 | v2.1    | user     | filter my medications based on a keyword                                     | have a quick overview of the medication list and check the quantity and expiry date of each medication                                                 |
-| v1.0    | user     | Save data locally                                                            | Use the application and see the data even when offline between sessions (data is persistent)                                                           |
-| v2.0    | user     | Be able to save the file to a place of my choosing                           | I can easily refer or transfer the files to another system                                                                                             |
-| v1.0    | user     | Be able to load existing data                                                | I don't have to start from a fresh state everytime                                                                                                     |
-| v2.0    | user     | Be able to load existing data from a place I choose                          | load the data by typing rather than dragging to the default save location                                                                              |
+
+<div style="page-break-after: always;"></div>
 
 ## Non-Functional Requirements
 - The user's program data (medication, daily medication) should be persistent between program sessions.
@@ -334,6 +334,8 @@ Ensuring that you would not forget your next dose of medication.
 | Flags                 | Most commands in MediTracker uses the flags with the "-" to recognise values within certain fields. Eg. `-n`, `-a`, `-l`, etc.  |
 | Medication Data       | Data related to the overview of the medication itself                                                                           |
 | Daily Medication Data | Data related to the medication's current day dosage, including its status                                                       |
+
+<div style="page-break-after: always;"></div>
 
 # Instructions for manual testing
 <div class="info-box">
