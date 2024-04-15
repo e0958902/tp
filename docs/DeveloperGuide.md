@@ -379,6 +379,8 @@ Use `take -l 1` to take the medication. By default, the program chooses the time
 
 You can run `list -t today` to see that the medication has been taken.
 
+<div style="page-break-after: always;"></div>
+
 ## Saving data
 By default, data is automatically saved to the default location (under the `data` folder). you can just `exit` the program.
 
