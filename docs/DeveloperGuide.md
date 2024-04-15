@@ -97,7 +97,6 @@ parsing the arguments.
 - Step 7. Checks and updates daily medication records in `DailyMedicationManager`.
 - Step 8. `Ui` displays success or error messages to the user.
 
-<!-- Comment: Use backticks (`) to encapsulate code rather than using a single quote (') to make it more readable. -->
 ### Expanding Step 7
 ![sublist](images/AddToSubLists.png)
 - Every medication is checked if they contain dosage for each `period` (morning, afternoon, evening) of the day.
@@ -149,7 +148,7 @@ Sequence Diagram for `rollbackChanges(medication:Medication, medicationCopy:Medi
 
 ## List Medication Command
 ![sublist](images/ListCommand.png)
->>>>>>> master
+
 The list medication command extends from Command parent class and contains the following methods:
 - execute(MedicationManager medicationManager) - Executes the list command and performs its specific task, -t. 
 - The task can be either `list -t all` to list all medications or `list -t today` to list medications for the day,
