@@ -109,7 +109,7 @@ Extremely important text.
 ## Quick Start
 1. Ensure that you have [Java 11](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html) 
 or above installed. 
-   - If you using Windows:
+   - If you are using Windows:
      - Press the `Windows Key` on your keyboard and enter `Command Prompt` or `cmd` and press enter.
      - When the program opens, enter `java -version`.
    - If Java 11 is installed, you should get an output similar to below:<br>
