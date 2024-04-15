@@ -1,5 +1,19 @@
 package meditracker.dailymedication;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import meditracker.command.AddCommand;
 import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
@@ -11,19 +25,6 @@ import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
 import meditracker.time.Period;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class DailyMedicationManagerTest {
@@ -31,8 +32,8 @@ public class DailyMedicationManagerTest {
     // @@author T0nyLin
     public static void resetDailyMedicationManager() throws InvocationTargetException,
             IllegalAccessException, NoSuchMethodException {
-        Method resetDailyMedicationManagerMethod
-                = DailyMedicationManager.class.getDeclaredMethod("clearDailyMedication");
+        Method resetDailyMedicationManagerMethod =
+                DailyMedicationManager.class.getDeclaredMethod("clearDailyMedication");
         resetDailyMedicationManagerMethod.setAccessible(true);
         resetDailyMedicationManagerMethod.invoke(DailyMedicationManager.class);
     }
@@ -129,8 +130,8 @@ public class DailyMedicationManagerTest {
 
         int actualIndex = 1; // 1-based indexing
         assertThrows(
-                InsufficientQuantityException.class,
-                () -> DailyMedicationManager.takeDailyMedication(actualIndex, Period.MORNING));
+                InsufficientQuantityException.class, ()
+                        -> DailyMedicationManager.takeDailyMedication(actualIndex, Period.MORNING));
     }
 
     @Test

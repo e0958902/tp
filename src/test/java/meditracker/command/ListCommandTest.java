@@ -31,7 +31,7 @@ import meditracker.medication.MedicationManagerTest;
  * This test file is to perform tests on ListCommands
  */
 class ListCommandTest {
-    private ArgumentList testArgumentList = new ArgumentList(
+    private final ArgumentList testArgumentList = new ArgumentList(
             new NameArgument(false),
             new QuantityArgument(false),
             new DosageMorningArgument(false),
@@ -209,8 +209,8 @@ class ListCommandTest {
         String testArgumentString = "list -t all -asdf";
 
         assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class, ()
+                        -> testArgumentList.parse(testArgumentString)
         );
     }
 
@@ -267,8 +267,8 @@ class ListCommandTest {
         String testArgumentString = "list -t today -a -asd";
 
         assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class, ()
+                        -> testArgumentList.parse(testArgumentString)
         );
     }
 
@@ -277,8 +277,8 @@ class ListCommandTest {
         String testArgumentString = "list -t today -a asdf";
 
         assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class, ()
+                        -> testArgumentList.parse(testArgumentString)
         );
     }
 }
