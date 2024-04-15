@@ -1,5 +1,8 @@
 package meditracker.command;
 
+import java.time.LocalDate;
+import java.util.Map;
+
 import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
@@ -19,9 +22,6 @@ import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.time.MediTrackerTime;
 import meditracker.ui.Ui;
-
-import java.time.LocalDate;
-import java.util.Map;
 
 // @@author nickczh
 /**
