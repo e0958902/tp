@@ -11,6 +11,7 @@
 - Issue #71: Add assertion to Add command
 - Issue #72: Modify Ui to be static
 - Issue #74: More flags for Add command and Exception Handling
+- Issue #150: Enhance code quality for stricter styling checks
 - Issue #159: [PE-D][Tester E] Remarks changes from null to empty upon restart of application
 - Issue #182: [PE-D][Tester C] Lack of /help page
 - Issue #184: [PE-D][Tester F] using an example from the user guide is causing an error
