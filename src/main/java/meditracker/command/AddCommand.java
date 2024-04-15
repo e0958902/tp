@@ -96,7 +96,7 @@ public class AddCommand extends Command {
      * as DAY_ADDED in the Medication object.
      *
      * @return A fully populated Medication object with values set from command-line arguments
-     * and the current day of the year.
+     *         and the current day of the year.
      */
     Medication createMedication() throws MediTrackerException {
         Medication medication = new Medication();
