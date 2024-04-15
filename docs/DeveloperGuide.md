@@ -112,6 +112,7 @@ parsing the arguments.
 and `period` values.
 - This `dailyMedication` is then added to the respective sub lists according to the `period`.
 - Finally, the `dailyMedication` is saved into the text file and returns `true` if saved successfully.
+
 ---
 
 <div style="page-break-after: always;"></div>
@@ -156,6 +157,8 @@ Sequence Diagram for `rollbackChanges(medication:Medication, medicationCopy:Medi
 - Step 1. Checks if `processedArguments` contain `ArgumentName.NAME`. If it does, revert the
   `DailyMedication` name as well.
 - Step 2. Revert the `medication` object with the `medicationCopy`.
+
+<div style="page-break-after: always;"></div>
 
 ## List Medication Command
 ![sublist](images/ListCommand.png)
