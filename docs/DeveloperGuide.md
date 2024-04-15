@@ -25,6 +25,7 @@ Additional Packages used:
 * [Design & implementation](#design--implementation)
   * [Add Medication Command](#add-medication-command)
     * [Expanding Step 7](#expanding-step-7)
+  * [Modify Medication Command](#modify-medication-command)
   * [List Medication Command](#list-medication-command)
   * [Utilising the Period and TimeRange](#utilising-the-period-and-timerange)
   * [View Medication Command](#view-medication-command)
