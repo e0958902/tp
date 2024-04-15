@@ -746,7 +746,7 @@ Format: `save [-o saveFile]`
 
 Examples:
 - `save`: Save the file to the default location.
-- `save -o data/testfolder/output.json`: Saves the file
+- `save -o data/testfolder/output.json`: Saves the file to specified location.
 
 The default save location is `data/MediTrackerData.json`.
 As far as possible, refrain from using spaces in the file path, especially with `-h` i.e. `path/to -h/`. 
@@ -755,6 +755,12 @@ This will trigger the help message to be displayed rather than processing the sa
 Also, ensure that the file does not end with a space or a dot (.); the file must end with `.json`.
 
 Ensure that the folder you are going to write to has the proper access rights. Don't write to system folders; it will likely fail.
+
+<div class="info-box">
+:information_source: <strong>Info: </strong>
+The <code>dailymed</code> folder will be created at the same level as that of the JSON file.
+Keep both the folder structure and the file name as is as our loading functionality relies on this particular save format.
+</div>
 
 <br>
 
@@ -784,6 +790,12 @@ As far as possible, refrain from using spaces in the file path, especially with 
 This will trigger the help message to be displayed rather than processing the saving.
 
 A prompt will then ask for your confirmation to overwrite existing data as an additional layer of safeguard.
+
+<div class="info-box">
+:information_source: <strong>Info: </strong>
+The <code>dailymed</code> folder must be at the same level as that of the JSON file or the program will fail to find the files needed to load 
+to upated the Daily Medications.
+</div>
 
 <div class="warning-box">
 :warning: <strong>Warning: </strong>
@@ -841,8 +853,8 @@ not display anything at all.
 
 ## Setting an arbitrary time
 
-This feature is intended for developers to test out the features. See the developer guide (To be updated) for more detailed explanation on its implementation.
-To make use of this feature, simply add the following flag and argument **when running the program** (not during the program execution itself)
+This feature is intended for developers to test out the features. 
+To make use of this feature, simply add the following flag and argument **before running the program** (not during the program execution itself)
 
 Example: `java -jar meditracker.jar -sim 2024-01-01T13:00:00Z`
 
@@ -850,6 +862,8 @@ The `-sim` flag informs the program that a simulated time is expected. The suppl
 or else the parser will return an error. The supplied time is of the format `YYYY-MM-DDTHH:MM:SSZ`
 
 In the above example, it will set the time for the program to be **1 Jan 2024, 1pm**.
+
+The time will be fixed and will not "move" once the time has been set.
 
 <br>
 
