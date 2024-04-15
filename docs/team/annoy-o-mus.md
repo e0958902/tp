@@ -38,6 +38,7 @@ Issues [#140](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/140), [#146](h
 
 ### Developer Guide Contributions
 - Brought in DG comments from other users in the main repo ([#211](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/211))
+- Populate some related instructions for manual testing.
 
 ### User Guide Contributions
 <!-- To talk about Issue 25 -->

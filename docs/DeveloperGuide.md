@@ -179,6 +179,7 @@ Ensuring that you would not forget your next dose of medication.
 - Developers should have a way to simulate time to test out certain time-based functionality (i.e. check if medicine has been taken on a certain date) without having to tweak the actual system clock.
 
 ## Glossary
+
 | Term                  | Meaning                                                        |
 |-----------------------|----------------------------------------------------------------|
 | JSON                  | A text-based file format to save data to                       |
