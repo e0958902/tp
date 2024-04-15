@@ -77,6 +77,8 @@ to import the project into IDEA.
    2. Run the tests to ensure they all pass using Gradle.
       Open a console and run the command gradlew clean test (Mac/Linux: ./gradlew clean test)
 
+<div style="page-break-after: always;"></div>
+
 # Design & implementation
 <!-- Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable. -->
 
@@ -100,6 +102,8 @@ parsing the arguments.
 - Step 6. Adds the newly created `Medication` object to `MedicationManager`.
 - Step 7. Checks and updates daily medication records in `DailyMedicationManager`.
 - Step 8. `Ui` displays success or error messages to the user.
+
+<div style="page-break-after: always;"></div>
 
 ### Expanding Step 7
 ![sublist](images/AddToSubLists.png)
