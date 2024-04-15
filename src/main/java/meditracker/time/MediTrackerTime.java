@@ -25,9 +25,9 @@ public class MediTrackerTime {
     private static Clock simulatedClock = null;
 
     /**
-     * Gets the current system time, or if the simulation flag is enabled, the simulated time.
+     * Returns the current system time, or if the simulation flag is enabled, the simulated time.
      *
-     * @return System time. Simulated time if -sim flag is enabled in CLI.
+     * @return System time. Simulated time if -sim flag is enabled in CLI when program starts.
      */
     public static LocalTime getCurrentTime() {
         if (isSimulatedTime) {
@@ -40,7 +40,7 @@ public class MediTrackerTime {
     /**
      * Gets the current system date, or if the simulation flag is enabled, the simulated date.
      *
-     * @return System date. Simulated date if -sim flag is enabled in CLI
+     * @return System date. Simulated date if -sim flag is enabled in CLI.
      */
     public static LocalDate getCurrentDate() {
         if (isSimulatedTime) {
@@ -55,9 +55,9 @@ public class MediTrackerTime {
      * The simulated time will only override the system time if there is a -sim flag and a valid
      *     date and time format is provided (as per `time.Instant.parse`).
      *
-     * @param cliInput The input associated with the `-sim` flag
+     * @param cliInput The input associated with the `-sim` flag.
      * @throws InvalidSimulatedTimeException When the format of the input does not match that required by the
-     *     `time.Instant.parse` method
+     *     `time.Instant.parse` method.
      */
     private static void setMediTrackerTime(String cliInput) throws InvalidSimulatedTimeException {
         Instant setTime;
