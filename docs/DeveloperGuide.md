@@ -84,15 +84,20 @@ then automatically checks off the relevant medication in the DailyMedication lis
 ### View Medication Command
 The view medication command extends from Command parent class and contains the following:
 
-With the help of a sequence diagram given below, it explains an usage scenario 
-on how the view command behaves at each step.
+With the help of a sequence diagram given below, it explains the usage scenario on how 
+view command behaves at each step.
 
 ![ViewCommand.png](images/ViewCommand.png)
 - Step 1. User initiates a viewCommand via MediTracker.
 - Step 2. `ViewCommand` constructs an instance using the constructor `ViewCommand(String arguments)`.
 - Step 3. Then it uses an `ArgumentList` to store the arguments.
 - Step 4. The ArgumentList is parsed in `ArgumentParser`.
-- Step 5. If the parsed arguments is one, then 
+- Step 5. `If` the parsed arguments is one, then `ViewCommand` calls `execute()` to show the specific medication
+- Step 6. `execute()` calls `printSpecificMedication(medication) in `MedicationManager`.
+- Step 7. `MedicationManager` then gets the medication via `getMedication(medication)` 
+and displays the the medication via `printSpecificMed(medicationDetails)` in `Ui`.
+- Step 8. `Ui` displays a success message to the user.
+- Step 9. `Else`, if the parsed arguments is more than one, then `Ui` displays an error message to the user.
 
 ### Search Medication Command
 The search medication command extends from Command parent class and contains the following methods:
