@@ -14,6 +14,10 @@ Additional Packages used:
 <!-- Add a TOC -->
 
 ## Setting up and getting started
+Setting up the project in your computer
+
+:::warning
+
 
 
 ## Design & implementation
