@@ -8,15 +8,14 @@ import java.lang.reflect.Method;
  */
 public class MedicationManagerTest {
 
+    // @@author e0958902
     /**
      * Resets the MedicationManager
      *
      * @throws InvocationTargetException when it fails to call the reset method
      * @throws IllegalAccessException when the method can not access the specified class
-     * @throws NoSuchMethodException
+     * @throws NoSuchMethodException when getDeclareMethod does not accept the specified parameter
      */
-
-    // @@author e0958902
     public static void resetMedicationManager() throws InvocationTargetException,
             IllegalAccessException, NoSuchMethodException {
         Method resetMedicationManagerMethod = MedicationManager.class.getDeclaredMethod("clearMedication");
