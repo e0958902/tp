@@ -227,10 +227,11 @@ Ensuring that you would not forget your next dose of medication.
 - The user's program data should be persistent between program sessions.
 
 ## Glossary
-| Term  | Explanation                                                                                                                    |
-|-------|--------------------------------------------------------------------------------------------------------------------------------|
-| JSON  | JSON stands for JavaScript Object Notation, which is used to save **all** medications added by the user.                       |
-| Flags | Most commands in MediTracker uses the flags with the "-" to recognise values within certain fields. Eg. `-n`, `-a`, `-l`, etc. |
+| Term      | Explanation                                                                                                                       |
+|-----------|-----------------------------------------------------------------------------------------------------------------------------------|
+| JSON      | JSON stands for JavaScript Object Notation, which is used to save **all** medications added by the user.                          |
+| text file | Medications to be taken for a particular day is saved in the text file, and a new text file is created at the start of the day.   |
+| Flags     | Most commands in MediTracker uses the flags with the "-" to recognise values within certain fields. Eg. `-n`, `-a`, `-l`, etc.    |
 
 ## Instructions for manual testing
 
