@@ -1,0 +1,85 @@
+@startuml
+actor User
+participant ":ModifyCommand" as ModifyCommand
+participant ":ArgumentList" as ArgumentList
+participant "<<class>>\n Command" as Command
+participant "<<class>>\n MedicationManager" as MedicationManager
+participant "<<class>>\n Medication" as Medication
+participant "<<class>>\n Ui" as Ui
+
+User -> ModifyCommand **: new ModifyCommand(arguments)
+activate ModifyCommand
+    ModifyCommand -> ArgumentList: parse(arguments)
+    activate ArgumentList
+    ArgumentList --> ModifyCommand: return parsedArguments
+    ModifyCommand --> User
+deactivate ModifyCommand
+
+User -> ModifyCommand: execute()
+activate ModifyCommand
+    ModifyCommand -> Command: getListIndex(parsedArguments)
+    activate Command
+    Command --> ModifyCommand: listIndex:int
+    deactivate Command
+
+    ModifyCommand -> MedicationManager: getMedication(listIndex)
+    activate MedicationManager
+
+    alt Try (While no exception thrown)
+        MedicationManager --> ModifyCommand: medication:Medication
+        deactivate MedicationManager
+
+        ModifyCommand -> Medication: deepCopy(medication)
+        activate Medication
+        Medication --> ModifyCommand: medicationCopy:Medication
+        deactivate Medication
+
+        ModifyCommand -> ModifyCommand: updateMedication(medication)
+        activate ModifyCommand
+
+        alt Try (While no exception thrown)
+            ref over ModifyCommand: Call to updateMedication(medication) in separate diagram
+
+            ModifyCommand -> Ui: showSuccessMessage("Medicine has been modified")
+            activate Ui
+            Ui --> ModifyCommand
+            deactivate Ui
+            ModifyCommand --> User
+
+        else MediTrackerException e
+            ModifyCommand -> Ui: showErrorMessage(e)
+            activate Ui
+            Ui --> ModifyCommand
+            deactivate Ui
+
+            ModifyCommand -> Ui: showWarningMessage("Rolling back changes...")
+            activate Ui
+            Ui --> ModifyCommand
+            deactivate Ui
+
+            ModifyCommand -> ModifyCommand: rollbackChanges(medication, medicationCopy)
+            activate ModifyCommand
+            alt Try (While no exception thrown)
+                ref over ModifyCommand: Call to rollbackChanges(medication, medicationCopy) in separate diagram
+            else MediTrackerException ex
+                ModifyCommand -> Ui: showErrorMessage(ex)
+                activate Ui
+                Ui --> ModifyCommand
+                deactivate Ui
+                ModifyCommand --> User
+            end
+            deactivate ModifyCommand
+
+            ModifyCommand --> User
+            deactivate ModifyCommand
+        end
+    else IndexOutOfBoundsException caught
+          ModifyCommand -> Ui: showErrorMessage("Invalid index specified")
+          activate Ui
+          Ui --> ModifyCommand
+          deactivate Ui
+          ModifyCommand --> User
+          deactivate ArgumentList
+          deactivate ModifyCommand
+    end
+@enduml
