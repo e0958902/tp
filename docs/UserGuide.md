@@ -793,8 +793,8 @@ A prompt will then ask for your confirmation to overwrite existing data as an ad
 
 <div class="info-box">
 :information_source: <strong>Info: </strong>
-The <code>dailymed</code> folder must be at the same level as that of the JSON file or the program will fail to find the files needed to load 
-to upated the Daily Medications.
+The <code>dailymed</code> folder must be at the same level as that of the JSON file and the text file must be of format <code>YYYY--MM-DD.txt</code> or the program will fail to find the files needed to load 
+to update the Daily Medications.
 </div>
 
 <div class="warning-box">
