@@ -1,16 +1,17 @@
 package meditracker.argument;
 
-import meditracker.exception.ArgumentException;
-import meditracker.exception.HelpInvokedException;
-import org.junit.jupiter.api.Test;
-
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+
+import meditracker.exception.ArgumentException;
+import meditracker.exception.HelpInvokedException;
+
 public class ArgumentParserTest {
-    ArgumentList testArgumentList = new ArgumentList(
+    private final ArgumentList testArgumentList = new ArgumentList(
             new NameArgument(false),
             new QuantityArgument(false),
             new DosageMorningArgument(false),
@@ -106,8 +107,8 @@ public class ArgumentParserTest {
                 name);
 
         assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class, (
+                ) -> testArgumentList.parse(testArgumentString)
         );
     }
 
@@ -122,8 +123,8 @@ public class ArgumentParserTest {
                 remarks);
 
         assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class, (
+                ) -> testArgumentList.parse(testArgumentString)
         );
     }
 
@@ -138,8 +139,8 @@ public class ArgumentParserTest {
                 quantity);
 
         assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class, (
+                ) -> testArgumentList.parse(testArgumentString)
         );
     }
 
@@ -156,8 +157,8 @@ public class ArgumentParserTest {
                 remarks);
 
         assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class, (
+                ) -> testArgumentList.parse(testArgumentString)
         );
     }
 }

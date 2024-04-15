@@ -1,5 +1,17 @@
 package meditracker.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import meditracker.dailymedication.DailyMedicationManager;
 import meditracker.dailymedication.DailyMedicationManagerTest;
 import meditracker.exception.ArgumentException;
@@ -9,17 +21,6 @@ import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
 import meditracker.ui.Ui;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ModifyCommandTest {
 
