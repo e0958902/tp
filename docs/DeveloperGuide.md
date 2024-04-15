@@ -19,14 +19,14 @@ Additional Packages used:
 # Overview
 <!-- Add a TOC -->
 
-## Setting up and getting started
+# Setting up and getting started
 Follow the [Quick Start](UserGuide#quick-start) Section of the User Guide.
 
-## Design & implementation
+# Design & implementation
 <!-- Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable. -->
 
 <!-- Comment: Perhaps add sequence diagram or class diagram here to show the interactions and relationships since this seems to involve quite a lot of classes? -->
-### Add Medication Command
+## Add Medication Command
 The add medication command extends from the Command parent class and implements the following operations:
 - execute(MedicationManager, DailyMedicationManager, Ui) - Adds the medication object into the respective medication managers.
 - setMedicineAttributes() - Sets the medicine object's attributes to be added to the medicine managers. 
@@ -48,7 +48,7 @@ parsing the arguments.
 
 ---
 <!-- Comment: Use backticks (`) to encapsulate code rather than using a single quote (') to make it more readable. -->
-### List Medication Command
+## List Medication Command
 The list medication command extends from Command parent class and contains the following methods:
 - execute(MedicationManager medicationManager) - Executes the list command and performs its specific task, -t.
 ```Where the task can be either 'list -t all' to list all medications or 'list -t today' to list medications for the day, which is divided into three categories -> Morning, Afternoon and Evening. ```
@@ -77,7 +77,7 @@ The list medication command extends from Command parent class and contains the f
 * Additional checks in `ListCommand.execute()` prevent user from entering unnecessary flags or words **after** 
 `list -t all` and `list -t today (-m/-a/-e)`.
 
-### Utilising the Period and TimeRange
+## Utilising the Period and TimeRange
 * A day is divided into three `Periods`: Morning, afternoon and evening
 * `TimeRange` determines the time when a medication is to be taken
   * Morning: from `Midnight` to `Noon`
@@ -87,7 +87,7 @@ The list medication command extends from Command parent class and contains the f
 then automatically checks off the relevant medication in the DailyMedication list, without user specifying 
 `(-m/-a/-e)` **after** `take -l [index]`.
 
-### Search Medication Command
+## Search Medication Command
 The search medication command extends from Command parent class and contains the following methods:
 - execute(MedicationManager, DailyMedicationManager, Ui) - Searches the local medication library for medication names,
 what illnesses they treat and their side effects, and prints the results to the user.
@@ -96,7 +96,7 @@ The 'search' command requires the following:
 1. To be added.
 
 <!--Comment: Consider using a class diagram to illustrate this to provide visual feedback.-->
-### Utilising the argument parser
+## Utilising the argument parser
 The `ArgumentParser` requires the following to work:
 1. `ArgumentList` object
 2. Raw user input in `String`
@@ -137,7 +137,7 @@ Overview of the `meditracker.argument` core classes:
 
 ---
 
-### Export to JSON File
+## Export to JSON File
 
 ![img.png](images/JsonFileExport.png)
 
@@ -149,14 +149,14 @@ Overview of the `meditracker.argument` core classes:
 -->
 
 
-### Simulated Time
+## Simulated Time
 This is an advanced feature. Offset based on the system time so that the user or developer does not have to worry about calculating the time and can just type in the time.
 
-## Product scope
-### Target user profile
+# Product scope
+## Target user profile
 People who are taking medications on a daily basis.
 
-### Value proposition
+## Value proposition
 MediTracker ensures that you would not forget your overall schedule on what time and day to take your medication.
 Ensuring that you would not forget your next dose of medication.
 
@@ -182,7 +182,7 @@ Ensuring that you would not forget your next dose of medication.
 - Users should be able to share or move the data easily between devices.
 - Developers be able to test out certain time-based functionality (i.e. check if medicine has been taken on a certain date) without having to tweak the actual system clock.
 
-## Glossary
+# Glossary
 
 | Term                  | Meaning                                                                   |
 |-----------------------|---------------------------------------------------------------------------|
@@ -190,14 +190,14 @@ Ensuring that you would not forget your next dose of medication.
 | Medication Data       | Data related to the overview of the medication itself                     |
 | Daily Medication Data | Data related to the medication's current day dosage, including its status |
 
-## Instructions for manual testing
+# Instructions for manual testing
 <div class="info-box">
 :information_source: <strong>Info: </strong>
 This section is only intended as a starting point for testers to get started on understanding <b>SOME</b> of the core functionalities. 
 The tester is expected to do more exploratory testing based on the <a href="UserGuide">User Guide</a>.
 </div>
 
-### Launching the Program
+## Launching the Program
 Follow the [Quick Start](UserGuide#quick-start) Section of the User Guide
 
 <div class="note-box">
@@ -207,7 +207,7 @@ Instead of running <code>java -jar meditracker.jar</code>, you can use <code>jav
 Please remember that the time will be fixed at that time
 </div>
 
-### Adding some medication information
+## Adding some medication information
 Start populating some medication data with the following commands:
 - `add -n Test Medication -q 100 -e 2026-02-02 -dM 1 -dA 2 -dE 3 -rep 4 -r nil`
 - `add -n Test Medication Two -q 300 -e 2026-02-02 -dM 10 -dA 20 -dE 30.5 -rep 2 -r nil`
@@ -221,18 +221,18 @@ Both should succeed without issues. You can run `list -t all` to check the curre
 
 At the same time, the Daily Medication information is also updated with the relevant dosage for the day. You can view those with the `list -t today` command.
 
-### Modifying some medication information
+## Modifying some medication information
 Modify the second medication's name using the following: 
 - `modify -l 2 -n New Test Medication Name`
 
 Run `list -t all` to see that the medication name has been changed.
 
-### Taking the medication
+## Taking the medication
 Use `take -l 1` to take the medication. By default, the program chooses the time based on either the simulated time or the system time.
 
 You can run `list -t today` to see that the medication has been taken.
 
-### Saving data
+## Saving data
 By default, data is automatically saved to the default location (under the `data` folder). you can just `exit` the program.
 
 The information will be saved as readable text files `.json` and `.txt` files. You can simulate a corrupted file by modifying, removing any of the fields or special syntax characters or introduce additional parameters.
