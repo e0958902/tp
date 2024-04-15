@@ -209,7 +209,8 @@ class ListCommandTest {
         String testArgumentString = "list -t all -asdf";
 
         assertThrows(
-                ArgumentException.class, () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class,
+                () -> testArgumentList.parse(testArgumentString)
         );
     }
 
@@ -266,7 +267,8 @@ class ListCommandTest {
         String testArgumentString = "list -t today -a -asd";
 
         assertThrows(
-                ArgumentException.class, () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class,
+                () -> testArgumentList.parse(testArgumentString)
         );
     }
 
@@ -275,7 +277,8 @@ class ListCommandTest {
         String testArgumentString = "list -t today -a asdf";
 
         assertThrows(
-                ArgumentException.class, () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class,
+                () -> testArgumentList.parse(testArgumentString)
         );
     }
 }
