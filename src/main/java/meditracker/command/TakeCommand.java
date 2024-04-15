@@ -1,5 +1,7 @@
 package meditracker.command;
 
+import java.util.Map;
+
 import meditracker.argument.AfternoonArgument;
 import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
@@ -15,8 +17,6 @@ import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.MedicationUnchangedException;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
-
-import java.util.Map;
 
 /**
  * The TakeCommand class represents a command to take a daily medication.
@@ -55,8 +55,8 @@ public class TakeCommand extends Command {
     public void execute() {
         Period period = Command.getPeriod(parsedArguments);
         if (period == Period.UNKNOWN) {
-            Ui.showErrorMessage("Unable to determine time period. " +
-                    "Please select only 1 of following flag: -m/-a/-e");
+            Ui.showErrorMessage("Unable to determine time period. "
+                    + "Please select only 1 of following flag: -m/-a/-e");
             return;
         }
 

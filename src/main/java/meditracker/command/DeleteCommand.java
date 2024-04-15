@@ -1,5 +1,7 @@
 package meditracker.command;
 
+import java.util.Map;
+
 import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
@@ -12,8 +14,6 @@ import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
-
-import java.util.Map;
 
 /**
  * The DeleteCommand class represents a command to delete an existing medication.
@@ -82,8 +82,8 @@ public class DeleteCommand extends Command {
             try {
                 DailyMedicationManager.removeDailyMedication(name, period);
             } catch (MedicationNotFoundException e) {
-                Ui.showWarningMessage("Possible corruption of data. " +
-                        "Unable to remove DailyMedication when using `delete`");
+                Ui.showWarningMessage("Possible corruption of data. "
+                        + "Unable to remove DailyMedication when using `delete`");
             }
         }
     }

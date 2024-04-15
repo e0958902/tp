@@ -1,14 +1,14 @@
 package meditracker.argument;
 
-import meditracker.exception.ArgumentException;
-import meditracker.exception.HelpInvokedException;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+
+import meditracker.exception.ArgumentException;
+import meditracker.exception.HelpInvokedException;
 
 /**
  * ArgumentParser class to handle parsing of user input
