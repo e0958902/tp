@@ -1,5 +1,7 @@
 package meditracker.command;
 
+import java.util.Map;
+
 import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
 import meditracker.argument.ArgumentName;
@@ -20,8 +22,6 @@ import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.storage.FileReaderWriter;
 import meditracker.ui.Ui;
-
-import java.util.Map;
 
 /**
  * The ModifyCommand class represents a command to modify an existing medication.
@@ -150,11 +150,11 @@ public class ModifyCommand extends Command {
         boolean hasRepeat = parsedArguments.containsKey(ArgumentName.REPEAT);
         if (hasDosageMorning || hasDosageAfternoon || hasDosageEvening || hasRepeat) {
             String message =
-                    "New dosage and/or repeat frequency will be applied tomorrow/next time you require " +
-                    System.lineSeparator() +
-                    "to take the medication (whichever occurs later). No changes will be made to today's list of " +
-                    System.lineSeparator() +
-                    "medication to take.";
+                    "New dosage and/or repeat frequency will be applied tomorrow/next time you require "
+                    + System.lineSeparator()
+                    + "to take the medication (whichever occurs later). No changes will be made to today's list of "
+                    + System.lineSeparator()
+                    + "medication to take.";
             Ui.showWarningMessage(message);
         }
     }
