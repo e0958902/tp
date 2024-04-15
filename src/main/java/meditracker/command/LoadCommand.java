@@ -26,18 +26,18 @@ public class LoadCommand extends Command {
      * Parses the arguments associated with the `load` command.
      *
      * @param arguments Associated arguments, if any.
-     * @throws HelpInvokedException When help argument is used
+     * @throws HelpInvokedException When help argument is used.
      * @throws ArgumentException If compulsory arguments are not found,
-     *              or if any argument with a compulsory value is not found,
-     *              or if there are duplicate arguments,
-     *              or if an argument not supported by the command is found.
+     *     or if any argument with a compulsory value is not found,
+     *     or if there are duplicate arguments,
+     *     or if an argument not supported by the command is found.
      */
     public LoadCommand(String arguments) throws HelpInvokedException, ArgumentException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
     /**
-     * Confirms that the user wants to overwrite existing Meditracker data with data from a JSON file.
+     * Confirms that the user wants to overwrite existing Meditracker data.
      *
      * @return true if the user confirms to overwrite, false otherwise.
      */
@@ -47,6 +47,9 @@ public class LoadCommand extends Command {
         return input.equalsIgnoreCase("y");
     }
 
+    /**
+     * Executes the `load` command.
+     */
     @Override
     public void execute() {
         assert (parsedArguments != null);

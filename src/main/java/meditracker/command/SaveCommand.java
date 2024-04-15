@@ -28,9 +28,9 @@ public class SaveCommand extends Command {
      * @param arguments Associated arguments, if any.
      * @throws HelpInvokedException If the help message is invoked.
      * @throws ArgumentException If compulsory arguments are not found,
-     *              or if any argument with a compulsory value is not found,
-     *              or if there are duplicate arguments,
-     *              or if an argument not supported by the command is found.
+     *     or if any argument with a compulsory value is not found,
+     *     or if there are duplicate arguments,
+     *     or if an argument not supported by the command is found.
      */
     public SaveCommand(String arguments) throws HelpInvokedException, ArgumentException {
         if (arguments.isEmpty()) {
