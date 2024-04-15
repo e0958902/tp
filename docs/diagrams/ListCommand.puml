@@ -1,0 +1,49 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor User
+actor User
+
+participant ":ListCommand" as LC
+participant "ARGUMENT_LIST:ArgumentList" as AL
+
+User -> LC ** : new ListCommand(argument)
+activate LC
+LC -> AL: parse(argument)
+activate AL
+AL -> "parsedArguments:ArgumentParser" as AP ** : new ArgumentParser(argument)
+activate AP
+return argumentParser.parsedArguments
+return parsedArguments
+deactivate AP
+deactivate AL
+
+participant ":ArgumentName" as AN
+participant "<<class>>\n :MedicationManager" as MM
+participant "<<class>>\n :DailyMedicationManager" as DM
+participant "<<class>>\n :Ui" as UI
+LC -> AN: parsedArguments.get()
+return listTypeString
+LC -> LC: execute()
+activate LC
+    alt listTypeString.equals("all")
+        LC -> MM: printAllMeds()
+        activate MM
+        return
+        deactivate MM
+    else listTypeString.equals("today")
+        LC -> DM: printTodayMeds()
+        activate DM
+        return
+        deactivate DM
+    else else
+        LC -> UI: showErrorMessage("Unknown list type")
+        activate UI
+        return
+        deactivate UI
+    end
+LC --> LC
+deactivate LC
+LC --> User
+deactivate LC
+@enduml
