@@ -164,7 +164,7 @@ Sequence Diagram for `rollbackChanges(medication:Medication, medicationCopy:Medi
 ![sublist](images/ListCommand.png)
 
 The list medication command extends from Command parent class and contains the following methods:
-- execute(MedicationManager medicationManager) - Executes the list command and performs its specific task, -t. 
+- execute() - Executes the list command and performs its specific task, -t. 
 - The task can be either `list -t all` to list all medications or `list -t today` to list medications for the day,
 which is divided into three categories -> Morning, Afternoon and Evening.
 
@@ -224,15 +224,16 @@ and displays the medication via `printSpecificMed(medicationDetails)` in `Ui`.
 - Step 8. `Ui` displays a success message to the user.
 - Step 9. `Else`, if the parsed arguments is more than one, then `Ui` displays an error message to the user.
 
+  
 <div style="page-break-after: always;"></div>
 
-## Search Medication Command
+The search medication command allows users to search for medications from the local medication library.
 The search medication command extends from Command parent class and contains the following methods:
-- execute(MedicationManager, DailyMedicationManager, Ui) - Searches the local medication library for medication names,
-what illnesses they treat and their side effects, and prints the results to the user.
+- execute() - Executes the search function. It searches the local medication library for medication names, what
+  illnesses they treat and their side effects, and prints the results to the user.
 
-The 'search' command requires the following:
-1. To be added.
+Here is a sequence diagram that explains the usage for the search command:
+![SearchCommand.png](images/SearchCommand.png)
 
 
 <div style="page-break-after: always;"></div>
