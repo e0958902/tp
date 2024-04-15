@@ -16,10 +16,10 @@ data storage so that you can review your past medication intake.
 <br>
 <div style="display: flex; justify-content: space-between; position: fixed; bottom: 0; left: 0; width: 100%;">
     <div>
-        <a href="#command-summary">:arrow_down_small: Jump to Command Summary</a>
+        <a href="#command-summary">:up-down-arrow: Jump to Command Summary</a>
     </div>
     <div>
-        <a href="#table-of-contents">:arrow_up_small: Jump to Table of Contents</a>
+        <a href="#table-of-contents">:up-down-arrow: Jump to Table of Contents</a>
     </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -124,7 +124,7 @@ or above installed.
 4. Open up a Command Prompt/Terminal. 
    - You can use `cd` to navigate to the folder where you have saved the program in
    - Then enter `java -jar meditracker.jar` to start the app.
-   - If MediTracker has run succesfuly, you should see the following:<br>
+   - If MediTracker has run successfully, you should see the following:<br>
    ![Windows cd](images/MediTracker-Startup-Logo.png)
 
 <br>
