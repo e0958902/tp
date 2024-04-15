@@ -14,8 +14,6 @@ public class MediLogger {
 
     /**
      * Gets the default logger for the MediTracker project.
-     * If for some reason the default logger is not initialised when this function is called,
-     * initialise the default logger and logs a warning.
      *
      * @return The default logger for MediTracker project.
      */

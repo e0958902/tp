@@ -16,10 +16,10 @@ data storage so that you can review your past medication intake.
 <br>
 <div style="display: flex; justify-content: space-between; position: fixed; bottom: 0; left: 0; width: 100%;">
     <div>
-        <a href="#command-summary">:arrow_down_small: Jump to Command Summary</a>
+        <a href="#command-summary">:up-down-arrow: Jump to Command Summary</a>
     </div>
     <div>
-        <a href="#table-of-contents">:arrow_up_small: Jump to Table of Contents</a>
+        <a href="#table-of-contents">:up-down-arrow: Jump to Table of Contents</a>
     </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -44,8 +44,7 @@ Here are the comprehensive sections which MediTracker has to offer:
     - [Untake Medication](#untake-medication-untake--l)`untake -l`
   - [Modify medication information](#modify-medication-information-modify--l)`modify -l`
   - [Delete Medication](#delete-medication-delete--l)`delete -l`
-  - [Search](#search)
-      - [Access Medicine Database ](#access-database)`search`
+  - [Search Medicine Library](#search)`search`
   - [Help](#help)
   - [General data management](#general-data-management)
     - [Saving to a file](#saving-to-a-file-save)`save`
@@ -125,7 +124,7 @@ or above installed.
 4. Open up a Command Prompt/Terminal. 
    - You can use `cd` to navigate to the folder where you have saved the program in
    - Then enter `java -jar meditracker.jar` to start the app.
-   - If MediTracker has run succesfuly, you should see the following:<br>
+   - If MediTracker has run successfully, you should see the following:<br>
    ![Windows cd](images/MediTracker-Startup-Logo.png)
 
 <br>
@@ -649,21 +648,29 @@ SUCCESS: Medicine has been deleted
 
 ## Search
 
-To search for a medication in the library, you can type 'search', followed by the field you want to search for and the keyword 
-`keyword`.
+MediTracker has a built-in medication library where you can search for common medications. This library contains 
+information on the medication name, the illness that the medication is used for, and the side effects of the medication.
+
+<div class="note-box">
+:notebook: <strong>Note: </strong>
+The search command searches for medications from the built-in medication library, which is different from your personal 
+medication list.
+</div>
+
+To search for a medication in the library, you can type 'search', followed by the field you want to search for and the 
+keyword.
 You have to include at least one of the following flags: `-n`, `-i`, `-s`, `-a` to specify the field you want to 
 search for.
-
 
 ```
 Usage:
 	search [-n name] [-i illness] [-s sideEffects] [-a allFields] [-h]
 Options:
-	-n name                 Name of medication
-	-i illness              Illness that the medication is used for
-	-s sideEffects          Side effects of the medication
-	-a allFields            Search all fields
-	-h                      Prints this help message
+    -n name                 Name of medication
+    -i illness              Illness that the medication is used for
+    -s sideEffects          Side effects of the medication
+    -a allFields            Search all fields (name, illness, side effects)
+    -h                      Prints this help message
 ```
 Examples:
 - `search -n Medication A`: Search for medication with the name `Medication A`
