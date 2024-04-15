@@ -1,5 +1,19 @@
 package meditracker.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import meditracker.argument.ArgumentList;
 import meditracker.argument.DosageMorningArgument;
 import meditracker.argument.NameArgument;
@@ -12,22 +26,12 @@ import meditracker.exception.MediTrackerException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+/**
+ * This test file is to perform tests on ListCommands
+ */
 class ListCommandTest {
-    ArgumentList testArgumentList = new ArgumentList(
+    private ArgumentList testArgumentList = new ArgumentList(
             new NameArgument(false),
             new QuantityArgument(false),
             new DosageMorningArgument(false),
@@ -60,8 +64,8 @@ class ListCommandTest {
 
         MedicationManager.addMedication(medication);
 
-        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationName;
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationName;
 
         Medication addedMedication = MedicationManager.getMedication(1);
         assertEquals(addedMedication.getName(), medicationName);
@@ -106,8 +110,8 @@ class ListCommandTest {
         MedicationManager.addMedication(medicationOne);
         MedicationManager.addMedication(medicationTwo);
 
-        assert MedicationManager.getTotalMedications() > 1 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationNameOne + "and" + medicationNameTwo ;
+        assert MedicationManager.getTotalMedications() > 1 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationNameOne + "and" + medicationNameTwo;
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -139,12 +143,12 @@ class ListCommandTest {
         String remarks = "Remarks";
         String successMessage = "Your list of medications has been successfully shown!";
 
-        String body = String.format(title +
-                        headerFormat +
-                        "1. " + bodyFormat +
-                        "2. " + bodyFormat +
-                        successMessage +
-                        System.lineSeparator(),
+        String body = String.format(title
+                        + headerFormat
+                        + "1. " + bodyFormat
+                        + "2. " + bodyFormat
+                        + successMessage
+                        + System.lineSeparator(),
                 name, quantity, expiryDate, remarks,
                 medicationNameOne, medicationQuantityOne, expiryDateOne, medicationRemarksOne,
                 medicationNameTwo, medicationQuantityTwo, expiryDateTwo, medicationRemarksTwo);
@@ -205,8 +209,7 @@ class ListCommandTest {
         String testArgumentString = "list -t all -asdf";
 
         assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class, () -> testArgumentList.parse(testArgumentString)
         );
     }
 
@@ -263,8 +266,7 @@ class ListCommandTest {
         String testArgumentString = "list -t today -a -asd";
 
         assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class, () -> testArgumentList.parse(testArgumentString)
         );
     }
 
@@ -273,8 +275,7 @@ class ListCommandTest {
         String testArgumentString = "list -t today -a asdf";
 
         assertThrows(
-                ArgumentException.class,
-                () -> testArgumentList.parse(testArgumentString)
+                ArgumentException.class, () -> testArgumentList.parse(testArgumentString)
         );
     }
 }
