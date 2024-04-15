@@ -51,6 +51,7 @@ and `period` values.
 ---
 <!-- Comment: Use backticks (`) to encapsulate code rather than using a single quote (') to make it more readable. -->
 ### List Medication Command
+![sublist](images/ListCommand.png)
 The list medication command extends from Command parent class and contains the following methods:
 - execute(MedicationManager medicationManager) - Executes the list command and performs its specific task, -t.
 ```Where the task can be either 'list -t all' to list all medications or 'list -t today' to list medications for the day, which is divided into three categories -> Morning, Afternoon and Evening. ```
