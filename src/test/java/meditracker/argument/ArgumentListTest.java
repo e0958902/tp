@@ -59,9 +59,6 @@ public class ArgumentListTest {
         String dosage = "100";
         String testArgumentString = String.format("-n %s -dM %s", name, dosage);
 
-        assertThrows(
-                ArgumentException.class, (
-                ) -> testArgumentList.parse(testArgumentString)
-        );
+        assertThrows(ArgumentException.class, () -> testArgumentList.parse(testArgumentString));
     }
 }

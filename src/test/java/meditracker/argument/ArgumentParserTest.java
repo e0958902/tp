@@ -106,10 +106,7 @@ public class ArgumentParserTest {
                 remarks,
                 name);
 
-        assertThrows(
-                ArgumentException.class, (
-                ) -> testArgumentList.parse(testArgumentString)
-        );
+        assertThrows(ArgumentException.class, () -> testArgumentList.parse(testArgumentString));
     }
 
     @Test
@@ -122,10 +119,7 @@ public class ArgumentParserTest {
                 quantity,
                 remarks);
 
-        assertThrows(
-                ArgumentException.class, (
-                ) -> testArgumentList.parse(testArgumentString)
-        );
+        assertThrows(ArgumentException.class, () -> testArgumentList.parse(testArgumentString));
     }
 
     @Test
@@ -138,10 +132,7 @@ public class ArgumentParserTest {
                 dosage,
                 quantity);
 
-        assertThrows(
-                ArgumentException.class, (
-                ) -> testArgumentList.parse(testArgumentString)
-        );
+        assertThrows(ArgumentException.class, () -> testArgumentList.parse(testArgumentString));
     }
 
     @Test
@@ -156,9 +147,6 @@ public class ArgumentParserTest {
                 quantity,
                 remarks);
 
-        assertThrows(
-                ArgumentException.class, (
-                ) -> testArgumentList.parse(testArgumentString)
-        );
+        assertThrows(ArgumentException.class, () -> testArgumentList.parse(testArgumentString));
     }
 }

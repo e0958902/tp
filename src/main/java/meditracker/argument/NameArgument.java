@@ -1,14 +1,14 @@
 package meditracker.argument;
 
 /**
- * Name of medication
+ * Argument for name of medication.
  */
 public class NameArgument extends Argument {
 
     /**
-     * Constructs an NameArgument with whether it is optional
+     * Constructs an NameArgument with whether the argument is optional.
      *
-     * @param isOptional Whether the argument is optional
+     * @param isOptional Whether the argument is optional.
      */
     public NameArgument(boolean isOptional) {
         super(

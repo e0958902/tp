@@ -1,14 +1,14 @@
 package meditracker.argument;
 
 /**
- * Expiration date of medication
+ * Expiration date of medication.
  */
 public class ExpirationDateArgument extends Argument {
 
     /**
-     * Constructs an ExpirationDateArgument with whether it is optional
+     * Constructs an ExpirationDateArgument with whether the argument is optional.
      *
-     * @param isOptional Whether the argument is optional
+     * @param isOptional Whether the argument is optional.
      */
     public ExpirationDateArgument(boolean isOptional) {
         super(

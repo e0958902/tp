@@ -1,14 +1,14 @@
 package meditracker.argument;
 
 /**
- * Argument to represent afternoon
+ * Argument to represent afternoon.
  */
 public class AfternoonArgument extends Argument {
 
     /**
-     * Constructs an AfternoonArgument with whether it is optional
+     * Constructs an AfternoonArgument with whether the argument is optional.
      *
-     * @param isOptional Whether the argument is optional
+     * @param isOptional Whether the argument is optional.
      */
     public AfternoonArgument(boolean isOptional) {
         super(

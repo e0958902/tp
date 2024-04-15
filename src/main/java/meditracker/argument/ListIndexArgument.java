@@ -1,14 +1,14 @@
 package meditracker.argument;
 
 /**
- * List index of Medication or DailyMedication
+ * List index of Medication or DailyMedication.
  */
 public class ListIndexArgument extends Argument {
 
     /**
-     * Constructs an ListIndexArgument with whether it is optional
+     * Constructs an ListIndexArgument with whether the argument is optional.
      *
-     * @param isOptional Whether the argument is optional
+     * @param isOptional Whether the argument is optional.
      */
     public ListIndexArgument(boolean isOptional) {
         super(
