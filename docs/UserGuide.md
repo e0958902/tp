@@ -868,6 +868,8 @@ This folder resides at the same level as the `meditracker.jar` file.
 To transfer the data, just copy/shift the `data` folder to the new computer, 
 making sure it is at the same level as the `.jar` file.
 
+<br>
+
 **Q**: Why does the program keep returning "Invalid index specified"?
 
 **A**: Please make sure you are referring to the correct list. MediTracker uses [`list -t all`](#all-medications)
@@ -876,9 +878,21 @@ respectively. You may also use the `<command> -h` to see how the command works.
 
 <br>
 
+**Q**: How do I reset the program?
+
+**A**: While we have yet to implement a reset functionality, there is a workaround. You can just delete the files at the default save location and the program will start with a fresh state.
+
+<br>
+
+**Q**: Where is the default save location?
+
+**A**: The `.json` file is by default saved under the `data` folder which you can find in the same folder as the program you are running on.
+The `.txt` files containing daily information are located by default inside the `data/dailymed` folder
+
 <div style="page-break-after: always;"></div>
 
 ## Glossary
+
 | Term  | Explanation                                                                                                                                                                                                   |
 |-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | .json | JSON stands for JavaScript Object Notation, which is used to save **all** medications added by the user.                                                                                                      |
