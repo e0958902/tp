@@ -40,6 +40,14 @@ parsing the arguments.
 - Step 7. Checks and updates daily medication records in `DailyMedicationManager`.
 - Step 8. `Ui` displays success or error messages to the user.
 
+### Expanding Step 7
+![sublist](images/AddToSubLists.png)
+- Every medication is checked if they contain dosage for each `period` (morning, afternoon, evening) of the day.
+- If `getDosage()` in each period is not null, then a new `dailyMedication` object is created with the `name`, `dosage` 
+and `period` values.
+- This `dailyMedication` is then added to the respective sub lists according to the `period`.
+- Finally, the `dailyMedication` is saved into the text file and returns `true` if saved successfully.
+
 ---
 <!-- Comment: Use backticks (`) to encapsulate code rather than using a single quote (') to make it more readable. -->
 ### List Medication Command
@@ -53,12 +61,12 @@ The list medication command extends from Command parent class and contains the f
 
 **The following commands print medications to be taken in a day:**
 <!--Comment: Perhaps clarify what is the difference between inputting "today -m", "today -a" and "today -e"? -->
-1. 'today' - to run printMedications() from the DailyMedicationManager.
-2. 'today -m' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+1. `today` - to run printMedications() from the DailyMedicationManager.
+2. `today -m` to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
    from the DailyMedicationManager
-3. 'today -a' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+3. `today -a` to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
    from the DailyMedicationManager
-4. 'today -e' to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
+4. `today -e` to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
    from the DailyMedicationManager
 
 * On first run, the programs reads into the MedicationManager and determines if a medication is to be added to today's list, based on the repeat value.
