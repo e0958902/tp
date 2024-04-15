@@ -39,6 +39,7 @@ public class DailyMedicationManager {
      * @see DailyMedication
      */
     public static void createDailyMedicationManager() {
+        clearDailyMedication(); // For when loading from save file
         for (Medication medication : MedicationManager.getMedications()) {
             checkForDaily(medication);
         }
@@ -50,6 +51,7 @@ public class DailyMedicationManager {
      * @param lines lines of String read from each row in the textfile
      */
     public static void importDailyMedicationManager(List<String> lines) {
+        clearDailyMedication(); // For when loading from save file
         for (String line : lines) {
             parseImportedLine(line);
         }

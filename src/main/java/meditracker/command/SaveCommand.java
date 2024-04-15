@@ -78,7 +78,7 @@ public class SaveCommand extends Command {
             System.out.println("An error occurred while saving Medication Data. Data is not saved.");
         } else {
             Path absoluteJsonPath = jsonSaveFilePath.toAbsolutePath();
-            System.out.println("Data successfully saved to: " + absoluteJsonPath);
+            System.out.println("Medication Data successfully saved to: " + absoluteJsonPath);
         }
 
         Path dailyMedPath = MediTrackerFileConfig.getDailymedFilePath(jsonSaveFilePath);

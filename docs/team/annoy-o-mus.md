@@ -15,7 +15,7 @@
 - Issue #43: Simulated Time
 
 ### Miscellaneous Code Contributions (Styling and Quality related)
-Issue #222
+Issue #222, #241
 
 ### Developer Guide Contributions
 
