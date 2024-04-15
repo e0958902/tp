@@ -36,11 +36,11 @@ public class JsonExporterTest {
         addMedicationWithoutChecksMethod.setAccessible(true);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Medication med1 = new Medication(
-                "Test Valid Medication 1",
+                "Test Valid Medication one",
                 69.0,
-                null,
-                null,
-                null,
+                0.0,
+                1.0,
+                2.0,
                 LocalDate.parse("2024-11-23", dateTimeFormatter),
                 "No Remarks",
                 1,
@@ -48,11 +48,11 @@ public class JsonExporterTest {
         );
 
         Medication med2 = new Medication(
-                "Test Valid Medication 2",
+                "Test Valid Medication two",
                 10000.0,
-                null,
-                null,
-                null,
+                1.0,
+                0.0,
+                0.0,
                 LocalDate.parse("2025-01-01", dateTimeFormatter),
                 "",
                 1,
@@ -60,7 +60,7 @@ public class JsonExporterTest {
         );
 
         Medication med3 = new Medication(
-                "Invalid Medication 4",
+                "Invalid Medication name 4",
                 999.0,
                 0.0,
                 0.0,
