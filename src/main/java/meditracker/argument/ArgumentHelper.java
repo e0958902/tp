@@ -1,18 +1,18 @@
 package meditracker.argument;
 
+import java.util.List;
+
 import meditracker.command.AddCommand;
 import meditracker.command.CommandName;
 import meditracker.command.DeleteCommand;
 import meditracker.command.ListCommand;
-import meditracker.command.ViewCommand;
+import meditracker.command.LoadCommand;
 import meditracker.command.ModifyCommand;
+import meditracker.command.SaveCommand;
 import meditracker.command.SearchCommand;
 import meditracker.command.TakeCommand;
 import meditracker.command.UntakeCommand;
-import meditracker.command.SaveCommand;
-import meditracker.command.LoadCommand;
-
-import java.util.List;
+import meditracker.command.ViewCommand;
 
 /**
  * ArgumentHelper class to handle generating the help messages,

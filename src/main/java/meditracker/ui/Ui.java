@@ -83,30 +83,65 @@ public class Ui {
         System.out.println("Thank you for using MediTracker. Hope to see you again!");
     }
 
+    /**
+     * Prints success message onto console. Prepends success message with
+     * <code>SUCCESS: </code>.
+     *
+     * @param message Success message to be appended to.
+     */
     public static void showSuccessMessage(String message) {
         System.out.print("SUCCESS: ");
         System.out.println(message);
     }
 
+    /**
+     * Prints error message onto console. Prepends error message with
+     * <code>ERROR: </code>.
+     *
+     * @param message Error message to be appended to.
+     */
     public static void showErrorMessage(String message) {
         System.out.print("ERROR: ");
         System.out.println(message);
     }
 
+    /**
+     * Prints error message onto console. Prepends error message with
+     * <code>ERROR: </code>.
+     *
+     * @param throwable Error throwable to get message from.
+     */
     public static void showErrorMessage(Throwable throwable) {
         showErrorMessage(throwable.getMessage());
     }
 
+    /**
+     * Gets and prints the help message for the command specified.
+     *
+     * @param commandName Command help message to print.
+     */
     public static void showHelpMessage(CommandName commandName) {
         String helpMessage = ArgumentHelper.getHelpMessage(commandName);
         System.out.println(helpMessage);
     }
 
+    /**
+     * Prints warning message onto console. Prepends warning message with
+     * <code>WARNING: </code>.
+     *
+     * @param message Warning message to be appended to.
+     */
     public static void showWarningMessage(String message) {
         System.out.print("WARNING: ");
         System.out.println(message);
     }
 
+    /**
+     * Prints info message onto console. Prepends info message with
+     * <code>INFO: </code>.
+     *
+     * @param message Info message to be appended to.
+     */
     public static void showInfoMessage(String message) {
         System.out.print("INFO: ");
         System.out.println(message);
