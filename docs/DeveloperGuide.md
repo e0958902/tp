@@ -14,7 +14,7 @@ Ideas and structure for the User Guide:
 
 Additional Packages used: 
 - [JSON](https://github.com/stleary/JSON-java)
-- Github's Jekyll integration
+- GitHub's built-in Jekyll integration to allow us to render the documentation in a slightly different style.
 
 # Overview
 <!-- Add a TOC -->
@@ -162,21 +162,25 @@ Ensuring that you would not forget your next dose of medication.
 
 ## User Stories
 
-|Version| As a ... | I want to ...                                                | So that I can ...                                                                                                                                      |
-|--------|-------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-|v1.0| user  | enter my medications with its relevant information in one go | add my medication entry efficiently and refer to them when I forget my medication information                                                          |
-|v1.0| user  | indicate the medications that I have taken                   | know when is my next dose and how well I am following doctors orders, and show how well I am taking my medications at the appropriate times of the day |
-|v1.0| user  | know what medications i have to take throughout the day      | mark them as takenor not, thus not miss or forget to take what I have to take for the day                                                              |
-|v1.0| user  | edit the details in my medication list                       | ensure that its medication information is up-to-date with my medifications                                                                             |
-|v1.0| user  | delete medications medication list                           | remove medications that I do not need will not be there anymore                                                                                        |
-|v1.0| user  | search medications from existing medicine library            | search medications locally to have a quick preview of them and their purpose without the web                                                           |
-|v1.0| user  | Store data locally                                           | Use the application and see the data even when offline between sessions                                                                                |
-|v1.0| user  | know the list of medications I have added                    | have a quick overview of the medication list and check the quantity and expiry date of each medication                                                 |
+| Version | As a ... | I want to ...                                                | So that I can ...                                                                                                                                      |
+|---------|----------|--------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| v1.0    | user     | enter my medications with its relevant information in one go | add my medication entry efficiently and refer to them when I forget my medication information                                                          |
+| v1.0    | user     | indicate the medications that I have taken                   | know when is my next dose and how well I am following doctors orders, and show how well I am taking my medications at the appropriate times of the day |
+| v1.0    | user     | know what medications i have to take throughout the day      | mark them as taken or not, thus not miss or forget to take what I have to take for the day                                                             |
+| v1.0    | user     | edit the details in my medication list                       | ensure that its medication information is up-to-date with my modifications                                                                             |
+| v1.0    | user     | delete medications medication list                           | remove medications that I do not need will not be there anymore                                                                                        |
+| v1.0    | user     | search medications from existing medicine library            | search medications locally to have a quick preview of them and their purpose without the web                                                           |
+| v1.0    | user     | know the list of medications I have added                    | have a quick overview of the medication list and check the quantity and expiry date of each medication                                                 |
+| v1.0    | user     | Save data locally                                            | Use the application and see the data even when offline between sessions (data is persistent)                                                           |
+| v2.0    | user     | Be able to save the file to a place of my choosing           | I can easily refer or transfer the files to another system                                                                                             |
+| v1.0    | user     | Be able to load existing data                                | I don't have to start from a fresh state everytime                                                                                                     |
+| v2.0    | user     | Be able to load existing data from a place I choose          | load the data by typing rather than dragging to the default save location                                                                              |
 
 ## Non-Functional Requirements
 - The user's program data (medication, daily medication) should be persistent between program sessions.
-- Users should have a way to save and load data to and from a preferred location.
-- Developers should have a way to simulate time to test out certain time-based functionality (i.e. check if medicine has been taken on a certain date) without having to tweak the actual system clock.
+- Users should be able to modify the data separately from the program. 
+- Users should be able to share or move the data easily between devices.
+- Developers be able to test out certain time-based functionality (i.e. check if medicine has been taken on a certain date) without having to tweak the actual system clock.
 
 ## Glossary
 
@@ -185,8 +189,6 @@ Ensuring that you would not forget your next dose of medication.
 | JSON                  | A text-based file format to save data to                       |
 | Medication Data       | Data related to the overview of the medication itself          |
 | Daily Medication Data | Data related to the current day's dosage, including its status |
-
-
 
 ## Instructions for manual testing
 <div class="info-box">

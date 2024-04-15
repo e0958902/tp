@@ -23,13 +23,13 @@ another time or date without having to tweak the system time, and a custom logge
 Key Features:
 - Saving and Reading from files (Medication data to and from JSON)
   - [#25](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/25), [#27](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/27), [#55](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/55)
-- Saving and reading from files (DailyMedication data to and from .txt)
+- Saving and reading from files (DailyMedication data to and from `.txt`)
   - [#48](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/48), [#121](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/121), [#226](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/226)
-- Offer custom saving functionality with path sanitisation checks
+- Offer custom saving functionality with path sanitisation checks (`save` and `load` commands)
   - [#96](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/96), [#97](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/97), [#100](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/100)
-- Logging for MediTracker
+- Logging for MediTracker (`MediLogger`)
   - [#41](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/41), [#45](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/45), [#46](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/46)
-- Simulated Time for development
+- Simulated Time for development (`MediTrackerTime`)
   - [#43](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/43)
 
 
@@ -39,6 +39,8 @@ Issues [#140](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/140), [#146](h
 ### Developer Guide Contributions
 - Brought in DG comments from other users in the main repo ([#211](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/211))
 - Populate some related instructions for manual testing.
+- Introduced some Non-Functional Requirements relating to my part (Modify and share data, time support for developers)
+- Introduced users stories relating to my part (saving and loading)
 
 ### User Guide Contributions
 <!-- To talk about Issue 25 -->
