@@ -1,10 +1,7 @@
 package meditracker.argument;
 
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.UnknownArgumentFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -35,8 +32,7 @@ public class ArgumentParserTest {
         Map<ArgumentName, String> parsedArgs;
         try {
             parsedArgs = testArgumentList.parse(testArgumentString);
-        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException |
-                 ArgumentNoValueException | UnknownArgumentFoundException e) {
+        } catch (HelpInvokedException | ArgumentException e) {
             throw new RuntimeException(e);
         }
 
@@ -61,8 +57,7 @@ public class ArgumentParserTest {
         Map<ArgumentName, String> parsedArgs;
         try {
             parsedArgs = testArgumentList.parse(testArgumentString);
-        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException |
-                 ArgumentNoValueException | UnknownArgumentFoundException e) {
+        } catch (HelpInvokedException | ArgumentException e) {
             throw new RuntimeException(e);
         }
 
@@ -87,8 +82,7 @@ public class ArgumentParserTest {
         Map<ArgumentName, String> parsedArgs;
         try {
             parsedArgs = testArgumentList.parse(testArgumentString);
-        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException |
-                 ArgumentNoValueException | UnknownArgumentFoundException e) {
+        } catch (HelpInvokedException | ArgumentException e) {
             throw new RuntimeException(e);
         }
 
@@ -99,7 +93,7 @@ public class ArgumentParserTest {
     }
 
     @Test
-    void argumentParser_duplicateArgumentFlags_duplicateArgumentFoundException() {
+    void argumentParser_duplicateArgumentFlags_argumentException() {
         String name = "Medication";
         String dosage = "100";
         String quantity = "2000";
@@ -112,13 +106,13 @@ public class ArgumentParserTest {
                 name);
 
         assertThrows(
-                DuplicateArgumentFoundException.class,
+                ArgumentException.class,
                 () -> testArgumentList.parse(testArgumentString)
         );
     }
 
     @Test
-    void argumentParser_missingArgumentFlags_argumentNotFoundException() {
+    void argumentParser_missingArgumentFlags_argumentException() {
         String name = "Medication";
         String quantity = "2000";
         String remarks = "Take before meals";
@@ -128,13 +122,13 @@ public class ArgumentParserTest {
                 remarks);
 
         assertThrows(
-                ArgumentNotFoundException.class,
+                ArgumentException.class,
                 () -> testArgumentList.parse(testArgumentString)
         );
     }
 
     @Test
-    void argumentParser_missingArgumentValues_argumentNoValueException() {
+    void argumentParser_missingArgumentValues_argumentException() {
         String name = "Medication";
         String dosage = "100";
         String quantity = "2000";
@@ -144,13 +138,13 @@ public class ArgumentParserTest {
                 quantity);
 
         assertThrows(
-                ArgumentNoValueException.class,
+                ArgumentException.class,
                 () -> testArgumentList.parse(testArgumentString)
         );
     }
 
     @Test
-    void argumentParser_unknownArgumentFlags_unknownArgumentFoundException() {
+    void argumentParser_unknownArgumentFlags_argumentException() {
         String name = "Medication";
         String dosage = "100";
         String quantity = "2000";
@@ -162,7 +156,7 @@ public class ArgumentParserTest {
                 remarks);
 
         assertThrows(
-                UnknownArgumentFoundException.class,
+                ArgumentException.class,
                 () -> testArgumentList.parse(testArgumentString)
         );
     }

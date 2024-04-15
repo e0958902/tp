@@ -23,6 +23,7 @@ The following contains my contribution summary and pull request reviews.
 - Issue #183: Specifying the correct list index to refer when using delete command
 - Issue #198: Specifying the correct list index to refer when using take command
 - Issue #201: Stating the usage of -h in list command
+- Issue #200: Stating in UG that entering the command word alone with print the help message
 
 
 ### Developer Guide Contributions

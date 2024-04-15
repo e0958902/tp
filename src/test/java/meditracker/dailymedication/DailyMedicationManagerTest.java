@@ -1,15 +1,12 @@
 package meditracker.dailymedication;
 
 import meditracker.command.AddCommand;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.exception.InsufficientQuantityException;
 import meditracker.exception.MediTrackerException;
 import meditracker.exception.MedicationNotFoundException;
 import meditracker.exception.MedicationUnchangedException;
-import meditracker.exception.UnknownArgumentFoundException;
 import meditracker.medication.Medication;
 import meditracker.medication.MedicationManager;
 import meditracker.medication.MedicationManagerTest;
@@ -22,8 +19,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -52,35 +47,18 @@ public class DailyMedicationManagerTest {
 
     @Test
     public void addDailyMedication_genericDailyMedication_dailyMedicationAdded()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+            throws HelpInvokedException, ArgumentException {
         String inputString = "add -n Medication A -q 60.0 -e 2025-07-01 -dM 500.0 -dA 250.0 "
                 + "-dE 300.0 -r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         command.execute();
 
-        List<DailyMedication> morningMedications = new ArrayList<>();
-        List<DailyMedication> afternoonMedications = new ArrayList<>();
-        List<DailyMedication> eveningMedications = new ArrayList<>();
+        DailyMedication morningMeds = new DailyMedication("Medication A", 500, Period.MORNING);
 
-        DailyMedication morningMeds = new DailyMedication("Medication A");
-        morningMedications.add(morningMeds);
+        DailyMedication afternoonMeds = new DailyMedication("Medication A", 250, Period.AFTERNOON);
 
-        DailyMedication afternoonMeds = new DailyMedication("Medication A");
-        afternoonMedications.add(afternoonMeds);
+        DailyMedication eveningMeds = new DailyMedication("Medication A", 300, Period.EVENING);
 
-        DailyMedication eveningMeds = new DailyMedication("Medication A");
-        eveningMedications.add(eveningMeds);
-
-
-        List<Medication> medicationList = MedicationManager.getMedications();
-
-        DailyMedicationManager.printTodayMedications(medicationList,
-                morningMedications, "Morning:");
-        DailyMedicationManager.printTodayMedications(medicationList,
-                afternoonMedications, "Afternoon:");
-        DailyMedicationManager.printTodayMedications(medicationList,
-                eveningMedications, "Evening:");
 
         int actualIndex = 1; // 1-based indexing
         DailyMedication morningMedicationTest = DailyMedicationManager.getDailyMedication(actualIndex, Period.MORNING);
@@ -114,9 +92,9 @@ public class DailyMedicationManagerTest {
                 87);
         MedicationManager.addMedication(medication);
 
-        DailyMedication dailyMedication = new DailyMedication(medicationName);
+        DailyMedication dailyMedication = new DailyMedication(medicationName, dosage, Period.MORNING);
         assertFalse(dailyMedication.isTaken());
-        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
+        DailyMedicationManager.addDailyMedication(dailyMedication);
 
         int actualIndex = 1; // 1-based indexing
         DailyMedicationManager.takeDailyMedication(actualIndex, Period.MORNING);
@@ -145,9 +123,9 @@ public class DailyMedicationManagerTest {
                 87);
         MedicationManager.addMedication(medication);
 
-        DailyMedication dailyMedication = new DailyMedication(medicationName);
+        DailyMedication dailyMedication = new DailyMedication(medicationName, dosage, Period.MORNING);
         assertFalse(dailyMedication.isTaken());
-        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
+        DailyMedicationManager.addDailyMedication(dailyMedication);
 
         int actualIndex = 1; // 1-based indexing
         assertThrows(
@@ -175,10 +153,10 @@ public class DailyMedicationManagerTest {
                 87);
         MedicationManager.addMedication(medication);
 
-        DailyMedication dailyMedication = new DailyMedication(medicationName);
+        DailyMedication dailyMedication = new DailyMedication(medicationName, dosage, Period.MORNING);
         dailyMedication.take();
         assertTrue(dailyMedication.isTaken());
-        DailyMedicationManager.addDailyMedication(dailyMedication, Period.MORNING);
+        DailyMedicationManager.addDailyMedication(dailyMedication);
 
         int actualIndex = 1; // 1-based indexing
         DailyMedicationManager.untakeDailyMedication(actualIndex, Period.MORNING);

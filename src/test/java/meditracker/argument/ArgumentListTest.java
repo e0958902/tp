@@ -1,10 +1,7 @@
 package meditracker.argument;
 
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
-import meditracker.exception.UnknownArgumentFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -46,8 +43,7 @@ public class ArgumentListTest {
         Map<ArgumentName, String> parsedArgs;
         try {
             parsedArgs = testArgumentList.parse(testArgumentString);
-        } catch (ArgumentNotFoundException | DuplicateArgumentFoundException | HelpInvokedException |
-                 ArgumentNoValueException | UnknownArgumentFoundException e) {
+        } catch (HelpInvokedException | ArgumentException e) {
             throw new RuntimeException(e);
         }
 
@@ -57,13 +53,13 @@ public class ArgumentListTest {
     }
 
     @Test
-    void parse_missingArgumentSpecified_argumentNotFoundException() {
+    void parse_missingArgumentSpecified_argumentException() {
         String name = "Medication";
         String dosage = "100";
         String testArgumentString = String.format("-n %s -dM %s", name, dosage);
 
         assertThrows(
-                ArgumentNotFoundException.class,
+                ArgumentException.class,
                 () -> testArgumentList.parse(testArgumentString)
         );
     }

@@ -1,25 +1,20 @@
 package meditracker.command;
 
+import java.util.Map;
+
+import meditracker.argument.AfternoonArgument;
+import meditracker.argument.ArgumentHelper;
+import meditracker.argument.ArgumentList;
+import meditracker.argument.ArgumentName;
+import meditracker.argument.EveningArgument;
 import meditracker.argument.ListTypeArgument;
 import meditracker.argument.MorningArgument;
-import meditracker.argument.AfternoonArgument;
-import meditracker.argument.EveningArgument;
-import meditracker.argument.ArgumentList;
-import meditracker.argument.ArgumentHelper;
-import meditracker.argument.ArgumentName;
-import meditracker.dailymedication.DailyMedication;
 import meditracker.dailymedication.DailyMedicationManager;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.UnknownArgumentFoundException;
-import meditracker.time.Period;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
+import meditracker.exception.ArgumentException;
 import meditracker.exception.HelpInvokedException;
 import meditracker.medication.MedicationManager;
+import meditracker.time.Period;
 import meditracker.ui.Ui;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * The ListCommand class represents a command to list the medications.
@@ -42,15 +37,13 @@ public class ListCommand extends Command {
      * Constructs a ListCommand object with the specified arguments.
      *
      * @param arguments The arguments containing information to be parsed.
-     * @throws ArgumentNotFoundException Argument flag specified not found
-     * @throws ArgumentNoValueException When argument requires value but no value specified
-     * @throws DuplicateArgumentFoundException Duplicate argument flag found
      * @throws HelpInvokedException When help argument is used or help message needed
-     * @throws UnknownArgumentFoundException When unknown argument flags found in user input
+     * @throws ArgumentException Argument flag specified not found,
+     *              or when argument requires value but no value specified,
+     *              or when unknown argument flags found in user input,
+     *              or when duplicate argument flag found
      */
-    public ListCommand(String arguments)
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException {
+    public ListCommand(String arguments) throws HelpInvokedException, ArgumentException {
         parsedArguments = ARGUMENT_LIST.parse(arguments);
     }
 
@@ -70,52 +63,21 @@ public class ListCommand extends Command {
         switch (listTypeString) {
         case "all":
             if (parsedArguments.size() > 1) {
-                Ui.showErrorMessage(String.format("List type -> \"%s\" not compatible with " +
-                        "\"list -t all\" command.", period));
+                Ui.showErrorMessage(String.format("List type -> \"%s\" not compatible with "
+                         + "\"list -t all\" command.", period));
                 return;
             }
             MedicationManager.printAllMedications();
             break;
         case "today":
             switch (period) {
-            case MORNING:
-                // checks if user added extra flags or words after -m
-                if (parsedArguments.get(ArgumentName.MORNING).isBlank()) {
-                    List<DailyMedication> morningMedications
-                            = DailyMedicationManager.getDailyMedications(Period.MORNING);
-                    DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
-                            morningMedications, "Morning:");
-                } else {
-                    Ui.showErrorMessage(String.format("Unknown list type -> \"%s\"",
-                            parsedArguments.get(ArgumentName.MORNING)));
-                }
-                break;
-            case AFTERNOON:
-                // checks if user added extra flags or words after -a
-                if(parsedArguments.get(ArgumentName.AFTERNOON).isBlank()) {
-                    List<DailyMedication> afternoonMedications
-                            = DailyMedicationManager.getDailyMedications(Period.AFTERNOON);
-                    DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
-                            afternoonMedications, "Afternoon:");
-                } else {
-                    Ui.showErrorMessage(String.format("Unknown list type -> \"%s\"",
-                            parsedArguments.get(ArgumentName.AFTERNOON)));
-                }
-                break;
+            case MORNING: // fall through
+            case AFTERNOON: // fall through
             case EVENING:
-                // checks if user added extra flags or words after -e
-                if (parsedArguments.get(ArgumentName.EVENING).isBlank()) {
-                    List<DailyMedication> eveningMedications
-                            = DailyMedicationManager.getDailyMedications(Period.EVENING);
-                    DailyMedicationManager.printTodayMedications(MedicationManager.getMedications(),
-                            eveningMedications, "Evening:");
-                } else {
-                    Ui.showErrorMessage(String.format("Unknown list type -> \"%s\"",
-                            parsedArguments.get(ArgumentName.EVENING)));
-                }
+                DailyMedicationManager.printTodayMedications(period);
                 break;
             case NONE:
-                DailyMedicationManager.printTodayMedications(MedicationManager.getMedications());
+                DailyMedicationManager.printTodayMedications();
                 break;
             case UNKNOWN:
                 Ui.showErrorMessage(String.format("Unknown list type -> \"%s\"", period));

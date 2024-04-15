@@ -1,18 +1,8 @@
 package meditracker.command;
 
-import meditracker.dailymedication.DailyMedicationManagerTest;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
-import meditracker.exception.HelpInvokedException;
-import meditracker.exception.MediTrackerException;
-import meditracker.exception.UnknownArgumentFoundException;
-import meditracker.medication.Medication;
-import meditracker.medication.MedicationManager;
-import meditracker.medication.MedicationManagerTest;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -20,9 +10,34 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import meditracker.argument.ArgumentList;
+import meditracker.argument.DosageMorningArgument;
+import meditracker.argument.NameArgument;
+import meditracker.argument.QuantityArgument;
+import meditracker.argument.RemarksArgument;
+import meditracker.dailymedication.DailyMedicationManagerTest;
+import meditracker.exception.ArgumentException;
+import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MediTrackerException;
+import meditracker.medication.Medication;
+import meditracker.medication.MedicationManager;
+import meditracker.medication.MedicationManagerTest;
+
+/**
+ * This test file is to perform tests on ListCommands
+ */
 class ListCommandTest {
+    private ArgumentList testArgumentList = new ArgumentList(
+            new NameArgument(false),
+            new QuantityArgument(false),
+            new DosageMorningArgument(false),
+            new RemarksArgument(false)
+    );
+
     @BeforeEach
     @AfterEach
     void resetManagers() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
@@ -49,8 +64,8 @@ class ListCommandTest {
 
         MedicationManager.addMedication(medication);
 
-        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationName;
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationName;
 
         Medication addedMedication = MedicationManager.getMedication(1);
         assertEquals(addedMedication.getName(), medicationName);
@@ -59,8 +74,7 @@ class ListCommandTest {
     // Solution below adapted by https://stackoverflow.com/questions/32241057/
     @Test
     void execute_listAllMedications_expectToShowAllMedicationsInMedicationList()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
         String medicationNameOne = "Dexamethasone";
         Double medicationQuantityOne = 20.0;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -96,8 +110,8 @@ class ListCommandTest {
         MedicationManager.addMedication(medicationOne);
         MedicationManager.addMedication(medicationTwo);
 
-        assert MedicationManager.getTotalMedications() > 1 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationNameOne + "and" + medicationNameTwo ;
+        assert MedicationManager.getTotalMedications() > 1 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationNameOne + "and" + medicationNameTwo;
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -129,16 +143,142 @@ class ListCommandTest {
         String remarks = "Remarks";
         String successMessage = "Your list of medications has been successfully shown!";
 
-        String body = String.format(title +
-                        headerFormat +
-                        "1. " + bodyFormat +
-                        "2. " + bodyFormat +
-                        successMessage +
-                        System.lineSeparator(),
+        String body = String.format(title
+                        + headerFormat
+                        + "1. " + bodyFormat
+                        + "2. " + bodyFormat
+                        + successMessage
+                        + System.lineSeparator(),
                 name, quantity, expiryDate, remarks,
                 medicationNameOne, medicationQuantityOne, expiryDateOne, medicationRemarksOne,
                 medicationNameTwo, medicationQuantityTwo, expiryDateTwo, medicationRemarksTwo);
 
         assertEquals(output, body);
+    }
+
+    @Test
+    void listAllMedication_extraFlagAfterCommand_showErrorMessage() throws HelpInvokedException, ArgumentException {
+        PrintStream oldOut = System.out;
+
+        // Create a ByteArrayOutputStream to get the output from the call to print
+        ByteArrayOutputStream content = new ByteArrayOutputStream();
+
+        // Change System.out to point out to our stream
+        System.setOut(new PrintStream(content));
+
+        // Execute the view by name command
+        String inputString = "list -t all -a";
+        ListCommand command = new ListCommand(inputString);
+        command.execute();
+
+        // Reset back to System.out
+        System.setOut(oldOut);
+
+        // Output contains the content from the stream
+        String output = content.toString();
+
+        assertTrue(output.contains("ERROR: List type -> \"AFTERNOON\" not compatible with \"list -t all\" command."));
+    }
+
+    @Test
+    void listAllMedication_extraWordsAfterCommand_showErrorMessage() throws HelpInvokedException, ArgumentException {
+        PrintStream oldOut = System.out;
+
+        // Create a ByteArrayOutputStream to get the output from the call to print
+        ByteArrayOutputStream content = new ByteArrayOutputStream();
+
+        // Change System.out to point out to our stream
+        System.setOut(new PrintStream(content));
+
+        // Execute the view by name command
+        String inputString = "list -t all asdf";
+        ListCommand command = new ListCommand(inputString);
+        command.execute();
+
+        // Reset back to System.out
+        System.setOut(oldOut);
+
+        // Output contains the content from the stream
+        String output = content.toString();
+
+        assertTrue(output.contains("ERROR: Unknown list type -> \"all asdf\""));
+    }
+
+    @Test
+    void listAllMedication_unknownFlagAfterCommand_showErrorMessage() {
+        String testArgumentString = "list -t all -asdf";
+
+        assertThrows(
+                ArgumentException.class,
+                () -> testArgumentList.parse(testArgumentString)
+        );
+    }
+
+    @Test
+    void listDailyMedication_extraWordsAfterCommand_showErrorMessage() throws HelpInvokedException, ArgumentException {
+        PrintStream oldOut = System.out;
+
+        // Create a ByteArrayOutputStream to get the output from the call to print
+        ByteArrayOutputStream content = new ByteArrayOutputStream();
+
+        // Change System.out to point out to our stream
+        System.setOut(new PrintStream(content));
+
+        // Execute the view by name command
+        String inputString = "list -t today asdf";
+        ListCommand command = new ListCommand(inputString);
+        command.execute();
+
+        // Reset back to System.out
+        System.setOut(oldOut);
+
+        // Output contains the content from the stream
+        String output = content.toString();
+
+        assertTrue(output.contains("ERROR: Unknown list type -> \"today asdf\""));
+    }
+
+    @Test
+    void listDailyMedication_extraFlagsAfterCommand_showErrorMessage() throws HelpInvokedException, ArgumentException {
+        PrintStream oldOut = System.out;
+
+        // Create a ByteArrayOutputStream to get the output from the call to print
+        ByteArrayOutputStream content = new ByteArrayOutputStream();
+
+        // Change System.out to point out to our stream
+        System.setOut(new PrintStream(content));
+
+        // Execute the view by name command
+        String inputString = "list -t today -a -m";
+        ListCommand command = new ListCommand(inputString);
+        command.execute();
+
+        // Reset back to System.out
+        System.setOut(oldOut);
+
+        // Output contains the content from the stream
+        String output = content.toString();
+
+        assertTrue(output.contains("ERROR: Unknown list type -> \"UNKNOWN\""));
+    }
+
+    @Test
+    void listDailyMedication_unknownFlagAfterCommand_showErrorMessage() {
+        String testArgumentString = "list -t today -a -asd";
+
+        assertThrows(
+                ArgumentException.class,
+                () -> testArgumentList.parse(testArgumentString)
+        );
+    }
+
+    @Test
+    void listDailyMedication_extraWordsAfterFlag_showErrorMessage() {
+        String testArgumentString = "list -t today -a asdf";
+
+        assertThrows(
+                ArgumentException.class,
+                () -> testArgumentList.parse(testArgumentString)
+        );
     }
 }

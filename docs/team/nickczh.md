@@ -16,19 +16,21 @@
 - Issue #182: [PE-D][Tester C] Lack of /help page
 - Issue #184: [PE-D][Tester F] using an example from the user guide is causing an error
 - Issue #191: [PE-D][Tester F] empty input is allowed when adding
+- Issue #231: NoSuchElementException when program is terminated with Ctrl-C
+- Issue #235: UG Command Summary, Table of Contents linking and back
 
 ### Developer Guide Contributions
 - Add command specifications
 - Sequence diagram for Add Command (Issue #138)
 
 ### User Guide Contributions
+- Table of Contents
 - Add command
   - Description
   - Command Format
   - Example
   - Output
-  
-
+- Command Summary
 - Help command
 
 ### Team-based tasks
@@ -36,7 +38,7 @@
 [(Issue #16)](https://github.com/nus-cs2113-AY2324S2/forum/issues/16)
 
 ### PR Reviews
-#42, #61, #62, #64, #70, #73, #75, #127, #131, #132, #142, #144
+#42, #61, #62, #64, #70, #73, #75, #127, #131, #132, #142, #144, #227
 
 ### Miscellaneous
 #### Refactor:

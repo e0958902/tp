@@ -1,18 +1,7 @@
 package meditracker.command;
 
-import meditracker.dailymedication.DailyMedicationManagerTest;
-import meditracker.exception.ArgumentNoValueException;
-import meditracker.exception.ArgumentNotFoundException;
-import meditracker.exception.DuplicateArgumentFoundException;
-import meditracker.exception.HelpInvokedException;
-import meditracker.exception.MediTrackerException;
-import meditracker.exception.UnknownArgumentFoundException;
-import meditracker.medication.Medication;
-import meditracker.medication.MedicationManager;
-import meditracker.medication.MedicationManagerTest;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -20,9 +9,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import meditracker.dailymedication.DailyMedicationManagerTest;
+import meditracker.exception.ArgumentException;
+import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MediTrackerException;
+import meditracker.medication.Medication;
+import meditracker.medication.MedicationManager;
+import meditracker.medication.MedicationManagerTest;
+
+/**
+ * This test file is to perform tests on ViewCommands
+ */
 public class ViewCommandTest {
 
     @BeforeEach
@@ -34,8 +35,7 @@ public class ViewCommandTest {
 
     @Test
     void execute_viewCommandByIndex_expectMedicationShownByIndex()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
         String medicationName = "Medication_I";
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate parsedExpiryDate = LocalDate.parse("2024-08-01", dateTimeFormatter);
@@ -51,8 +51,8 @@ public class ViewCommandTest {
                 90);
         MedicationManager.addMedication(medication);
 
-        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationName;
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationName;
 
         int medicationIndex = 1;
         String inputString = "view -l " + medicationIndex;
@@ -67,8 +67,7 @@ public class ViewCommandTest {
     // Solution below adapted by https://stackoverflow.com/questions/32241057/
     @Test
     void execute_viewCommandByName_expectMedicationShownByName()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
         String medicationName = "Medication_N";
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate parsedExpiryDate = LocalDate.parse("2024-08-01", dateTimeFormatter);
@@ -84,8 +83,8 @@ public class ViewCommandTest {
                 91);
         MedicationManager.addMedication(medication);
 
-        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationName;
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationName;
 
         // Store current System.out
         PrintStream oldOut = System.out;
@@ -112,8 +111,7 @@ public class ViewCommandTest {
 
     @Test
     void execute_viewCommandByQuantity_expectMedicationShownByQuantity()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
         String medicationName = "Medication_Q";
         Double medicationQuantity = 1231.5;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -130,8 +128,8 @@ public class ViewCommandTest {
                 92);
         MedicationManager.addMedication(medication);
 
-        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationName;
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationName;
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -158,8 +156,7 @@ public class ViewCommandTest {
 
     @Test
     void execute_viewCommandByExpiry_expectMedicationShownByExpiry()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
         String medicationName = "Medication_E";
         Double medicationQuantity = 30.0;
         String medicationExpiryYear = "2024";
@@ -180,8 +177,8 @@ public class ViewCommandTest {
                 93);
         MedicationManager.addMedication(medication);
 
-        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationName;
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationName;
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -209,8 +206,7 @@ public class ViewCommandTest {
 
     @Test
     void execute_viewCommandByRemarks_expectMedicationShownByRemarks()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
         String medicationNameOne = "Dexamethasone";
         String medicationRemarksOne = "aggression, weight gain, nausea";
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -241,8 +237,8 @@ public class ViewCommandTest {
         MedicationManager.addMedication(medicationOne);
         MedicationManager.addMedication(medicationTwo);
 
-        assert MedicationManager.getTotalMedications() > 1 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationNameOne + "and" + medicationNameTwo ;
+        assert MedicationManager.getTotalMedications() > 1 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationNameOne + "and" + medicationNameTwo;
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -272,8 +268,7 @@ public class ViewCommandTest {
 
     @Test
     void execute_viewCommandWithMultipleFlags_expectErrorMessage()
-            throws ArgumentNotFoundException, ArgumentNoValueException, DuplicateArgumentFoundException,
-            HelpInvokedException, UnknownArgumentFoundException, MediTrackerException {
+            throws HelpInvokedException, MediTrackerException, ArgumentException {
         String medicationName = "Medication_F";
         Double medicationQuantity = 30.0;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -290,8 +285,8 @@ public class ViewCommandTest {
                 96);
         MedicationManager.addMedication(medication);
 
-        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationName;
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationName;
         // Store current System.out
         PrintStream oldOut = System.out;
 
