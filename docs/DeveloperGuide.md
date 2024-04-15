@@ -147,7 +147,6 @@ what illnesses they treat and their side effects, and prints the results to the 
 The 'search' command requires the following:
 1. To be added.
 
-<!--Comment: Consider using a class diagram to illustrate this to provide visual feedback.-->
 ### Utilising the argument parser
 The `ArgumentParser` requires the following to work:
 1. `ArgumentList` object
@@ -164,12 +163,11 @@ help message to be printed on the console.
 An `Argument` object consists of the following:
 1. `name`: Name of the argument, uses enum type `ArgumentName` as this value is used by `ArgumentParser` as well
 2. `flag`: Takes the form of `-*` where `*` represents any number of alphabetic characters
-3. `prompt`: Used within the guided prompt system
-4. `help`: Used in printing help message to provide user with the usage for the argument
-5. `isOptional`: A `boolean` value to specify whether this argument is optional or not. This value is utilised
+3. `help`: Used in printing help message to provide user with the usage for the argument
+4. `isOptional`: A `boolean` value to specify whether this argument is optional or not. This value is utilised
 by the `ArgumentParser` to determine whether the argument is required, and will throw a `ArgumentNotFound` 
 exception if this argument is required but not found in user specified argument string.
-6. `hasValue`: A `boolean` value to specify whether this argument has a corresponding value tied to it. 
+5. `hasValue`: A `boolean` value to specify whether this argument has a corresponding value tied to it. 
 `ArgumentParser` requires this to know whether to take the value specified by the user.
 
 Additional information regarding the `ArgumentName` enum:
@@ -185,9 +183,7 @@ In order to utilise the argument parser,
 4. Finally, invoking `ArgumentList.parse` with the `String` object to obtain the parsed argument values.
 
 Overview of the `meditracker.argument` core classes:
-- TODO: Add class diagrams and/or object diagrams required to illustrate the above information
-
----
+![ArgumentPackageClassDiagram.png](images/ArgumentPackageClassDiagram.png)
 
 ### Export to JSON File
 
