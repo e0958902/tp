@@ -32,12 +32,12 @@ public class ModifyCommand extends Command {
             new ListIndexArgument(false),
             new NameArgument(true),
             new QuantityArgument(true),
+            new ExpirationDateArgument(true),
             new DosageMorningArgument(true),
             new DosageAfternoonArgument(true),
             new DosageEveningArgument(true),
-            new ExpirationDateArgument(true),
-            new RemarksArgument(true),
-            new RepeatArgument(true)
+            new RepeatArgument(true),
+            new RemarksArgument(true)
     );
     public static final String HELP_MESSAGE = ArgumentHelper.getHelpMessage(CommandName.MODIFY, ARGUMENT_LIST);
     private final Map<ArgumentName, String> parsedArguments;
