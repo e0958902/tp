@@ -1,9 +1,9 @@
 package meditracker.dailymedication;
 
+import java.util.logging.Logger;
+
 import meditracker.logging.MediLogger;
 import meditracker.time.Period;
-
-import java.util.logging.Logger;
 
 // @@author T0nyLin
 /**
