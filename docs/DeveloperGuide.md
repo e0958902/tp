@@ -23,7 +23,9 @@ Additional Packages used:
 
 <div class="warning-box">
 :warning: <strong>Warning: </strong>
-Follow the steps in the following guide precisely..
+
+Follow the steps in the following guide precisely...
+
 </div>
 
 First, fork this [repo](https://github.com/AY2324S2-CS2113T-T09-1/tp), 
@@ -44,8 +46,10 @@ to import the project into IDEA.
 
 <div class="tip-box">
 :bulb: <strong>Tip: </strong>
-Link: Read this [Gradle Tutorial from the se-edu/guides](https://se-education.org/guides/tutorials/gradle.html) 
+
+Read this [Gradle Tutorial from the se-edu/guides](https://se-education.org/guides/tutorials/gradle.html) 
 to learn more about using Gradle.
+
 </div>
 
 ## Design & implementation
