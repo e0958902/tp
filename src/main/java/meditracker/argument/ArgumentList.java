@@ -1,13 +1,13 @@
 package meditracker.argument;
 
-import meditracker.exception.ArgumentException;
-import meditracker.exception.HelpInvokedException;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import meditracker.exception.ArgumentException;
+import meditracker.exception.HelpInvokedException;
 
 /**
  * ArgumentList class for managing a list of Argument

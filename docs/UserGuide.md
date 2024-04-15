@@ -16,10 +16,10 @@ data storage so that you can review your past medication intake.
 <br>
 <div style="display: flex; justify-content: space-between; position: fixed; bottom: 0; left: 0; width: 100%;">
     <div>
-        <a href="#command-summary">:up-down-arrow: Jump to Command Summary</a>
+        <a href="#command-summary">:arrow_up_down: Jump to Command Summary</a>
     </div>
     <div>
-        <a href="#table-of-contents">:up-down-arrow: Jump to Table of Contents</a>
+        <a href="#table-of-contents">:arrow_up_down: Jump to Table of Contents</a>
     </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -109,7 +109,7 @@ Extremely important text.
 ## Quick Start
 1. Ensure that you have [Java 11](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html) 
 or above installed. 
-   - If you using Windows:
+   - If you are using Windows:
      - Press the `Windows Key` on your keyboard and enter `Command Prompt` or `cmd` and press enter.
      - When the program opens, enter `java -version`.
    - If Java 11 is installed, you should get an output similar to below:<br>
@@ -277,7 +277,7 @@ Morning:
 :information_source: <strong>Info: </strong>
 
 If you want to mark the medication you have taken, you can refer to the <a href="#take-medication-take--l"><code>Take 
-Command</code></a> here.
+Command</code></a>.
 
 </div>
 
@@ -791,7 +791,7 @@ See the part on <a href="#editing-the-file">Editing the File</a> for warnings on
 
 ### Editing the file
 The medication information are saved in a `.json` format while the daily medication information are saved
-in the `.txt` format (two independent files). Advanced users can modify the text files directly.
+in the `.txt` format (two independent files). Advanced users can modify either files directly.
 
 <div class="danger-box">
 :bangbang: <strong>Danger: </strong>
@@ -868,11 +868,22 @@ This folder resides at the same level as the `meditracker.jar` file.
 To transfer the data, just copy/shift the `data` folder to the new computer, 
 making sure it is at the same level as the `.jar` file.
 
+**Q**: Why does the program keep returning "Invalid index specified"?
+
+**A**: Please make sure you are referring to the correct list. MediTracker uses [`list -t all`](#all-medications)
+and [`list -t today`](#daily-medications) commands to display all medications and medications to be taken for the day, 
+respectively. You may also use the `<command> -h` to see how the command works.
+
 <br>
 
 <div style="page-break-after: always;"></div>
 
 ## Glossary
+| Term  | Explanation                                                                                                                                                                                                   |
+|-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| .json | JSON stands for JavaScript Object Notation, which is used to save **all** medications added by the user.                                                                                                      |
+| .txt  | It represents a text file that contains plain text in the form of lines. <br/>Medications to be taken for a particular day is saved in the text file, and a new text file is created at the start of the day. |
+| Flags | Most commands in MediTracker uses the flags with the "-" to recognise values within certain fields. Eg. `-n`, `-a`, `-l`, etc.                                                                                |
 
 <br>
 

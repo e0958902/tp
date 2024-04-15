@@ -6,7 +6,7 @@ participant "<<class>>\n MedicationManager" as MedicationManager
 participant "<<class>>\n DailyMedicationManager" as DailyMedicationManager
 participant "<<class>>\n Ui" as Ui
 
-User -> AddCommand: new AddCommand(arguments)
+User -> AddCommand ** : new AddCommand(arguments)
 activate AddCommand
 AddCommand -> ArgumentList: parse(arguments)
 activate ArgumentList
