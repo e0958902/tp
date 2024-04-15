@@ -274,7 +274,7 @@ public class Medication {
 
     @Override
     public String toString() {
-        return getName() + " | " + getQuantity() +  " | " + getExpiryDate() + " | " + getRemarks();
+        return getName() + " | " + getQuantity() + " | " + getExpiryDate() + " | " + getRemarks();
     }
 
     /**

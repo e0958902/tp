@@ -1,15 +1,7 @@
 package meditracker.command;
 
-import meditracker.dailymedication.DailyMedicationManagerTest;
-import meditracker.exception.ArgumentException;
-import meditracker.exception.HelpInvokedException;
-import meditracker.exception.MediTrackerException;
-import meditracker.medication.Medication;
-import meditracker.medication.MedicationManager;
-import meditracker.medication.MedicationManagerTest;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -17,9 +9,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import meditracker.dailymedication.DailyMedicationManagerTest;
+import meditracker.exception.ArgumentException;
+import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MediTrackerException;
+import meditracker.medication.Medication;
+import meditracker.medication.MedicationManager;
+import meditracker.medication.MedicationManagerTest;
+
+/**
+ * This test file is to perform tests on ViewCommands
+ */
 public class ViewCommandTest {
 
     @BeforeEach
@@ -47,8 +51,8 @@ public class ViewCommandTest {
                 90);
         MedicationManager.addMedication(medication);
 
-        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationName;
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationName;
 
         int medicationIndex = 1;
         String inputString = "view -l " + medicationIndex;
@@ -79,8 +83,8 @@ public class ViewCommandTest {
                 91);
         MedicationManager.addMedication(medication);
 
-        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationName;
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationName;
 
         // Store current System.out
         PrintStream oldOut = System.out;
@@ -124,8 +128,8 @@ public class ViewCommandTest {
                 92);
         MedicationManager.addMedication(medication);
 
-        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationName;
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationName;
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -173,8 +177,8 @@ public class ViewCommandTest {
                 93);
         MedicationManager.addMedication(medication);
 
-        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationName;
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationName;
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -233,8 +237,8 @@ public class ViewCommandTest {
         MedicationManager.addMedication(medicationOne);
         MedicationManager.addMedication(medicationTwo);
 
-        assert MedicationManager.getTotalMedications() > 1 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationNameOne + "and" + medicationNameTwo ;
+        assert MedicationManager.getTotalMedications() > 1 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationNameOne + "and" + medicationNameTwo;
         // Store current System.out
         PrintStream oldOut = System.out;
 
@@ -281,8 +285,8 @@ public class ViewCommandTest {
                 96);
         MedicationManager.addMedication(medication);
 
-        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater " +
-                "than 0 after adding in" + medicationName;
+        assert MedicationManager.getTotalMedications() > 0 : "Total medications in medication must be greater "
+                + "than 0 after adding in" + medicationName;
         // Store current System.out
         PrintStream oldOut = System.out;
 

@@ -1,5 +1,7 @@
 package meditracker.command;
 
+import java.util.Map;
+
 import meditracker.argument.AfternoonArgument;
 import meditracker.argument.ArgumentHelper;
 import meditracker.argument.ArgumentList;
@@ -13,8 +15,6 @@ import meditracker.exception.HelpInvokedException;
 import meditracker.medication.MedicationManager;
 import meditracker.time.Period;
 import meditracker.ui.Ui;
-
-import java.util.Map;
 
 /**
  * The ListCommand class represents a command to list the medications.
@@ -63,8 +63,8 @@ public class ListCommand extends Command {
         switch (listTypeString) {
         case "all":
             if (parsedArguments.size() > 1) {
-                Ui.showErrorMessage(String.format("List type -> \"%s\" not compatible with " +
-                        "\"list -t all\" command.", period));
+                Ui.showErrorMessage(String.format("List type -> \"%s\" not compatible with "
+                         + "\"list -t all\" command.", period));
                 return;
             }
             MedicationManager.printAllMedications();
