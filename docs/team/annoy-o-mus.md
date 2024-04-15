@@ -33,7 +33,7 @@ Key Features:
 
 
 ### Miscellaneous Code Contributions (Styling and Quality related)
-Issues [#140](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/149), [#146](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/146),[#222](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/222), [#241](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/241)
+Issues [#140](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/140), [#146](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/146),[#222](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/222), [#241](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/241)
 
 ### Developer Guide Contributions
 - Brought in DG comments from other users in the main repo ([#211](https://github.com/AY2324S2-CS2113T-T09-1/tp/issues/211))
