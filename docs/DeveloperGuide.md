@@ -232,6 +232,9 @@ Overview of the `meditracker.argument` core classes:
  <!-- TODO: Add class diagrams and/or object diagrams required to illustrate the above information -->
 
 ---
+
+<div style="page-break-after: always;"></div>
+
 ## Storage Design component
 The `storage` package primarily consists of utility classes that serves to write to and read from the files and managers.
 
@@ -244,6 +247,7 @@ All other functions and classes will have to call `FileReaderWriter` in order to
 
 The `FileReaderWriter` then calls `JsonExporter`, `JsonImporter` and `DailyMedicationExporter` (all of them are package-private classes) depending on the kind of data and the operation (to save or load).
 
+<div style="page-break-after: always;"></div>
 
 ## Exporting data 
 ![jsonFileExport.png](images/JsonFileExport.png)
@@ -259,6 +263,8 @@ How the exporting works:
       1. The temporary file will be created in the same directory as the txt file.
       2. `DailyMedicationExporter` is then called to write to the txt file.
 
+<div style="page-break-after: always;"></div>
+
 ## Importing data
 ![FileImport.png](images/FileImport.png)
 
@@ -270,12 +276,16 @@ How the exporting works:
    1. For the importing of the JSON file, the `Medication` data is loaded and then `MedicationManager` is then called to populate the `Medication` information
    2. The text file will be read, the daily medication data is loaded, and then `DailyMedicationManager` is called to populate the daily medication information.
 
+<div style="page-break-after: always;"></div>
+
 ## Simulated Time
 This is implemented under `MediTrackerTime`. When the user types in `java -jar meditracker.jar -sim 2024-01-01T00:00:00Z` the program will first run the
 `setUpSimulatedTime` function to check if the `-sim` flag is present and whether the following parameter is of the `YYYY-MM-DDTHH:MM:SSZ` format.
 If it is of the right format, it will further proceed to set up and refer to the simulated time using `setMediTrackerTime`.
 Otherwise, it will just refer to the system time as per normal. However, since we are using the `Clock.fixed` function, the time will be fixed at whatever was set in the commandline
 and "time" will not progress.
+
+<div style="page-break-after: always;"></div>
 
 # Product scope
 ## Target user profile
