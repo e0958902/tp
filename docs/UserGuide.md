@@ -651,6 +651,12 @@ SUCCESS: Medicine has been deleted
 MediTracker has a built-in medication library where you can search for common medications. This library contains 
 information on the medication name, the illness that the medication is used for, and the side effects of the medication.
 
+<div class="note-box">
+:notebook: <strong>Note: </strong>
+The `search` command searches for medications in the built-in medication library, which is different from your personal 
+medication list.
+</div>
+
 To search for a medication in the library, you can type 'search', followed by the field you want to search for and the 
 keyword.
 You have to include at least one of the following flags: `-n`, `-i`, `-s`, `-a` to specify the field you want to 
@@ -660,7 +666,6 @@ search for.
 Usage:
 	search [-n name] [-i illness] [-s sideEffects] [-a allFields] [-h]
 Options:
-
     -n name                 Name of medication
     -i illness              Illness that the medication is used for
     -s sideEffects          Side effects of the medication
