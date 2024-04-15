@@ -25,6 +25,7 @@ Additional Packages used:
 * [Design & implementation](#design--implementation)
   * [Add Medication Command](#add-medication-command)
     * [Expanding Step 7](#expanding-step-7)
+  * [Modify Medication Command](#modify-medication-command)
   * [List Medication Command](#list-medication-command)
   * [Utilising the Period and TimeRange](#utilising-the-period-and-timerange)
   * [View Medication Command](#view-medication-command)
@@ -105,9 +106,50 @@ and `period` values.
 - This `dailyMedication` is then added to the respective sub lists according to the `period`.
 - Finally, the `dailyMedication` is saved into the text file and returns `true` if saved successfully.
 
----
+## Modify Medication Command
+The modify medication command extends from Command parent class with the following methods:
+- execute() - Executes the modify command and modifies an existing Medication object using the provided information
+  in the medication list
+- updateMedication(medication:Medication) - Updates medication info based on the arguments passed in by the user
+- rollbackChanges(medication:Medication, medicationCopy:Medication) - Rollbacks the changes made to Medication and
+  DailyMedication. The `medicationCopy` object will be read from and the `medication` will be written to for the
+  rollback operation.
+
+The `ModifyCommand` allows modifying information, such as the quantity, dosage, expiration date etc., that were
+previously added with the `AddCommand`. Given below is the usage scenario of `ModifyCommand`:
+![ModifyCommand.png](images/ModifyCommand.png)
+- Step 1. User initiates `ModifyCommand` using `MediTracker`
+- Step 2. `ModifyCommand` constructs an instance using the constructor `ModifyCommand(arguments: String)`.
+- Step 3. Then it uses a `Map<ArgumentName, String>` to store the arguments parsed in
+  `ArgumentList.parse(arguments: String)`.
+- Step 4. A subsequent call to `execute()` will fetch the list index specified by the user using
+  `Command.getListIndex(parsedArguments: Map<ArgumentName, String>)`
+- Step 5. The `Medication` associated at that index of all the medications will be fetched with
+  `MedicationManager.getMedication(listIndex: int)`
+- Step 6. `AddCommand` will perform a deep copy of the Medication object before calling
+  `updateMedication(medication: Medication)`
+- Step 7. If successful, it will show the success message on the command-line interface. Else, it will
+  show the error message and begin rollback process by calling
+  `rollbackChanges(medication:Medication, medicationCopy:Medication)`
+
+Sequence Diagram for `updateMedication(medication:Medication)`
+![ModifyCommand_updateMedication.png](images/ModifyCommand_updateMedication.png)
+- Step 1. Iterate through all the arguments parsed from the user.
+- Step 2. If the `ArgumentName` is `ArgumentName.NAME`, the `DailyMedication` name will be updated.
+- Step 3. Set the appropriate `Medication` value depending on the `ArgumentName` type.
+- Step 4. Check the validity of the `Medication` object.
+- Step 5. Check if dosage or repeat frequency has been modified. If it has been modified, show the
+  warning message to the user to notify them of the changes being reflected after today.
+
+Sequence Diagram for `rollbackChanges(medication:Medication, medicationCopy:Medication)`
+![ModifyCommand_rollbackChanges.png](images/ModifyCommand_rollbackChanges.png)
+- Step 1. Checks if `processedArguments` contain `ArgumentName.NAME`. If it does, revert the
+  `DailyMedication` name as well.
+- Step 2. Revert the `medication` object with the `medicationCopy`.
+
 ## List Medication Command
 ![sublist](images/ListCommand.png)
+
 The list medication command extends from Command parent class and contains the following methods:
 - execute(MedicationManager medicationManager) - Executes the list command and performs its specific task, -t. 
 - The task can be either `list -t all` to list all medications or `list -t today` to list medications for the day,
@@ -173,8 +215,8 @@ what illnesses they treat and their side effects, and prints the results to the 
 The 'search' command requires the following:
 1. To be added.
 
-<!--Comment: Consider using a class diagram to illustrate this to provide visual feedback.-->
 ## Utilising the argument parser
+
 The `ArgumentParser` requires the following to work:
 1. `ArgumentList` object
 2. Raw user input in `String`
@@ -190,12 +232,11 @@ help message to be printed on the console.
 An `Argument` object consists of the following:
 1. `name`: Name of the argument, uses enum type `ArgumentName` as this value is used by `ArgumentParser` as well
 2. `flag`: Takes the form of `-*` where `*` represents any number of alphabetic characters
-3. `prompt`: Used within the guided prompt system
-4. `help`: Used in printing help message to provide user with the usage for the argument
-5. `isOptional`: A `boolean` value to specify whether this argument is optional or not. This value is utilised
+3. `help`: Used in printing help message to provide user with the usage for the argument
+4. `isOptional`: A `boolean` value to specify whether this argument is optional or not. This value is utilised
 by the `ArgumentParser` to determine whether the argument is required, and will throw a `ArgumentNotFound` 
 exception if this argument is required but not found in user specified argument string.
-6. `hasValue`: A `boolean` value to specify whether this argument has a corresponding value tied to it. 
+5. `hasValue`: A `boolean` value to specify whether this argument has a corresponding value tied to it. 
 `ArgumentParser` requires this to know whether to take the value specified by the user.
 
 Additional information regarding the `ArgumentName` enum:
@@ -211,7 +252,7 @@ In order to utilise the argument parser,
 4. Finally, invoking `ArgumentList.parse` with the `String` object to obtain the parsed argument values.
 
 Overview of the `meditracker.argument` core classes:
- <!-- TODO: Add class diagrams and/or object diagrams required to illustrate the above information -->
+![ArgumentPackageClassDiagram.png](images/ArgumentPackageClassDiagram.png)
 
 ---
 ## Storage Design component

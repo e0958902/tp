@@ -1,0 +1,62 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class ArgumentName <<enumeration>> {
+    DOSAGE_MORNING
+    DOSAGE_AFTERNOON
+    DOSAGE_EVENING
+    EXPIRATION_DATE
+    REPEAT
+    DAY_ADDED
+    LIST_INDEX
+    NAME
+    QUANTITY
+    REMARKS
+    LIST_TYPE
+    HELP
+    MORNING
+    AFTERNOON
+    EVENING
+    ILLNESS
+    SIDE_EFFECTS
+    ALL_FIELDS
+    SAVE_FILE
+    LOAD_FILE
+}
+
+class Argument {
+    -flag: String
+    -help: String
+    -isOptional: boolean
+    -hasValue: boolean
+}
+
+class ArgumentParser {
+    #parsedArguments: Map<ArgumentName, String>
+    #checkForMissingRequiredArguments()
+    #checkForUnknownArguments(rawInputSplit: List<String>)
+    -checkArgumentValue(Argument argument, String argValue)
+    -getArgumentValue(rawInputSplit: List<String>, startIndex: int, endIndex: int)
+    -getArgumentIndex(rawInputSplit: List<String>, flag: String)
+    -getArgumentIndexes(rawInputSplit: List<String>): SortedMap<Integer, Argument>
+    -getArgumentValues(indexes: SortedMap<Integer, Argument>, rawInputSplit: List<String>)
+}
+
+class ArgumentList {
+    +parse(String rawInput): Map<ArgumentName, String>
+}
+
+class ArgumentHelper {
+    +{static} getHelpMessage(commandName: CommandName): String
+    +{static} getHelpMessage(commandName: CommandName, argumentList: ArgumentList): String
+    -{static} getUsage(commandName: CommandName, argumentList: ArgumentList): String
+    -{static} getOptions(argumentList: ArgumentList): String
+    -{static} getArgumentFormat(argument: Argument): String
+}
+
+ArgumentParser o--> "1" ArgumentList
+ArgumentList *-> "1..*" Argument
+Argument -> "1" ArgumentName
+
+@enduml
