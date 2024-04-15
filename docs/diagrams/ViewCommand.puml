@@ -1,52 +1,53 @@
 @startuml
 
-actor User
+actor User #e67678
 title View Command Sequence Diagram
 participant ":ViewCommand" as ViewCommand
-participant ":ArgumentList" as ArgumentList
+participant "ARGUMENT_LIST:ArgumentList" as ArgumentList
 participant ":ArgumentParser" as ArgumentParser
+participant ":ArgumentName" as ArgumentName
 participant "<<class>>\n MedicationManager" as MedicationManager
 participant "<<class>>\n Ui" as Ui
 
-User --> ViewCommand ** : new ViewCommand(args)
+User --> ViewCommand ** : new ViewCommand(argument)
 activate ViewCommand
-ViewCommand -> ArgumentList: parse(args)
-
-activate ArgumentList
-ArgumentList -> ArgumentParser: parse(args)
+ViewCommand -> ArgumentList: parse(argument)
+activate ArgumentList #e67678
+ArgumentList -> ArgumentParser ** : New ArgumentParser(argument)
+activate ArgumentParser #a67671
+ArgumentParser --[#red]> ArgumentList: parsedArguments
+deactivate ArgumentParser
+ArgumentList --[#red]> ViewCommand: parsedArguments
 deactivate ArgumentList
 
-activate ArgumentParser
-ArgumentParser --> ViewCommand: return parsedArgs
-deactivate ArgumentParser
+ViewCommand -> ViewCommand: <font color=blue> execute(medication)
+activate ViewCommand #65c2a6
 
-alt #transparent oneParsedArgs
-    ViewCommand -> ViewCommand: execute(medication)
-    activate ViewCommand #65c2a6
+    alt oneParsedArgument
+        ViewCommand -> MedicationManager: printSpecificMedication(medication)
+        activate MedicationManager #d192d0
+        MedicationManager -> MedicationManager: getMedication(medication)
 
-    ViewCommand -> MedicationManager: printSpecificMedication(medication)
-    activate MedicationManager #d192d0
-    MedicationManager -> MedicationManager: getMedication(medication)
+        MedicationManager -> Ui: <font color=blue> printSpecificMed(medicationDetails)
+        activate Ui #c6d67e
+        Ui --[#red]> MedicationManager: <font color=red>
+        MedicationManager --[#red]> ViewCommand: <font color=red>
+        deactivate MedicationManager
 
-    MedicationManager -> Ui: printSpecificMed(medicationDetails)
-    activate Ui #c6d67e
-    Ui --[#red]> MedicationManager: <font color=red><b>return
-    MedicationManager --[#red]> ViewCommand: <font color=red><b>return
-    deactivate MedicationManager
+        ViewCommand -> Ui: showSuccessMessage("Medication details has been retrieved")
+        Ui --[#red]> ViewCommand: <font color=red>
+        deactivate Ui
 
-    ViewCommand -> Ui: showSuccessMessage("Medication details has been retrieved")
-    Ui --[#red]> ViewCommand: <font color=red><b>return
-    deactivate Ui
+    else #transparent more\nThanOne\nParsed\nArgs
+        ViewCommand -> Ui: showErrorMessage("You can only have one flag!")
+        activate Ui #c6d67e
+        Ui --[#red]> ViewCommand: <font color=red>
+        deactivate Ui
+    end
 
-else #transparent more\nThanOne\nParsed\nArgs
-    ViewCommand -> Ui: showErrorMessage("You can only have one flag!")
-    activate Ui #c6d67e
-    Ui --[#blue]> ViewCommand: <font color=blue><b>return
-    deactivate Ui
-end
-
+ViewCommand --[#blue]> ViewCommand
 deactivate ViewCommand
-User <-- ViewCommand
+User <[#red]-- ViewCommand
 deactivate ViewCommand
 
 @enduml
