@@ -31,8 +31,8 @@ public class JsonExporterTest {
     @BeforeAll
     public static void initiateMedicationManager()
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method addMedicationWithoutChecksMethod
-                = MedicationManager.class.getDeclaredMethod("addMedicationWithoutChecks", Medication.class);
+        Method addMedicationWithoutChecksMethod =
+                MedicationManager.class.getDeclaredMethod("addMedicationWithoutChecks", Medication.class);
         addMedicationWithoutChecksMethod.setAccessible(true);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Medication med1 = new Medication(
