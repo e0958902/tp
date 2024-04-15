@@ -1,4 +1,8 @@
-# Developer Guide
+---
+layout: default
+title: Developer Guide
+---
+# MediTracker Developer Guide
 
 ## Acknowledgements
 Ideas and structure for our Developer Guide: 
@@ -6,9 +10,11 @@ Ideas and structure for our Developer Guide:
 
 Ideas and structure for the User Guide: 
 - [AddressBook 3](https://se-education.org/addressbook-level3/UserGuide.html)
+- [Previous Team's User Guide](https://ay2223s1-cs2103t-w16-2.github.io/tp/UserGuide.html) for more styling inspiration and adaptation
 
 Additional Packages used: 
 - [JSON](https://github.com/stleary/JSON-java)
+- Github's Jekyll integration
 
 # Overview
 <!-- Add a TOC -->
@@ -144,15 +150,13 @@ Overview of the `meditracker.argument` core classes:
 
 
 ### Simulated Time
-Talk about the advanced feature. Offset based on the system time so that the user or developer does not have to worry about calculating the time and can just type in the time.
+This is an advanced feature. Offset based on the system time so that the user or developer does not have to worry about calculating the time and can just type in the time.
 
 ## Product scope
 ### Target user profile
-
 People who are taking medications on a daily basis.
 
 ### Value proposition
-
 MediTracker ensures that you would not forget your overall schedule on what time and day to take your medication.
 Ensuring that you would not forget your next dose of medication.
 
@@ -170,14 +174,66 @@ Ensuring that you would not forget your next dose of medication.
 |v1.0| user  | know the list of medications I have added                    | have a quick overview of the medication list and check the quantity and expiry date of each medication                                                 |
 
 ## Non-Functional Requirements
-{Give non-functional requirements}
-- The user's program data should be persistent between program sessions.
+- The user's program data (medication, daily medication) should be persistent between program sessions.
+- Users should have a way to save and load data to and from a preferred location.
+- Developers should have a way to simulate time to test out certain time-based functionality (i.e. check if medicine has been taken on a certain date) without having to tweak the actual system clock.
+- 
 
 ## Glossary
+| Term | Meaning                                                       |
+| - |---------------------------------------------------------------|
+| JSON | A text-based file format to save data to                      |
+| Medication Data | Data related to the overview of the medication itself         |
+| Daily Medication Data | Data related to the current day's dosage, including its status |
 
-* *glossary item* - Definition
+
 
 ## Instructions for manual testing
+<div class="info-box">
+:information_source: <strong>Info: </strong>
+This section is only intended as a starting point for testers to get started on understanding SOME of the core functionalities. 
+The tester is expected to do more exploratory testing based on the <a href="UserGuide.md">User Guide</a>.
+</div>
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
-- TODO: Talk about how to test with different kinds of JSON file, and provide a sample JSON file with instructions on how to use it. (SX)
+### Launching the Program
+Follow the [Quick Start](UserGuide.md#quick-start) Section of the User Guide
+
+<div class="note-box">
+:notebook: <strong>Note: </strong>
+If you want to simulate a time (Say 1 May 2024 6pm) instead of the default system time,
+Instead of running <code>java -jar meditracker.jar</code>, you can use <code>java -jar meditracker.jar -sim 2024-05-01T18:00:00Z</code> instead.
+Please remember that the time will be fixed at that time
+</div>
+
+### Adding some medication information
+Start populating some medication data with the following commands:
+
+`add -n Test Medication -q 100 -e 2026-02-02 -dM 1 -dA 2 -dE 3 -rep 4 -r nil`
+
+`add -n Test Medication Two -q 300 -e 2026-02-02 -dM 10 -dA 20 -dE 30.5 -rep 2 -r nil`
+
+<div class="note-box">
+:notebook: <strong>Note: </strong>
+Our medication parser restricts the naming of medication to only alphabetic letters and space.
+</div>
+
+Both should succeed without issues. You can run `list -t all` to check the current medication added.
+
+At the same time, the Daily Medication information is also updated with the relevant dosage for the day. You can view those with the `list -t today` command.
+
+### Modifying some medication information
+Modify the second medication's name using the following: 
+
+`modify -2 -n New Test Medication Name`
+
+Run `list -t all` to see that the medication name has been changed.
+
+### Taking the medication
+Use `take -l 1` to take the medication. By default, the program chooses the time based on either the simulated time or the system time.
+
+You can run `list -t today` to see that the medication has been taken.
+
+### Saving data
+By default, data is automatically saved to the default location (under the `data` folder). you can just `exit` the program.
+
+The information will be saved as readable text files `.json` and `.txt` files. You can simulate a corrupted file by modifying any of the fields or introduce additional parameters.

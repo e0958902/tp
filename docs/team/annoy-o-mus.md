@@ -16,6 +16,7 @@ users to be able to specify where they want to save to.
 I have also implemented the simulated time feature for us (the developers) to test MediTracker related data from 
 another time or date without having to tweak the system time, and a custom logger to log certain warnings to stderr.
 
+<div style="page-break-after: always;"></div>
 ### Code related Contributions
 [Link to Code Dashboard](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=annoy-o-mus&breakdown=true)
 
