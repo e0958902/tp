@@ -15,7 +15,7 @@
 - Issue #43: Simulated Time
 
 ### Miscellaneous Code Contributions (Styling and Quality related)
-Issue #222
+Issue #222, #241
 
 ### Developer Guide Contributions
 
@@ -23,7 +23,7 @@ Issue #222
 <!-- To talk about Issue 25 -->
 
 ### PR Reviews
-#2, #5, #40, #44, #51, #66, #82, #87, #93, #111, #209, #215, #218, #221
+#2, #5, #40, #44, #51, #66, #82, #87, #93, #111, #209, #215, #218, #221, #240
 
 ### Team-based tasks
 - Added PR Template (#11, #21).

@@ -222,13 +222,12 @@ public class Medication {
     // @@author
 
     // @@author annoy-o-mus
-
     /**
-     * Calls the setter method with the parsed data based on the argumentName specified
+     * Calls the setter method with the parsed data based on the argumentName specified.
      *
-     * @param argumentName ArgumentName that identifies what type of data it is
-     * @param argumentValue Value of the data to be (converted and) set
-     * @throws MediTrackerException If it fails the checks and/or parsing
+     * @param argumentName ArgumentName that identifies what type of data it is.
+     * @param argumentValue Value of the data to be (converted and) set.
+     * @throws MediTrackerException If it fails the checks and/or parsing.
      */
     public void setMedicationValue(ArgumentName argumentName, String argumentValue) throws MediTrackerException {
         switch (argumentName) {
@@ -266,10 +265,9 @@ public class Medication {
             setDayAdded(dayAdded);
             break;
         default:
-            throw new MediTrackerException("Unexpected value: " + argumentName);
+            throw new MediTrackerException("Unexpected argument name: " + argumentName);
         }
     }
-
     // @@author
 
     @Override

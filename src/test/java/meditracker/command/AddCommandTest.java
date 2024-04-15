@@ -2,24 +2,25 @@ package meditracker.command;
 
 // @@author nickczh
 
-import meditracker.dailymedication.DailyMedicationManagerTest;
-import meditracker.exception.ArgumentException;
-import meditracker.exception.MediTrackerException;
-import meditracker.exception.HelpInvokedException;
-import meditracker.medication.Medication;
-import meditracker.medication.MedicationManager;
-import meditracker.medication.MedicationManagerTest;
-import meditracker.time.MediTrackerTime;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import meditracker.dailymedication.DailyMedicationManagerTest;
+import meditracker.exception.ArgumentException;
+import meditracker.exception.HelpInvokedException;
+import meditracker.exception.MediTrackerException;
+import meditracker.medication.Medication;
+import meditracker.medication.MedicationManager;
+import meditracker.medication.MedicationManagerTest;
+import meditracker.time.MediTrackerTime;
 
 class AddCommandTest {
 
@@ -37,8 +38,8 @@ class AddCommandTest {
             throws HelpInvokedException, ArgumentException {
 
         // setup lines
-        String inputString = "add -n Medication A -q 5000 -e 2025-07-01 " +
-                "-dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1";
+        String inputString = "add -n Medication A -q 5000 -e 2025-07-01 "
+                + "-dM 500 -dA 250 -dE 100 -r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         command.execute();
 
@@ -76,8 +77,8 @@ class AddCommandTest {
     void createMedication_correctExampleInput_success()
             throws HelpInvokedException, MediTrackerException, ArgumentException {
         // setup lines
-        String inputString = "add -n Medication A -q 5000 -e 2025-07-01 -dM 500 -dA 250 -dE 100 " +
-                "-r cause_dizziness -rep 1";
+        String inputString = "add -n Medication A -q 5000 -e 2025-07-01 -dM 500 -dA 250 -dE 100 "
+                + "-r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
         // Get the current date and the day of the year
         LocalDate currentDate = MediTrackerTime.getCurrentDate();
@@ -103,8 +104,8 @@ class AddCommandTest {
     void createMedication_incorrectQuantityInput_exceptionThrown()
             throws HelpInvokedException, ArgumentException {
         // setup lines
-        String inputString = "add -n Medication A -q %%% -e 2025-07-01 -dM 500 -dA 250 -dE 100 " +
-                "-r cause_dizziness -rep 1";
+        String inputString = "add -n Medication A -q %%% -e 2025-07-01 -dM 500 -dA 250 -dE 100 "
+                + "-r cause_dizziness -rep 1";
         AddCommand command = new AddCommand(inputString);
 
         // actual test
