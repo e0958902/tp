@@ -40,7 +40,47 @@ parsing the arguments.
 - Step 7. Checks and updates daily medication records in `DailyMedicationManager`.
 - Step 8. `Ui` displays success or error messages to the user.
 
----
+### Modify Medication Command
+The modify medication command extends from Command parent class with the following methods:
+- execute() - Executes the modify command and modifies an existing Medication object using the provided information 
+in the medication list
+- updateMedication(medication:Medication) - Updates medication info based on the arguments passed in by the user
+- rollbackChanges(medication:Medication, medicationCopy:Medication) - Rollbacks the changes made to Medication and 
+DailyMedication. The `medicationCopy` object will be read from and the `medication` will be written to for the 
+rollback operation.
+
+The `ModifyCommand` allows modifying information, such as the quantity, dosage, expiration date etc., that were
+previously added with the `AddCommand`. Given below is the usage scenario of `ModifyCommand`:
+![ModifyCommand.png](images/ModifyCommand.png)
+- Step 1. User initiates `ModifyCommand` using `MediTracker` 
+- Step 2. `ModifyCommand` constructs an instance using the constructor `ModifyCommand(arguments: String)`.
+- Step 3. Then it uses a `Map<ArgumentName, String>` to store the arguments parsed in 
+`ArgumentList.parse(arguments: String)`.
+- Step 4. A subsequent call to `execute()` will fetch the list index specified by the user using
+`Command.getListIndex(parsedArguments: Map<ArgumentName, String>)`
+- Step 5. The `Medication` associated at that index of all the medications will be fetched with 
+`MedicationManager.getMedication(listIndex: int)`
+- Step 6. `AddCommand` will perform a deep copy of the Medication object before calling 
+`updateMedication(medication: Medication)`
+- Step 7. If successful, it will show the success message on the command-line interface. Else, it will
+show the error message and begin rollback process by calling 
+`rollbackChanges(medication:Medication, medicationCopy:Medication)` 
+
+Sequence Diagram for `updateMedication(medication:Medication)`
+![ModifyCommand_updateMedication.png](images/ModifyCommand_updateMedication.png)
+- Step 1. Iterate through all the arguments parsed from the user.
+- Step 2. If the `ArgumentName` is `ArgumentName.NAME`, the `DailyMedication` name will be updated.
+- Step 3. Set the appropriate `Medication` value depending on the `ArgumentName` type.
+- Step 4. Check the validity of the `Medication` object.
+- Step 5. Check if dosage or repeat frequency has been modified. If it has been modified, show the 
+warning message to the user to notify them of the changes being reflected after today.
+
+Sequence Diagram for `rollbackChanges(medication:Medication, medicationCopy:Medication)`
+![ModifyCommand_rollbackChanges.png](images/ModifyCommand_rollbackChanges.png)
+- Step 1. Checks if `processedArguments` contain `ArgumentName.NAME`. If it does, revert the 
+`DailyMedication` name as well.
+- Step 2. Revert the `medication` object with the `medicationCopy`.
+
 <!-- Comment: Use backticks (`) to encapsulate code rather than using a single quote (') to make it more readable. -->
 ### List Medication Command
 The list medication command extends from Command parent class and contains the following methods:
