@@ -8,7 +8,7 @@ https://se-education.org/addressbook-level3/UserGuide.html
 -->
 
 # MediTracker User Guide
-## Introduction
+# Introduction
 MediTracker is a desktop app for users who want to track their medication intake on a daily basis. It offers intuitive
 features that works seamlessly right from the very beginning. With MediTracker, you do not have to worry about missing
 your daily medication dose. It tracks your daily intake and reminds you when your remaining amount is low, and enables
@@ -24,42 +24,49 @@ data storage so that you can review your past medication intake.
 </div>
 <div style="page-break-after: always;"></div>
 
-## Table of Contents
+# Table of Contents
 Here are the comprehensive sections which MediTracker has to offer:
-* [How to use the User Guide](#how-to-use-the-user-guide)
+<!-- TOC -->
+* [MediTracker User Guide](#meditracker-user-guide)
+* [Introduction](#introduction)
+* [Table of Contents](#table-of-contents)
+* [How to Use the User Guide](#how-to-use-the-user-guide)
 * [Quick Start](#quick-start)
 * [Features](#features)
-  - [Add Medication](#adding-a-medication-add)`add`
-  - [List Medication](#listing-medications-list)
-    - [Summary of all medications](#all-medications)`list -t all`
-    - [Summary of medications for the day](#daily-medications)`list -t today`
-  - [View Medication](#viewing-medications-view)
-    - [View Medication by index](#view-medication-by-index)`view -l`
-    - [View Medication by name](#view-medication-by-name)`view -n`
-    - [View Medication by quantity](#view-medication-by-quantity)`view -q`
-    - [View Medication by expiry](#view-medication-by-expiry)`view -e`
-    - [View Medication by remarks](#view-medication-by-remarks)`view -r`
-  - [Record taking of medication](#record-taking-of-medication)
-    - [Take Medication](#take-medication-take--l)`take -l`
-    - [Untake Medication](#untake-medication-untake--l)`untake -l`
-  - [Modify medication information](#modify-medication-information-modify--l)`modify -l`
-  - [Delete Medication](#delete-medication-delete--l)`delete -l`
-  - [Search Medicine Library](#search)`search`
-  - [Help](#help)
-  - [General data management](#general-data-management)
-    - [Saving to a file](#saving-to-a-file-save)`save`
-    - [Reading from a file](#reading-from-a-file-load)`load`
-    - [Editing the file](#editing-the-file)
-  - [Setting an arbitrary time](#setting-an-arbitrary-time)
-  - [Exit](#exit-exit)
-- [FAQ](#faq)
-- [Glossary](#glossary)
-- [Command Summary](#command-summary)
+  * [Adding a Medication `add`](#adding-a-medication-add)
+  * [Listing Medications `list`](#listing-medications-list)
+    * [All medications](#all-medications)
+    * [Daily medications](#daily-medications)
+  * [Viewing medications `view`](#viewing-medications-view)
+    * [View Medication by index](#view-medication-by-index)
+    * [View Medication by name](#view-medication-by-name)
+    * [View Medication by quantity](#view-medication-by-quantity)
+    * [View Medication by expiry](#view-medication-by-expiry)
+    * [View Medication by remarks](#view-medication-by-remarks)
+  * [Record taking of medication](#record-taking-of-medication)
+    * [Take Medication `take -l`](#take-medication-take--l)
+    * [Untake Medication `untake -l`](#untake-medication-untake--l)
+  * [Modify Medication Information `modify -l`](#modify-medication-information-modify--l)
+  * [Delete Medication `delete -l`](#delete-medication-delete--l)
+  * [Search](#search)
+  * [Help](#help)
+  * [General Data Management](#general-data-management)
+    * [Saving to a file `save`](#saving-to-a-file-save)
+    * [Reading from a file `load`](#reading-from-a-file-load)
+    * [Editing the file](#editing-the-file)
+  * [Setting an arbitrary time](#setting-an-arbitrary-time)
+  * [Exit `exit`](#exit-exit)
+* [Future Developments](#future-developments)
+* [FAQ](#faq)
+* [Glossary](#glossary)
+* [Command Summary](#command-summary)
+<!-- TOC -->
+
 <br>
 
 <div style="page-break-after: always;"></div>
 
-## How to Use the User Guide
+# How to Use the User Guide
 <!-- @@author annoy-o-mus-reused
 reused from: https://ay2223s1-cs2103t-w16-2.github.io/tp/UserGuide.html#admonition-boxes
 with minor modifications
@@ -106,7 +113,7 @@ Extremely important text.
 
 <div style="page-break-after: always;"></div>
 
-## Quick Start
+# Quick Start
 1. Ensure that you have [Java 11](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html) 
 or above installed. 
    - If you are using Windows:
@@ -131,10 +138,9 @@ or above installed.
 
 <div style="page-break-after: always;"></div>
 
-## Features
+# Features
 
-#### NOTES about the command format:
-
+NOTES about the command format:
 - Each command starts with a command keyword
 - Following which, you may specify additional options
 - These options can be in round brackets `()` (which are mandatory arguments) and in square brackets `[]` (which are
@@ -860,14 +866,14 @@ Thank you for using MediTracker. Hope to see you again!
 
 <div style="page-break-after: always;"></div>
 
-## Future Developments
+# Future Developments
 - Support Different save file type (.csv)
 - Better file path checks to differentiate Operating Systems
 - Configuration File to change default file settings
 - Show historical data of the list of medication taken daily (show records of medication taken in the past)
 
 
-## FAQ
+# FAQ
 **Q**: How do I transfer my data to another computer? 
 
 **A**: By default, all MediTracker-related data will be saved under the `data` folder. 
@@ -900,7 +906,7 @@ The `.txt` files containing daily information are located by default inside the 
 
 <div style="page-break-after: always;"></div>
 
-## Glossary
+# Glossary
 
 | Term  | Explanation                                                                                                                                                                                                   |
 |-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -912,7 +918,7 @@ The `.txt` files containing daily information are located by default inside the 
 
 <div style="page-break-after: always;"></div>
 
-## Command Summary
+# Command Summary
 <!-- Markdown table is not suitable as it does not provide text wrapping -->
 
 <table>
