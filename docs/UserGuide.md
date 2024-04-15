@@ -806,25 +806,30 @@ MediTracker may:
 
 <ol>
   <li>Discard all the data and start with a fresh state</li>
-  <li>Tries to read some information, and fill in placeholder values for fields that fail to load.</li>
+  <li>Tries to read some information, and fill in placeholder values for fields that fail to load, which may result in unexpected results </li>
   <li>Crash due to bad data.</li>
 </ol>
 
+Some kinds of modifications that can render a file invalid include: 
+<ol>
+  <li>Removing semicolons (:) from the JSON file</li>
+  <li>Using NaN and large numbers (9999999999999)</li>
+</ol>
 </div>
 
 > Therefore, only edit the file if you are confident you can update it correctly.
 
 <div class="warning-box">
 :warning: <strong>Warning: </strong>
-If you edit valid data directly inside the <code>.json</code> file, you have to <b>delete the text file &lt;TODAY_DATE&gt;.txt in 
-data/dailymed/</b>. Otherwise, the next time MediTracker runs, it will continue to read the old data saved in the
+If you edit valid data directly inside the <code>.json</code> file, you might have to <b>modify the text file &lt;TODAY_DATE&gt;.txt in 
+data/dailymed/</b> as well. Otherwise, the next time MediTracker runs, it will continue to read the old data saved in the
 &lt;TODAY_DATE&gt;.txt.
 </div>
 
 <div class="info-box">
 :information_source: <strong>Info: </strong>
-As mentioned earlier, <code>.json</code> and <code>.txt</code> store All Medications and Daily Medications respectively. Therefore, in the 
-case of data corruption in one of the files, please be minded that `list -t all` might display empty, while 
+As mentioned earlier, <code>.json</code> and <code>.txt</code> store All Medications and Daily Medications independently of each other. 
+Therefore, in the case of data corruption in one of the files, please be minded that `list -t all` might display empty, while 
 `list -t today` might display its contents normally, or vice versa. Or if both files are corrupted, both commands might 
 not display anything at all.
 </div>
