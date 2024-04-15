@@ -32,6 +32,8 @@ The following contains my contribution summary and pull request reviews.
 - Added a sequence diagram for how a medication is added into dailyMedicationManager
 - Added command guide for  how list -t today -m/-a/-e will print
   - Explained how the time ranges affect the addition of each medication into their sub lists
+- Added more user stories for v2.0 and v.21
+- Added a Glossary section 
 
 ### User Guide Contributions
 - Summary of list for the Daily Medication

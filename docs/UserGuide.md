@@ -883,7 +883,7 @@ respectively. You may also use the `<command> -h` to see how the command works.
 |-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | .json | JSON stands for JavaScript Object Notation, which is used to save **all** medications added by the user.                                                                                                      |
 | .txt  | It represents a text file that contains plain text in the form of lines. <br/>Medications to be taken for a particular day is saved in the text file, and a new text file is created at the start of the day. |
-| Flags | Most commands in MediTracker uses the flags with the "-" to recognise values within certain fields per command.                                                                                               |
+| Flags | Most commands in MediTracker uses the flags with the "-" to recognise values within certain fields. Eg. `-n`, `-a`, `-l`, etc.                                                                                |
 
 <br>
 

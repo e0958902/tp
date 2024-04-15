@@ -66,14 +66,14 @@ and `period` values.
 - Finally, the `dailyMedication` is saved into the text file and returns `true` if saved successfully.
 
 ---
-<!-- Comment: Use backticks (`) to encapsulate code rather than using a single quote (') to make it more readable. -->
+
 ### List Medication Command
 ![sublist](images/ListCommand.png)
 The list medication command extends from Command parent class and contains the following methods:
-- execute(MedicationManager medicationManager) - Executes the list command and performs its specific task, -t.
-```Where the task can be either 'list -t all' to list all medications or 'list -t today' to list medications for the day, which is divided into three categories -> Morning, Afternoon and Evening. ```
-<!-- Comment: Consider only highlighting the code part rather than the whole sentence. -->
-<!-- Comment: Perhaps specify that the following parameters need to follow the "list -t" command instead of preceding it or some other order? -->
+- execute(MedicationManager medicationManager) - Executes the list command and performs its specific task, -t. 
+- The task can be either `list -t all` to list all medications or `list -t today` to list medications for the day,
+which is divided into three categories -> Morning, Afternoon and Evening.
+
 **The 'list -t' command requires the following:**
 - 'all' - to run printAllMedications() from the MedicationManager.
 
@@ -87,7 +87,8 @@ The list medication command extends from Command parent class and contains the f
 4. `today -e` to run printTodayMedications(List<Medication> medications, List<DailyMedication> subList, String period)
    from the DailyMedicationManager
 
-* On first run, the programs reads into the MedicationManager and determines if a medication is to be added to today's list, based on the repeat value.
+* On first run, the programs reads into the MedicationManager and determines if a medication is to be added to today's 
+list, based on the repeat value.
 * The repeat value ranges from `1 to 7` (number of days in a week)
 * This verifies if the user is taking that medication every day / every 2 days / every 3 days etc.
 * Then, based on the dosage flags (from `add` command),
@@ -121,7 +122,7 @@ view command behaves at each step.
 - Step 5. `If` the parsed arguments is one, then `ViewCommand` calls `execute()` to show the specific medication
 - Step 6. `execute()` calls `printSpecificMedication(medication) in `MedicationManager`.
 - Step 7. `MedicationManager` then gets the medication via `getMedication(medication)` 
-and displays the the medication via `printSpecificMed(medicationDetails)` in `Ui`.
+and displays the medication via `printSpecificMed(medicationDetails)` in `Ui`.
 - Step 8. `Ui` displays a success message to the user.
 - Step 9. `Else`, if the parsed arguments is more than one, then `Ui` displays an error message to the user.
 
@@ -226,8 +227,10 @@ Ensuring that you would not forget your next dose of medication.
 - The user's program data should be persistent between program sessions.
 
 ## Glossary
-
-* *glossary item* - Definition
+| Term  | Explanation                                                                                                                    |
+|-------|--------------------------------------------------------------------------------------------------------------------------------|
+| JSON  | JSON stands for JavaScript Object Notation, which is used to save **all** medications added by the user.                       |
+| Flags | Most commands in MediTracker uses the flags with the "-" to recognise values within certain fields. Eg. `-n`, `-a`, `-l`, etc. |
 
 ## Instructions for manual testing
 
