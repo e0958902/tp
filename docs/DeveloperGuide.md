@@ -161,7 +161,7 @@ Sequence Diagram for `rollbackChanges(medication:Medication, medicationCopy:Medi
 ![sublist](images/ListCommand.png)
 
 The list medication command extends from Command parent class and contains the following methods:
-- execute(MedicationManager medicationManager) - Executes the list command and performs its specific task, -t. 
+- execute() - Executes the list command and performs its specific task, -t. 
 - The task can be either `list -t all` to list all medications or `list -t today` to list medications for the day,
 which is divided into three categories -> Morning, Afternoon and Evening.
 
